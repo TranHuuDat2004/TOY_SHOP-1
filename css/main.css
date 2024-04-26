@@ -233,7 +233,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 [ Top bar ]*/
 .top-bar {
   height: 50px;
-  background-color: #DDDDDD;
+  background-color: #F9F5F6;
 }
 
 /*---------------------------------------------*/
@@ -282,7 +282,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
   z-index: 1100;
   background-color: #000;
   width: 100%;
-  height: 84px;
+  height: 70px;
   top: 40px;
   left: 0px; 
 
@@ -318,7 +318,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
   display: -ms-flexbox;
   display: flex;
   align-items: center;
-  background-color: #000;
+  background-color: #E5D4FF;
 
 }
 
@@ -379,7 +379,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 .main-menu > li > a {
   font-family: Poppins-Medium;
   font-size: 14px;
-  color: #F5E8C7;
+  color: #867070;
   padding: 5px 0px;
   transition: all 0.4s;
   -webkit-transition: all 0.4s;
@@ -450,7 +450,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 /*---------------------------------------------*/
 .main-menu > li:hover > a {
   text-decoration: none;
-  color: #6c7ae0;
+  color: #481E14;
 }
 
 .main-menu > li:hover > .sub-menu {
@@ -498,6 +498,9 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
   cursor: pointer;
 }
 
+.icon-header-item i:hover {
+  color: #481E14;
+}
 
 /*---------------------------------------------*/
 .icon-header-noti::after {
@@ -515,7 +518,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
   min-width: 15px;
   height: 15px;
   padding: 0 3px;
-  background-color: #717fe0;
+  background-color: #f74877;
 }
 
 /*---------------------------------------------*/
@@ -589,7 +592,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 }
 
 .wrap-search-header button:hover {
-  color: #6c7ae0;
+  color: #481E14;
 }
 
 /*---------------------------------------------*/
@@ -648,7 +651,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 
 /*---------------------------------------------*/
 .main-menu > li.active-menu > a {
-  color: #6c7ae0;
+  color: #481E14;
 }
 
 
@@ -2145,7 +2148,7 @@ input.num-product::-webkit-inner-spin-button {
 .cl10 {color: #1d1d1d;}
 .cl11 {color: #f9ba48;}
 .cl12 {color: #ccc;}
-.cl13 {color: #F5E8C7;}
+.cl13 {color: #867070;}
 
 /*//////////////////////////////////////////////////////////////////
 [ S-Text 0 - 15 ]*/
@@ -3369,16 +3372,22 @@ input.num-product::-webkit-inner-spin-button {
 
 /* logo */
 img.Imagealignment{
-  max-width: 75px;
+  max-width: 65px;
   height: auto;
   display: inline;
   margin-top: -3.5px;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  font-size: larger;
+
   
 } 
 
 .text-dark1{
-  color: #F5E8C7;
+  color: #481E14;
+  font-family: Poppins-Medium;
+  font-size: 30px;
+}
+
+.navbar-brand{
+  padding-bottom: 15px;
 }
 
