@@ -1999,36 +1999,8 @@ input.num-product::-webkit-inner-spin-button {
 
 /*//////////////////////////////////////////////////////////////////
 [ Block1 ]*/
-/* .block1-1 {
-  position: relative;
-  height: 150px;
-  width: 150px;
-  border-radius: 50%;
-  background-color: #F2BED1;
-  padding: 3px;
-}
 
-.block1-1 .category-img{
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 3px solid #fff;
-} */
-.category {
-  margin: 10px 0;
-  height: 100%;
-  width: 100%;
-  background: #fff; 
-  padding: 9px;
-  border-radius: 50%;
-  position: relative;
-  border: 0.5px dashed #7E6363;
-  border-spacing: 100px 0px;
-  
-  /* box-shadow: 0 0 0 0.2rem rgba(219, 56, 140, 0.25); */
 
-}
 /*//////////////////////////////////////////////////////////////////
 [ Block2 ]*/
 .block2-pic {
@@ -2256,6 +2228,15 @@ input.num-product::-webkit-inner-spin-button {
 .stext-120{
   font-family: 'Nunito Sans', sans-serif;
   font-size: 20;
+}
+
+.stext-122 {
+  font-family: "Baloo 2", sans-serif;
+  font-size: 30px;
+}
+.stext-123 {
+  font-family: "Baloo 2", sans-serif;
+  margin-top: 10px;
 }
 
 
@@ -3387,3 +3368,157 @@ img.Imagealignment{
   position: relative;
   
 }
+
+.category {
+  margin: 10px 0;
+  height: 100%;
+  width: 100%;
+  background: #fff; 
+  padding: 9px;
+  border-radius: 50%;
+  position: relative;
+  border: 0.5px dashed #7E6363;
+  border-spacing: 100px 0px;
+  
+  /* box-shadow: 0 0 0 0.2rem rgba(219, 56, 140, 0.25); */
+
+}
+
+.category:hover {
+  margin: 10px 0;
+  height: 100%;
+  width: 100%;
+  background: #fff; 
+  padding: 5px;
+  border-radius: 50%;
+  position: relative;
+  border: 0.5px dashed #7E6363;
+  transition: 0.3s;
+  
+  /* box-shadow: 0 0 0 0.2rem rgba(219, 56, 140, 0.25); */
+
+}
+
+.wrap-pic-w:hover .stext-121 {
+  color: #D5B4B4;
+}
+
+/* rectangle */
+
+.wrap-pic-w {
+  position: relative;
+  overflow: hidden; 
+}
+
+.block1-content {
+  position: absolute;
+  bottom: 0; 
+  left: 0;
+  width: 100%;
+  padding: 20px; 
+  box-sizing: border-box; 
+}
+
+.block1-name,
+.block1-info,
+.block1-link {
+  color: #3E3232; 
+}
+
+.block1-name {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.block1-info,
+.block1-link {
+  font-size: 18px;
+  margin-top: -10px;
+}
+
+.block1 .retangle{
+  border-radius: 12px;
+}
+
+/* Style the button */
+.block1-btn {
+  display: inline-block;
+  padding: 10px 20px; 
+  background-color: #867070; 
+  color: #000; 
+  text-decoration: none;
+  border-radius: 20px;
+  transition: background-color 0.3s; 
+}
+
+.block1-btn:hover {
+  background-color: #3E3232; 
+  color: #fff;
+}
+
+/* age */
+.ageimg img{
+  filter: hue-rotate(86deg) brightness(80%);
+  width: 300px;
+  height: 100%;
+}
+
+.ageimg1 img{
+  filter: hue-rotate(357deg) brightness(95%);
+  width: 300px;
+  height: 100%;
+}
+
+.ageimg2 img{
+  filter: hue-rotate(308deg) brightness(95%);
+  width: 300px;
+  height: 100%;
+}
+
+.ageimg3 img{
+  filter: hue-rotate(89deg) brightness(95%);
+  width: 300px;
+  height: 100%;
+}
+
+.ageimg, .ageimg1, .ageimg2, .ageimg3 {
+  position: relative; /* Đặt phần tử cha là relative */
+}
+
+.ageimg img, .ageimg1 img, .ageimg2 img, .ageimg3 img {
+  width: 300px;
+  height: auto;
+}
+
+
+.stext-123 {
+  position: absolute; 
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-40%, -50%); 
+  font-size: 38px;
+  color: #3E3232;
+}
+
+@media (max-width: 767px) {
+  .ageimg img, .ageimg1 img, .ageimg2 img, .ageimg3 img {
+      width: 100%; 
+      height: auto; 
+  }
+}
+
+
+.col-md-2 {
+  flex: 1; 
+  max-width: calc(25% - 20px);
+  margin-right: 20px; 
+}
+
+.col-md-2:last-child {
+  margin-right: 0;
+}
+
+
+
+
+
