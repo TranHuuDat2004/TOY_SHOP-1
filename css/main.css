@@ -3458,7 +3458,7 @@ img.Imagealignment{
 
 /* age */
 .ageimg img{
-  filter: hue-rotate(86deg) brightness(80%);
+  filter: hue-rotate(139deg) brightness(95%);
   width: 300px;
   height: 100%;
 }
@@ -3488,8 +3488,35 @@ img.Imagealignment{
 .ageimg img, .ageimg1 img, .ageimg2 img, .ageimg3 img {
   width: 300px;
   height: auto;
+  /* transition: transform 0.1s ease-in-out; */
+  transition: transform 0.2s ease-in-out, filter 0.1s ease-in-out;
 }
 
+.ageimg:hover img, .ageimg1:hover img, .ageimg2:hover img, .ageimg3:hover img {
+  transform: scale(1.1); /* Tăng kích thước khi hover */
+  filter: hue-rotate(0deg) brightness(100%); /* Đổi màu khi hover */
+}
+
+.ageimg img::before,
+.ageimg1 img::before,
+.ageimg2 img::before,
+.ageimg3 img::before {
+  content: attr(data-hover); /* Sử dụng nội dung của thuộc tính data-hover làm ảnh khi hover */
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.1s ease-in-out;
+}
+
+.ageimg:hover img::before,
+.ageimg1:hover img::before,
+.ageimg2:hover img::before,
+.ageimg3:hover img::before {
+  opacity: 1;
+}
 
 .stext-123 {
   position: absolute; 
@@ -3508,17 +3535,479 @@ img.Imagealignment{
 }
 
 
-.col-md-2 {
+.col-md-2-1 {
   flex: 1; 
   max-width: calc(25% - 20px);
   margin-right: 20px; 
 }
 
-.col-md-2:last-child {
+.col-md-2-1:last-child {
   margin-right: 0;
 }
 
+/* hotspot  */
 
 
+.section {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative; /* Thêm thuộc tính position: relative; để tạo không gian định vị cho phần tử con */
+}
+
+
+.container1 {
+  width: 100%;
+  max-width: 1200px; /* Thay đổi giá trị tùy thuộc vào kích thước của hình ảnh */
+  height: auto; /* Sửa lại chiều cao của container */
+  margin: 0 auto;
+}
+
+.container1 img {
+  width: 100%; /* Đảm bảo hình ảnh điền vào container */
+  height: auto; /* Đảm bảo tỷ lệ khung hình bảo toàn */
+  border-radius: 12px;
+}
+
+.all-tooltips1 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+.tooltip1 {
+  position: relative; /* Thêm thuộc tính position: relative; để tạo không gian định vị cho phần tử con */
+}
+
+.tooltip-content1 {
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 0 0 0.2rem rgba(219, 56, 140, 0.25);
+  padding: 15px; /* Giảm độ rộng của padding để tooltip nhỏ hơn */
+  border-radius: 8px;
+  width: 200px; /* Định kích thước chiều rộng cố định cho tooltip */
+  max-width: 90%; /* Giới hạn chiều rộng tối đa cho tooltip */
+  z-index: 2;
+  margin-top: -180px;
+  top: calc(100% + 0px); /* Hiển thị tooltip bên dưới nút pin1 */
+  left: 50%; /* Căn giữa theo chiều ngang */
+  transform: translateX(-55%); /* Dịch chuyển tooltip về phía trái 50% để căn giữa theo chiều ngang */
+  display: none; /* Ẩn tooltip ban đầu */
+}
+
+.tooltip1:hover .tooltip-content1 {
+  display: block; /* Hiển thị tooltip khi di chuột qua .tooltip1 */
+}
+
+.arrow1 {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #fff; /* Tạo hình tam giác dưới cho tooltip */
+  top: -10px; /* Dịch chuyển tam giác lên trên tooltip */
+  left: calc(50% - 10px); /* Căn giữa tam giác theo chiều ngang */
+}
+
+
+.pin1 {
+  position: absolute;
+  margin-top: -180px;
+  left: 50%;
+  background-color: white;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  cursor: pointer;
+  transform: translate(-90%, -90%); /* Dịch chuyển nút pin lên trên một phần của chiều cao của hình ảnh */
+}
+
+.pin1::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  height: 25px; /* Sử dụng chiều cao của nút pin1 làm giá trị cho top của pseudo-element */
+  width: 100%;
+  background-color: white;
+  border-radius: 50%;
+  animation: puls-effect 1s ease-in-out infinite;
+}
+
+
+@keyframes puls-effect {
+  0% {
+    transform: scale(.5);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+/* Điều chỉnh cho màn hình có độ rộng từ 768px đến 1200px */
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+  .pin1 {
+    margin-top: -150px; /* Giữ nguyên giá trị margin-top */
+    transform: translate(-90%, -90%); /* Giữ nguyên giá trị transform */
+  }
+  
+  .pin1::after {
+    top: -2px; /* Giữ nguyên giá trị top của pseudo-element */
+  }
+  .tooltip-content1{
+    margin-top: -150px;
+  }
+}
+
+/* Điều chỉnh cho màn hình có độ rộng từ 768px đến 1200px */
+@media screen and (min-width: 330px) and (max-width: 350px) {
+  .pin1 {
+    margin-top: -50px; /* Giữ nguyên giá trị margin-top */
+    transform: translate(-90%, -90%); /* Giữ nguyên giá trị transform */
+  }
+  
+  .pin1::after {
+    top: -2px; /* Giữ nguyên giá trị top của pseudo-element */
+  }
+
+  .tooltip-content1{
+    margin-top: -50px;
+  }
+}
+
+/* Điều chỉnh cho màn hình có độ rộng từ 768px đến 1200px */
+@media screen and (min-width: 360px) and (max-width: 430px) {
+  .pin1 {
+    margin-top: -51px; /* Giữ nguyên giá trị margin-top */
+    transform: translate(-90%, -90%); /* Giữ nguyên giá trị transform */
+  }
+  
+  .pin1::after {
+    top: -2px; /* Giữ nguyên giá trị top của pseudo-element */
+  }
+
+  .tooltip-content1{
+    margin-top: -51px;
+  }
+}
+
+/* Điều chỉnh cho màn hình có độ rộng từ 768px đến 1200px */
+@media screen and (min-width: 540px) and (max-width: 720px) {
+  .pin1 {
+    margin-top: -71px; /* Giữ nguyên giá trị margin-top */
+    transform: translate(-90%, -90%); /* Giữ nguyên giá trị transform */
+  }
+  
+  .pin1::after {
+    top: -2px; /* Giữ nguyên giá trị top của pseudo-element */
+  }
+
+  .tooltip-content1{
+    margin-top: -71px;
+  }
+}
+
+
+.tooltip2 {
+  position: relative; /* Thêm thuộc tính position: relative; để tạo không gian định vị cho phần tử con */
+}
+
+.tooltip-content2 {
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 0 0 0.2rem rgba(219, 56, 140, 0.25);
+  padding: 15px; /* Giảm độ rộng của padding để tooltip nhỏ hơn */
+  border-radius: 8px;
+  width: 200px; /* Định kích thước chiều rộng cố định cho tooltip */
+  max-width: 90%; /* Giới hạn chiều rộng tối đa cho tooltip */
+  z-index: 2;
+  margin-top: -180px;
+  top: calc(100% + 0px); /* Hiển thị tooltip bên dưới nút pin1 */
+  left: 10%; /* Căn giữa theo chiều ngang */
+  transform: translateX(-55%); /* Dịch chuyển tooltip về phía trái 50% để căn giữa theo chiều ngang */
+  display: none; /* Ẩn tooltip ban đầu */
+}
+
+.tooltip2:hover .tooltip-content2 {
+  display: block; /* Hiển thị tooltip khi di chuột qua .tooltip1 */
+}
+
+.arrow2 {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #fff; /* Tạo hình tam giác dưới cho tooltip */
+  top: -10px; /* Dịch chuyển tam giác lên trên tooltip */
+  left: calc(50% - 10px); /* Căn giữa tam giác theo chiều ngang */
+}
+
+
+.pin2 {
+  position: absolute;
+  margin-top: -180px;
+  left: 10%;
+  background-color: white;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  cursor: pointer;
+  transform: translate(-90%, -90%); /* Dịch chuyển nút pin lên trên một phần của chiều cao của hình ảnh */
+}
+
+.pin2::after {
+  content: '';
+  position: absolute;
+  left: -1px;
+  height: 25px; /* Sử dụng chiều cao của nút pin1 làm giá trị cho top của pseudo-element */
+  width: 100%;
+  background-color: white;
+  border-radius: 50%;
+  animation: puls-effect 1s ease-in-out infinite;
+}
+
+
+/* Điều chỉnh cho màn hình có độ rộng từ 768px đến 1200px */
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+  .pin2 {
+    margin-top: -140px; /* Giữ nguyên giá trị margin-top */
+    transform: translate(-90%, -90%); /* Giữ nguyên giá trị transform */
+  }
+  
+  .pin2::after {
+    top: -2px; /* Giữ nguyên giá trị top của pseudo-element */
+  }
+
+  .tooltip-content2{
+    margin-top: -140px;
+  }
+}
+
+/* Điều chỉnh cho màn hình có độ rộng từ 768px đến 1200px */
+@media screen and (min-width: 330px) and (max-width: 350px) {
+  .pin2 {
+    margin-top: -50px; /* Giữ nguyên giá trị margin-top */
+    transform: translate(-90%, -90%); /* Giữ nguyên giá trị transform */
+  }
+  
+  .pin2::after {
+    top: -2px; /* Giữ nguyên giá trị top của pseudo-element */
+  }
+
+  .tooltip-content2{
+    margin-top: -50px;
+  }
+}
+
+/* Điều chỉnh cho màn hình có độ rộng từ 768px đến 1200px */
+@media screen and (min-width: 360px) and (max-width: 430px) {
+  .pin2 {
+    margin-top: -51px; /* Giữ nguyên giá trị margin-top */
+    transform: translate(-90%, -90%); /* Giữ nguyên giá trị transform */
+  }
+  
+  .pin2::after {
+    top: -2px; /* Giữ nguyên giá trị top của pseudo-element */
+  }
+
+  .tooltip-content2{
+    margin-top: -51px;
+  }
+}
+
+/* Điều chỉnh cho màn hình có độ rộng từ 768px đến 1200px */
+@media screen and (min-width: 540px) and (max-width: 720px) {
+  .pin2 {
+    margin-top: -71px; /* Giữ nguyên giá trị margin-top */
+    transform: translate(-90%, -90%); /* Giữ nguyên giá trị transform */
+  }
+  
+  .pin2::after {
+    top: -2px; /* Giữ nguyên giá trị top của pseudo-element */
+  }
+
+  .tooltip-content2{
+    margin-top: -71px;
+  }
+  
+}
+
+
+.tooltip3 {
+  position: relative; /* Thêm thuộc tính position: relative; để tạo không gian định vị cho phần tử con */
+}
+
+.tooltip-content3 {
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 0 0 0.2rem rgba(219, 56, 140, 0.25);
+  padding: 15px; /* Giảm độ rộng của padding để tooltip nhỏ hơn */
+  border-radius: 8px;
+  width: 200px; /* Định kích thước chiều rộng cố định cho tooltip */
+  max-width: 90%; /* Giới hạn chiều rộng tối đa cho tooltip */
+  z-index: 2;
+  margin-top: -70px;
+  top: calc(100% + 0px); /* Hiển thị tooltip bên dưới nút pin1 */
+  right: 11.5%;
+  transform: translateX(-55%); /* Dịch chuyển tooltip về phía trái 50% để căn giữa theo chiều ngang */
+  display: none; /* Ẩn tooltip ban đầu */
+}
+
+.tooltip3:hover .tooltip-content3 {
+  display: block; /* Hiển thị tooltip khi di chuột qua .tooltip1 */
+}
+
+.arrow3 {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #fff; /* Tạo hình tam giác dưới cho tooltip */
+  top: -10px; /* Dịch chuyển tam giác lên trên tooltip */
+  left: calc(50% - 10px); /* Căn giữa tam giác theo chiều ngang */
+}
+
+
+.pin3 {
+  position: absolute;
+  margin-top: -70px;
+  right: 26%;
+  background-color: white;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  cursor: pointer;
+  transform: translate(-90%, -90%); /* Dịch chuyển nút pin lên trên một phần của chiều cao của hình ảnh */
+}
+
+.pin3::after {
+  content: '';
+  position: absolute;
+  left: -1px;
+  height: 25px; /* Sử dụng chiều cao của nút pin1 làm giá trị cho top của pseudo-element */
+  width: 100%;
+  background-color: white;
+  border-radius: 50%;
+  animation: puls-effect 1s ease-in-out infinite;
+}
+
+
+/* Điều chỉnh cho màn hình có độ rộng từ 768px đến 1200px */
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+  .pin3 {
+    margin-top: -60px; /* Giữ nguyên giá trị margin-top */
+    transform: translate(-90%, -90%); /* Giữ nguyên giá trị transform */
+  }
+  
+  .pin3::after {
+    top: -2px; /* Giữ nguyên giá trị top của pseudo-element */
+  }
+
+  .tooltip-content3{
+    margin-top: -60px;
+    right: 8.8%;
+  }
+}
+
+@media screen and (min-width: 330px) and (max-width: 350px) {
+  .pin3 {
+    margin-top: -50px; 
+    transform: translate(-90%, -90%);
+  }
+  
+  .pin3::after {
+    top: -2px; 
+  }
+
+  .tooltip-content3{
+    margin-top: -50px;
+  }
+}
+
+@media screen and (min-width: 360px) and (max-width: 430px) {
+  .pin3 {
+    margin-top: -25px;
+    right: 20%;
+    transform: translate(-90%, -90%);
+  }
+  
+  .pin3::after {
+    top: -2px; 
+  }
+
+  .tooltip-content3{
+    margin-top: -25px;
+    right: -21%;
+
+  }
+}
+
+@media screen and (min-width: 540px) and (max-width: 720px) {
+  .pin3 {
+    margin-top: -71px; 
+    transform: translate(-90%, -90%); 
+  }
+  
+  .pin3::after {
+    top: -2px; 
+  }
+
+  .tooltip-content3{
+    margin-top: -71px;
+  }
+  
+}
+
+.khoi1{
+  margin: 20px auto;
+  padding:90px 10px ;
+}
+.anh1{
+  max-width: 100%;
+  object-fit: cover;
+}
+.title1 h1{
+  font-family: 'Baloo 2',sans-serif;
+  font-weight: 500;
+  padding: 20px 0;
+  font-size: 36px ;
+  color: #000;
+}
+.intro1{
+  margin: 20px 0;
+  padding: 5px 0;
+}
+.stick1{
+  padding: 10px 10px;
+  width: 100%;
+}
+.sticker1 {
+  background-color: #CCD3CA;
+  border-radius: 10px;
+  width: 100%;
+  margin: 20px 0;
+}
+.khoi2 p{
+  font-family: 'Baloo 2',sans-serif;
+  margin: 10px 0;
+  font-weight: 500;
+  font-size: 16px ;
+  color: #000;
+}
+.khoi2 h1{
+  font-family: 'Baloo 2',sans-serif;
+  margin: 10px 0;
+  font-weight: 500;
+  font-size: 22px ;
+  color: #000;
+}
 
 
