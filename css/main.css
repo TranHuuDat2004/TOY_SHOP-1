@@ -4198,5 +4198,78 @@ img.Imagealignment{
   .shop-now a {
     margin: 0 20px;
   }
+  .shop-now{
+    margin-left: 150px;
+  }
 }
 
+.row1 {
+  width: 80%;
+  max-width: 1380px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 50px;
+  overflow: hidden;
+  margin: 20px auto 0 auto;
+  padding: 90px 10px;
+}
+
+.row1 .imgWrapper{
+  overflow: hidden;
+}
+
+.row1 .imgWrapper img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.3s;
+
+}
+.row1 .imgWrapper:hover img{
+  transform: scale(1.1);
+}
+
+.row1 .contentWrapper{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 30px;
+}
+
+.row1 .contentWrapper span.textWrapper{
+  display: block;
+  font-size: 20px;
+  text-transform: capitalize;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+
+}
+
+@media (max-width: 991px) {
+  .row1{
+    grid-template-columns: 1fr;
+    grid-gap: 50px;
+
+  }
+
+  .row1 .contentWrapper{
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .row1{
+    width: 90%;
+  }
+}
+
+@media (max-width: 575px) {
+  .row1 .contentWrapper span.textWrapper{
+    font-size: 18px;
+    
+  
+  }
+}
