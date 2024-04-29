@@ -3966,6 +3966,8 @@ img.Imagealignment{
   
 }
 
+/* introduction */
+
 .khoi1 {
   margin: 20px auto 0 auto;
   padding: 90px 10px;
@@ -4046,7 +4048,7 @@ img.Imagealignment{
       width: 100%;
   }
   .sticker1 {
-      width: 70px; /* Adjust width as needed */
+      width: 60px; /* Adjust width as needed */
       height: auto;
   }
 }
@@ -4058,12 +4060,12 @@ img.Imagealignment{
   width: 100%;
   height: 90px; /* Đảm bảo tỷ lệ khung hình không bị méo */
   max-height: 100px;
-  
 }
 
 .container2{
   max-width: 1040px;
   margin: 0 auto;
+  padding-bottom: 100px;
 }
 
 .container2 h1{
@@ -4117,3 +4119,84 @@ img.Imagealignment{
   transform: scale(1.15) translateY(-5px);
   border: 3px dashed #ADBC9F;
 }
+
+.banner-start{
+  background-image: url("/images/banner1.jpg");
+  width: 100%;
+  height: 200px;
+  margin: 100px auto;
+  padding: 10px 0;
+  border-radius: 20px;
+}
+.intro-banner{
+  align-items: center;
+  justify-items: center;
+  padding: 80px 50px;
+}
+.intro-banner h1{
+  padding: 0 50px 0 150px;
+  font-family: 'Baloo 2', sans-serif;
+  font-weight: 500;
+  font-size: 36px;
+  color: #000;
+}
+.shop-now{
+  background-color: #86B6F6;
+  height: auto;
+  border-radius: 20px;
+}
+
+.shop-now:hover{
+  background-color: #3887BE;
+  color: #fff;
+}
+
+
+.shop-now a{
+  margin: 0 30px;
+  font-family: 'Baloo 2', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  color: #000;
+}
+
+
+/* CSS cho màn hình lớn */
+@media (min-width: 992px) {
+  .banner-start {
+    height: 200px;
+    margin: 50px auto;
+  }
+  .intro-banner {
+    padding: 80px 50px;
+  }
+}
+
+/* CSS cho màn hình trung bình */
+@media (max-width: 991.98px) {
+  .banner-start {
+    height: 200px;
+    margin: 50px auto;
+  }
+  .intro-banner {
+    padding: 80px 20px;
+  }
+}
+
+/* CSS cho màn hình nhỏ */
+@media (max-width: 575.98px) {
+  .banner-start {
+    height: 200px;
+    margin: 50px auto;
+  }
+  .intro-banner {
+    padding: 60px 20px;
+  }
+  .intro-banner h1 {
+    padding: 0 20px;
+  }
+  .shop-now a {
+    margin: 0 20px;
+  }
+}
+
