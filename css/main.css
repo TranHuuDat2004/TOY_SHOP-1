@@ -4272,4 +4272,161 @@ img.Imagealignment{
     
   
   }
+  .intro1 {
+    display: flex;
+  }
 }
+
+
+/* blog */
+#blog{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 40px;
+  
+}
+
+.blog-heading{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.blog-heading span{
+  color: #66a8a6;
+}
+
+.blog-heading h3{
+  font-size: 37.5px;
+  font-family: 'Baloo 2', sans-serif;
+  color: rgb(126, 99, 99);
+}
+
+.blog-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0px;
+  flex-wrap: wrap;
+}
+
+.blog-box{
+  width: 350px;
+  background-color: #fff;
+  
+  margin: 20px;
+}
+
+.blog-img{
+  width: 100%;
+  height: auto;
+}
+
+.blog-img img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+
+.blog-img img:hover{
+  transform: scale(1.1);
+}
+
+.blog-text{
+  padding: 30px 0px;
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-text span{
+  color: red;
+  font-size: 0.9rem;
+}
+
+.blog-text .blog-title{
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: #183D3D;
+}
+
+.blog-text .blog-title:hover{
+  color: #93B1A6;
+  transition: all ease 0.3s;
+
+}
+
+.blog-text p{
+  color: #000;
+  font-size: 0.9rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 20px 0px;
+}
+
+.blog-text a{
+  color: rebeccapurple;
+}
+
+.blog-text a:hover{
+  color: red;
+  transition: all ease 0.3s;
+}
+
+.readmore {
+  background-color: #93B1A6;
+  border-radius: 20px;
+  width: fit-content;
+  height: fit-content;
+}
+
+.readmore:hover{
+  background-color: #5C8374;
+  color: #fff;
+}
+
+.readmore a:hover{
+  color: #fff;
+}
+
+
+.readmore a{
+  margin: 0 30px;
+  font-family: 'Baloo 2', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  color: #000;
+}
+
+@media (max-width:1250px) {
+  .blog-box{
+    width: 300px;
+  }
+}
+
+@media (max-width:1100px) {
+  .blog-box{
+    width: 70%;
+  }
+}
+
+@media (max-width:550px) {
+  .blog-box{
+    width: 100%;
+    margin: 20px 10px;
+  }
+  #blog{
+    padding: 20px;
+  }
+}
+
+
+
