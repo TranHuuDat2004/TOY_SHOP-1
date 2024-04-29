@@ -20,6 +20,11 @@
 	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-regular.css">
 
 	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-light.css">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+
 	<!-- link icon -->
 	<link rel="icon" type="image/png" href="images/icon.png" />
 	<!--===============================================================================================-->
@@ -739,8 +744,7 @@
 	<div class="khoi1 container">
 		<div class="row">
 			<div class="col-lg-6">
-				<img class="anh1"
-					src="https://toytime-theme.myshopify.com/cdn/shop/files/Mask_group_3514798e-7d90-4144-a900-c6b97e546f20.png?v=1707983159">
+				<img class="anh1" src="images/introduction1.jpg">
 			</div>
 			<div class="col-lg-6">
 				<div class="title1">
@@ -794,6 +798,27 @@
 	</div>
 
 	<!-- introduction end-->
+
+	<!-- brand start -->
+	<div class="container2">
+		<h1 class="text-primary1" style="padding-bottom: 30px; text-align: center;">Top Brands</h1>
+		<div class="logo-slider">
+			<div class="item1"><a href=""><img src="images/logo1.jpg" alt=""></a></div>
+			<div class="item1"><a href=""><img src="images/logo2.jpg" alt=""></a></div>
+			<div class="item1"><a href=""><img src="images/logo3.jpg" alt=""></a></div>
+			<div class="item1"><a href=""><img src="images/logo4.jpg" alt=""></a></div>
+			<div class="item1"><a href=""><img src="images/logo5.jpg" alt=""></a></div>
+			<div class="item1"><a href=""><img src="images/logo6.jpg" alt=""></a></div>
+		</div>
+	</div>
+
+
+
+
+	<!-- brand end -->
+
+
+
 
 
 	<!-- Product -->
@@ -2054,7 +2079,45 @@
 	<!--===============================================================================================-->
 	<script src="js/main.js"></script>
 	<script src="js/tooltip.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			$('.logo-slider').slick({
+				dots: true,
+				infinite: true,
+				speed: 300,
+				slidesToShow: 5,
+				slidesToScroll: 1,
+				responsive: [
+					{
+						breakpoint: 1024,
+						settings: {
+							slidesToShow: 3,
+							slidesToScroll: 3,
+							infinite: true,
+							dots: true
+						}
+					},
+					{
+						breakpoint: 600,
+						settings: {
+							slidesToShow: 2,
+							slidesToScroll: 2
+						}
+					},
+					{
+						breakpoint: 480,
+						settings: {
+							slidesToShow: 2,
+							slidesToScroll: 2
+						}
+					}
+				]
+			});
+		});
 
+	</script>
 </body>
 
 </html>
