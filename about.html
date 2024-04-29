@@ -112,6 +112,14 @@
         width: 100%; /* Đảm bảo hình ảnh lấp đầy phần tử cha */
     }
 
+	.about-icon img {
+        overflow: hidden;
+        object-fit: cover; /* Hiển thị hình ảnh mà không bị chồng lên nhau */
+        width: 20%; /* Đảm bảo hình ảnh lấp đầy phần tử cha */
+		padding-right: 20px;
+		padding-bottom: 15px;
+    }
+
     /* Format Team member*/
     .team-member-info {
         text-align: center;
@@ -120,9 +128,49 @@
 		font-weight: bold;
 		color: #000;
 		padding-top: 10px;
+    }	
+
+	/* Setting Padding icon for id*/
+	#about-icon{
+		padding-top: 25px;
+	}
+
+	/* Setting Image Icon for id */
+	#about-icon img{
+		padding-right: 20px;
+	}
+
+	/* Setting Font Size */
+	#font-size{
+		font-size: 20px;
+	}
+
+	#background-gray{
+		background-color: rgb(231, 231, 231);
+		width: 100%;
+	}
+
+	/* My Apology */
+	.bubble-chat {
+        position: relative;
+        display: inline-block;
+        padding: 10px 20px;
+        border-radius: 20px;
+        background-color: #f0f0f0;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+        }
+
+    .bubble-chat::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 20px;
+        border-style: solid;
+        border-width: 10px 10px 0;
+        border-color: #f0f0f0 transparent;
+        display: block;
+        width: 0;
     }
-
-
 
 </style>
 
@@ -442,6 +490,94 @@
 	<!-- layer 01 -->
 	<section class="bg0 p-t-75 p-b-120">
 		<div class="container">
+			<!-- Why choose toy time toys & games -->
+			<div class="row p-b-148">
+				<div class="col-md-7 col-lg-8">
+					<div class="p-t-7 p-r-85 p-r-15-lg p-r-0-md">
+						<h3 style="padding-left: 10%;"  class="mtext-111 cl2 p-b-16">
+							Why choose toy time toys & games
+						</h3>
+
+						<div id="about-icon" class="stext-113 cl6 p-b-26">
+							<img src="images/About-Icon-1.webp" alt="IMG" height="50px">
+							<b id="font-size">Premium Toys Products</b>									
+						</div>
+
+						<div id="about-icon" class="stext-113 cl6 p-b-26">
+							<img src="images/About-Icon-2.webp" alt="IMG" height="50px">
+							<b id="font-size">More Than 60k+ Unique Products: </b>									
+						</div>
+
+						<div id="about-icon" class="stext-113 cl6 p-b-26">
+							<img src="images/intro3.jpg" alt="IMG" height="50px">
+							<b id="font-size">Free Shipping Available: </b>									
+						</div>
+					</div>
+				</div>
+
+				<div class="col-11 col-md-5 col-lg-4 m-lr-auto">
+					<div class="">
+						<div class="hov-img0">
+							<img src="images/About-Image.webp" alt="IMG">
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Material Product -->			
+			<section class="bg0 p-t-75 p-b-120">
+				<div class="container">
+					<h3 style="text-align: center; " class="mtext-111 cl2 p-b-16">
+						Materials in toys
+					</h3>
+					<div class="row">						
+						<!-- Icon 4 -->
+						<div class="col-md-3">
+							<div class="about-icon">
+								<div style="color: #000;">
+									<img src="images/About-Icon-4.webp" alt="IMG">							
+									<b id="font-size">Cotton 76%</b>
+									<p>Soft and breathable, making it suitable for cuddly toys and fabric-based toys.</p>
+								</div>
+							</div>
+						</div>
+						<!-- Icon 5 -->
+						<div class="col-md-3">
+							<div class="about-icon">
+								<div style="color: #000;">
+									<img src="images/About-Icon-5.webp" alt="IMG">							
+									<b id="font-size">Wool 11%</b>
+									<p>Provides warmth and texture, commonly used in plush toys and knit items.</p>
+								</div>
+							</div>
+						</div>
+						<!-- Icon 6 -->
+						<div class="col-md-3">
+							<div class="about-icon">
+								<div style="color: #000;">
+									<img src="images/About-Icon-6.webp" alt="IMG">							
+									<b id="font-size">Rubber 10%</b>
+									<p>Offers elasticity and durability, often used in bouncing balls and outdoor toys.</p>
+								</div>
+							</div>
+						</div>
+						<!-- Icon 7 -->
+						<div class="col-md-3">
+							<div class="about-icon">
+								<div style="color: #000;">
+									<img src="images/About-Icon-7.jpg" alt="IMG">							
+									<b id="font-size">Polyester 3:</b>
+									<p>Adds strength and wrinkle resistance, commonly found in stuffed animals and synthetic fabrics used in toys.</p>
+								</div>
+							</div>
+						</div>
+						<p></p>
+					</div>
+				</div>
+			</section>
+			
+			
+
 			<div class="row p-b-148">
 				<div class="col-md-7 col-lg-8">
 					<div class="p-t-7 p-r-85 p-r-15-lg p-r-0-md">
@@ -530,10 +666,14 @@
 				Our Team
 			</h3>
 			<div class="row">
+
 				<!-- Team Member 1 -->
 				<div class="col-md-3">
 					<div class="team-member">
-						<div class="team-member-img">
+						<div class="bubble-chat">
+							<p>Waiting for your response.</p>
+						</div>
+						<div style="padding-top:60px ;" class="team-member-img">
 							<img src="images/ThuyKhanh.jpg" alt="Team Member 1">
 						</div>
 						<div class="team-member-info">
@@ -542,11 +682,28 @@
 						</div>
 					</div>
 				</div>
+
 				<!-- Team Member 2 -->
 				<div class="col-md-3">
 					<div class="team-member">
+						<div class="bubble-chat">
+							<p>Cho tớ xin lỗi cậu vì mình đã làm cậu bị conflict. Tớ biết lỗi của mình ròi. Tha lỗi cho tớ nha</p> <!-- Xoa dong nay nho xoa padding-top:90px-->
+						</div>
 						<div class="team-member-img">
-							<img src="images/BinhQuyen.jpg" alt="Team Member 2">
+							<img src="images/HuuDat.jpg" alt="Team Member 2">
+						</div>						
+						<div class="team-member-info">
+							<p>Trần Hữu Đạt</p>
+							<p class="stext-113 cl6">Customer Support</p>
+						</div>
+					</div>
+				</div>
+
+				<!-- Team Member 3 -->
+				<div class="col-md-3">
+					<div class="team-member">
+						<div style="padding-top:90px ;" class="team-member-img">
+							<img src="images/BinhQuyen.jpg" alt="Team Member 3">
 						</div>
 						<div class="team-member-info">
 							<p>Trần Bỉnh Quyền</p>
@@ -554,11 +711,12 @@
 						</div>
 					</div>
 				</div>
-				<!-- Team Member 3 -->
+
+				<!-- Team Member 4 -->
 				<div class="col-md-3">
 					<div class="team-member">
-						<div class="team-member-img">
-							<img src="images/ThuyLinh.jpg" alt="Team Member 3">
+						<div style="padding-top:90px ;" class="team-member-img">
+							<img src="images/ThuyLinh.jpg" alt="Team Member 4">
 						</div>
 						<div class="team-member-info">
 							<p>Dương Thị Thùy Linh</p>
@@ -566,21 +724,10 @@
 						</div>
 					</div>
 				</div>
-				<!-- Team Member 4 -->
-				<div class="col-md-3">
-					<div class="team-member">
-						<div class="team-member-img">
-							<img src="images/HuuDat.jpg" alt="Team Member 4">
-						</div>
-						<div class="team-member-info">
-							<p>Trần Hữu Đạt</p>
-							<p class="stext-113 cl6">Customer Support</p>
-						</div>
-					</div>
-				</div>
+				
 			</div>
 		</div>
-	</section>	
+	</section>
 
 	<!-- Footer -->
 	<footer class="bg3 p-t-75 p-b-32">
