@@ -42,6 +42,20 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
 <style>
+	.zoom-img {
+		width: 300px;
+		height:auto;
+		overflow: hidden;
+	}
+
+	.zoom-img  img {
+		width: 100%;
+		transition: all .3s ease-in-out;
+	}
+
+	.zoom-img img:hover   {
+		transform: scale(1.2);
+	}
 	
 	#button-add {
 		border-radius: 10px;
@@ -395,7 +409,7 @@
 								<!-- Tenth Column -->
 								<div class="col-lg-4 col-md-6 mb-4">
 									<a href="blog-detail10.html">
-										<div class="card" style="border: none;">
+										<div class="card zoom-img" style="border: none;">
 											<img src="images/8.jpg" alt="IMG-BLOG" style="border-radius: 10px;">
 										</div>
 									</a>
@@ -422,7 +436,7 @@
 								<!-- Eleventh Column -->
 								<div class="col-lg-4 col-md-6 mb-4">
 									<a href="blog-detail11.html">
-										<div class="card" style="border: none;">
+										<div class="card zoom-img" style="border: none;">
 											<img src="images/10.jpg" alt="IMG-BLOG" style="border-radius: 10px;">
 										</div>
 									</a>
