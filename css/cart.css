@@ -1,13 +1,37 @@
 #cart2
 {
   
-    transform: translateY(-200px) translateX(230px) scale(2.0);
+    transform: translateY(-200px) translateX(250px) scale(2.0);
+    
+}
+#love2
+{
+  
+    transform: translateY(-160px) translateX(230px) scale(2.0);
+    
+}
+#view2
+{
+  
+    transform: translateY(-230px) translateX(210px) scale(2.0);
     
 }
 #cart1
 {
   
-    transform: translateY(-200px) translateX(230px) scale(2.0);
+    transform: translateY(-200px) translateX(240px) scale(2.0);
+    
+}
+#love1
+{
+  
+    transform: translateY(-160px) translateX(220px) scale(2.0);
+    
+}
+#view1
+{
+  
+    transform: translateY(-230px) translateX(220px) scale(2.0);
     
 }
 #cart3
@@ -81,3 +105,17 @@
     /* margin-bottom: 400px; */
     padding-bottom: 400px;
 }
+.icon
+{
+    transition: 0.2s linear all;
+    
+    
+}
+
+/* #bear:hover .icon { */
+    /* transform: translateX(200px),translateY(300px); Khi di chuột vào hình ảnh, đưa icon về vị trí ban đầu */
+  /* } */
+  
+  /* #bear:hover .icon.icon2 { */
+    /* transform: translateX(-1px),translateY(300px); Khi di chuột vào hình ảnh, di chuyển icon sang bên phải 100px */
+  /* } */

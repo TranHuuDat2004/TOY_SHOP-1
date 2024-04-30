@@ -374,13 +374,13 @@
 	</div>
 
 
-	
+
 
 	<!-- Product -->
 	<div class="bg0 m-t-23 p-b-140">
-		
+
 		<div style="padding-top: 100px;" class="container">
-			
+
 			<div class="flex-w flex-sb-m p-b-52">
 				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
 					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
@@ -395,7 +395,7 @@
 						Pillow
 					</button>
 
-					
+
 				</div>
 
 				<div class="flex-w flex-c-m m-tb-10">
@@ -433,7 +433,7 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="row isotope-grid">
 				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item toy">
 					<!-- Block2 -->
@@ -442,9 +442,11 @@
 							<img src="images/beardollyellow.jpg" alt="IMG-PRODUCT">
 
 							<div>
-								<i id="cart1" class=" fa-duotone fa-basket-shopping-simple hand-icon"
+								<i id="cart1" class=" fa-duotone fa-basket-shopping-simple hand-icon icon icon1 cart1"
 									style="--fa-primary-color: #d27014; --fa-secondary-color: #d27014;visibility: hidden;  "></i>
-
+								<i id="love1" class="fa-light fa-heart hand-icon icon icon1 "
+									style="color: #ea931a;visibility: hidden;"></i>
+								<i id="view1" class="fa-solid fa-eye hand-icon icon" style="visibility: hidden;"></i>
 							</div>
 							<script>
 								const iconDiv = document.querySelector('#cart1');
@@ -454,15 +456,49 @@
 								imageofbear.addEventListener('mouseover', function () {
 									// Hiển thị biểu tượng
 									iconDiv.style.visibility = 'visible';
+									iconDiv.style.transform = 'translateY(-200px) translateX(230px) scale(2.0)';
 								});
 								imageofbear.addEventListener('mouseout', function () {
 									// Ẩn biểu tượng
 									iconDiv.style.visibility = 'hidden';
+									iconDiv.style.transform = 'translateY(-200px) translateX(240px) scale(2.0)';
 								});
 								// Tạo sự kiện di chuột ra khỏi biểu tượng
 							</script>
+							<script>
+								const iconlove = document.querySelector('#love1');
+								var imageofbear = document.querySelector('#bear');
 
+								// Tạo sự kiện di chuột qua cho biểu tượng
+								imageofbear.addEventListener('mouseover', function () {
+									// Hiển thị biểu tượng
+									iconlove.style.visibility = 'visible';
+									iconlove.style.transform = 'translateY(-160px) translateX(210px) scale(2.0)';
+								});
+								imageofbear.addEventListener('mouseout', function () {
+									// Ẩn biểu tượng
+									iconlove.style.visibility = 'hidden';
+									iconlove.style.transform = 'translateY(-160px) translateX(220px) scale(2.0)';
+								});
+								// Tạo sự kiện di chuột ra khỏi biểu tượng
+							</script>
+							<script>
+								const iconview1 = document.querySelector('#view1');
+								var imageofbear = document.querySelector('#bear');
 
+								// Tạo sự kiện di chuột qua cho biểu tượng
+								imageofbear.addEventListener('mouseover', function () {
+									// Hiển thị biểu tượng
+									iconview1.style.visibility = 'visible';
+									iconview1.style.transform = 'translateY(-230px) translateX(190px) scale(2.0)';
+								});
+								imageofbear.addEventListener('mouseout', function () {
+									// Ẩn biểu tượng
+									iconview1.style.visibility = 'hidden';
+									iconview1.style.transform = 'translateY(-230px) translateX(220px) scale(2.0)';
+								});
+								// Tạo sự kiện di chuột ra khỏi biểu tượng
+							</script>
 
 						</div>
 
@@ -478,12 +514,7 @@
 							</div>
 
 							<div class="block2-txt-child2 flex-r p-t-3">
-								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-									<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png"
-										alt="ICON">
-									<img class="icon-heart2 dis-block trans-04 ab-t-l"
-										src="images/icons/icon-heart-02.png" alt="ICON">
-								</a>
+
 							</div>
 						</div>
 					</div>
@@ -497,8 +528,11 @@
 
 
 							<div>
-								<i id="cart2" class=" fa-duotone fa-basket-shopping-simple hand-icon"
+								<i id="cart2" class=" fa-duotone fa-basket-shopping-simple hand-icon icon icon1"
 									style="--fa-primary-color: #d27014; --fa-secondary-color: #d27014;visibility: hidden;  "></i>
+								<i id="love2" class="fa-light fa-heart hand-icon icon icon1 "
+									style="color: #ea931a;visibility: hidden;"></i>
+								<i id="view2" class="fa-solid fa-eye hand-icon icon" style="visibility: hidden;"></i>
 
 							</div>
 							<script>
@@ -509,13 +543,50 @@
 								imageofdoll.addEventListener('mouseover', function () {
 									// Hiển thị biểu tượng
 									iconDiv1.style.visibility = 'visible';
+									iconDiv1.style.transform = 'translateY(-200px) translateX(230px) scale(2.0)';
 								});
 								imageofdoll.addEventListener('mouseout', function () {
 									// Ẩn biểu tượng
 									iconDiv1.style.visibility = 'hidden';
+									iconDiv1.style.transform = 'translateY(-200px) translateX(250px) scale(2.0)';
 								});
 								// Tạo sự kiện di chuột ra khỏi biểu tượng
 							</script>
+							<script>
+								const iconlove2 = document.querySelector('#love2');
+								var imageofdoll = document.querySelector('#doll');
+
+								// Tạo sự kiện di chuột qua cho biểu tượng
+								imageofdoll.addEventListener('mouseover', function () {
+									// Hiển thị biểu tượng
+									iconlove2.style.visibility = 'visible';
+									iconlove2.style.transform = 'translateY(-160px) translateX(210px) scale(2.0)';
+								});
+								imageofdoll.addEventListener('mouseout', function () {
+									// Ẩn biểu tượng
+									iconlove2.style.visibility = 'hidden';
+									iconlove2.style.transform = 'translateY(-160px) translateX(220px) scale(2.0)';
+								});
+								// Tạo sự kiện di chuột ra khỏi biểu tượng
+							</script>
+							<script>
+								const iconview2 = document.querySelector('#view2');
+								var imageofdoll = document.querySelector('#doll');
+
+								// Tạo sự kiện di chuột qua cho biểu tượng
+								imageofdoll.addEventListener('mouseover', function () {
+									// Hiển thị biểu tượng
+									iconview2.style.visibility = 'visible';
+									iconview2.style.transform = 'translateY(-230px) translateX(190px) scale(2.0)';
+								});
+								imageofdoll.addEventListener('mouseout', function () {
+									// Ẩn biểu tượng
+									iconview2.style.visibility = 'hidden';
+									iconview2.style.transform = 'translateY(-230px) translateX(210px) scale(2.0)';
+								});
+								// Tạo sự kiện di chuột ra khỏi biểu tượng
+							</script>
+
 
 						</div>
 
@@ -1003,7 +1074,7 @@
 					</div>
 				</div>
 
-				
+
 
 
 
