@@ -4187,22 +4187,24 @@ img.Imagealignment{
 @media (max-width: 575.98px) {
   .banner-start {
     height: 200px;
-    margin: 50px auto;
+    margin: 50px 17px;
+    width: 90%;
   }
   .intro-banner {
     padding: 60px 20px;
   }
   .intro-banner h1 {
-    padding: 0 20px;
+    padding: 0 10px;
+    font-size: 26px;
   }
   .shop-now a {
     margin: 0 20px;
   }
   .shop-now{
-    margin-left: 150px;
+    margin-left: 130px;
   }
 }
-
+/* introduction test   */
 .row1 {
   width: 80%;
   max-width: 1380px;
@@ -4247,7 +4249,17 @@ img.Imagealignment{
   margin-bottom: 20px;
 
 }
-
+.row2{
+  display: flex;
+}
+.title2{
+  width:20%;
+  height: 10%;
+}
+.khoi2{
+  padding: 10px 10px;
+  margin: 0 10px;
+}
 @media (max-width: 991px) {
   .row1{
     grid-template-columns: 1fr;
@@ -4316,7 +4328,6 @@ img.Imagealignment{
 .blog-box{
   width: 350px;
   background-color: #fff;
-  
   margin: 20px;
 }
 
@@ -4427,6 +4438,8 @@ img.Imagealignment{
     padding: 20px;
   }
 }
+
+
 
 
 

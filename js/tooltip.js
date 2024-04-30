@@ -1,13 +1,20 @@
-const tooltips1 = document.querySelectorAll('.all-tooltips1 .tooltip1');
-const fullDiv1 = document.querySelector('section');
-const container1 = document.querySelector('.container1');
+let slideIndex = 0;
+showSlides();
 
-function contentPosition() {
-    tooltips1.forEach((tooltip1) => {
-      const pin1 = tooltip1.querySelector('.pin1');
-      const content1 = tooltip1.querySelector('.tooltip-content1');
-      const arrow1 = tooltip1.querySelector('.arrow1');
-      content1.style.left = pin1.offsetLeft - content1.offsetwidth/2 + 'px'; // Thêm 'px' ở cuối
-      content1.style.top = pin1.offsetTop + 'px'; // Thêm 'px' ở cuối
-    })
+function showSlides() {
+  let i;
+  let slides = document.getElementsByClassName("blog-box");
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  let startIndex = slideIndex * 3;
+  let endIndex = startIndex + 3;
+  for (i = startIndex; i < endIndex; i++) {
+    if (slides[i]) {
+      slides[i].style.display = "block";
+    }
+  }
+  slideIndex++;
+  if (endIndex >= slides.length) { slideIndex = 0 }
+  setTimeout(showSlides, 3000); // Change slide every 2 seconds
 }
