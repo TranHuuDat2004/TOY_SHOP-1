@@ -172,6 +172,58 @@
         width: 0;
     }
 
+	.avatar {
+		position: relative;
+		perspective: 1000px; /* Tạo hiệu ứng 3D */
+	}
+
+	.avatar img {
+		width: 100%;
+		height: auto;
+		transition: transform 0.5s ease;
+	}
+
+	.avatar:hover img {
+		transform: rotateY(180deg);
+		background-color: rgba(255, 255, 255, 0.7);
+	}
+
+	.avatar .message {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(224, 224, 224, 0.7);
+		color: white;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		opacity: 0;
+		transition: opacity 0.5s ease;
+	}
+
+	.avatar:hover .message {
+		opacity: 1; /* Hiển thị thông điệp khi hover */
+	}
+
+	@keyframes countup {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+
+	.counter-up {
+		animation: countup 1.5s ease-in-out;
+	}
+
+	.fa-2xl {
+    	font-size: 50px; /* hoặc kích thước mong muốn */
+	}
+
 </style>
 
 <body class="animsition">
@@ -566,7 +618,7 @@
 							<div class="about-icon">
 								<div style="color: #000;">
 									<img src="images/About-Icon-7.jpg" alt="IMG">							
-									<b id="font-size">Polyester 3:</b>
+									<b id="font-size">Polyester 3%</b>
 									<p>Adds strength and wrinkle resistance, commonly found in stuffed animals and synthetic fabrics used in toys.</p>
 								</div>
 							</div>
@@ -576,7 +628,60 @@
 				</div>
 			</section>
 			
-			
+			<!-- The number of Account -->			
+			<section class="bg0 p-t-75 p-b-120">
+				<div class="container">
+					<h3 style="text-align: center; " class="mtext-111 cl2 p-b-16">
+						Statistical figures
+					</h3>
+					<div class="row">						
+						<!-- Icon 4 -->
+						<div class="col-md-3">
+							<div class="about-icon">
+								<div style="color: #000; text-align: center;">
+									<i style="padding-top: 20px; color: #ff9ee5;" class="fa-regular fa-user fa-2xl"></i>									
+									<div style="padding-top: 20px; font-size: 30px; font-weight: bold;" id="counter-user">1</div>
+									<p style="font-size: 30px;">User</p>
+								</div>
+							</div>
+						</div>
+
+						<!-- Icon 6 -->
+						<div class="col-md-3">
+							<div class="about-icon">
+								<div style="color: #000; text-align: center;">
+									<i style="padding-top: 20px; color: #ff9ee5;" class="fa-duotone fa-teddy-bear fa-2xl"></i>								
+									<div style="padding-top: 20px; font-size: 30px; font-weight: bold;" id="counter-product">1</div>
+									<p style="font-size: 30px;">Product</p>
+								</div>
+							</div>
+						</div>
+
+						<!-- Icon 5 -->
+						<div class="col-md-3">
+							<div class="about-icon">
+								<div style="color: #000; text-align: center;">
+									<i style="padding-top: 20px; color: #ff9ee5;" class="fa-duotone fa-cart-shopping fa-2xl"></i>				
+									<div style="padding-top: 20px; font-size: 30px; font-weight: bold;" id="counter-sold">1</div>
+									<p style="font-size: 30px;">Quantity sold</p>
+								</div>
+							</div>
+						</div>
+						
+						<!-- Icon 7 -->
+						<div class="col-md-3">
+							<div class="about-icon">
+								<div style="color: #000; text-align: center;">										
+									<i style="padding-top: 20px; color: #ff9ee5;" class="fa-solid fa-truck-fast fa-2xl"></i>							
+									<div style="padding-top: 20px; font-size: 30px; font-weight: bold;" id="counter-delivery">1</div>
+									<p style="font-size: 30px;">Successful orders</p>
+								</div>
+							</div>
+						</div>
+						<p></p>
+					</div>
+				</div>
+			</section>
 
 			<div class="row p-b-148">
 				<div class="col-md-7 col-lg-8">
@@ -585,7 +690,7 @@
 							Our Story
 						</h3>
 
-						<p class="stext-113 cl6 p-b-26">
+						<p class="stext-113 cl6 p-b-26">							
 							We, the team at Omacha Store, take pride in being one of the leading destinations for providing quality and diverse toys for children. Our mission is not only to offer entertainment products but also to create enjoyable and educational experiences for every child.
 						</p>
 
@@ -606,7 +711,7 @@
 				<div class="col-11 col-md-5 col-lg-4 m-lr-auto">
 					<div class="how-bor1 ">
 						<div class="hov-img0">
-							<img src="images/about-01.jpg" alt="IMG">
+							<img src="images/About-Toy-1.webp" alt="IMG">
 						</div>
 					</div>
 				</div>
@@ -617,7 +722,7 @@
 				<div class="order-md-1 col-11 col-md-5 col-lg-4 m-lr-auto p-b-30">
 					<div class="how-bor2">
 						<div class="hov-img0">
-							<img src="images/about-02.jpg" alt="IMG">
+							<img src="images/About-Toy-2.webp" alt="IMG">
 						</div>
 					</div>
 				</div>
@@ -669,32 +774,28 @@
 
 				<!-- Team Member 1 -->
 				<div class="col-md-3">
-					<div class="team-member">
-						<div class="bubble-chat">
-							<p>Waiting for your response.</p>
+					<div class="team-member">						
+						<div class="team-member-img">
+							<img src="images/ThuyKhanh.jpg" alt="Team Member 1">							
 						</div>
-						<div style="padding-top:60px ;" class="team-member-img">
-							<img src="images/ThuyKhanh.jpg" alt="Team Member 1">
-						</div>
-						<div class="team-member-info">
-							<p>Nguyễn Thùy Khanh</p>
+						<div class="team-member-info">							
+							<p>Nguyễn Thùy Khanh</p> 
 							<p class="stext-113 cl6">Leader</p>
+							<p style="padding-top: 20px; font-weight: normal;">Welcome to our toy store! Explore a world full of colors and creativity with us.</p>
 						</div>
 					</div>
 				</div>
 
 				<!-- Team Member 2 -->
 				<div class="col-md-3">
-					<div class="team-member">
-						<div class="bubble-chat">
-							<p>Cho tớ xin lỗi cậu vì mình đã làm cậu bị conflict. Tớ biết lỗi của mình ròi. Tha lỗi cho tớ nha</p> <!-- Xoa dong nay nho xoa padding-top:90px-->
-						</div>
+					<div class="team-member">						
 						<div class="team-member-img">
 							<img src="images/HuuDat.jpg" alt="Team Member 2">
 						</div>						
-						<div class="team-member-info">
+						<div class="team-member-info">							
 							<p>Trần Hữu Đạt</p>
 							<p class="stext-113 cl6">Customer Support</p>
+							<p style="padding-top: 20px; font-weight: normal;">Let us help you find joy and happiness through each unique and exciting product</p>
 						</div>
 					</div>
 				</div>
@@ -702,12 +803,13 @@
 				<!-- Team Member 3 -->
 				<div class="col-md-3">
 					<div class="team-member">
-						<div style="padding-top:90px ;" class="team-member-img">
+						<div class="team-member-img">
 							<img src="images/BinhQuyen.jpg" alt="Team Member 3">
 						</div>
-						<div class="team-member-info">
+						<div class="team-member-info">							
 							<p>Trần Bỉnh Quyền</p>
 							<p class="stext-113 cl6">Marketing Manager</p>
+							<p style="padding-top:20px; font-weight: normal;">Experience the joy of childhood with our quality and safe products.</p>
 						</div>
 					</div>
 				</div>
@@ -715,12 +817,13 @@
 				<!-- Team Member 4 -->
 				<div class="col-md-3">
 					<div class="team-member">
-						<div style="padding-top:90px ;" class="team-member-img">
+						<div class="team-member-img">
 							<img src="images/ThuyLinh.jpg" alt="Team Member 4">
 						</div>
-						<div class="team-member-info">
+						<div class="team-member-info">							
 							<p>Dương Thị Thùy Linh</p>
 							<p class="stext-113 cl6">Product Manager</p>
+							<p style="padding-top:20px; font-weight: normal;">With the diversity and variety of our products, you'll surely find the perfect gift for every child in the family!</p>
 						</div>
 					</div>
 				</div>
@@ -917,6 +1020,56 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 				ps.update();
 			})
 		});
+
+		// Hieu ung con so chay
+		let countUser = 0;
+		const counterElementUser = document.getElementById('counter-user');
+
+		const intervalIdUser = setInterval(() => {
+			countUser = countUser + 6;
+			counterElementUser.textContent = countUser;
+			
+			if (countUser >= 500) {
+				clearInterval(intervalIdUser);
+			}
+		}, 15);
+
+		let countDelivery = 0;
+		const counterElementDelivery = document.getElementById('counter-delivery');
+
+		const intervalIdDelivery = setInterval(() => {
+			countDelivery = countDelivery + 9;
+			counterElementDelivery.textContent = countDelivery;
+			
+			if (countDelivery >= 750) {
+				clearInterval(intervalIdDelivery);
+			}
+		}, 15);
+
+		let countProduct = 0;
+		const counterElementProduct = document.getElementById('counter-product');
+
+		const intervalIdProduct = setInterval(() => {
+			countProduct = countProduct + 7;
+			counterElementProduct.textContent = countProduct;
+			
+			if (countProduct >= 650) {
+				clearInterval(intervalIdProduct);
+			}
+		}, 15);
+
+		let countSold = 0;
+		const counterElementSold = document.getElementById('counter-sold');
+
+		const intervalIdSold = setInterval(() => {
+			countSold = countSold + 21;
+			counterElementSold.textContent = countSold;
+			
+			if (countSold >= 2000) {
+				clearInterval(intervalIdSold);
+			}
+		}, 15);
+
 	</script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
