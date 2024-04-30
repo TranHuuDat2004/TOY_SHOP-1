@@ -42,19 +42,13 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
 <style>
-	.zoom-img {
-		width: 300px;
-		height:auto;
-		overflow: hidden;
+	/* CSS for image zoom effect */
+	.zoomable-img {
+		transition: transform 0.3s ease-in-out; /* Add transition for smooth effect */
 	}
 
-	.zoom-img  img {
-		width: 100%;
-		transition: all .3s ease-in-out;
-	}
-
-	.zoom-img img:hover   {
-		transform: scale(1.2);
+	.zoomable-img:hover {
+		transform: scale(1.1); /* Increase scale on hover */
 	}
 	
 	#button-add {
@@ -410,7 +404,7 @@
 								<div class="col-lg-4 col-md-6 mb-4">
 									<a href="blog-detail10.html">
 										<div class="card zoom-img" style="border: none;">
-											<img src="images/8.jpg" alt="IMG-BLOG" style="border-radius: 10px;">
+											<img src="images/8.jpg" alt="IMG-BLOG" style="border-radius: 10px;" class="zoomable-img">
 										</div>
 									</a>
 									<h5 class="card__heading h2"></h5>
@@ -437,7 +431,7 @@
 								<div class="col-lg-4 col-md-6 mb-4">
 									<a href="blog-detail11.html">
 										<div class="card zoom-img" style="border: none;">
-											<img src="images/10.jpg" alt="IMG-BLOG" style="border-radius: 10px;">
+											<img src="images/10.jpg" alt="IMG-BLOG" style="border-radius: 10px; " class="zoomable-img">
 										</div>
 									</a>
 									<h5 class="card__heading h2"></h5>
