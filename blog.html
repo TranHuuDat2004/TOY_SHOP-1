@@ -79,6 +79,16 @@
 		background-color:  black;
 	}
 
+	/* Định dạng hình ảnh sản phẩm */
+	.header-cart-item-img {
+		flex: 0 0 auto; /* Không co giãn hình ảnh */
+		width: 100px; /* Kích thước chiều rộng cố định */
+		height: auto; /* Chiều cao tự động */
+		margin-right: 20px; /* Khoảng cách giữa hình ảnh và văn bản */
+	}
+
+
+
 </style>
 </head>
 <body class="animsition">
@@ -312,7 +322,6 @@
 			</div>
 		</div>
 	</header>
-
 <!-- Cart -->
 <div class="wrap-header-cart js-panel-cart">
     <div class="s-full js-hide-cart"></div>
@@ -330,14 +339,14 @@
 
         <div class="header-cart-content flex-w js-pscroll">
             <ul class="header-cart-wrapitem w-full">
-                 <!-- Product 1 -->
-                 <li class="header-cart-item flex-w flex-t m-b-12">
-                    <div class="header-cart-item">
-                        <img src="images/dog.jpg" alt="White Shirt Pleat" class="product-image" style="width: 100px; height: auto;">
+                <!-- Product 1 -->
+                <li class="header-cart-item flex-w flex-t m-b-12">
+                    <div class="header-cart-item-img">
+                        <img src="images/dog.jpg" alt="Converse All Star" style="width: 100px; height: auto;">
                     </div>
                     <div class="header-cart-item-txt p-t-8">
                         <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-                            White Shirt Pleat
+                            Converse All Star
                         </a>
                         <span class="header-cart-item-info">$19.00</span>
                         <!-- Trash icon for removing product -->
@@ -355,11 +364,11 @@
                         </div>
                     </div>
                 </li>
-        
+
                 <!-- Product 2 -->
                 <li class="header-cart-item flex-w flex-t m-b-12">
                     <div class="header-cart-item-img">
-                        <img src="images/robot.jpg" alt="Converse All Star" style="width: 100px; height: auto;">
+                        <img src="images/02.jpg" alt="Converse All Star" style="width: 100px; height: auto;">
                     </div>
                     <div class="header-cart-item-txt p-t-8">
                         <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
@@ -381,11 +390,11 @@
                         </div>
                     </div>
                 </li>
-        
+
                 <!-- Product 3 -->
                 <li class="header-cart-item flex-w flex-t m-b-12">
                     <div class="header-cart-item-img">
-                        <img src="images/deer.png" alt="Nixon Porter Leather" style="width: 100px; height: auto;">
+                        <img src="images/item-cart-03.jpg" alt="Nixon Porter Leather" style="width: 100px; height: auto;">
                     </div>
                     <div class="header-cart-item-txt p-t-8">
                         <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
@@ -408,12 +417,12 @@
                     </div>
                 </li>
             </ul>
-        
+
             <div class="w-full">
                 <div class="header-cart-total w-full p-tb-40">
                     Total: $75.00
                 </div>
-        
+
                 <div class="header-cart-buttons flex-w w-full">
                     <a href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
                         View Cart
@@ -424,10 +433,10 @@
                 </div>
             </div>
         </div>
-        
-        </div>
+
     </div>
 </div>
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
