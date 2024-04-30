@@ -42,7 +42,15 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
 <style>
-	
+	.blog-articles {
+    	grid-template-columns: repeat(2, 1fr);
+	}
+	.full-unstyled-link {
+		/* text-decoration: none; */
+		color: currentColor;
+		/* display: block; */
+		display: inline-block;
+	}
 	#button-add {
 		border-radius: 10px;
 		padding: 10px;
@@ -392,193 +400,241 @@
 						<!-- item blog -->
 						<div class="container">
 							<div class="row">
-								<div class="mb-5 col-xl-4 col-lg-4 col-md-4 col-sm-6">
-									<div class="card" style="border: none;">
-										<img href="blog-detail1.html" src="images/blog-04.jpg" alt="IMG-BLOG" style="border-radius: 10px;">
-									</div>
-										<h9>John Mathew | 14 Feb 2024</h9>
-										<p></p>
-										<div class="text-left">
-											<h5 class="p-b-15">
-												<a href="blog-detail1.html" class="ltext-111 cl2 hov-cl1 trans-04">
-													Cherishing Your Kids Special Day With Their Ultimate Faves
-												</a>
-											</h5>
-											<p>Ac turpis egestas sed tempus urna et pharetra. Ultrices tincidunt arcu non sodales. Lacus vestibulum...
-											<div class="block1-txt-child2 p-b-4 trans-05">
-												<a id="button-add" href="blog-detail1.html" class="block1-btn stext-101 cl0 trans-09">
-													Read More
-												</a>
-											</div>
+								<!-- First Column -->
+								<div class="col-lg-4 col-md-6 mb-4">
+									<a href="blog-detail1.html">
+										<div class="card" style="border: none;">
+											<img src="images/blog-04.jpg" alt="IMG-BLOG" style="border-radius: 10px;">
 										</div>
+									</a>
+									<h5 class="card__heading h2"></h5>
+									<h9>John Mathew | 14 Feb 2024</h9>
+									<p></p>
+									<div class="text-left">
+										<h5 class="card__heading h2"></h5>
+										<h5 class="p-b-15">
+											<a href="blog-detail1.html" class="ltext-111 cl2 hov-cl1 trans-04">
+												Making Your Kids' Special Day Memorable
+											</a>
+										</h5>
+										<p>Ac turpis egestas sed tempus urna et pharetra. Ultrices tincidunt arcu non sodales. Lacus vestibulum...
+										<div class="block1-txt-child2 p-b-4 trans-05">
+											<a id="button-add" href="blog-detail1.html" class="block1-btn stext-101 cl0 trans-09">
+												Read More
+											</a>
+										</div>
+									</div>
 								</div>
 								
-								<div class="mb-5 col-xl-4 col-lg-4 col-md-4 col-sm-6">
-									<div class="card" style="border: none;">
-										<img href="blog-detail2.html" src="images/blog-05.jpg" alt="IMG-BLOG" style="border-radius: 10px;">
-									</div>
-										<h9>John Mathew | 14 Feb 2024</h9>
-										<p></p>
-										<div class="text-left">
-											<h5 class="p-b-15">
-												<a href="blog-detail2.html" class="ltext-111 cl2 hov-cl1 trans-04">
-													How Do Toys Impact a Child's Learning
-												</a>
-											</h5>
-											<p>Ac turpis egestas sed tempus urna et pharetra. Ultrices tincidunt arcu non sodales. Lacus vestibulum...
-											<div class="block1-txt-child2 p-b-4 trans-05">
-												<a id="button-add" href="blog-detail2.html" class="block1-btn stext-101 cl0 trans-09">
-													Read More
-												</a>
-											</div>
+								<!-- Second Column -->
+								<div class="col-lg-4 col-md-6 mb-4">
+									<a href="blog-detail2.html">
+										<div class="card" style="border: none;">
+											<img src="images/blog-05.jpg" alt="IMG-BLOG" style="border-radius: 10px;">
 										</div>
+									</a>
+									<h5 class="card__heading h2"></h5>
+									<h9>John Mathew | 14 Feb 2024</h9>
+									<p></p>
+									<div class="text-left">
+										<h5 class="card__heading h2"></h5>
+										<h5 class="p-b-15">
+											<a href="blog-detail2.html" class="ltext-111 cl2 hov-cl1 trans-04">
+												What Are the Best Toys for Child Development
+											</a>
+										</h5>
+										<p>Ac turpis egestas sed tempus urna et pharetra. Ultrices tincidunt arcu non sodales. Lacus vestibulum...
+										<div class="block1-txt-child2 p-b-4 trans-05">
+											<a id="button-add" href="blog-detail2.html" class="block1-btn stext-101 cl0 trans-09">
+												Read More
+											</a>
+										</div>
+									</div>
 								</div>
 								
-								<div class="mb-5 col-xl-4 col-lg-4 col-md-4 col-sm-6">
-									<div class="card" style="border: none;">
-										<img href="blog-detail3.html" src="images/blog-06.jpg" alt="IMG-BLOG" style="border-radius: 10px;">
-									</div>
-										<h9>John Mathew | 14 Feb 2024</h9>
-										<p></p>
-										<div class="text-left">
-											<h5 class="p-b-15">
-												<a href="blog-detail3.html" class="ltext-111 cl2 hov-cl1 trans-04">
-													Build Worlds, Collect Pieces With Your Young Ones
-												</a>
-											</h5>
-											<p>Ac turpis egestas sed tempus urna et pharetra. Ultrices tincidunt arcu non sodales. Lacus vestibulum...
-											<div class="block1-txt-child2 p-b-4 trans-05">
-												<a id="button-add" href="blog-detail3.html" class="block1-btn stext-101 cl0 trans-09">
-													Read More
-												</a>
-											</div>
+								<!-- Third Column -->
+								<div class="col-lg-4 col-md-6 mb-4">
+									<a href="blog-detail3.html">
+										<div class="card" style="border: none;">
+											<img src="images/blog-06.jpg" alt="IMG-BLOG" style="border-radius: 10px;">
 										</div>
+									</a>
+									<h5 class="card__heading h2"></h5>
+									<h9>John Mathew | 14 Feb 2024</h9>
+									<p></p>
+									<div class="text-left">
+										<h5 class="card__heading h2"></h5>
+										<h5 class="p-b-15">
+											<a href="blog-detail3.html" class="ltext-111 cl2 hov-cl1 trans-04">
+												How Do Toys Impact a Child's Learning
+											</a>
+										</h5>
+										<p>Ac turpis egestas sed tempus urna et pharetra. Ultrices tincidunt arcu non sodales. Lacus vestibulum...
+										<div class="block1-txt-child2 p-b-4 trans-05">
+											<a id="button-add" href="blog-detail3.html" class="block1-btn stext-101 cl0 trans-09">
+												Read More
+											</a>
+										</div>
+									</div>
 								</div>
 
-								<div class="mb-5 col-xl-4 col-lg-4 col-md-4 col-sm-6">
-									<div class="card" style="border: none;">
-										<img href="blog-detail4.html" src="images/02.jpg" alt="IMG-BLOG" style="border-radius: 10px;">
-									</div>
-										<h9>John Mathew | 14 Feb 2024</h9>
-										<p></p>
-										<div class="text-left">
-											<h5 class="p-b-15">
-												<a href="blog-detail4.html" class="ltext-111 cl2 hov-cl1 trans-04">
-													Build Worlds, Collect Pieces With Your Young Ones
-												</a>
-											</h5>
-											<p>Ac turpis egestas sed tempus urna et pharetra. Ultrices tincidunt arcu non sodales. Lacus vestibulum...
-											<div class="block1-txt-child2 p-b-4 trans-05">
-												<a id="button-add" href="blog-detail4.html" class="block1-btn stext-101 cl0 trans-09">
-													Read More
-												</a>
-											</div>
+
+								<!-- Fourth Column -->
+								<div class="col-lg-4 col-md-6 mb-4">
+									<a href="blog-detail4.html">
+										<div class="card" style="border: none;">
+											<img src="images/02.jpg" alt="IMG-BLOG" style="border-radius: 10px;">
 										</div>
-								</div>
-								<!-- Add more similar divs for additional items -->
-								<div class="mb-5 col-xl-4 col-lg-4 col-md-4 col-sm-6">
-									<div class="card" style="border: none;">
-										<img href="blog-detail5.html" src="images/3.jpg" alt="IMG-BLOG" style="border-radius: 10px;">
-									</div>
-										<h9>John Mathew | 14 Feb 2024</h9>
-										<p></p>
-										<div class="text-left">
-											<h5 class="p-b-15">
-												<a href="blog-detail5.html" class="ltext-111 cl2 hov-cl1 trans-04">
-													The Joys of Being a Parent: A Guide to Parenting
-												</a>
-											</h5>
-											<p>Ac turpis egestas sed tempus urna et pharetra. Ultrices tincidunt arcu non sodales. Lacus vestibulum...
-											<div class="block1-txt-child2 p-b-4 trans-05">
-												<a id="button-add" href="blog-detail5.html" class="block1-btn stext-101 cl0 trans-09">
-													Read More
-												</a>
-											</div>
+									</a>
+									<h5 class="card__heading h2"></h5>
+									<h9>John Mathew | 14 Feb 2024</h9>
+									<p></p>
+									<div class="text-left">
+										<h5 class="card__heading h2"></h5>
+										<h5 class="p-b-15">
+											<a href="blog-detail4.html" class="ltext-111 cl2 hov-cl1 trans-04">
+												Build Worlds, Collect Pieces With Your Young Ones
+											</a>
+										</h5>
+										<p>Ac turpis egestas sed tempus urna et pharetra. Ultrices tincidunt arcu non sodales. Lacus vestibulum...
+										<div class="block1-txt-child2 p-b-4 trans-05">
+											<a id="button-add" href="blog-detail4.html" class="block1-btn stext-101 cl0 trans-09">
+												Read More
+											</a>
 										</div>
+									</div>
 								</div>
 
-								<div class="mb-5 col-xl-4 col-lg-4 col-md-4 col-sm-6">
-									<div class="card" style="border: none;">
-										<img href="blog-detail6.html" src="images/4.jpg" alt="IMG-BLOG" style="border-radius: 10px;">
-									</div>
-										<h9>John Mathew | 14 Feb 2024</h9>
-										<p></p>
-										<div class="text-left">
-											<h5 class="p-b-15">
-												<a href="blog-detail6.html" class="ltext-111 cl2 hov-cl1 trans-04">
-													The Ultimate Guide to Buying and Caring for Child's Toy
-												</a>
-											</h5>
-											<p>Ac turpis egestas sed tempus urna et pharetra. Ultrices tincidunt arcu non sodales. Lacus vestibulum...
-											<div class="block1-txt-child2 p-b-4 trans-05">
-												<a id="button-add" href="blog-detail6.html" class="block1-btn stext-101 cl0 trans-09">
-													Read More
-												</a>
-											</div>
+								<!-- Fifth Column -->
+								<div class="col-lg-4 col-md-6 mb-4">
+									<a href="blog-detail5.html">
+										<div class="card" style="border: none;">
+											<img src="images/3.jpg" alt="IMG-BLOG" style="border-radius: 10px;">
 										</div>
+									</a>
+									<h5 class="card__heading h2"></h5>
+									<h9>John Mathew | 14 Feb 2024</h9>
+									<p></p>
+									<div class="text-left">
+										<h5 class="card__heading h2"></h5>
+										<h5 class="p-b-15">
+											<a href="blog-detail5.html" class="ltext-111 cl2 hov-cl1 trans-04">
+												The Joys of Being a Parent: A Guide to Parenting
+											</a>
+										</h5>
+										<p>Ac turpis egestas sed tempus urna et pharetra. Ultrices tincidunt arcu non sodales. Lacus vestibulum...
+										<div class="block1-txt-child2 p-b-4 trans-05">
+											<a id="button-add" href="blog-detail5.html" class="block1-btn stext-101 cl0 trans-09">
+												Read More
+											</a>
+										</div>
+									</div>
 								</div>
 
-								<div class="mb-5 col-xl-4 col-lg-4 col-md-4 col-sm-6">
-									<div class="card" style="border: none;">
-										<img href="blog-detail7.html" src="images/5.jpg" alt="IMG-BLOG" style="border-radius: 10px;">
-									</div>
-										<h9>John Mathew | 14 Feb 2024</h9>
-										<p></p>
-										<div class="text-left">
-											<h5 class="p-b-15">
-												<a href="blog-detail7.html" class="ltext-111 cl2 hov-cl1 trans-04">
-													When a Little Toy Brings Everyone Together
-												</a>
-											</h5>
-											<p>Ac turpis egestas sed tempus urna et pharetra. Ultrices tincidunt arcu non sodales. Lacus vestibulum...
-											<div class="block1-txt-child2 p-b-4 trans-05">
-												<a id="button-add" href="blog-detail7.html" class="block1-btn stext-101 cl0 trans-09">
-													Read More
-												</a>
-											</div>
+								<!-- Sixth Column -->
+								<div class="col-lg-4 col-md-6 mb-4">
+									<a href="blog-detail6.html">
+										<div class="card" style="border: none;">
+											<img src="images/4.jpg" alt="IMG-BLOG" style="border-radius: 10px;">
 										</div>
+									</a>
+									<h5 class="card__heading h2"></h5>
+									<h9>John Mathew | 14 Feb 2024</h9>
+									<p></p>
+									<div class="text-left">
+										<h5 class="card__heading h2"></h5>
+										<h5 class="p-b-15">
+											<a href="blog-detail6.html" class="ltext-111 cl2 hov-cl1 trans-04">
+												Essential Tips for Buying and Caring for Kids' Toys
+											</a>
+										</h5>
+										<p>Ac turpis egestas sed tempus urna et pharetra. Ultrices tincidunt arcu non sodales. Lacus vestibulum...
+										<div class="block1-txt-child2 p-b-4 trans-05">
+											<a id="button-add" href="blog-detail6.html" class="block1-btn stext-101 cl0 trans-09">
+												Read More
+											</a>
+										</div>
+									</div>
 								</div>
 
-								<div class="mb-5 col-xl-4 col-lg-4 col-md-4 col-sm-6">
-									<div class="card" style="border: none;">
-										<img href="blog-detail8.html" src="images/6.jpg" alt="IMG-BLOG" style="border-radius: 10px;">
-									</div>
-										<h9>John Mathew | 14 Feb 2024</h9>
-										<p></p>
-										<div class="text-left">
-											<h5 class="p-b-15">
-												<a href="blog-detail8.html" class="ltext-111 cl2 hov-cl1 trans-04">
-													Fun Ways to Help Your Child Learn and Grow
-												</a>
-											</h5>
-											<p>Ac turpis egestas sed tempus urna et pharetra. Ultrices tincidunt arcu non sodales. Lacus vestibulum...
-											<div class="block1-txt-child2 p-b-4 trans-05">
-												<a id="button-add" href="blog-detail8.html" class="block1-btn stext-101 cl0 trans-09">
-													Read More
-												</a>
-											</div>
+
+								<!-- Seventh Column -->
+								<div class="col-lg-4 col-md-6 mb-4">
+									<a href="blog-detail7.html">
+										<div class="card" style="border: none;">
+											<img src="images/5.jpg" alt="IMG-BLOG" style="border-radius: 10px;">
 										</div>
+									</a>
+									<h5 class="card__heading h2"></h5>
+									<h9>John Mathew | 14 Feb 2024</h9>
+									<p></p>
+									<div class="text-left">
+										<h5 class="card__heading h2"></h5>
+										<h5 class="p-b-15">
+											<a href="blog-detail7.html" class="ltext-111 cl2 hov-cl1 trans-04">
+												When a Little Toy Brings Everyone Together
+											</a>
+										</h5>
+										<p>Ac turpis egestas sed tempus urna et pharetra. Ultrices tincidunt arcu non sodales. Lacus vestibulum...
+										<div class="block1-txt-child2 p-b-4 trans-05">
+											<a id="button-add" href="blog-detail7.html" class="block1-btn stext-101 cl0 trans-09">
+												Read More
+											</a>
+										</div>
+									</div>
 								</div>
 
-								<div class="mb-5 col-xl-4 col-lg-4 col-md-4 col-sm-6">
-									<div class="card" style="border: none;">
-										<img href="blog-detail9.html" src="images/7.jpg" alt="IMG-BLOG" style="border-radius: 10px;">
-									</div>
-										<h9>John Mathew | 14 Feb 2024</h9>
-										<p></p>
-										<div class="text-left">
-											<h5 class="p-b-15">
-												<a href="blog-detail9.html" class="ltext-111 cl2 hov-cl1 trans-04">
-													Fun Ways to Help Your Child Learn and Grow
-												</a>
-											</h5>
-											<p>Ac turpis egestas sed tempus urna et pharetra. Ultrices tincidunt arcu non sodales. Lacus vestibulum...
-											<div class="block1-txt-child2 p-b-4 trans-05">
-												<a id="button-add" href="blog-detail9.html" class="block1-btn stext-101 cl0 trans-09">
-													Read More
-												</a>
-											</div>
+								<!-- Eighth Column -->
+								<div class="col-lg-4 col-md-6 mb-4">
+									<a href="blog-detail8.html">
+										<div class="card" style="border: none;">
+											<img src="images/6.jpg" alt="IMG-BLOG" style="border-radius: 10px;">
 										</div>
+									</a>
+									<h5 class="card__heading h2"></h5>
+									<h9>John Mathew | 14 Feb 2024</h9>
+									<p></p>
+									<div class="text-left">
+										<h5 class="card__heading h2"></h5>
+										<h5 class="p-b-15">
+											<a href="blog-detail8.html" class="ltext-111 cl2 hov-cl1 trans-04">
+												Fun Ways to Help Your Child Learn and Grow
+											</a>
+										</h5>
+										<p>Ac turpis egestas sed tempus urna et pharetra. Ultrices tincidunt arcu non sodales. Lacus vestibulum...
+										<div class="block1-txt-child2 p-b-4 trans-05">
+											<a id="button-add" href="blog-detail8.html" class="block1-btn stext-101 cl0 trans-09">
+												Read More
+											</a>
+										</div>
+									</div>
+								</div>
+
+
+								<!-- Ninth Column -->
+								<div class="col-lg-4 col-md-6 mb-4">
+									<a href="blog-detail9.html">
+										<div class="card" style="border: none;">
+											<img src="images/7.jpg" alt="IMG-BLOG" style="border-radius: 10px;">
+										</div>
+									</a>
+									<h5 class="card__heading h2"></h5>
+									<h9>John Mathew | 14 Feb 2024</h9>
+									<p></p>
+									<div class="text-left">
+										<h5 class="card__heading h2"></h5>
+										<h5 class="p-b-15">
+											<a href="blog-detail9.html" class="ltext-111 cl2 hov-cl1 trans-04">
+												Fun Ways to Help Your Child Learn and Grow
+											</a>
+										</h5>
+										<p>Ac turpis egestas sed tempus urna et pharetra. Ultrices tincidunt arcu non sodales. Lacus vestibulum...
+										<div class="block1-txt-child2 p-b-4 trans-05">
+											<a id="button-add" href="blog-detail9.html" class="block1-btn stext-101 cl0 trans-09">
+												Read More
+											</a>
+										</div>
+									</div>
 								</div>
 
 							</div>
@@ -653,7 +709,7 @@
 								
 									<div class="size-215 flex-col-t p-t-8">
 										<a href="blog-detail1.html" class="stext-116 cl8 hov-cl1 trans-04">
-											Cherishing Your Kids Special Day With Their Ultimate Faves
+											Making Your Kids' Special Day Memorable
 										</a>
 										<span class="stext-116 cl6 p-t-20">
 											John Mathew | 14 Feb 2024
@@ -1025,6 +1081,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	</script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 </html>
