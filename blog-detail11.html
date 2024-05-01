@@ -42,8 +42,18 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
 <style>
-	
-	#button-add {
+	#button-cart {
+		border-radius: 10px;
+		padding: 10px;
+		background-color:black;
+		color: white;
+	}
+
+	#button-cart:hover {
+		background-color: #F4538A;
+	} 
+
+#button-add {
 		border-radius: 8px;
 		padding: 10px;
 		background-color: black;
@@ -55,6 +65,19 @@
 		background-color: #F4538A;
 	}
 
+	.btn-remove-product {
+    cursor: pointer; /* Đổi con trỏ chuột thành kiểu pointer khi di chuột qua */
+	}
+
+	.btn-remove-product i {
+		color: #F4538A; /* Đổi màu của biểu tượng thành màu đỏ */
+	}
+	/* Định dạng hình ảnh sản phẩm */
+	.header-cart-item-img {
+		flex: 0 0 auto; /* Không co giãn hình ảnh */
+		width: 100px; /* Kích thước chiều rộng cố định */
+		height: auto; /* Chiều cao tự động */
+	}
 </style>
 
 <body class="animsition">
@@ -288,90 +311,165 @@
 		</div>
 	</header>
 
-	<!-- Cart -->
-	<div class="wrap-header-cart js-panel-cart">
-		<div class="s-full js-hide-cart"></div>
+<!-- Cart -->
+<div class="wrap-header-cart js-panel-cart">
+	<div class="s-full js-hide-cart"></div>
 
-		<div class="header-cart flex-col-l p-l-65 p-r-25">
-			<div class="header-cart-title flex-w flex-sb-m p-b-8">
-				<span class="mtext-103 cl2">
-					Your Cart
-				</span>
+	<div class="header-cart flex-col-l p-l-65 p-r-25">
+		<div class="header-cart-title flex-w flex-sb-m p-b-8">
+			<span class="mtext-103 cl2">
+				Your Cart
+			</span>
 
-				<div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
-					<i class="zmdi zmdi-close"></i>
-				</div>
+			<div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
+				<i class="zmdi zmdi-close"></i>
 			</div>
+		</div>
+		
+		<div class="header-cart-content flex-w js-pscroll">
+			<ul class="header-cart-wrapitem w-full">
+				<li class="header-cart-item flex-w flex-t m-b-12">
+					<div class="header-cart-item-img">
+						<img src="images/dog.jpg" alt="Nixon Porter Leather" style="width: 100px; height: auto;">
+					</div>
+					<div class="header-cart-item-txt p-t-8">
+						<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+							Dog pillow
+						</a>
+						<span class="header-cart-item-info">$63.16</span>
+						<!-- Trash icon for removing product -->
+						<div class="btn-remove-product">
+							<i class="fs-24 zmdi zmdi-delete"></i>
+						</div>
+						<div class="wrap-num-product flex-w m-r-20 m-tb-10">
+							<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+								<i class="fs-16 zmdi zmdi-minus"></i>
+							</div>
+							<input id="product3-quantity" class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
+							<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+								<i class="fs-16 zmdi zmdi-plus"></i>
+							</div>
+						</div>
+					</div>
+				</li>										
+
+				<li class="header-cart-item flex-w flex-t m-b-12">
+					<div class="header-cart-item-img">
+						<img src="images/deer.png" alt="Nixon Porter Leather" style="width: 100px; height: auto;">
+					</div>
+					<div class="header-cart-item-txt p-t-8">
+						<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+							Deer toy
+						</a>
+						<span class="header-cart-item-info">$34.75</span>
+						<!-- Trash icon for removing product -->
+						<div class="btn-remove-product">
+							<i class="fs-24 zmdi zmdi-delete"></i>
+						</div>
+						<div class="wrap-num-product flex-w m-r-20 m-tb-10">
+							<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+								<i class="fs-16 zmdi zmdi-minus"></i>
+							</div>
+							<input id="product3-quantity" class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
+							<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+								<i class="fs-16 zmdi zmdi-plus"></i>
+							</div>
+						</div>
+					</div>
+				</li>	
+
+				<li class="header-cart-item flex-w flex-t m-b-12">
+					<div class="header-cart-item-img">
+						<img src="images/robot.jpg" alt="Nixon Porter Leather" style="width: 100px; height: auto;">
+					</div>
+					<div class="header-cart-item-txt p-t-8">
+						<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+							Robot
+						</a>
+						<span class="header-cart-item-info">$18.96</span>
+						<!-- Trash icon for removing product -->
+						<div class="btn-remove-product">
+							<i class="fs-24 zmdi zmdi-delete"></i>
+						</div>
+						<div class="wrap-num-product flex-w m-r-20 m-tb-10">
+							<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+								<i class="fs-16 zmdi zmdi-minus"></i>
+							</div>
+							<input id="product3-quantity" class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
+							<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+								<i class="fs-16 zmdi zmdi-plus"></i>
+							</div>
+						</div>
+					</div>
+				</li>	
+			</ul>
 			
-			<div class="header-cart-content flex-w js-pscroll">
-				<ul class="header-cart-wrapitem w-full">
-					<li class="header-cart-item flex-w flex-t m-b-12">
-						<div class="header-cart-item-img">
-							<img src="images/item-cart-01.jpg" alt="IMG">
-						</div>
+			<div class="w-full">
+				<div class="header-cart-total w-full p-tb-40">
+					Total: $75.00
+				</div>
 
-						<div class="header-cart-item-txt p-t-8">
-							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-								White Shirt Pleat
-							</a>
+				<div class="header-cart-buttons flex-w w-full">
+					<a id="button-cart" href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
+						View Cart
+					</a>
 
-							<span class="header-cart-item-info">
-								1 x $19.00
-							</span>
-						</div>
-					</li>
-
-					<li class="header-cart-item flex-w flex-t m-b-12">
-						<div class="header-cart-item-img">
-							<img src="images/item-cart-02.jpg" alt="IMG">
-						</div>
-
-						<div class="header-cart-item-txt p-t-8">
-							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-								Converse All Star
-							</a>
-
-							<span class="header-cart-item-info">
-								1 x $39.00
-							</span>
-						</div>
-					</li>
-
-					<li class="header-cart-item flex-w flex-t m-b-12">
-						<div class="header-cart-item-img">
-							<img src="images/item-cart-03.jpg" alt="IMG">
-						</div>
-
-						<div class="header-cart-item-txt p-t-8">
-							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-								Nixon Porter Leather
-							</a>
-
-							<span class="header-cart-item-info">
-								1 x $17.00
-							</span>
-						</div>
-					</li>
-				</ul>
-				
-				<div class="w-full">
-					<div class="header-cart-total w-full p-tb-40">
-						Total: $75.00
-					</div>
-
-					<div class="header-cart-buttons flex-w w-full">
-						<a href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
-							View Cart
-						</a>
-
-						<a href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
-							Check Out
-						</a>
-					</div>
+					<a id="button-cart" href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
+						Check Out
+					</a>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		const quantityInputs = document.querySelectorAll('.num-product');
+		const decreaseButtons = document.querySelectorAll('.btn-num-product-down');
+		const increaseButtons = document.querySelectorAll('.btn-num-product-up');
+		const removeButtons = document.querySelectorAll('.btn-remove-product');
+
+		// Add event listeners to each decrease button
+		decreaseButtons.forEach((button, index) => {
+			button.addEventListener('click', () => {
+				if (quantityInputs[index].value > 1) {
+					quantityInputs[index].value = parseInt(quantityInputs[index].value) - 1;
+					updateTotalPrice();
+				}
+			});
+		});
+
+		// Add event listeners to each increase button
+		increaseButtons.forEach((button, index) => {
+			button.addEventListener('click', () => {
+				quantityInputs[index].value = parseInt(quantityInputs[index].value) + 1;
+				updateTotalPrice();
+			});
+		});
+
+		// Add event listeners to each remove button
+		removeButtons.forEach((button, index) => {
+			button.addEventListener('click', () => {
+				const itemToRemove = button.closest('.header-cart-item');
+				itemToRemove.remove();
+				updateTotalPrice();
+			});
+		});
+
+		// Function to update total price
+		function updateTotalPrice() {
+			let totalPrice = 0;
+			document.querySelectorAll('.header-cart-item').forEach((item, index) => {
+				const priceString = item.querySelector('.header-cart-item-info').textContent.trim().substring(1);
+				const price = parseFloat(priceString);
+				const quantity = parseInt(quantityInputs[index].value);
+				totalPrice += price * quantity;
+			});
+			document.querySelector('.header-cart-total').textContent = `Total: $${totalPrice.toFixed(2)}`;
+		}
+	});
+</script>
 
 
 	<!-- breadcrumb -->
@@ -442,11 +540,11 @@
 							</h4>
 
 							<p class="stext-117 cl6 p-b-26">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet est vel orci luctus sollicitudin. Duis eleifend vestibulum justo, varius semper lacus condimentum dictum. Donec pulvinar a magna ut malesuada. In posuere felis diam, vel sodales metus accumsan in. Duis viverra dui eu pharetra pellentesque. Donec a eros leo. Quisque sed ligula vitae lorem efficitur faucibus. Praesent sit amet imperdiet ante. Nulla id tellus auctor, dictum libero a, malesuada nisi. Nulla in porta nibh, id vestibulum ipsum. Praesent dapibus tempus erat quis aliquet. Donec ac purus id sapien condimentum feugiat.
+								Toys wield an incredible influence on the minds of children, shaping their development in profound ways. These playthings are not merely objects for amusement but serve as essential tools for learning and growth. Through play, children engage in imaginative exploration, honing their creativity and problem-solving skills. From building blocks to pretend playsets, toys provide fertile ground for children to develop crucial cognitive and social abilities.
 							</p>
 
 							<p class="stext-117 cl6 p-b-26">
-								Praesent vel mi bibendum, finibus leo ac, condimentum arcu. Pellentesque sem ex, tristique sit amet suscipit in, mattis imperdiet enim. Integer tempus justo nec velit fringilla, eget eleifend neque blandit. Sed tempor magna sed congue auctor. Mauris eu turpis eget tortor ultricies elementum. Phasellus vel placerat orci, a venenatis justo. Phasellus faucibus venenatis nisl vitae vestibulum. Praesent id nibh arcu. Vivamus sagittis accumsan felis, quis vulputate
+								Moreover, toys serve as educational aids tailored to specific developmental needs. Whether it's a puzzle to challenge their problem-solving abilities or a musical instrument to foster a love for music, each toy offers unique opportunities for learning. By interacting with these toys, children not only refine their motor skills but also cultivate a thirst for knowledge and a passion for exploration. Thus, the impact of toys on young minds is undeniable, shaping the foundation of their future learning and development.
 							</p>
 						</div>
 
