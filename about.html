@@ -145,9 +145,11 @@
 		font-size: 20px;
 	}
 
-	#background-gray{
-		background-color: rgb(231, 231, 231);
-		width: 100%;
+	.background-gray{
+		background-color: rgb(231, 231, 231, 0.1);
+		padding: 30px;
+		background-image: url("images/background-image.png");
+		background-position: center;		
 	}
 
 	/* My Apology */
@@ -207,6 +209,11 @@
 		opacity: 1; /* Hiển thị thông điệp khi hover */
 	}
 
+	/* Button Facebook */
+	.block2-btn{
+		background-color: #FFEFEF;
+	}
+
 	@keyframes countup {
 		from {
 			opacity: 0;
@@ -216,10 +223,12 @@
 		}
 	}
 
+	/* Counter Number */
 	.counter-up {
 		animation: countup 1.5s ease-in-out;
 	}
 
+	/* Resize Icon fa-2xl */
 	.fa-2xl {
     	font-size: 50px; /* hoặc kích thước mong muốn */
 	}
@@ -530,8 +539,8 @@
 
 
 	<!-- Title page -->
-	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/bg-01.jpg');">
-		<h2 class="ltext-105 cl0 txt-center">
+	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/background-image.png');">
+		<h2 style="color: #000;" class="ltext-105 cl0 txt-center">
 			About Us
 		</h2>
 	</section>	
@@ -543,7 +552,7 @@
 	<section class="bg0 p-t-75 p-b-120">
 		<div class="container">
 			<!-- Why choose toy time toys & games -->
-			<div class="row p-b-148">
+			<div class="row p-b-30">
 				<div class="col-md-7 col-lg-8">
 					<div class="p-t-7 p-r-85 p-r-15-lg p-r-0-md">
 						<h3 style="padding-left: 10%;"  class="mtext-111 cl2 p-b-16">
@@ -557,7 +566,7 @@
 
 						<div id="about-icon" class="stext-113 cl6 p-b-26">
 							<img src="images/About-Icon-2.webp" alt="IMG" height="50px">
-							<b id="font-size">More Than 60k+ Unique Products: </b>									
+							<b id="font-size">More Than 60+ Unique Products: </b>									
 						</div>
 
 						<div id="about-icon" class="stext-113 cl6 p-b-26">
@@ -577,16 +586,16 @@
 			</div>
 
 			<!-- Material Product -->			
-			<section class="bg0 p-t-75 p-b-120">
+			<section class="bg0 p-t-75 p-b-30">
 				<div class="container">
-					<h3 style="text-align: center; " class="mtext-111 cl2 p-b-16">
+					<h3 style="text-align: center; margin-bottom: 10px;" class="mtext-111 cl2 p-b-16">
 						Materials in toys
 					</h3>
-					<div class="row">						
+					<div class="row background-gray">						
 						<!-- Icon 4 -->
-						<div class="col-md-3">
+						<div class="col-md-3 ">
 							<div class="about-icon">
-								<div style="color: #000;">
+								<div style="color: #000; margin: 20px;">
 									<img src="images/About-Icon-4.webp" alt="IMG">							
 									<b id="font-size">Cotton 76%</b>
 									<p>Soft and breathable, making it suitable for cuddly toys and fabric-based toys.</p>
@@ -596,7 +605,7 @@
 						<!-- Icon 5 -->
 						<div class="col-md-3">
 							<div class="about-icon">
-								<div style="color: #000;">
+								<div style="color: #000; margin: 20px;">
 									<img src="images/About-Icon-5.webp" alt="IMG">							
 									<b id="font-size">Wool 11%</b>
 									<p>Provides warmth and texture, commonly used in plush toys and knit items.</p>
@@ -606,7 +615,7 @@
 						<!-- Icon 6 -->
 						<div class="col-md-3">
 							<div class="about-icon">
-								<div style="color: #000;">
+								<div style="color: #000; margin: 20px;">
 									<img src="images/About-Icon-6.webp" alt="IMG">							
 									<b id="font-size">Rubber 10%</b>
 									<p>Offers elasticity and durability, often used in bouncing balls and outdoor toys.</p>
@@ -616,7 +625,7 @@
 						<!-- Icon 7 -->
 						<div class="col-md-3">
 							<div class="about-icon">
-								<div style="color: #000;">
+								<div style="color: #000; margin: 20px;">
 									<img src="images/About-Icon-7.jpg" alt="IMG">							
 									<b id="font-size">Polyester 3%</b>
 									<p>Adds strength and wrinkle resistance, commonly found in stuffed animals and synthetic fabrics used in toys.</p>
@@ -629,19 +638,19 @@
 			</section>
 			
 			<!-- The number of Account -->			
-			<section class="bg0 p-t-75 p-b-120">
+			<section class="bg0 p-t-75 p-b-30">
 				<div class="container">
-					<h3 style="text-align: center; " class="mtext-111 cl2 p-b-16">
+					<h3 style="text-align: center; margin-bottom: 10px;" class="mtext-111 cl2 p-b-16">
 						Statistical figures
 					</h3>
-					<div class="row">						
+					<div class="row background-gray mb-4">
 						<!-- Icon 4 -->
 						<div class="col-md-3">
 							<div class="about-icon">
-								<div style="color: #000; text-align: center;">
-									<i style="padding-top: 20px; color: #ff9ee5;" class="fa-regular fa-user fa-2xl"></i>									
+								<div style="color: #000; text-align: center; margin: 20px;">
+									<i style="padding-top: 20px; color: #ff9ee5;" class="fa-regular fa-user fa-2xl"></i>
 									<div style="padding-top: 20px; font-size: 30px; font-weight: bold;" id="counter-user">1</div>
-									<p style="font-size: 30px;">User</p>
+									<p style="font-size: 30px;">Users</p>
 								</div>
 							</div>
 						</div>
@@ -649,10 +658,10 @@
 						<!-- Icon 6 -->
 						<div class="col-md-3">
 							<div class="about-icon">
-								<div style="color: #000; text-align: center;">
-									<i style="padding-top: 20px; color: #ff9ee5;" class="fa-duotone fa-teddy-bear fa-2xl"></i>								
+								<div style="color: #000; text-align: center; margin: 20px;">
+									<i style="padding-top: 20px; color: #ff9ee5;" class="fa-duotone fa-teddy-bear fa-2xl"></i>
 									<div style="padding-top: 20px; font-size: 30px; font-weight: bold;" id="counter-product">1</div>
-									<p style="font-size: 30px;">Product</p>
+									<p style="font-size: 30px;">Products</p>
 								</div>
 							</div>
 						</div>
@@ -660,25 +669,24 @@
 						<!-- Icon 5 -->
 						<div class="col-md-3">
 							<div class="about-icon">
-								<div style="color: #000; text-align: center;">
-									<i style="padding-top: 20px; color: #ff9ee5;" class="fa-duotone fa-cart-shopping fa-2xl"></i>				
+								<div style="color: #000; text-align: center; margin: 20px;">
+									<i style="padding-top: 20px; color: #ff9ee5;" class="fa-duotone fa-cart-shopping fa-2xl"></i>
 									<div style="padding-top: 20px; font-size: 30px; font-weight: bold;" id="counter-sold">1</div>
 									<p style="font-size: 30px;">Quantity sold</p>
 								</div>
 							</div>
 						</div>
-						
+
 						<!-- Icon 7 -->
 						<div class="col-md-3">
 							<div class="about-icon">
-								<div style="color: #000; text-align: center;">										
-									<i style="padding-top: 20px; color: #ff9ee5;" class="fa-solid fa-truck-fast fa-2xl"></i>							
+								<div style="color: #000; text-align: center; margin: 20px;">
+									<i style="padding-top: 20px; color: #ff9ee5;" class="fa-solid fa-truck-fast fa-2xl"></i>
 									<div style="padding-top: 20px; font-size: 30px; font-weight: bold;" id="counter-delivery">1</div>
-									<p style="font-size: 30px;">Successful orders</p>
+									<p style="font-size: 30px;">Orders</p>
 								</div>
 							</div>
 						</div>
-						<p></p>
 					</div>
 				</div>
 			</section>
@@ -765,7 +773,7 @@
 	</section>	
 	
 	<!-- Team Members -->
-	<section class="bg0 p-t-75 p-b-120">
+	<section class="bg0 p-t-75 p-b-30">
 		<div class="container">
 			<h3 style="text-align: center; " class="mtext-111 cl2 p-b-16">
 				Our Team
@@ -775,8 +783,11 @@
 				<!-- Team Member 1 -->
 				<div class="col-md-3">
 					<div class="team-member">						
-						<div class="team-member-img">
-							<img src="images/ThuyKhanh.jpg" alt="Team Member 1">							
+						<div class="team-member-img block2-pic hov-img0">
+							<img src="images/ThuyKhanh1.jpg" alt="Team Member 1">	
+							<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+								<i class="fab fa-facebook"></i>
+							</a>												
 						</div>
 						<div class="team-member-info">							
 							<p>Nguyễn Thùy Khanh</p> 
@@ -789,8 +800,11 @@
 				<!-- Team Member 2 -->
 				<div class="col-md-3">
 					<div class="team-member">						
-						<div class="team-member-img">
+						<div class="team-member-img block2-pic hov-img0">
 							<img src="images/HuuDat.jpg" alt="Team Member 2">
+							<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+								<i class="fab fa-facebook"></i>
+							</a>	
 						</div>						
 						<div class="team-member-info">							
 							<p>Trần Hữu Đạt</p>
@@ -803,8 +817,11 @@
 				<!-- Team Member 3 -->
 				<div class="col-md-3">
 					<div class="team-member">
-						<div class="team-member-img">
+						<div class="team-member-img block2-pic hov-img0">
 							<img src="images/BinhQuyen.jpg" alt="Team Member 3">
+							<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+								<i class="fab fa-facebook"></i>
+							</a>	
 						</div>
 						<div class="team-member-info">							
 							<p>Trần Bỉnh Quyền</p>
@@ -817,8 +834,11 @@
 				<!-- Team Member 4 -->
 				<div class="col-md-3">
 					<div class="team-member">
-						<div class="team-member-img">
-							<img src="images/ThuyLinh.jpg" alt="Team Member 4">
+						<div class="team-member-img block2-pic hov-img0">
+							<img src="images/ThuyLinh1.jpg" alt="Team Member 4">
+							<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+								<i class="fab fa-facebook"></i>
+							</a>	
 						</div>
 						<div class="team-member-info">							
 							<p>Dương Thị Thùy Linh</p>
