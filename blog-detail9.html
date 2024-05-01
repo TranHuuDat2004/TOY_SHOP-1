@@ -423,52 +423,6 @@
 	</div>
 </div>
 
-<script>
-	document.addEventListener('DOMContentLoaded', function() {
-		const quantityInputs = document.querySelectorAll('.num-product');
-		const decreaseButtons = document.querySelectorAll('.btn-num-product-down');
-		const increaseButtons = document.querySelectorAll('.btn-num-product-up');
-		const removeButtons = document.querySelectorAll('.btn-remove-product');
-
-		// Add event listeners to each decrease button
-		decreaseButtons.forEach((button, index) => {
-			button.addEventListener('click', () => {
-				if (quantityInputs[index].value > 1) {
-					quantityInputs[index].value = parseInt(quantityInputs[index].value) - 1;
-					updateTotalPrice();
-				}
-			});
-		});
-
-		// Add event listeners to each increase button
-		increaseButtons.forEach((button, index) => {
-			button.addEventListener('click', () => {
-				quantityInputs[index].value = parseInt(quantityInputs[index].value) + 1;
-				updateTotalPrice();
-			});
-		});
-
-		// Add event listeners to each remove button
-		removeButtons.forEach((button, index) => {
-			button.addEventListener('click', () => {
-				const itemToRemove = button.closest('.header-cart-item');
-				itemToRemove.remove();
-				updateTotalPrice();
-			});
-		});
-
-		// Function to update total price
-		function updateTotalPrice() {
-			let totalPrice = 0;
-			document.querySelectorAll('.header-cart-item').forEach((item, index) => {
-				const priceString = item.querySelector('.header-cart-item-info').textContent.trim().substring(1);
-				const price = parseFloat(priceString);
-				const quantity = parseInt(quantityInputs[index].value);
-				totalPrice += price * quantity;
-			});
-			document.querySelector('.header-cart-total').textContent = `Total: $${totalPrice.toFixed(2)}`;
-		}
-	});
 </script>
 	<!-- breadcrumb -->
 	<div class="container">
