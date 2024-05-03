@@ -4509,7 +4509,7 @@ form{
   border: none;
   font-weight: bold;
   cursor: pointer;
-  width: 100%;
+  width: 95%;
 }
 
 .input:focus{
@@ -4589,5 +4589,4 @@ form{
 
   }
 }
-
 
