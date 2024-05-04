@@ -6,12 +6,12 @@
   box-sizing: border-box;
   font-family: "Poppins" , sans-serif;
 }
-body{
+body1{
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ffc7da;
+  background-image: url(images/background-image.png);
   padding: 30px;
 }
 .container{
@@ -20,7 +20,7 @@ body{
   width: 100%;
   background: #fff;
   padding: 40px 30px;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 100px rgba(44, 42, 42, 0.2);
   perspective: 2700px;
   border-radius: 30px;
 }
@@ -60,7 +60,6 @@ body{
   position: absolute;
   height: 100%;
   width: 100%;
-  background: #ffbed4;
   opacity: 0.5;
   z-index: 12;
 }
@@ -181,13 +180,14 @@ body{
 .forms .form-content .button input{
   color: #fff;
   background: #F4538A;
-  border-radius: 6px;
+  border-radius: 18px;
   padding: 0;
   cursor: pointer;
   transition: all 0.4s ease;
 }
 .forms .form-content .button input:hover{
   background: #F4538A;
+  color: #000;
 }
 .forms .form-content label{
   color: #F4538A;
