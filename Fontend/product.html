@@ -7,6 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v5.15.4/css/all.css">
 	<link rel="stylesheet" href="css/cart.css">
+	<link rel="stylesheet" href="css/box.css">
 	<!-- link icon -->
 	<link rel="stylesheet" data-purpose="Layout StyleSheet" title="Web Awesome"
 		href="/css/app-wa-8d95b745961f6b33ab3aa1b98a45291a.css?vsn=d">
@@ -381,7 +382,8 @@
 
 		<div style="padding-top: 100px;" class="container">
 
-			<div class="flex-w flex-sb-m p-b-52">
+			<div class="flex-w flex-sb-m p-b-52" style="transform: translateX(120px);">
+
 				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
 					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
 						All Products
@@ -420,25 +422,134 @@
 					</div>
 				</div>
 
-				<!-- Filter -->
-				<div class="dis-none panel-filter w-full p-t-10">
-					<div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
 
 
 
-
-
-
-
-					</div>
-				</div>
 			</div>
 
-			<div class="row isotope-grid">
+			<div class="row isotope-grid " style="transform: translateX(100px);">
+				<div style="transform: translateX(-250px);box-sizing: border-box;
+    
+				border: 0.1px dashed #000;
+				border-top:none;border-bottom: none;border-left: none;padding-right: 100px;">
+				
+					<h2>Filter:</h2>
+					
+					<div>
+						<fieldset>
+							<legend>
+								<button id="materialButton" type="button"> Material <i><i id="icon_muiten" class="fa-sharp fa-thin fa-chevron-up" style="padding-left: 40px;height: 4px;padding-top: 40px;"></i></i></button>
+							</legend>
+						</fieldset>
+						<ul id="materialList" style="display: none;">
+							<!-- <button type="button"><li>Cotton</li></button>  -->
+							
+								 <fieldset>
+									<legend>
+										<span class="hand-icon">Cotton</span><input type="checkbox" value="Cotton" style="transform: translateX(80px) translateY(-20px) ;">
+									</legend>
+								 </fieldset> 
+								 <fieldset>
+									<legend>
+										<span class="hand-icon">Fur</span><input type="checkbox" value="Cotton" style="transform: translateX(80px) translateY(-20px) ;">
+									</legend>
+								 </fieldset> 
+								
+								
+							
+							
+							
+							
+						</ul>
+					</div>
+					<div>
+						<fieldset>
+							<legend>
+								<button id="PriceButton" type="button"> Price <i><i id="icon_muiten1" class="fa-sharp fa-thin fa-chevron-up" style="padding-left: 70px;height: 4px;padding-top: 40px;"></i></i></button>
+							</legend>
+						</fieldset>
+						<ul id="PriceList" style="display: none;">
+							<!-- <button type="button"><li>Cotton</li></button>  -->
+							
+								 <fieldset>
+									<legend>
+										<span class="hand-icon">50$</span><input type="checkbox" value="Cotton" style="transform: translateX(80px) translateY(-20px) ;font-size: 30px;">
+									</legend>
+								 </fieldset> 
+								 <fieldset>
+									<legend>
+										<span class="hand-icon">20$</span><input type="checkbox" value="Cotton" style="transform: translateX(80px) translateY(-20px) ;">
+									</legend>
+								 </fieldset> 
+								 <fieldset>
+									<legend>
+										<span class="hand-icon">30$</span><input type="checkbox" value="Cotton" style="transform: translateX(80px) translateY(-20px) ;">
+									</legend>
+								 </fieldset> 
+								
+								
+							
+							
+							
+							
+						</ul>
+					</div>
+					<script>
+						// Lấy tham chiếu đến các phần tử DOM
+						const PriceButton = document.getElementById('PriceButton');
+						const PriceList = document.getElementById('PriceList');
+						const iconElement1 = document.querySelector('#icon_muiten1');
+
+						// Thêm sự kiện click cho nút "Material"
+						PriceButton.addEventListener('click', function () {
+							// Kiểm tra trạng thái hiển thị của danh sách vật liệu
+							const isMaterialListVisible1 = PriceList.style.display === 'block';
+							// Đảo ngược trạng thái hiển thị
+							PriceList.style.display = isMaterialListVisible1 ? 'none' : 'block';
+
+							// Đổi icon
+							if (isMaterialListVisible1) {
+								iconElement1.classList.remove('fa-chevron-up');
+								iconElement1.classList.add('fa-chevron-down');
+							} else {
+								iconElement1.classList.remove('fa-chevron-down');
+								iconElement1.classList.add('fa-chevron-up');
+							}
+						});
+
+					</script>
+					<script>
+						// Lấy tham chiếu đến các phần tử DOM
+						const materialButton = document.getElementById('materialButton');
+						const materialList = document.getElementById('materialList');
+						const iconElement = document.querySelector('#icon_muiten');
+
+						// Thêm sự kiện click cho nút "Material"
+						materialButton.addEventListener('click', function () {
+							// Kiểm tra trạng thái hiển thị của danh sách vật liệu
+							const isMaterialListVisible = materialList.style.display === 'block';
+							// Đảo ngược trạng thái hiển thị
+							materialList.style.display = isMaterialListVisible ? 'none' : 'block';
+
+							// Đổi icon
+							if (isMaterialListVisible) {
+								iconElement.classList.remove('fa-chevron-up');
+								iconElement.classList.add('fa-chevron-down');
+							} else {
+								iconElement.classList.remove('fa-chevron-down');
+								iconElement.classList.add('fa-chevron-up');
+							}
+						});
+
+					</script>
+
+				</div>
 				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item toy">
+
 					<!-- Block2 -->
 					<div class="block2">
-						<div id="bear" class="block2-pic hov-img0 ">
+
+						<div id="bear" class="block2-pic hov-img0 box  ">
 							<img src="images/beardollyellow.jpg" alt="IMG-PRODUCT">
 
 							<div>
@@ -483,6 +594,20 @@
 								// Tạo sự kiện di chuột ra khỏi biểu tượng
 							</script>
 							<script>
+								const box = document.querySelector('.box');
+								var imageofbear = document.querySelector('#bear');
+
+								// Thay đổi viền khi di chuột qua hình ảnh
+								imageofbear.addEventListener('mouseover', function () {
+									box.style.borderColor = "#FEB5B5";
+								});
+
+								// Thay đổi viền khi di chuột ra khỏi hình ảnh
+								imageofbear.addEventListener('mouseout', function () {
+									box.style.borderColor = "#000";
+								});
+							</script>
+							<script>
 								const iconview1 = document.querySelector('#view1');
 								var imageofbear = document.querySelector('#bear');
 
@@ -499,16 +624,16 @@
 								});
 								// Tạo sự kiện di chuột ra khỏi biểu tượng
 							</script>
-
 						</div>
 
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
-								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  text">
 									Teddy bear
 								</a>
+								<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  text1">Cotton</p> 
 
-								<span class="stext-105 cl3">
+								<span class="stext-105 cl3  price">
 									$16.64
 								</span>
 							</div>
@@ -523,7 +648,7 @@
 				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item toy">
 					<!-- Block2 -->
 					<div class="block2">
-						<div id="doll" class="block2-pic hov-img0 ">
+						<div id="doll" class="block2-pic hov-img0 box1">
 							<img src="images/babydoll.jpg" alt="IMG-PRODUCT">
 
 
@@ -551,6 +676,20 @@
 									iconDiv1.style.transform = 'translateY(-200px) translateX(250px) scale(2.0)';
 								});
 								// Tạo sự kiện di chuột ra khỏi biểu tượng
+							</script>
+							<script>
+								const box1 = document.querySelector('.box1');
+								var imageofdoll = document.querySelector('#doll');
+
+								// Thay đổi viền khi di chuột qua hình ảnh
+								imageofdoll.addEventListener('mouseover', function () {
+									box1.style.borderColor = "#FEB5B5";
+								});
+
+								// Thay đổi viền khi di chuột ra khỏi hình ảnh
+								imageofdoll.addEventListener('mouseout', function () {
+									box1.style.borderColor = "#000";
+								});
 							</script>
 							<script>
 								const iconlove2 = document.querySelector('#love2');
@@ -592,23 +731,16 @@
 
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
-								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text">
 									Baby doll
 								</a>
-
-								<span class="stext-105 cl3">
+								<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  text1">Cotton</p> 
+								<span class="stext-105 cl3 price">
 									$35.31
 								</span>
 							</div>
 
-							<div class="block2-txt-child2 flex-r p-t-3">
-								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-									<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png"
-										alt="ICON">
-									<img class="icon-heart2 dis-block trans-04 ab-t-l"
-										src="images/icons/icon-heart-02.png" alt="ICON">
-								</a>
-							</div>
+
 						</div>
 					</div>
 				</div>
@@ -616,26 +748,78 @@
 				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item toy">
 					<!-- Block2 -->
 					<div class="block2">
-						<div id="rabbit" class="block2-pic hov-img0">
+						<div id="rabbit" class="block2-pic hov-img0 box2 ">
 							<img src="images/rabbitdoll.png" alt="IMG-PRODUCT">
 
 							<div>
-								<i id="cart3" class=" fa-duotone fa-basket-shopping-simple hand-icon"
+								<i id="cart3" class=" fa-duotone fa-basket-shopping-simple hand-icon icon icon1"
 									style="--fa-primary-color: #d27014; --fa-secondary-color: #d27014;visibility: hidden;height: 40px;  "></i>
-
+								<i id="love3" class="fa-light fa-heart hand-icon icon icon1 "
+									style="color: #ea931a;visibility: hidden;"></i>
+								<i id="view3" class="fa-solid fa-eye hand-icon icon" style="visibility: hidden;"></i>
 							</div>
 							<script>
 								const iconDiv2 = document.querySelector('#cart3');
-								const imageofrabbit = document.querySelector('#rabbit');
+								var imageofrabbit = document.querySelector('#rabbit');
 
 								// Tạo sự kiện di chuột qua cho biểu tượng
 								imageofrabbit.addEventListener('mouseover', function () {
 									// Hiển thị biểu tượng
 									iconDiv2.style.visibility = 'visible';
+									iconDiv2.style.transform = 'translateY(-180px) translateX(230px) scale(2.0)';
 								});
 								imageofrabbit.addEventListener('mouseout', function () {
 									// Ẩn biểu tượng
 									iconDiv2.style.visibility = 'hidden';
+									iconDiv2.style.transform = 'translateY(-180px) translateX(260px) scale(2.0)';
+								});
+								// Tạo sự kiện di chuột ra khỏi biểu tượng
+							</script>
+							<script>
+								const box2 = document.querySelector('.box2');
+								var imageofrabbit = document.querySelector('#rabbit');
+
+								// Thay đổi viền khi di chuột qua hình ảnh
+								imageofrabbit.addEventListener('mouseover', function () {
+									box2.style.borderColor = "#FEB5B5";
+								});
+
+								// Thay đổi viền khi di chuột ra khỏi hình ảnh
+								imageofrabbit.addEventListener('mouseout', function () {
+									box2.style.borderColor = "#000";
+								});
+							</script>
+							<script>
+								const iconlove3 = document.querySelector('#love3');
+								var imageofrabbit = document.querySelector('#rabbit');
+
+								// Tạo sự kiện di chuột qua cho biểu tượng
+								imageofrabbit.addEventListener('mouseover', function () {
+									// Hiển thị biểu tượng
+									iconlove3.style.visibility = 'visible';
+									iconlove3.style.transform = 'translateY(-160px) translateX(210px) scale(2.0)';
+								});
+								imageofrabbit.addEventListener('mouseout', function () {
+									// Ẩn biểu tượng
+									iconlove3.style.visibility = 'hidden';
+									iconlove3.style.transform = 'translateY(-160px) translateX(240px) scale(2.0)';
+								});
+								// Tạo sự kiện di chuột ra khỏi biểu tượng
+							</script>
+							<script>
+								const iconview3 = document.querySelector('#view3');
+								var imageofrabbit = document.querySelector('#rabbit');
+
+								// Tạo sự kiện di chuột qua cho biểu tượng
+								imageofrabbit.addEventListener('mouseover', function () {
+									// Hiển thị biểu tượng
+									iconview3.style.visibility = 'visible';
+									iconview3.style.transform = 'translateY(-230px) translateX(190px) scale(2.0)';
+								});
+								imageofrabbit.addEventListener('mouseout', function () {
+									// Ẩn biểu tượng
+									iconview3.style.visibility = 'hidden';
+									iconview3.style.transform = 'translateY(-230px) translateX(220px) scale(2.0)';
 								});
 								// Tạo sự kiện di chuột ra khỏi biểu tượng
 							</script>
@@ -643,23 +827,16 @@
 
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
-								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text">
 									Rabbit doll
 								</a>
-
-								<span class="stext-105 cl3">
+								<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  text1">Cotton</p> 
+								<span class="stext-105 cl3 price">
 									$25.50
 								</span>
 							</div>
 
-							<div class="block2-txt-child2 flex-r p-t-3">
-								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-									<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png"
-										alt="ICON">
-									<img class="icon-heart2 dis-block trans-04 ab-t-l"
-										src="images/icons/icon-heart-02.png" alt="ICON">
-								</a>
-							</div>
+
 						</div>
 					</div>
 				</div>
@@ -668,50 +845,100 @@
 					<!-- Block2 -->
 					<div class="block2">
 
-						<div class="block2-pic hov-img0">
-							<img style="height: 260px;width: 250px;" id="monkey" src="images/monkeytoy.png"
-								alt="IMG-PRODUCT">
+						<div id="monkey" class="block2-pic hov-img0 box3">
+							<img style="height: 260px;width: 250px;" src="images/monkeytoy.png" alt="IMG-PRODUCT">
 
 							<div>
-								<i id="cart4" class=" fa-duotone fa-basket-shopping-simple hand-icon"
+								<i id="cart4" class=" fa-duotone fa-basket-shopping-simple hand-icon icon icon1"
 									style="--fa-primary-color: #d27014; --fa-secondary-color: #d27014;visibility: hidden;height: 40px;  "></i>
-
+								<i id="love4" class="fa-light fa-heart hand-icon icon icon1 "
+									style="color: #ea931a;visibility: hidden;"></i>
+								<i id="view4" class="fa-solid fa-eye hand-icon icon" style="visibility: hidden;"></i>
 							</div>
 							<script>
 								const iconDiv3 = document.querySelector('#cart4');
-								const imageofmonkey = document.querySelector('#monkey');
+								var imageofmonkey = document.querySelector('#monkey');
 
 								// Tạo sự kiện di chuột qua cho biểu tượng
 								imageofmonkey.addEventListener('mouseover', function () {
 									// Hiển thị biểu tượng
 									iconDiv3.style.visibility = 'visible';
+									iconDiv3.style.transform = 'translateY(-190px) translateX(230px) scale(2.0)';
+
 								});
 								imageofmonkey.addEventListener('mouseout', function () {
 									// Ẩn biểu tượng
 									iconDiv3.style.visibility = 'hidden';
+									iconDiv3.style.transform = 'translateY(-190px) translateX(260px) scale(2.0)';
+
+								});
+								// Tạo sự kiện di chuột ra khỏi biểu tượng
+							</script>
+							<script>
+								const box3 = document.querySelector('.box3');
+								var imageofmonkey = document.querySelector('#monkey');
+
+								// Thay đổi viền khi di chuột qua hình ảnh
+								imageofmonkey.addEventListener('mouseover', function () {
+									box3.style.borderColor = "#FEB5B5";
+								});
+
+								// Thay đổi viền khi di chuột ra khỏi hình ảnh
+								imageofmonkey.addEventListener('mouseout', function () {
+									box3.style.borderColor = "#000";
+								});
+							</script>
+							<script>
+								const iconlove4 = document.querySelector('#love4');
+								var imageofmonkey = document.querySelector('#monkey');
+
+								// Tạo sự kiện di chuột qua cho biểu tượng
+								imageofmonkey.addEventListener('mouseover', function () {
+									// Hiển thị biểu tượng
+									iconlove4.style.visibility = 'visible';
+									iconlove4.style.transform = 'translateY(-170px) translateX(210px) scale(2.0)';
+
+								});
+								imageofmonkey.addEventListener('mouseout', function () {
+									// Ẩn biểu tượng
+									iconlove4.style.visibility = 'hidden';
+									iconlove4.style.transform = 'translateY(-170px) translateX(240px) scale(2.0)';
+
+								});
+								// Tạo sự kiện di chuột ra khỏi biểu tượng
+							</script>
+							<script>
+								const iconview4 = document.querySelector('#view4');
+								var imageofmonkey = document.querySelector('#monkey');
+
+								// Tạo sự kiện di chuột qua cho biểu tượng
+								imageofmonkey.addEventListener('mouseover', function () {
+									// Hiển thị biểu tượng
+									iconview4.style.visibility = 'visible';
+									iconview4.style.transform = 'translateY(-230px) translateX(190px) scale(2.0)';
+
+								});
+								imageofmonkey.addEventListener('mouseout', function () {
+									// Ẩn biểu tượng
+									iconview4.style.visibility = 'hidden';
+									iconview4.style.transform = 'translateY(-230px) translateX(220px) scale(2.0)';
+
 								});
 								// Tạo sự kiện di chuột ra khỏi biểu tượng
 							</script>
 						</div>
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
-								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text">
 									Monkey toy
 								</a>
-
-								<span class="stext-105 cl3">
+								<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  text1">Cotton</p> 
+								<span class="stext-105 cl3 price">
 									$75.00
 								</span>
 							</div>
 
-							<div class="block2-txt-child2 flex-r p-t-3">
-								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-									<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png"
-										alt="ICON">
-									<img class="icon-heart2 dis-block trans-04 ab-t-l"
-										src="images/icons/icon-heart-02.png" alt="ICON">
-								</a>
-							</div>
+
 						</div>
 
 					</div>
@@ -720,26 +947,82 @@
 				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item toy">
 					<!-- Block2 -->
 					<div class="block2">
-						<div class="block2-pic hov-img0">
-							<img id="deer" src="images/deer.png" alt="IMG-PRODUCT">
+						<div id="deer" class="block2-pic hov-img0 box4">
+							<img src="images/deer.png" alt="IMG-PRODUCT">
 
 							<div>
-								<i id="cart5" class=" fa-duotone fa-basket-shopping-simple hand-icon"
+								<i id="cart5" class=" fa-duotone fa-basket-shopping-simple hand-icon icon icon1"
 									style="--fa-primary-color: #d27014; --fa-secondary-color: #d27014;visibility: hidden;height: 40px;  "></i>
-
+								<i id="love5" class="fa-light fa-heart hand-icon icon icon1 "
+									style="color: #ea931a;visibility: hidden;"></i>
+								<i id="view5" class="fa-solid fa-eye hand-icon icon" style="visibility: hidden;"></i>
 							</div>
 							<script>
 								const iconDiv4 = document.querySelector('#cart5');
-								const imageofdeer = document.querySelector('#deer');
+								var imageofdeer = document.querySelector('#deer');
 
 								// Tạo sự kiện di chuột qua cho biểu tượng
 								imageofdeer.addEventListener('mouseover', function () {
 									// Hiển thị biểu tượng
 									iconDiv4.style.visibility = 'visible';
+									iconDiv4.style.transform = 'translateY(-190px) translateX(230px) scale(2.0)';
 								});
 								imageofdeer.addEventListener('mouseout', function () {
 									// Ẩn biểu tượng
 									iconDiv4.style.visibility = 'hidden';
+									iconDiv4.style.transform = 'translateY(-190px) translateX(260px) scale(2.0)';
+								});
+								// Tạo sự kiện di chuột ra khỏi biểu tượng
+							</script>
+							<script>
+								const box4 = document.querySelector('.box4');
+								var imageofdeer = document.querySelector('#deer');
+
+								// Thay đổi viền khi di chuột qua hình ảnh
+								imageofdeer.addEventListener('mouseover', function () {
+									box4.style.borderColor = "#FEB5B5";
+								});
+
+								// Thay đổi viền khi di chuột ra khỏi hình ảnh
+								imageofdeer.addEventListener('mouseout', function () {
+									box4.style.borderColor = "#000";
+								});
+							</script>
+							<script>
+								const iconlove5 = document.querySelector('#love5');
+								var imageofdeer = document.querySelector('#deer');
+
+								// Tạo sự kiện di chuột qua cho biểu tượng
+								imageofdeer.addEventListener('mouseover', function () {
+									// Hiển thị biểu tượng
+									iconlove5.style.visibility = 'visible';
+									iconlove5.style.transform = 'translateY(-170px) translateX(210px) scale(2.0)';
+
+								});
+								imageofdeer.addEventListener('mouseout', function () {
+									// Ẩn biểu tượng
+									iconlove5.style.visibility = 'hidden';
+									iconlove5.style.transform = 'translateY(-170px) translateX(240px) scale(2.0)';
+
+								});
+								// Tạo sự kiện di chuột ra khỏi biểu tượng
+							</script>
+							<script>
+								const iconview5 = document.querySelector('#view5');
+								var imageofdeer = document.querySelector('#deer');
+
+								// Tạo sự kiện di chuột qua cho biểu tượng
+								imageofdeer.addEventListener('mouseover', function () {
+									// Hiển thị biểu tượng
+									iconview5.style.visibility = 'visible';
+									iconview5.style.transform = 'translateY(-230px) translateX(190px) scale(2.0)';
+
+								});
+								imageofdeer.addEventListener('mouseout', function () {
+									// Ẩn biểu tượng
+									iconview5.style.visibility = 'hidden';
+									iconview5.style.transform = 'translateY(-230px) translateX(220px) scale(2.0)';
+
 								});
 								// Tạo sự kiện di chuột ra khỏi biểu tượng
 							</script>
@@ -747,23 +1030,16 @@
 
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
-								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 textdeer">
 									Deer toy
 								</a>
-
-								<span class="stext-105 cl3">
+								<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  textDeer">Cotton</p> 
+								<span class="stext-105 cl3 price">
 									$34.75
 								</span>
 							</div>
 
-							<div class="block2-txt-child2 flex-r p-t-3">
-								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-									<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png"
-										alt="ICON">
-									<img class="icon-heart2 dis-block trans-04 ab-t-l"
-										src="images/icons/icon-heart-02.png" alt="ICON">
-								</a>
-							</div>
+
 						</div>
 					</div>
 				</div>
@@ -771,50 +1047,95 @@
 				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item pillow">
 					<!-- Block2 -->
 					<div class="block2">
-						<div class="block2-pic hov-img0">
-							<img id="moon" src="images/moon.png" alt="IMG-PRODUCT" style="height:270px">
+						<div id="moon" class="block2-pic hov-img0 box5">
+							<img src="images/moon.png" alt="IMG-PRODUCT" style="height:270px">
 							<div>
-								<i id="cart6" class=" fa-duotone fa-basket-shopping-simple hand-icon"
+								<i id="cart6" class=" fa-duotone fa-basket-shopping-simple hand-icon icon icon1"
 									style="--fa-primary-color: #d27014; --fa-secondary-color: #d27014;visibility: hidden;height: 40px;  "></i>
-
+								<i id="love6" class="fa-light fa-heart hand-icon icon icon1 "
+									style="color: #ea931a;visibility: hidden;"></i>
+								<i id="view6" class="fa-solid fa-eye hand-icon icon" style="visibility: hidden;"></i>
 							</div>
 							<script>
 								const iconDiv5 = document.querySelector('#cart6');
-								const imageofmoon = document.querySelector('#moon');
+								var imageofmoon = document.querySelector('#moon');
 
 								// Tạo sự kiện di chuột qua cho biểu tượng
 								imageofmoon.addEventListener('mouseover', function () {
 									// Hiển thị biểu tượng
 									iconDiv5.style.visibility = 'visible';
+									iconDiv5.style.transform = 'translateY(-180px) translateX(220px) scale(2.0)';
 								});
 								imageofmoon.addEventListener('mouseout', function () {
 									// Ẩn biểu tượng
 									iconDiv5.style.visibility = 'hidden';
+									iconDiv5.style.transform = 'translateY(-180px) translateX(260px) scale(2.0)';
 								});
 								// Tạo sự kiện di chuột ra khỏi biểu tượng
+							</script>
+							<script>
+								const iconlove6 = document.querySelector('#love6');
+								var imageofmoon = document.querySelector('#moon');
+
+								// Tạo sự kiện di chuột qua cho biểu tượng
+								imageofmoon.addEventListener('mouseover', function () {
+									// Hiển thị biểu tượng
+									iconlove6.style.visibility = 'visible';
+									iconlove6.style.transform = 'translateY(-160px) translateX(200px) scale(2.0)';
+								});
+								imageofmoon.addEventListener('mouseout', function () {
+									// Ẩn biểu tượng
+									iconlove6.style.visibility = 'hidden';
+									iconlove6.style.transform = 'translateY(-160px) translateX(240px) scale(2.0)';
+								});
+								// Tạo sự kiện di chuột ra khỏi biểu tượng
+							</script>
+							<script>
+								const iconview6 = document.querySelector('#view6');
+								var imageofmoon = document.querySelector('#moon');
+
+								// Tạo sự kiện di chuột qua cho biểu tượng
+								imageofmoon.addEventListener('mouseover', function () {
+									// Hiển thị biểu tượng
+									iconview6.style.visibility = 'visible';
+									iconview6.style.transform = 'translateY(-230px) translateX(180px) scale(2.0)';
+								});
+								imageofmoon.addEventListener('mouseout', function () {
+									// Ẩn biểu tượng
+									iconview6.style.visibility = 'hidden';
+									iconview6.style.transform = 'translateY(-230px) translateX(220px) scale(2.0)';
+								});
+								// Tạo sự kiện di chuột ra khỏi biểu tượng
+							</script>
+							<script>
+								const box5 = document.querySelector('.box5');
+								var imageofmoon = document.querySelector('#moon');
+
+								// Thay đổi viền khi di chuột qua hình ảnh
+								imageofmoon.addEventListener('mouseover', function () {
+									box5.style.borderColor = "#FEB5B5";
+								});
+
+								// Thay đổi viền khi di chuột ra khỏi hình ảnh
+								imageofmoon.addEventListener('mouseout', function () {
+									box5.style.borderColor = "#000";
+								});
 							</script>
 
 						</div>
 
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
-								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text">
 									Moon pillow
 								</a>
-
-								<span class="stext-105 cl3">
+								<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  text1">Cotton</p> 
+								<span class="stext-105 cl3 price">
 									$93.20
 								</span>
 							</div>
 
-							<div class="block2-txt-child2 flex-r p-t-3">
-								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-									<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png"
-										alt="ICON">
-									<img class="icon-heart2 dis-block trans-04 ab-t-l"
-										src="images/icons/icon-heart-02.png" alt="ICON">
-								</a>
-							</div>
+
 						</div>
 					</div>
 				</div>
@@ -822,50 +1143,95 @@
 				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item pillow">
 					<!-- Block2 -->
 					<div class="block2">
-						<div class="block2-pic hov-img0">
-							<img id="pig" src="images/pig.png" alt="IMG-PRODUCT">
+						<div id="pig" class="block2-pic hov-img0 box6">
+							<img src="images/pig.png" alt="IMG-PRODUCT">
 
 							<div>
-								<i id="cart7" class=" fa-duotone fa-basket-shopping-simple hand-icon"
+								<i id="cart7" class=" fa-duotone fa-basket-shopping-simple hand-icon icon icon1"
 									style="--fa-primary-color: #d27014; --fa-secondary-color: #d27014;visibility: hidden;height: 40px;  "></i>
-
+								<i id="love7" class="fa-light fa-heart hand-icon icon icon1 "
+									style="color: #ea931a;visibility: hidden;"></i>
+								<i id="view7" class="fa-solid fa-eye hand-icon icon" style="visibility: hidden;"></i>
 							</div>
 							<script>
 								const iconDiv6 = document.querySelector('#cart7');
-								const imageofpig = document.querySelector('#pig');
+								var imageofpig = document.querySelector('#pig');
 
 								// Tạo sự kiện di chuột qua cho biểu tượng
 								imageofpig.addEventListener('mouseover', function () {
 									// Hiển thị biểu tượng
 									iconDiv6.style.visibility = 'visible';
+									iconDiv6.style.transform = 'translateY(-180px) translateX(240px) scale(2.0)';
 								});
 								imageofpig.addEventListener('mouseout', function () {
 									// Ẩn biểu tượng
 									iconDiv6.style.visibility = 'hidden';
+									iconDiv6.style.transform = 'translateY(-180px) translateX(260px) scale(2.0)';
 								});
 								// Tạo sự kiện di chuột ra khỏi biểu tượng
+							</script>
+							<script>
+								const iconlove7 = document.querySelector('#love7');
+								var imageofpig = document.querySelector('#pig');
+
+								// Tạo sự kiện di chuột qua cho biểu tượng
+								imageofpig.addEventListener('mouseover', function () {
+									// Hiển thị biểu tượng
+									iconlove7.style.visibility = 'visible';
+									iconlove7.style.transform = 'translateY(-160px) translateX(220px) scale(2.0)';
+								});
+								imageofpig.addEventListener('mouseout', function () {
+									// Ẩn biểu tượng
+									iconlove7.style.visibility = 'hidden';
+									iconlove7.style.transform = 'translateY(-160px) translateX(240px) scale(2.0)';
+								});
+								// Tạo sự kiện di chuột ra khỏi biểu tượng
+							</script>
+							<script>
+								const iconview7 = document.querySelector('#view7');
+								var imageofpig = document.querySelector('#pig');
+
+								// Tạo sự kiện di chuột qua cho biểu tượng
+								imageofpig.addEventListener('mouseover', function () {
+									// Hiển thị biểu tượng
+									iconview7.style.visibility = 'visible';
+									iconview7.style.transform = 'translateY(-230px) translateX(200px) scale(2.0)';
+								});
+								imageofpig.addEventListener('mouseout', function () {
+									// Ẩn biểu tượng
+									iconview7.style.visibility = 'hidden';
+									iconview7.style.transform = 'translateY(-230px) translateX(220px) scale(2.0)';
+								});
+								// Tạo sự kiện di chuột ra khỏi biểu tượng
+							</script>
+							<script>
+								const box6 = document.querySelector('.box6');
+								var imageofpig = document.querySelector('#pig');
+
+								// Thay đổi viền khi di chuột qua hình ảnh
+								imageofpig.addEventListener('mouseover', function () {
+									box6.style.borderColor = "#FEB5B5";
+								});
+
+								// Thay đổi viền khi di chuột ra khỏi hình ảnh
+								imageofpig.addEventListener('mouseout', function () {
+									box6.style.borderColor = "#000";
+								});
 							</script>
 						</div>
 
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
-								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text">
 									Pig pillow
 								</a>
-
-								<span class="stext-105 cl3">
+								<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  text1">Cotton</p> 
+								<span class="stext-105 cl3 price">
 									$52.66
 								</span>
 							</div>
 
-							<div class="block2-txt-child2 flex-r p-t-3">
-								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-									<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png"
-										alt="ICON">
-									<img class="icon-heart2 dis-block trans-04 ab-t-l"
-										src="images/icons/icon-heart-02.png" alt="ICON">
-								</a>
-							</div>
+
 						</div>
 					</div>
 				</div>
@@ -873,50 +1239,95 @@
 				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item toy">
 					<!-- Block2 -->
 					<div class="block2">
-						<div class="block2-pic hov-img0">
-							<img id="robot" src="images/robot.jpg" alt="IMG-PRODUCT">
+						<div id="robot" class="block2-pic hov-img0 box7">
+							<img src="images/robot.jpg" alt="IMG-PRODUCT">
 
 							<div>
-								<i id="cart8" class=" fa-duotone fa-basket-shopping-simple hand-icon"
+								<i id="cart8" class=" fa-duotone fa-basket-shopping-simple hand-icon icon icon1"
 									style="--fa-primary-color: #d27014; --fa-secondary-color: #d27014;visibility: hidden;height: 40px;  "></i>
-
+								<i id="love8" class="fa-light fa-heart hand-icon icon icon1 "
+									style="color: #ea931a;visibility: hidden;"></i>
+								<i id="view8" class="fa-solid fa-eye hand-icon icon" style="visibility: hidden;"></i>
 							</div>
 							<script>
 								const iconDiv7 = document.querySelector('#cart8');
-								const imageofrobot = document.querySelector('#robot');
+								var imageofrobot = document.querySelector('#robot');
 
 								// Tạo sự kiện di chuột qua cho biểu tượng
 								imageofrobot.addEventListener('mouseover', function () {
 									// Hiển thị biểu tượng
 									iconDiv7.style.visibility = 'visible';
+									iconDiv7.style.transform = 'translateY(-190px) translateX(230px) scale(2.0)';
 								});
 								imageofrobot.addEventListener('mouseout', function () {
 									// Ẩn biểu tượng
 									iconDiv7.style.visibility = 'hidden';
+									iconDiv7.style.transform = 'translateY(-190px) translateX(260px) scale(2.0)';
 								});
 								// Tạo sự kiện di chuột ra khỏi biểu tượng
+							</script>
+							<script>
+								const iconlove8 = document.querySelector('#love8');
+								var imageofrobot = document.querySelector('#robot');
+
+								// Tạo sự kiện di chuột qua cho biểu tượng
+								imageofrobot.addEventListener('mouseover', function () {
+									// Hiển thị biểu tượng
+									iconlove8.style.visibility = 'visible';
+									iconlove8.style.transform = 'translateY(-160px) translateX(210px) scale(2.0)';
+								});
+								imageofrobot.addEventListener('mouseout', function () {
+									// Ẩn biểu tượng
+									iconlove8.style.visibility = 'hidden';
+									iconlove8.style.transform = 'translateY(-160px) translateX(240px) scale(2.0)';
+								});
+								// Tạo sự kiện di chuột ra khỏi biểu tượng
+							</script>
+							<script>
+								const iconview8 = document.querySelector('#view8');
+								var imageofrobot = document.querySelector('#robot');
+
+								// Tạo sự kiện di chuột qua cho biểu tượng
+								imageofrobot.addEventListener('mouseover', function () {
+									// Hiển thị biểu tượng
+									iconview8.style.visibility = 'visible';
+									iconview8.style.transform = 'translateY(-230px) translateX(190px) scale(2.0)';
+								});
+								imageofrobot.addEventListener('mouseout', function () {
+									// Ẩn biểu tượng
+									iconview8.style.visibility = 'hidden';
+									iconview8.style.transform = 'translateY(-230px) translateX(220px) scale(2.0)';
+								});
+								// Tạo sự kiện di chuột ra khỏi biểu tượng
+							</script>
+							<script>
+								const box7 = document.querySelector('.box7');
+								var imageofrobot = document.querySelector('#robot');
+
+								// Thay đổi viền khi di chuột qua hình ảnh
+								imageofrobot.addEventListener('mouseover', function () {
+									box7.style.borderColor = "#FEB5B5";
+								});
+
+								// Thay đổi viền khi di chuột ra khỏi hình ảnh
+								imageofrobot.addEventListener('mouseout', function () {
+									box7.style.borderColor = "#000";
+								});
 							</script>
 						</div>
 
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
-								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text2">
 									Robot
 								</a>
-
-								<span class="stext-105 cl3">
+								<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  textRobot">Cotton</p> 
+								<span class="stext-105 cl3 price2">
 									$18.96
 								</span>
 							</div>
 
-							<div class="block2-txt-child2 flex-r p-t-3">
-								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-									<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png"
-										alt="ICON">
-									<img class="icon-heart2 dis-block trans-04 ab-t-l"
-										src="images/icons/icon-heart-02.png" alt="ICON">
-								</a>
-							</div>
+
 						</div>
 					</div>
 				</div>
@@ -924,50 +1335,96 @@
 				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item pillow">
 					<!-- Block2 -->
 					<div class="block2">
-						<div class="block2-pic hov-img0">
-							<img id="tiger" src="images/tiger.jpg" alt="IMG-PRODUCT" style="height: 270px;">
+						<div id="tiger" class="block2-pic hov-img0 box8">
+							<img src="images/tiger.jpg" alt="IMG-PRODUCT" style="height: 270px;">
 
 							<div>
-								<i id="cart9" class=" fa-duotone fa-basket-shopping-simple hand-icon"
-									style="--fa-primary-color: #d27014; --fa-secondary-color: #d27014;height: 40px;  "></i>
+								<i id="cart9" class=" fa-duotone fa-basket-shopping-simple hand-icon icon icon1"
+									style="--fa-primary-color: #d27014; --fa-secondary-color: #d27014;height: 40px;visibility: hidden;  "></i>
+								<i id="love9" class="fa-light fa-heart hand-icon icon icon1 "
+									style="color: #ea931a;visibility: hidden;"></i>
+								<i id="view9" class="fa-solid fa-eye hand-icon icon" style="visibility: hidden;"></i>
 
 							</div>
 							<script>
 								const iconDiv8 = document.querySelector('#cart9');
-								const imageoftiger = document.querySelector('#tiger');
+								var imageoftiger = document.querySelector('#tiger');
 
 								// Tạo sự kiện di chuột qua cho biểu tượng
 								imageoftiger.addEventListener('mouseover', function () {
 									// Hiển thị biểu tượng
 									iconDiv8.style.visibility = 'visible';
+									iconDiv8.style.transform = 'translateY(-180px) translateX(230px) scale(2.0)';
 								});
 								imageoftiger.addEventListener('mouseout', function () {
 									// Ẩn biểu tượng
 									iconDiv8.style.visibility = 'hidden';
+									iconDiv8.style.transform = 'translateY(-180px) translateX(260px) scale(2.0)';
 								});
 								// Tạo sự kiện di chuột ra khỏi biểu tượng
+							</script>
+							<script>
+								const iconlove9 = document.querySelector('#love9');
+								var imageoftiger = document.querySelector('#tiger');
+
+								// Tạo sự kiện di chuột qua cho biểu tượng
+								imageoftiger.addEventListener('mouseover', function () {
+									// Hiển thị biểu tượng
+									iconlove9.style.visibility = 'visible';
+									iconlove9.style.transform = 'translateY(-160px) translateX(210px) scale(2.0)';
+								});
+								imageoftiger.addEventListener('mouseout', function () {
+									// Ẩn biểu tượng
+									iconlove9.style.visibility = 'hidden';
+									iconlove9.style.transform = 'translateY(-160px) translateX(240px) scale(2.0)';
+								});
+								// Tạo sự kiện di chuột ra khỏi biểu tượng
+							</script>
+							<script>
+								const iconview9 = document.querySelector('#view9');
+								var imageoftiger = document.querySelector('#tiger');
+
+								// Tạo sự kiện di chuột qua cho biểu tượng
+								imageoftiger.addEventListener('mouseover', function () {
+									// Hiển thị biểu tượng
+									iconview9.style.visibility = 'visible';
+									iconview9.style.transform = 'translateY(-230px) translateX(190px) scale(2.0)';
+								});
+								imageoftiger.addEventListener('mouseout', function () {
+									// Ẩn biểu tượng
+									iconview9.style.visibility = 'hidden';
+									iconview9.style.transform = 'translateY(-230px) translateX(220px) scale(2.0)';
+								});
+								// Tạo sự kiện di chuột ra khỏi biểu tượng
+							</script>
+							<script>
+								const box8 = document.querySelector('.box8');
+								var imageoftiger = document.querySelector('#tiger');
+
+								// Thay đổi viền khi di chuột qua hình ảnh
+								imageoftiger.addEventListener('mouseover', function () {
+									box8.style.borderColor = "#FEB5B5";
+								});
+
+								// Thay đổi viền khi di chuột ra khỏi hình ảnh
+								imageoftiger.addEventListener('mouseout', function () {
+									box8.style.borderColor = "#000";
+								});
 							</script>
 						</div>
 
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
-								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text">
 									White tiger
 								</a>
-
-								<span class="stext-105 cl3">
+								<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  text1">Cotton</p> 
+								<span class="stext-105 cl3 price">
 									$75.00
 								</span>
 							</div>
 
-							<div class="block2-txt-child2 flex-r p-t-3">
-								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-									<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png"
-										alt="ICON">
-									<img class="icon-heart2 dis-block trans-04 ab-t-l"
-										src="images/icons/icon-heart-02.png" alt="ICON">
-								</a>
-							</div>
+
 						</div>
 					</div>
 				</div>
@@ -975,50 +1432,95 @@
 				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item pillow">
 					<!-- Block2 -->
 					<div class="block2">
-						<div class="block2-pic hov-img0">
-							<img id="snowman" src="images/snowman.png" alt="IMG-PRODUCT">
+						<div id="snowman" class="block2-pic hov-img0 box9">
+							<img src="images/snowman.png" alt="IMG-PRODUCT">
 
 							<div>
-								<i id="cart10" class=" fa-duotone fa-basket-shopping-simple hand-icon"
-									style="--fa-primary-color: #d27014; --fa-secondary-color: #d27014;height: 40px;  "></i>
-
+								<i id="cart10" class=" fa-duotone fa-basket-shopping-simple hand-icon icon icon1"
+									style="--fa-primary-color: #d27014; --fa-secondary-color: #d27014;height: 40px;visibility: hidden;  "></i>
+								<i id="love10" class="fa-light fa-heart hand-icon icon icon1 "
+									style="color: #ea931a;visibility: hidden;"></i>
+								<i id="view10" class="fa-solid fa-eye hand-icon icon" style="visibility: hidden;"></i>
 							</div>
 							<script>
 								const iconDiv9 = document.querySelector('#cart10');
-								const imageofsnowman = document.querySelector('#snowman');
+								var imageofsnowman = document.querySelector('#snowman');
 
 								// Tạo sự kiện di chuột qua cho biểu tượng
 								imageofsnowman.addEventListener('mouseover', function () {
 									// Hiển thị biểu tượng
 									iconDiv9.style.visibility = 'visible';
+									iconDiv9.style.transform = 'translateY(-180px) translateX(240px) scale(2.0)';
 								});
 								imageofsnowman.addEventListener('mouseout', function () {
 									// Ẩn biểu tượng
 									iconDiv9.style.visibility = 'hidden';
+									iconDiv9.style.transform = 'translateY(-180px) translateX(260px) scale(2.0)';
 								});
 								// Tạo sự kiện di chuột ra khỏi biểu tượng
+							</script>
+							<script>
+								const iconview10 = document.querySelector('#view10');
+								var imageofsnowman = document.querySelector('#snowman');
+
+								// Tạo sự kiện di chuột qua cho biểu tượng
+								imageofsnowman.addEventListener('mouseover', function () {
+									// Hiển thị biểu tượng
+									iconview10.style.visibility = 'visible';
+									iconview10.style.transform = 'translateY(-230px) translateX(200px) scale(2.0)';
+								});
+								imageofsnowman.addEventListener('mouseout', function () {
+									// Ẩn biểu tượng
+									iconview10.style.visibility = 'hidden';
+									iconview10.style.transform = 'translateY(-230px) translateX(220px) scale(2.0)';
+								});
+								// Tạo sự kiện di chuột ra khỏi biểu tượng
+							</script>
+							<script>
+								const iconlove10 = document.querySelector('#love10');
+								var imageofsnowman = document.querySelector('#snowman');
+
+								// Tạo sự kiện di chuột qua cho biểu tượng
+								imageofsnowman.addEventListener('mouseover', function () {
+									// Hiển thị biểu tượng
+									iconlove10.style.visibility = 'visible';
+									iconlove10.style.transform = 'translateY(-160px) translateX(220px) scale(2.0)';
+								});
+								imageofsnowman.addEventListener('mouseout', function () {
+									// Ẩn biểu tượng
+									iconlove10.style.visibility = 'hidden';
+									iconlove10.style.transform = 'translateY(-160px) translateX(240px) scale(2.0)';
+								});
+								// Tạo sự kiện di chuột ra khỏi biểu tượng
+							</script>
+							<script>
+								const box9 = document.querySelector('.box9');
+								var imageofsnowman = document.querySelector('#snowman');
+
+								// Thay đổi viền khi di chuột qua hình ảnh
+								imageofsnowman.addEventListener('mouseover', function () {
+									box9.style.borderColor = "#FEB5B5";
+								});
+
+								// Thay đổi viền khi di chuột ra khỏi hình ảnh
+								imageofsnowman.addEventListener('mouseout', function () {
+									box9.style.borderColor = "#000";
+								});
 							</script>
 						</div>
 
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
-								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text">
 									Snow man
 								</a>
-
-								<span class="stext-105 cl3">
+								<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  text1">Cotton</p> 
+								<span class="stext-105 cl3 price">
 									$25.85
 								</span>
 							</div>
 
-							<div class="block2-txt-child2 flex-r p-t-3">
-								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-									<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png"
-										alt="ICON">
-									<img class="icon-heart2 dis-block trans-04 ab-t-l"
-										src="images/icons/icon-heart-02.png" alt="ICON">
-								</a>
-							</div>
+
 						</div>
 					</div>
 				</div>
@@ -1026,50 +1528,95 @@
 				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item men">
 					<!-- Block2 -->
 					<div class="block2">
-						<div class="block2-pic hov-img0">
-							<img id="dog" src="images/dog.jpg" alt="IMG-PRODUCT">
+						<div id="dog" class="block2-pic hov-img0 box10">
+							<img src="images/dog.jpg" alt="IMG-PRODUCT">
 
 							<div>
-								<i id="cart11" class=" fa-duotone fa-basket-shopping-simple hand-icon"
-									style="--fa-primary-color: #d27014; --fa-secondary-color: #d27014;height: 40px;  "></i>
-
+								<i id="cart11" class=" fa-duotone fa-basket-shopping-simple hand-icon icon icon1"
+									style="--fa-primary-color: #d27014; --fa-secondary-color: #d27014;height: 40px; visibility: hidden; "></i>
+								<i id="love11" class="fa-light fa-heart hand-icon icon icon1 "
+									style="color: #ea931a;visibility: hidden;"></i>
+								<i id="view11" class="fa-solid fa-eye hand-icon icon" style="visibility: hidden;"></i>
 							</div>
 							<script>
 								const iconDiv10 = document.querySelector('#cart11');
-								const imageofdog = document.querySelector('#dog');
+								var imageofdog = document.querySelector('#dog');
 
 								// Tạo sự kiện di chuột qua cho biểu tượng
 								imageofdog.addEventListener('mouseover', function () {
 									// Hiển thị biểu tượng
 									iconDiv10.style.visibility = 'visible';
+									iconDiv10.style.transform = 'translateY(-180px) translateX(240px) scale(2.0)';
 								});
 								imageofdog.addEventListener('mouseout', function () {
 									// Ẩn biểu tượng
 									iconDiv10.style.visibility = 'hidden';
+									iconDiv10.style.transform = 'translateY(-180px) translateX(260px) scale(2.0)';
 								});
 								// Tạo sự kiện di chuột ra khỏi biểu tượng
+							</script>
+							<script>
+								const iconlove11 = document.querySelector('#love11');
+								var imageofdog = document.querySelector('#dog');
+
+								// Tạo sự kiện di chuột qua cho biểu tượng
+								imageofdog.addEventListener('mouseover', function () {
+									// Hiển thị biểu tượng
+									iconlove11.style.visibility = 'visible';
+									iconlove11.style.transform = 'translateY(-160px) translateX(220px) scale(2.0)';
+								});
+								imageofdog.addEventListener('mouseout', function () {
+									// Ẩn biểu tượng
+									iconlove11.style.visibility = 'hidden';
+									iconlove11.style.transform = 'translateY(-160px) translateX(240px) scale(2.0)';
+								});
+								// Tạo sự kiện di chuột ra khỏi biểu tượng
+							</script>
+							<script>
+								const iconview11 = document.querySelector('#view11');
+								var imageofdog = document.querySelector('#dog');
+
+								// Tạo sự kiện di chuột qua cho biểu tượng
+								imageofdog.addEventListener('mouseover', function () {
+									// Hiển thị biểu tượng
+									iconview11.style.visibility = 'visible';
+									iconview11.style.transform = 'translateY(-230px) translateX(200px) scale(2.0)';
+								});
+								imageofdog.addEventListener('mouseout', function () {
+									// Ẩn biểu tượng
+									iconview11.style.visibility = 'hidden';
+									iconview11.style.transform = 'translateY(-230px) translateX(220px) scale(2.0)';
+								});
+								// Tạo sự kiện di chuột ra khỏi biểu tượng
+							</script>
+							<script>
+								const box10 = document.querySelector('.box10');
+								var imageofdog = document.querySelector('#dog');
+
+								// Thay đổi viền khi di chuột qua hình ảnh
+								imageofdog.addEventListener('mouseover', function () {
+									box10.style.borderColor = "#FEB5B5";
+								});
+
+								// Thay đổi viền khi di chuột ra khỏi hình ảnh
+								imageofdog.addEventListener('mouseout', function () {
+									box10.style.borderColor = "#000";
+								});
 							</script>
 						</div>
 
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
-								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text">
 									Dog pillow
 								</a>
-
-								<span class="stext-105 cl3">
+								<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  text1">Cotton</p> 
+								<span class="stext-105 cl3 price">
 									$63.16
 								</span>
 							</div>
 
-							<div class="block2-txt-child2 flex-r p-t-3">
-								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-									<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png"
-										alt="ICON">
-									<img class="icon-heart2 dis-block trans-04 ab-t-l"
-										src="images/icons/icon-heart-02.png" alt="ICON">
-								</a>
-							</div>
+
 						</div>
 					</div>
 				</div>

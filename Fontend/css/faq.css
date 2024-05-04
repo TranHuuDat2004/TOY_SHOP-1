@@ -1,9 +1,89 @@
 #icon1
 {
-    transform: translateX(30px) translateY(0px);
+    margin-left: 200px;
 
 }
 #icon2
 {
-    transform: translateX(160px) translateY(20px);
+    position: relative;
+}
+
+@media only screen and (max-width: 600px) {
+    #icon1 {
+        position: relative;
+        right: 100px;/* Điều chỉnh vị trí sang bên trái// */
+        width: 200px; 
+    }
+    #icon5
+    {
+        left: 90px;
+        width: 200px;
+    }
+    #hinhbienmat
+    {
+        display: none;
+    }
+    #hinhauto
+    {
+        width: auto;
+        
+    }
+    .header
+    {
+        width: 430px;
+    }
+    .logo-header
+    {
+        width: 430px;
+    }
+    .footer-res
+    {
+        width: 430px;
+    }
+    .icon-res
+    {
+        width: 430px;
+    }
+}
+@media only screen and (max-width: 1221px) {
+    #icon1 {
+        position: relative;
+        right: 100px;/* Điều chỉnh vị trí sang bên trái// */
+        width: 200px; 
+    }
+    #icon5
+    {
+        left: 90px;
+        width: 200px;
+    }
+    #khuvucbienmat
+    {
+        display: none;
+    }
+    #bienmat
+    {
+        display: none;
+    }
+    #hinhauto
+    {
+        width: auto;
+        
+    }
+    .header
+    {
+        width: 1000px;
+        height: 400px;
+    }
+    .logo-header
+    {
+        width: 4300px;
+    }
+    .footer-res
+    {
+        width: 430px;
+    }
+    .icon-res
+    {
+        width: 430px;
+    }
 }
