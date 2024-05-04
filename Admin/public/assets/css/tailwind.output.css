@@ -2147,3 +2147,56 @@ img.Imagealignment{
     font-size: 30px;
 }
 
+
+
+
+form{
+    margin-left: 30px;
+    width: 400px;
+    padding: autopx;
+    border-radius: 12px;
+
+}
+
+.form-control{
+    width: 730px;
+    height: 100% ;
+    border: 1px solid #99BC85 ;
+    border-radius: 6px;
+    padding: 4px 8px;
+    outline: none;
+    background-color: #E1F0DA;
+
+}
+
+.form-control:hover{
+    background-color: #BFD8AF ;
+
+}
+
+.form-group{
+    margin-bottom: 8px ;
+}
+
+label{
+    margin-bottom: 5px;
+    display: block;
+    font-size: 18px;
+}
+
+.form-group div label{
+    display: inline;
+}
+
+.main-btn{
+    padding: 6px 12px ;
+    background-color: #CCD3CA;
+    color: #000;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+}
+
+.stext-121 {
+    font-family: "Baloo 2", sans-serif;
+}
