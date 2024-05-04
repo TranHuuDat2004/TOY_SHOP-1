@@ -108,14 +108,14 @@
     .team-member-img img {
         border-radius: 50%;
         overflow: hidden;
-        object-fit: cover; /* Hiển thị hình ảnh mà không bị chồng lên nhau */
-        width: 100%; /* Đảm bảo hình ảnh lấp đầy phần tử cha */
+        object-fit: cover; /* Ensure the image covers the entire container */
+        width: 100%; /* Ensure the image fills the parent element */
     }
 
 	.about-icon img {
         overflow: hidden;
-        object-fit: cover; /* Hiển thị hình ảnh mà không bị chồng lên nhau */
-        width: 20%; /* Đảm bảo hình ảnh lấp đầy phần tử cha */
+        object-fit: cover; /* Ensure the image covers the entire container */
+        width: 20%; /* Ensure the image fills the parent element */
 		padding-right: 20px;
 		padding-bottom: 15px;
     }
@@ -123,24 +123,24 @@
     /* Format Team member*/
     .team-member-info {
         text-align: center;
-        font-family: Arial, sans-serif; /* Setting font */
+        font-family: Arial, sans-serif; /* Set font */
 		font-size: 20px;
 		font-weight: bold;
 		color: #000;
 		padding-top: 10px;
     }	
 
-	/* Setting Padding icon for id*/
+	/* Set Padding icon for id*/
 	#about-icon{
 		padding-top: 25px;
 	}
 
-	/* Setting Image Icon for id */
+	/* Set Image Icon for id */
 	#about-icon img{
 		padding-right: 20px;
 	}
 
-	/* Setting Font Size */
+	/* Set Font Size */
 	#font-size{
 		font-size: 20px;
 	}
@@ -159,7 +159,7 @@
         padding: 10px 20px;
         border-radius: 20px;
         background-color: #f0f0f0;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add shadow */
         }
 
     .bubble-chat::after {
@@ -176,7 +176,7 @@
 
 	.avatar {
 		position: relative;
-		perspective: 1000px; /* Tạo hiệu ứng 3D */
+		perspective: 1000px; /* Create 3D effect */
 	}
 
 	.avatar img {
@@ -206,7 +206,7 @@
 	}
 
 	.avatar:hover .message {
-		opacity: 1; /* Hiển thị thông điệp khi hover */
+		opacity: 1; /* Display message on hover */
 	}
 
 	/* Button Facebook */
@@ -230,10 +230,11 @@
 
 	/* Resize Icon fa-2xl */
 	.fa-2xl {
-    	font-size: 50px; /* hoặc kích thước mong muốn */
+    	font-size: 50px; /* or desired size */
 	}
 
 </style>
+
 
 <body class="animsition">
 	
@@ -246,33 +247,43 @@
 				<div class="content-topbar flex-sb-m h-full container">
 					<div class="left-top-bar">
 						<div class="d-inline-flex align-items-center">
-							<p style="color: #F4538A"><i class="fa fa-envelope mr-2"></i><a href="mailto:omachacontact@gmail.com" style="color: #000; text-decoration: none;">omachacontact@gmail.com</a></p>
+							<p style="color: #F4538A"><i class="fa fa-envelope mr-2"></i><a
+									href="mailto:omachacontact@gmail.com"
+									style="color: #000; text-decoration: none;">omachacontact@gmail.com</a></p>
 							<p class="text-body px-3">|</p>
-							<p style="color: #F4538A"><i class="fa fa-phone-alt mr-2"></i><a href="tel:+19223600" style="color: #000; text-decoration: none;">+1922 4800</a></p>
+							<p style="color: #F4538A"><i class="fa fa-phone-alt mr-2"></i><a href="tel:+19223600"
+									style="color: #000; text-decoration: none;">+1922 4800</a></p>
 						</div>
 					</div>
 
 					<div class="col-lg-6 text-center text-lg-right">
 						<div class="d-inline-flex align-items-center">
-							<a class="text-primary px-3" href="https://www.facebook.com/profile.php?id=61557250007525" target="_blank"  title="Visit the Reis Adventures fanpage.">
+							<a class="text-primary px-3" href="https://www.facebook.com/profile.php?id=61557250007525"
+								target="_blank" title="Visit the Reis Adventures fanpage.">
 								<i style="color: #49243E;" class="fab fa-facebook-f"></i>
 							</a>
-							<a class="text-primary px-3" href="https://twitter.com/reis_adventures" target="_blank"  title="Visit the Reis Adventures Twitter.">
+							<a class="text-primary px-3" href="https://twitter.com/reis_adventures" target="_blank"
+								title="Visit the Reis Adventures Twitter.">
 								<i style="color: #49243E;" class="fab fa-twitter"></i>
 							</a>
-							<a class="text-primary px-3" href="https://www.linkedin.com/in/reis-adventures-458144300/" target="_blank"  title="Visit the Reis Adventures Linkedin.">
+							<a class="text-primary px-3" href="https://www.linkedin.com/in/reis-adventures-458144300/"
+								target="_blank" title="Visit the Reis Adventures Linkedin.">
 								<i style="color: #49243E;" class="fab fa-linkedin-in"></i>
 							</a>
-							<a class="text-primary px-3" href="https://www.instagram.com/reis_adventures2024?igsh=YTQwZjQ0NmI0OA%3D%3D&utm_source=qr" target="_blank"  title="Visit the Reis Adventures Instagram.">
+							<a class="text-primary px-3"
+								href="https://www.instagram.com/reis_adventures2024?igsh=YTQwZjQ0NmI0OA%3D%3D&utm_source=qr"
+								target="_blank" title="Visit the Reis Adventures Instagram.">
 								<i style="color: #49243E;" class="fab fa-instagram"></i>
 							</a>
 							<div class="data1">
 								<i style="color: #49243E;" class=""></i>
-								<a href="register.html" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b>Login /</b></a>
+								<a href="register.html" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b>Login
+										/</b></a>
 							</div>
 							<div class="data2">
 								<i style="color: #49243E;" class=""></i>
-								<a href="register.html" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b>Register</b></a>
+								<a href="register.html" class="btn2 btn-primary2 mt-1"
+									style="color: #49243E;"><b>Register</b></a>
 							</div>
 						</div>
 					</div>
@@ -281,67 +292,72 @@
 
 			<div class="wrap-menu-desktop" style="background-color: #FFEFEF;">
 				<nav class="limiter-menu-desktop container" style="background-color: #FFEFEF;">
-					
-					<!-- Logo desktop -->		
+
+					<!-- Logo desktop -->
 					<a href="index.html" class="navbar-brand">
-						<h1 class="m-0 text-primary1 mt-3 "><span class="text-dark1"><img class="Imagealignment" src="images/icon.png">Omacha</h1>
+						<h1 class="m-0 text-primary1 mt-3 "><span class="text-dark1"><img class="Imagealignment"
+									src="images/icon.png">Omacha</h1>
 					</a>
 
-				<!-- Menu desktop -->
-				<div class="menu-desktop">
-					<ul class="main-menu">
-						<li>
-							<a href="index.html">Home</a>
-							<ul class="sub-menu">
-								<li><a href="index.html">Homepage 1</a></li>
-								<li><a href="home-02.html">Homepage 2</a></li>
-								<li><a href="home-03.html">Homepage 3</a></li>
-							</ul>
-						</li>
+					<!-- Menu desktop -->
+					<div class="menu-desktop">
+						<ul class="main-menu">
+							<li class="active-menu">
+								<a href="index.html">Home</a>
 
-						<li>
-							<a href="product.html">Shop</a>
-						</li>
+							</li>
 
-						<li class="label1" data-label1="hot">
-							<a href="shoping-cart.html">Features</a>
-						</li>
+							<li class="label1" data-label1="hot">
+								<a href="product.html">Shop</a>
+								<ul class="sub-menu">
+									<li><a href="index.html">Homepage 1</a></li>
+									<li><a href="home-02.html">Homepage 2</a></li>
+									<li><a href="home-03.html">Homepage 3</a></li>
+								</ul>
+							</li>
 
-						<li>
-							<a href="blog.html">Blog</a>
-						</li>
+							<li>
+								<a href="blog.html">Blog</a>
+							</li>
 
-						<li>
-							<a href="about.html">About</a>
-						</li>
+							<li>
+								<a href="contact.html">Contact</a>
+							</li>
 
-						<li>
-							<a href="contact.html">Contact</a>
-						</li>
-					</ul>
-				</div>	
-
-				<!-- Icon header -->
-				<div class="wrap-icon-header flex-w flex-r-m">
-					<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
-						<i class="zmdi zmdi-search"></i>
+							<li>
+								<a href="about.html">Pages</a>
+								<ul class="sub-menu">
+									<li><a href="index.html">About</a></li>
+									<li><a href="home-02.html">Faq</a></li>
+								</ul>
+							</li>
+						</ul>
 					</div>
 
-					<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="2">
-						<i class="zmdi zmdi-shopping-cart"></i>
-					</div>
+					<!-- Icon header -->
+					<div class="wrap-icon-header flex-w flex-r-m">
+						<div class="icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
+							<i class="zmdi zmdi-search"></i>
+						</div>
 
-					<a href="#" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
-						<i class="zmdi zmdi-favorite-outline"></i>
-					</a>
-				</div>
-			</nav>
-		</div>	
-	</div>
+						<div class="icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
+							data-notify="2">
+							<i class="zmdi zmdi-shopping-cart"></i>
+						</div>
+
+						<a href="#"
+							class="dis-block icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
+							data-notify="0">
+							<i class="zmdi zmdi-favorite-outline"></i>
+						</a>
+					</div>
+				</nav>
+			</div>
+		</div>
 
 		<!-- Header Mobile -->
 		<div class="wrap-header-mobile">
-			<!-- Logo moblie -->		
+			<!-- Logo moblie -->
 			<div class="logo-mobile">
 				<a href="index.html"><img src="images/icons/logo-01.png" alt="IMG-LOGO"></a>
 			</div>
@@ -352,11 +368,13 @@
 					<i class="zmdi zmdi-search"></i>
 				</div>
 
-				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="2">
+				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart"
+					data-notify="2">
 					<i class="zmdi zmdi-shopping-cart"></i>
 				</div>
 
-				<a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti" data-notify="0">
+				<a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti"
+					data-notify="0">
 					<i class="zmdi zmdi-favorite-outline"></i>
 				</a>
 			</div>
@@ -374,7 +392,7 @@
 		<div class="menu-mobile">
 			<ul class="topbar-mobile">
 				<li>
-					<div class="left-top-bar">
+					<div class="left-top-bar ">
 						Free shipping for standard order over $100
 					</div>
 				</li>
