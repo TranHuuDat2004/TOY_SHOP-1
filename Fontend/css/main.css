@@ -2642,7 +2642,7 @@ input.num-product::-webkit-inner-spin-button {
 .bg0 {background-color: #fff;}
 .bg1 {background-color: #717fe0;}
 .bg2 {background-color: #e6e6e6;}
-.bg3 {background-color: #222;}
+.bg3 {background-color: #F6F5F2;}
 .bg5 {background-color: rgba(0,0,0,0.5);}
 .bg6 {background-color: #f2f2f2;}
 .bg7 {background-color: #333;}
@@ -3591,7 +3591,7 @@ img.Imagealignment{
   box-shadow: 0 0 0 0.2rem rgba(219, 56, 140, 0.25);
   padding: 15px; /* Giảm độ rộng của padding để tooltip nhỏ hơn */
   border-radius: 8px;
-  width: 700px; /* Định kích thước chiều rộng cố định cho tooltip */
+  width: 200px; /* Định kích thước chiều rộng cố định cho tooltip */
   max-width: 90%; /* Giới hạn chiều rộng tối đa cho tooltip */
   z-index: 2;
   margin-top: -180px;
@@ -3664,7 +3664,6 @@ img.Imagealignment{
   }
   .tooltip-content1{
     margin-top: -150px;
-    
   }
 }
 
@@ -4589,5 +4588,9 @@ form{
     justify-content: space-between;
 
   }
+}
+
+.bg3{
+  border-radius: 40px;
 }
 
