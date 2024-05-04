@@ -3591,7 +3591,7 @@ img.Imagealignment{
   box-shadow: 0 0 0 0.2rem rgba(219, 56, 140, 0.25);
   padding: 15px; /* Giảm độ rộng của padding để tooltip nhỏ hơn */
   border-radius: 8px;
-  width: 200px; /* Định kích thước chiều rộng cố định cho tooltip */
+  width: 700px; /* Định kích thước chiều rộng cố định cho tooltip */
   max-width: 90%; /* Giới hạn chiều rộng tối đa cho tooltip */
   z-index: 2;
   margin-top: -180px;
