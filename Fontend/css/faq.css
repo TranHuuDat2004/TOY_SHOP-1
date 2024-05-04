@@ -7,83 +7,71 @@
 {
     position: relative;
 }
-
-@media only screen and (max-width: 600px) {
+#khuvucxuathien
+{
+    display: none;
+}
+@media only screen and (max-width: 600px) and (min-width: 301px) {
+    /* Trường hợp từ 600px đến 301px */
     #icon1 {
         position: relative;
-        right: 100px;/* Điều chỉnh vị trí sang bên trái// */
+        right: 100px;
         width: 200px; 
     }
-    #icon5
-    {
+    #icon5 {
         left: 90px;
         width: 200px;
     }
-    #hinhbienmat
-    {
+    #hinhbienmat {
         display: none;
     }
-    #hinhauto
-    {
-        width: auto;
-        
+    #hinhauto {
+        width: auto; 
     }
-    .header
-    {
-        width: 430px;
-    }
-    .logo-header
-    {
-        width: 430px;
-    }
-    .footer-res
-    {
-        width: 430px;
-    }
-    .icon-res
-    {
+    .header, .logo-header, .footer-res, .icon-res {
         width: 430px;
     }
 }
-@media only screen and (max-width: 1221px) {
+
+@media only screen and (max-width: 1200px) and (min-width: 801px) {
+    /* Trường hợp từ 1200px đến 801px */
     #icon1 {
         position: relative;
-        right: 100px;/* Điều chỉnh vị trí sang bên trái// */
+        right: 100px;
         width: 200px; 
     }
-    #icon5
-    {
+    #icon5 {
         left: 90px;
         width: 200px;
     }
-    #khuvucbienmat
-    {
+    #khuvucbienmat {
         display: none;
     }
-    #bienmat
-    {
+    #khuvucxuathien {
+        display: block;
+        width: 400px;
+    }
+    #bienmat {
         display: none;
     }
-    #hinhauto
-    {
-        width: auto;
-        
+    #hinhauto {
+        width: auto; 
     }
-    .header
-    {
+    .header {
         width: 1000px;
         height: 400px;
     }
-    .logo-header
-    {
+    .logo-header {
         width: 4300px;
     }
-    .footer-res
-    {
+    .footer-res {
         width: 430px;
     }
-    .icon-res
-    {
+    .icon-res {
         width: 430px;
     }
+}
+#thanhbarbienmat
+{
+    display: none;
 }

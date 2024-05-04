@@ -50,6 +50,8 @@
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/product_res.css">
+
 	<!--===============================================================================================-->
 </head>
 
@@ -378,22 +380,127 @@
 
 
 	<!-- Product -->
-	<div class="bg0 m-t-23 p-b-140">
+	<div class="bg0 m-t-23 p-b-140" id="product_res">
 
 		<div style="padding-top: 100px;" class="container">
 
 			<div class="flex-w flex-sb-m p-b-52" style="transform: translateX(120px);">
 
-				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
+				<div  class="flex-w flex-l-m filter-tope-group m-tb-10">
+					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1 allproductMobile" data-filter="*">
 						All Products
 					</button>
+					<fieldset>
+						<legend>
+							<button id="PriceButtonMobile" type="button"> Price <i><i id="icon_muitenPrice"
+										class="fa-sharp fa-thin fa-chevron-up"
+										style="padding-left: 70px;height: 4px;padding-top: 40px;"></i></i></button>
+						</legend>
+					</fieldset>
+					<ul id="PriceListMobile" style="display: none;">
+						<!-- <button type="button"><li>Cotton</li></button>  -->
 
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".toy">
+						<fieldset>
+							<legend>
+								<span class="hand-icon">50$</span><input type="checkbox" value="Cotton"
+									style="transform: translateX(80px) translateY(-20px) ;font-size: 30px;">
+							</legend>
+						</fieldset>
+						<fieldset>
+							<legend>
+								<span class="hand-icon">20$</span><input type="checkbox" value="Cotton"
+									style="transform: translateX(80px) translateY(-20px) ;">
+							</legend>
+						</fieldset>
+						<fieldset>
+							<legend>
+								<span class="hand-icon">30$</span><input type="checkbox" value="Cotton"
+									style="transform: translateX(80px) translateY(-20px) ;">
+							</legend>
+						</fieldset>
+
+
+
+
+
+
+					</ul>
+					<button id="materialButton1" type="button" class="filter2 materialwhen2 "> Material <i><i id="icon_muitenmobile"
+								class="fa-sharp fa-thin fa-chevron-up"
+								style="padding-left: 40px;height: 4px;padding-top: 40px;"></i></i></button>
+								<ul id="materialList1" style="display: none;">
+									<!-- <button type="button"><li>Cotton</li></button>  -->
+		
+									<fieldset>
+										<legend>
+											<span class="hand-icon">Cotton</span><input type="checkbox" value="Cotton"
+												style="transform: translateX(80px) translateY(-20px) ;">
+										</legend>
+									</fieldset>
+									<fieldset>
+										<legend>
+											<span class="hand-icon">Fur</span><input type="checkbox" value="Cotton"
+												style="transform: translateX(80px) translateY(-20px) ;">
+										</legend>
+									</fieldset>
+									</ul>
+								<script>
+									// Lấy tham chiếu đến các phần tử DOM
+									const PriceButtonMobile = document.getElementById('PriceButtonMobile');
+									const PriceListMobile = document.getElementById('PriceListMobile');
+									const iconmuitenPrice = document.querySelector('#icon_muitenPrice');
+			
+									// Thêm sự kiện click cho nút "Material"
+									PriceButtonMobile.addEventListener('click', function () {
+										// Kiểm tra trạng thái hiển thị của danh sách vật liệu
+										const isMaterialListVisible2 = PriceListMobile.style.display === 'block';
+										// Đảo ngược trạng thái hiển thị
+										PriceListMobile.style.display = isMaterialListVisible2 ? 'none' : 'block';
+			
+										// Đổi icon
+										if (isMaterialListVisible2) {
+											iconmuitenPrice.classList.remove('fa-chevron-up');
+											iconmuitenPrice.classList.add('fa-chevron-down');
+											PriceListMobile.classList.remove('mucbienmat');
+											PriceListMobile.classList.add('mucxuathien');
+										} else {
+											iconmuitenPrice.classList.remove('fa-chevron-down');
+											iconmuitenPrice.classList.add('fa-chevron-up');
+											PriceListMobile.classList.remove('mucxuathien');
+											PriceListMobile.classList.add('mucbienmat');
+										}
+									});
+			
+								</script>
+								<script>
+									// Lấy tham chiếu đến các phần tử DOM
+									const materialButton1 = document.getElementById('materialButton1');
+									const materialList1 = document.getElementById('materialList1');
+									const iconElementmobile = document.querySelector('#icon_muitenmobile');
+			
+									// Thêm sự kiện click cho nút "Material"
+									materialButton1.addEventListener('click', function () {
+										// Kiểm tra trạng thái hiển thị của danh sách vật liệu
+										const isMaterialListVisibleMobile = materialList1.style.display === 'block';
+										// Đảo ngược trạng thái hiển thị
+										materialList1.style.display = isMaterialListVisibleMobile ? 'none' : 'block';
+			
+										// Đổi icon
+										if (isMaterialListVisibleMobile) {
+											iconElementmobile.classList.remove('fa-chevron-up');
+											iconElementmobile.classList.add('fa-chevron-down');
+										} else {
+											iconElementmobile.classList.remove('fa-chevron-down');
+											iconElementmobile.classList.add('fa-chevron-up');
+										}
+									});
+			
+								</script>
+					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 " data-filter=".toy" id="toy">
 						Toy
 					</button>
 
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".pillow">
+					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 pillowMobile" data-filter=".pillow">
 						Pillow
 					</button>
 
@@ -432,66 +539,75 @@
     
 				border: 0.1px dashed #000;
 				border-top:none;border-bottom: none;border-left: none;padding-right: 100px;">
-				
+
 					<h2>Filter:</h2>
-					
+
 					<div>
 						<fieldset>
 							<legend>
-								<button id="materialButton" type="button"> Material <i><i id="icon_muiten" class="fa-sharp fa-thin fa-chevron-up" style="padding-left: 40px;height: 4px;padding-top: 40px;"></i></i></button>
+								<button id="materialButton" type="button"> Material <i><i id="icon_muiten"
+											class="fa-sharp fa-thin fa-chevron-up"
+											style="padding-left: 40px;height: 4px;padding-top: 40px;"></i></i></button>
 							</legend>
 						</fieldset>
 						<ul id="materialList" style="display: none;">
 							<!-- <button type="button"><li>Cotton</li></button>  -->
-							
-								 <fieldset>
-									<legend>
-										<span class="hand-icon">Cotton</span><input type="checkbox" value="Cotton" style="transform: translateX(80px) translateY(-20px) ;">
-									</legend>
-								 </fieldset> 
-								 <fieldset>
-									<legend>
-										<span class="hand-icon">Fur</span><input type="checkbox" value="Cotton" style="transform: translateX(80px) translateY(-20px) ;">
-									</legend>
-								 </fieldset> 
-								
-								
-							
-							
-							
-							
+
+							<fieldset>
+								<legend>
+									<span class="hand-icon">Cotton</span><input type="checkbox" value="Cotton"
+										style="transform: translateX(80px) translateY(-20px) ;">
+								</legend>
+							</fieldset>
+							<fieldset>
+								<legend>
+									<span class="hand-icon">Fur</span><input type="checkbox" value="Cotton"
+										style="transform: translateX(80px) translateY(-20px) ;">
+								</legend>
+							</fieldset>
+
+
+
+
+
+
 						</ul>
 					</div>
 					<div>
 						<fieldset>
 							<legend>
-								<button id="PriceButton" type="button"> Price <i><i id="icon_muiten1" class="fa-sharp fa-thin fa-chevron-up" style="padding-left: 70px;height: 4px;padding-top: 40px;"></i></i></button>
+								<button id="PriceButton" type="button"> Price <i><i id="icon_muiten1"
+											class="fa-sharp fa-thin fa-chevron-up"
+											style="padding-left: 70px;height: 4px;padding-top: 40px;"></i></i></button>
 							</legend>
 						</fieldset>
 						<ul id="PriceList" style="display: none;">
 							<!-- <button type="button"><li>Cotton</li></button>  -->
-							
-								 <fieldset>
-									<legend>
-										<span class="hand-icon">50$</span><input type="checkbox" value="Cotton" style="transform: translateX(80px) translateY(-20px) ;font-size: 30px;">
-									</legend>
-								 </fieldset> 
-								 <fieldset>
-									<legend>
-										<span class="hand-icon">20$</span><input type="checkbox" value="Cotton" style="transform: translateX(80px) translateY(-20px) ;">
-									</legend>
-								 </fieldset> 
-								 <fieldset>
-									<legend>
-										<span class="hand-icon">30$</span><input type="checkbox" value="Cotton" style="transform: translateX(80px) translateY(-20px) ;">
-									</legend>
-								 </fieldset> 
-								
-								
-							
-							
-							
-							
+
+							<fieldset>
+								<legend>
+									<span class="hand-icon">50$</span><input type="checkbox" value="Cotton"
+										style="transform: translateX(80px) translateY(-20px) ;font-size: 30px;">
+								</legend>
+							</fieldset>
+							<fieldset>
+								<legend>
+									<span class="hand-icon">20$</span><input type="checkbox" value="Cotton"
+										style="transform: translateX(80px) translateY(-20px) ;">
+								</legend>
+							</fieldset>
+							<fieldset>
+								<legend>
+									<span class="hand-icon">30$</span><input type="checkbox" value="Cotton"
+										style="transform: translateX(80px) translateY(-20px) ;">
+								</legend>
+							</fieldset>
+
+
+
+
+
+
 						</ul>
 					</div>
 					<script>
@@ -544,7 +660,7 @@
 					</script>
 
 				</div>
-				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item toy">
+				<div id="imgBear" class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item toy">
 
 					<!-- Block2 -->
 					<div class="block2">
@@ -628,10 +744,11 @@
 
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
-								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  text">
+								<a href="product-detail.html"
+									class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  text">
 									Teddy bear
 								</a>
-								<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  text1">Cotton</p> 
+								<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  text1">Cotton</p>
 
 								<span class="stext-105 cl3  price">
 									$16.64
@@ -731,10 +848,11 @@
 
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
-								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text">
+								<a href="product-detail.html"
+									class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text">
 									Baby doll
 								</a>
-								<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  text1">Cotton</p> 
+								<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  text1">Cotton</p>
 								<span class="stext-105 cl3 price">
 									$35.31
 								</span>
@@ -827,10 +945,11 @@
 
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
-								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text">
+								<a href="product-detail.html"
+									class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text">
 									Rabbit doll
 								</a>
-								<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  text1">Cotton</p> 
+								<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  text1">Cotton</p>
 								<span class="stext-105 cl3 price">
 									$25.50
 								</span>
@@ -929,10 +1048,11 @@
 						</div>
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
-								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text">
+								<a href="product-detail.html"
+									class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text">
 									Monkey toy
 								</a>
-								<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  text1">Cotton</p> 
+								<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  text1">Cotton</p>
 								<span class="stext-105 cl3 price">
 									$75.00
 								</span>
@@ -1030,10 +1150,11 @@
 
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
-								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 textdeer">
+								<a href="product-detail.html"
+									class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 textdeer">
 									Deer toy
 								</a>
-								<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  textDeer">Cotton</p> 
+								<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  textDeer">Cotton</p>
 								<span class="stext-105 cl3 price">
 									$34.75
 								</span>
@@ -1126,10 +1247,11 @@
 
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
-								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text">
+								<a href="product-detail.html"
+									class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text">
 									Moon pillow
 								</a>
-								<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  text1">Cotton</p> 
+								<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  text1">Cotton</p>
 								<span class="stext-105 cl3 price">
 									$93.20
 								</span>
@@ -1222,10 +1344,11 @@
 
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
-								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text">
+								<a href="product-detail.html"
+									class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text">
 									Pig pillow
 								</a>
-								<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  text1">Cotton</p> 
+								<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  text1">Cotton</p>
 								<span class="stext-105 cl3 price">
 									$52.66
 								</span>
@@ -1318,10 +1441,11 @@
 
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
-								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text2">
+								<a href="product-detail.html"
+									class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text2">
 									Robot
 								</a>
-								<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  textRobot">Cotton</p> 
+								<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  textRobot">Cotton</p>
 								<span class="stext-105 cl3 price2">
 									$18.96
 								</span>
@@ -1415,10 +1539,11 @@
 
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
-								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text">
+								<a href="product-detail.html"
+									class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text">
 									White tiger
 								</a>
-								<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  text1">Cotton</p> 
+								<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  text1">Cotton</p>
 								<span class="stext-105 cl3 price">
 									$75.00
 								</span>
@@ -1511,10 +1636,11 @@
 
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
-								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text">
+								<a href="product-detail.html"
+									class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text">
 									Snow man
 								</a>
-								<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  text1">Cotton</p> 
+								<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  text1">Cotton</p>
 								<span class="stext-105 cl3 price">
 									$25.85
 								</span>
@@ -1607,10 +1733,11 @@
 
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
-								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text">
+								<a href="product-detail.html"
+									class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text">
 									Dog pillow
 								</a>
-								<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  text1">Cotton</p> 
+								<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  text1">Cotton</p>
 								<span class="stext-105 cl3 price">
 									$63.16
 								</span>
@@ -1632,7 +1759,7 @@
 
 
 		<!-- Footer -->
-		<footer class="bg3 p-t-75 p-b-32">
+		<footer class="bg3 p-t-75 p-b-32" id="footer_res">
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-6 col-lg-3 p-b-50">
