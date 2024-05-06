@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($conn->query($sql) === TRUE) {
         // Chuyển hướng người dùng trở lại trang HTML
-        header("Location: blog-detail1.html");
+        header("Location: blog-detail1.php");
         exit(); // Đảm bảo không có mã HTML hoặc mã PHP nào được thực thi sau khi chuyển hướng
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
