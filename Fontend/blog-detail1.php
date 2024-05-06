@@ -42,6 +42,29 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
 <style>
+     /* CSS cho khung hiển thị comment */
+     .single_comment_area {
+        margin-bottom: 20px;
+        padding: 15px;
+        border-radius: 5px;
+        border: 1px solid #e5e5e5;
+    }
+
+    .comment-content {
+        margin-left: 20px;
+    }
+
+    .comment-date {
+        color: #999;
+        font-size: 12px;
+        display: block; /* Đảm bảo ngày được hiển thị trên một dòng riêng */
+    }
+
+    h5 {
+        font-size: 18px;
+        margin-top: 0;
+        margin-bottom: 5px;
+    }
 	
 	#button-add {
 		border-radius: 8px;
@@ -552,7 +575,50 @@
 								<button id="button-add" type="submit" class="flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04">
 									Post Comment
 								</button>
-							</form>			
+							</form>	
+                            <br></br>
+                            <h5 class="mtext-113 cl2 p-b-12">
+								Comment
+							</h5>
+
+								    <!-- Hiển thị các comment đã được thêm -->
+                                    <?php
+                                    // Kết nối đến cơ sở dữ liệu
+                                    $servername = "localhost";
+                                    $username = "root";
+                                    $password = "";
+                                    $dbname = "toy-shop";
+
+                                    // Tạo kết nối đến cơ sở dữ liệu
+                                    $conn = new mysqli($servername, $username, $password, $dbname);
+
+                                    // Kiểm tra kết nối
+                                    if ($conn->connect_error) {
+                                        die("Connection failed: " . $conn->connect_error);
+                                    }
+
+                                    $sql = "SELECT * FROM comments";
+                                    $result = $conn->query($sql);
+
+                                    // Kiểm tra số lượng comment trả về từ truy vấn
+                                    if ($result->num_rows > 0) {
+                                        // Hiển thị từng comment
+                                        while($row = $result->fetch_assoc()) {
+                                            echo '<div class="single_comment_area">';
+                                            echo '<div class="comment-content">';
+                                            echo '<h5>' . $row["name"] . '</h5>';
+                                            echo '<span class="comment-date">' . $row["created_at"] . '</span>';
+                                            echo '<h5>' . $row["comment"] . '</h5>';
+                                            echo '</div>';
+                                            echo '</div>';
+                                        }
+                                    } else {
+                                        echo "No comments available";
+                                    }
+
+                                    // Đóng kết nối đến cơ sở dữ liệu
+                                    $conn->close();
+                                    ?>
 						</div>
 					</div>
 				</div>
@@ -607,12 +673,12 @@
 
 							<ul>
 								<li class="flex-w flex-t p-b-30">
-									<a href="blog-detail1.html" class="wrap-pic-w hov-ovelay1 m-r-20">
-										<img src="images/blog-04.jpg" href="blog-detail1.html" alt="PRODUCT" class="product-img">
+									<a href="blog-detail1.php" class="wrap-pic-w hov-ovelay1 m-r-20">
+										<img src="images/blog-04.jpg" href="blog-detail1.php" alt="PRODUCT" class="product-img">
 									</a>
 								
 									<div class="size-215 flex-col-t p-t-8">
-										<a href="blog-detail1.html" class="stext-116 cl8 hov-cl1 trans-04">
+										<a href="blog-detail1.php" class="stext-116 cl8 hov-cl1 trans-04">
 											Making Your Kids' Special Day Memorable
 										</a>
 										<span class="stext-116 cl6 p-t-20">
