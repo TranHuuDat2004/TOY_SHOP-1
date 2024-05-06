@@ -21,7 +21,7 @@
                     </div>
                 </td>
                 <td class="px-4 py-3 text-sm">
-                    <img style="width: 100px ; border-radius: 12px;" src="../images/'.$row['p_image'].'">
+                    <img style="width: 100px ; border-radius: 12px;" src="../../Fontend/images/'.$row['p_image'].'">
                 </td>
                 <td class="px-4 py-3 text-sm">
                     '.$row['p_name'].'

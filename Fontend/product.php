@@ -1768,14 +1768,14 @@
                                     <img src="images/<?php echo $product['p_image']; ?>" alt="IMG-PRODUCT">
 
                                     <div>
-                                        <i id="cart11" class=" fa-duotone fa-basket-shopping-simple hand-icon icon icon1"
+                                        <i id="cart12" class=" fa-duotone fa-basket-shopping-simple hand-icon icon icon1"
                                             style="--fa-primary-color: #d27014; --fa-secondary-color: #d27014;height: 40px; visibility: hidden; "></i>
                                         <i id="love11" class="fa-light fa-heart hand-icon icon icon1 "
                                             style="color: #ea931a;visibility: hidden;"></i>
                                         <i id="view11" class="fa-solid fa-eye hand-icon icon" style="visibility: hidden;"></i>
                                     </div>
                                     <script>
-                                        const iconDiv10 = document.querySelector('#cart11');
+                                        const iconDiv10 = document.querySelector('#cart12');
                                         var imageofdog = document.querySelector('#dog');
 
                                         // Tạo sự kiện di chuột qua cho biểu tượng
@@ -1792,7 +1792,7 @@
                                         // Tạo sự kiện di chuột ra khỏi biểu tượng
                                     </script>
                                     <script>
-                                        const iconlove11 = document.querySelector('#love11');
+                                        const iconlove11 = document.querySelector('#love12');
                                         var imageofdog = document.querySelector('#dog');
 
                                         // Tạo sự kiện di chuột qua cho biểu tượng
@@ -1809,7 +1809,7 @@
                                         // Tạo sự kiện di chuột ra khỏi biểu tượng
                                     </script>
                                     <script>
-                                        const iconview11 = document.querySelector('#view11');
+                                        const iconview11 = document.querySelector('#view12');
                                         var imageofdog = document.querySelector('#dog');
 
                                         // Tạo sự kiện di chuột qua cho biểu tượng
