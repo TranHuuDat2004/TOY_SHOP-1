@@ -1,5 +1,5 @@
 <?php
-define("HOST","127.0.0.1");
+define("HOST","localhost");
 define("USER","root");
 define("PASS","");
 define("DB_NAME","toy-shop");

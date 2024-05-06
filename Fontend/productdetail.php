@@ -1,7 +1,7 @@
 <!--php-->
 <?php
     //echo "Test1<br>";
-    require_once '../Admin/connection/connectData.php';
+    require_once ('../Admin/connection/connectData.php');
     //echo "Test2<br>";
     if(isset($_POST['sbm'])) {
         //echo "Test1<br>";
@@ -851,6 +851,27 @@
 												</p>
 											</div>
 										</div>
+										<div>
+											<?php
+											while ($row = mysqli_fetch_assoc($query)) {
+											?>
+												<div class="flex-w flex-sb-m p-b-17">
+													<span class="mtext-107 cl2 p-r-20">
+														<?php echo $row['r_name']; ?>
+													</span>
+
+													<span class="fs-18 cl11">
+														<?php echo $row['r_star']; ?>
+													</span>
+												</div>
+
+												<p class="stext-102 cl6">
+													<?php echo $row['r_description']; ?>
+												</p>
+											<?php }?>
+										</div>
+
+
 										
 										<!-- Add review -->
 										<form form method="POST" enctype="multipart/form-data" class="w-full">
