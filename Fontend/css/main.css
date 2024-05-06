@@ -1507,6 +1507,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
   height: 100%;
   top: 0;
   left: 0;
+  border-radius: 5px;
   cursor: pointer;
   border: 2px solid transparent;
   -webkit-transition: all 0.4s;
@@ -1521,6 +1522,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 
 .slick3-dots .slick-active .slick3-dot-overlay {
   border-color: #ccc;
+  border-radius: 5px;
 }
 
 
@@ -2708,8 +2710,8 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 .bor8 {
-  border: 1px solid #e6e6e6;
-  border-radius: 2px;
+  border: 1px dashed #000;
+  border-radius: 12px;
 }
 
 .bor9 {
