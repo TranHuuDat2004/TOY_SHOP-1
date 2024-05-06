@@ -1,0 +1,17 @@
+.disproduct1
+{
+    display: none;
+    
+}
+.canbanghinh1 {
+    transform: translateY(-700px);
+}
+.canbanghinh2 {
+    transform: translateY(-700px);
+}
+.canbanghinh3
+{
+    width:1100px;
+    height: 300px;
+    transform:translateX(-200px) ;
+}
