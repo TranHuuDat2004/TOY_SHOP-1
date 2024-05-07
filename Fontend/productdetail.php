@@ -851,6 +851,7 @@
 												</p>
 											</div>
 										</div>
+										
 										<div>
 											<?php
 											while ($row = mysqli_fetch_assoc($query)) {
