@@ -1,3 +1,21 @@
+<!-- Trang chỉnh sửa sản phẩm (editProduct.php) -->
+<?php
+// Import file kết nối CSDL
+require_once '../connection/connectData.php';
+
+// Kiểm tra xem p_id có tồn tại không
+if(isset($_GET['p_id']) && is_numeric($_GET['p_id'])) {
+    $p_id = mysqli_real_escape_string($conn, $_GET['p_id']);
+    // Truy vấn để lấy thông tin sản phẩm dựa trên p_id
+    $sql = "SELECT * FROM product WHERE p_id = $p_id";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+} else {
+    // Nếu không có p_id hoặc giá trị không hợp lệ, chuyển hướng người dùng về trang quản lý sản phẩm
+    header('Location: manageProduct.php');
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
 
@@ -17,8 +35,8 @@
   <script src="./assets/js/charts-lines.js" defer></script>
   <script src="./assets/js/charts-pie.js" defer></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&display=swap');
-  </style>
+		@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&display=swap');
+	</style>
 </head>
 
 <body>
@@ -34,7 +52,7 @@
 
         <ul class="mt-6">
           <li class="relative px-6 py-3">
-            <span aria-hidden="true"></span>
+            <span class="" aria-hidden="true"></span>
             <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
               href="index.html">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
@@ -49,7 +67,8 @@
         </ul>
         <ul>
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+            <span class="" aria-hidden="true"></span>
+            <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
               href="manageUser.html">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -60,12 +79,13 @@
           </li>
 
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+            <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+              aria-hidden="true"></span>
+            <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
               href="addProduct.html">
-              <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
-                stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                 <path
-                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
+                  d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z">
                 </path>
               </svg>
               <span class="ml-4">Add Product</span>
@@ -73,27 +93,25 @@
           </li>
           <li class="relative px-6 py-3">
             <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-              href="manageProduct.html">
+              href="cards.html">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                 <path
                   d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
                 </path>
               </svg>
-              <span class="ml-4">Manage Product</span>
+              <span class="ml-4">Cards</span>
             </a>
           </li>
           <li class="relative px-6 py-3">
-            <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
-              aria-hidden="true"></span>
-            <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
-              href="comment.html">
+            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+              href="charts.html">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                 <path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
                 <path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
               </svg>
-              <span class="ml-4">Manage Comment</span>
+              <span class="ml-4">Charts</span>
             </a>
           </li>
           <li class="relative px-6 py-3">
@@ -236,9 +254,7 @@
             </a>
           </li>
           <li class="relative px-6 py-3">
-            <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
-              aria-hidden="true"></span>
-            <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
+            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
               href="charts.html">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -273,7 +289,9 @@
             </a>
           </li>
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+            <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+              aria-hidden="true"></span>
+            <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
               href="tables.html">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -340,12 +358,12 @@
         </div>
       </div>
     </aside>
-    <div class="flex flex-col flex-1">
+    <div class="flex flex-col flex-1 w-full">
       <header class="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
         <div
           class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
           <!-- Mobile hamburger -->
-          <button class="p-1 -ml-1 mr-5 rounded-md md:hidden focus:outline-none focus:shadow-outline-purple"
+          <button class="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-purple"
             @click="toggleSideMenu" aria-label="Menu">
             <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
               <path fill-rule="evenodd"
@@ -440,9 +458,8 @@
             <li class="relative">
               <button class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
                 @click="toggleProfileMenu" @keydown.escape="closeProfileMenu" aria-label="Account" aria-haspopup="true">
-                <img class="object-cover w-8 h-8 rounded-full"
-                  src="https://images.unsplash.com/photo-1502378735452-bc7d86632805?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=aa3a807e1bbdfd4364d1f449eaa96d82"
-                  alt="" aria-hidden="true" />
+                <img class="object-cover w-8 h-8 rounded-full" src="/Fontend/images/ThuyKhanh1.jpg" alt=""
+                  aria-hidden="true" />
               </button>
               <template x-if="isProfileMenuOpen">
                 <ul x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
@@ -490,100 +507,61 @@
           </ul>
         </div>
       </header>
+      <main class="h-full pb-16 overflow-y-auto">
+        <div class="container grid px-6 mx-auto">
+          <h2 class="stext-121 my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+            Edit Product
+          </h2>
 
-      <?php
-// Kết nối đến cơ sở dữ liệu
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "toy-shop";
+          <!-- With actions -->
+        </div>
 
-// Tạo kết nối đến cơ sở dữ liệu
-$conn = new mysqli($servername, $username, $password, $dbname);
+        <form method="POST" enctype="multipart/form-data" action="updateProduct.php">
+          <div class="content">
+          <input type="hidden" name="p_id" value="<?php echo $row['p_id']; ?>">
+            <div class="form-group text-gray-700 dark:text-gray-200">
+              <label for="name">Name Product</label>
+              <input class="form-control" name="p_name" id="name" type="text" placeholder="Name Product" value="<?php echo $row['p_name']; ?>">
+            </div>
+            <div class="form-group text-gray-700 dark:text-gray-200">
+              <label for="file">Image Product</label>
+            <input id="file" name="p_image" type="file" value="<?php echo $row['p_image']; ?>">
+            </div>
 
-// Kiểm tra kết nối
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Truy vấn cơ sở dữ liệu để lấy các comment
-$sql = "SELECT * FROM comments";
-$result = $conn->query($sql);
-
-// Kiểm tra số lượng comment trả về từ truy vấn
-if ($result->num_rows > 0) {
-    // Hiển thị tiêu đề của bảng
-    echo '<main class="h-full pb-16 overflow-y-auto">
-            <div class="container grid px-6 mx-auto">
-              <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-                Manage Comments
-              </h2>
-          
-              <!-- With actions -->
-              <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
-                List Of Comments
-              </h4>
-              <div class="w-full overflow-hidden rounded-lg shadow-xs">
-                <div class="w-full overflow-x-auto">
-                  <table class="w-full whitespace-no-wrap">
-                    <thead>
-                      <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                        <th class="px-4 py-3">ID</th>
-                        <th class="px-4 py-3">Name</th>
-                        <th class="px-4 py-3">Email</th>
-                        <th class="px-4 py-3">Comment</th>
-                        <th class="px-4 py-3">Date</th>
-                        <th class="px-4 py-3">Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">';
-
-    // Duyệt qua mỗi hàng kết quả và hiển thị comment
-    while($row = $result->fetch_assoc()) {
-        echo '<tr class="text-gray-700 dark:text-gray-400">';
-        echo '<td class="px-4 py-3">' . $row["id"] . '</td>';
-        echo '<td class="px-4 py-3">' . $row["name"] . '</td>';
-        echo '<td class="px-4 py-3">' . $row["email"] . '</td>';
-        echo '<td class="px-4 py-3">' . $row["comment"] . '</td>';
-        echo '<td class="px-4 py-3">' . $row["created_at"] . '</td>';
-        echo '<td class="px-4 py-3">
-                <div class="flex items-center space-x-4 text-sm">
-                  <a href="edit_comment.php?id=' . $row["id"] . '" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Edit">
-                    <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
-                    </svg>
-                  </a>';
-        // Thêm nút xóa comment với biểu tượng
-        echo '<form action="delete_comment.php" method="post" onsubmit="return confirm(\'Are you sure you want to delete this comment?\');">
-        <input type="hidden" name="comment_id" value="' . $row["id"] . '">
-        <button type="submit" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-red-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Delete">
-          <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-          </svg>
-        </button>
-      </form>';
-        echo '</div>
-              </td>';
-        echo '</tr>';
-    }
-
-    // Đóng thẻ tbody và table
-    echo '</tbody></table></div></div></div></main>';
-
-} else {
-    echo "No comments available";
-}
-
-// Đóng kết nối đến cơ sở dữ liệu
-$conn->close();
-?>
-
-
-
-
+            <div class="form-group text-gray-700 dark:text-gray-200">
+              <label for="price">Price</label>
+              <input class="form-control" id="name" name="p_price" type="text" placeholder="Price" value="<?php echo $row['p_price']; ?>">
+            </div>
+            
+            <div class="form-group text-gray-700 dark:text-gray-200">
+              <label for="type">Type</label>
+              <select id="type" class="form-control" name="p_type" >
+                <option>Select a Type</option>
+                <optgroup label="Natural">
+                    <option value="Wood" <?php if($row['p_type'] == 'Wood') echo 'selected'; ?>>Wood</option>
+                    <option value="Cotton" <?php if($row['p_type'] == 'Cotton') echo 'selected'; ?>>Cotton</option>
+                    <option value="Wool" <?php if($row['p_type'] == 'Wool') echo 'selected'; ?>>Wool</option>
+                    <option value="Clay" <?php if($row['p_type'] == 'Clay') echo 'selected'; ?>>Clay</option>
+                    <option value="Bamboo" <?php if($row['p_type'] == 'Bamboo') echo 'selected'; ?>>Bamboo</option>
+                </optgroup>
+                <optgroup label="Man-Made">
+                    <option value="Plastic" <?php if($row['p_type'] == 'Plastic') echo 'selected'; ?>>Plastic</option>
+                    <option value="Metal" <?php if($row['p_type'] == 'Metal') echo 'selected'; ?>>Metal</option>
+                    <option value="Polyester" <?php if($row['p_type'] == 'Polyester') echo 'selected'; ?>>Polyester</option>
+                    <option value="Rubberized Plastic" <?php if($row['p_type'] == 'Rubberized Plastic') echo 'selected'; ?>>Rubberized Plastic</option>
+                    <option value="Foam" <?php if($row['p_type'] == 'Foam') echo 'selected'; ?>>Foam</option>
+                </optgroup>
+            </select>
+            </div>
+            <div class="form-group text-gray-700 dark:text-gray-200">
+            <button name="sbm" class="main-btn" type="submit">Edit Product</button>
+            </div>
+          </div>
+        </form>
     </div>
+    </main>
   </div>
-  
+  </div>
 </body>
 
 </html>
