@@ -3587,20 +3587,37 @@ img.Imagealignment{
   position: relative; /* Thêm thuộc tính position: relative; để tạo không gian định vị cho phần tử con */
 }
 
-.tooltip-content1 {
+
+.tooltip-content1  {
   position: absolute;
   background-color: #fff;
   box-shadow: 0 0 0 0.2rem rgba(219, 56, 140, 0.25);
-  padding: 15px; /* Giảm độ rộng của padding để tooltip nhỏ hơn */
-  border-radius: 8px;
-  width: 200px; /* Định kích thước chiều rộng cố định cho tooltip */
-  max-width: 90%; /* Giới hạn chiều rộng tối đa cho tooltip */
-  z-index: 2;
-  margin-top: -180px;
-  top: calc(100% + 0px); /* Hiển thị tooltip bên dưới nút pin1 */
+  border-radius: 9px;
+  top: -180px; /* Hiển thị tooltip bên dưới nút pin1 */
+
   left: 50%; /* Căn giữa theo chiều ngang */
   transform: translateX(-55%); /* Dịch chuyển tooltip về phía trái 50% để căn giữa theo chiều ngang */
-  display: none; /* Ẩn tooltip ban đầu */
+  /* Ẩn tooltip ban đầu */
+  display: none;
+}
+
+.col-title{
+  width: 150px;
+  display: flex;
+  padding: 10px 0 0 0;
+  margin: 0 20px;
+  
+}
+.card1{
+  width: 90%;
+  height: fit-content;
+  justify-content: center;
+}
+.card1 img{
+  object-fit: cover;
+  padding-bottom: 20px;
+  margin-top: -10px;
+  
 }
 
 .tooltip1:hover .tooltip-content1 {
@@ -3722,21 +3739,40 @@ img.Imagealignment{
   position: relative; /* Thêm thuộc tính position: relative; để tạo không gian định vị cho phần tử con */
 }
 
-.tooltip-content2 {
+
+
+.tooltip-content2  {
   position: absolute;
   background-color: #fff;
   box-shadow: 0 0 0 0.2rem rgba(219, 56, 140, 0.25);
-  padding: 15px; /* Giảm độ rộng của padding để tooltip nhỏ hơn */
-  border-radius: 8px;
-  width: 200px; /* Định kích thước chiều rộng cố định cho tooltip */
-  max-width: 90%; /* Giới hạn chiều rộng tối đa cho tooltip */
-  z-index: 2;
-  margin-top: -180px;
-  top: calc(100% + 0px); /* Hiển thị tooltip bên dưới nút pin1 */
+  border-radius: 9px;
+  top: -180px; /* Hiển thị tooltip bên dưới nút pin1 */
+
   left: 10%; /* Căn giữa theo chiều ngang */
   transform: translateX(-55%); /* Dịch chuyển tooltip về phía trái 50% để căn giữa theo chiều ngang */
-  display: none; /* Ẩn tooltip ban đầu */
+  /* Ẩn tooltip ban đầu */
+  display: none;
 }
+
+.col-title{
+  width: 150px;
+  display: flex;
+  padding: 10px 0 0 0;
+  margin: 0 20px;
+  
+}
+.card1{
+  width: 90%;
+  height: fit-content;
+  justify-content: center;
+}
+.card1 img{
+  object-fit: cover;
+  padding-bottom: 20px;
+  margin-top: -10px;
+  
+}
+
 
 .tooltip2:hover .tooltip-content2 {
   display: block; /* Hiển thị tooltip khi di chuột qua .tooltip1 */
@@ -3848,20 +3884,38 @@ img.Imagealignment{
   position: relative; /* Thêm thuộc tính position: relative; để tạo không gian định vị cho phần tử con */
 }
 
-.tooltip-content3 {
+
+
+.tooltip-content3  {
   position: absolute;
   background-color: #fff;
   box-shadow: 0 0 0 0.2rem rgba(219, 56, 140, 0.25);
-  padding: 15px; /* Giảm độ rộng của padding để tooltip nhỏ hơn */
-  border-radius: 8px;
-  width: 200px; /* Định kích thước chiều rộng cố định cho tooltip */
-  max-width: 90%; /* Giới hạn chiều rộng tối đa cho tooltip */
-  z-index: 2;
-  margin-top: -70px;
-  top: calc(100% + 0px); /* Hiển thị tooltip bên dưới nút pin1 */
-  right: 11.5%;
+  border-radius: 9px;
+  margin-top: -70px; /* Hiển thị tooltip bên dưới nút pin1 */
+  top: calc(100% + 0px);
+  right: 11.5%; /* Căn giữa theo chiều ngang */
   transform: translateX(-55%); /* Dịch chuyển tooltip về phía trái 50% để căn giữa theo chiều ngang */
-  display: none; /* Ẩn tooltip ban đầu */
+  /* Ẩn tooltip ban đầu */
+  display: none;
+}
+
+.col-title{
+  width: 150px;
+  display: flex;
+  padding: 10px 0 0 0;
+  margin: 0 20px;
+  
+}
+.card1{
+  width: 90%;
+  height: fit-content;
+  justify-content: center;
+}
+.card1 img{
+  object-fit: cover;
+  padding-bottom: 20px;
+  margin-top: -10px;
+  
 }
 
 .tooltip3:hover .tooltip-content3 {
