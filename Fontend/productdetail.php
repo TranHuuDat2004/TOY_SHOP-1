@@ -28,8 +28,7 @@
             var_dump($e);
         }
 
-        $sql = "SELECT * from review";
-        $query = mysqli_query($conn, $sql);
+        
         
     }
     // xoa 
@@ -851,8 +850,12 @@
 												</p>
 											</div>
 										</div>
+										
 										<div>
 											<?php
+											require_once ('../Admin/connection/connectData.php');
+											$sql = "SELECT * from review";
+        									$query = mysqli_query($conn, $sql);
 											while ($row = mysqli_fetch_assoc($query)) {
 											?>
 												<div class="flex-w flex-sb-m p-b-17">

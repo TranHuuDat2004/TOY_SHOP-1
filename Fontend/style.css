@@ -34,7 +34,7 @@ body1{
   transition: all 1s ease;
   transform-origin: left;
   transform-style: preserve-3d;
-  border-radius: 0 50% 50% 0;
+  border-radius: 0 50%  50% 0;
 }
 #logo{
   text-align: center;
@@ -54,17 +54,20 @@ body1{
   transform: rotateY(180deg);
   backface-visibility: hidden;
 }
+.container .cover::before{
+  background: #000;
+  border-radius: 0 30px 30px 0;
+}
 .container .cover::before,
 .container .cover::after{
   content: '';
   position: absolute;
   height: 100%;
   width: 100%;
-  opacity: 0.5;
-  z-index: 12;
+  opacity: 1;
+  z-index: 10;
 }
 .container .cover::after{
-  opacity: 0.3;
   transform: rotateY(180deg);
   backface-visibility: hidden;
 }
@@ -73,7 +76,7 @@ body1{
   height: 100%;
   width: 100%;
   object-fit: cover;
-  z-index: 10;
+  z-index: 12;
   border-top-right-radius: 30px; /* Rounded top-right corner */
   border-bottom-right-radius: 30px; /* Rounded bottom-right corner */
 }
