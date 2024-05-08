@@ -529,6 +529,33 @@ if(isset($_GET['p_id']) && is_numeric($_GET['p_id'])) {
             </div>
 
             <div class="form-group text-gray-700 dark:text-gray-200">
+              <label for="type">Age</label>
+              <select id="type" class="form-control" name="p_age">
+                <option>Select Age</option>
+                  <option value="0-12 months" <?php if($row['p_age'] == '0-12 months') echo 'selected'; ?>>0-12 months</option>
+                  <option value="1-2 years" <?php if($row['p_age'] == '1-2 years') echo 'selected'; ?>>1-2 years</option>
+                  <option value="3+ years" <?php if($row['p_age'] == '3+ years') echo 'selected'; ?>>3+ years</option>
+                  <option value="5+ years" <?php if($row['p_age'] == '5+ years') echo 'selected'; ?>>5+ years</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <div class="form-group text-gray-700 dark:text-gray-200">
+              <label for="type">Provider</label>
+              <select id="type" class="form-control" name="p_provider">
+                <option>Select Provider</option>
+                  <option value="Frog Leaf" <?php if($row['p_provider'] == 'Frog Leaf') echo 'selected'; ?>>Frog Leaf</option>
+                  <option value="dun dun dun" <?php if($row['p_provider'] == 'dun dun dun') echo 'selected'; ?>>dun dun dun</option>
+                  <option value="Cloud Frog" <?php if($row['p_provider'] == 'Cloud Frog') echo 'selected'; ?>>Cloud Frog</option>
+                  <option value="DiNo" <?php if($row['p_provider'] == 'DiNo') echo 'selected'; ?>>DiNo</option>
+                  <option value="Baby Logo" <?php if($row['p_provider'] == 'Baby Logo') echo 'selected'; ?>>Baby Logo</option>
+                  <option value="Cookie" <?php if($row['p_provider'] == 'Cookie') echo 'selected'; ?>>Cookie</option>
+                  <option value="BarBie" <?php if($row['p_provider'] == 'BarBie') echo 'selected'; ?>>BarBie</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <div class="form-group text-gray-700 dark:text-gray-200">
               <label for="price">Price</label>
               <input class="form-control" id="name" name="p_price" type="text" placeholder="Price" value="<?php echo $row['p_price']; ?>">
             </div>

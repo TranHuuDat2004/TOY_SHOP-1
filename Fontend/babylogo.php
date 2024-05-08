@@ -1,7 +1,6 @@
 <?php
-include('../Admin/connection/connectionpro.php');
 require_once '../Admin/connection/connectData.php';
-    $sql = "SELECT * FROM product";
+    $sql = "SELECT * FROM product where p_provider = 'Baby Logo'";
     $query = mysqli_query($conn, $sql);
 
 ?>
@@ -384,7 +383,7 @@ require_once '../Admin/connection/connectData.php';
 	<!-- Title page -->
 	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/background-image.png');">
 		<h2 style="color: #000;" class="ltext-105 cl0 txt-center">
-			Wish List
+            Baby Logo
 		</h2>
 	</section>
 
@@ -613,63 +612,35 @@ require_once '../Admin/connection/connectData.php';
 
 
 				<section class="disproduct">
-					<?php
-					$product = getproducts();
-					?>
+                    <?php
+                    while ($product = mysqli_fetch_assoc($query)) {
+                    ?>
+                    <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item toy">
+                        <!-- Block2 -->
+                        <div class="block2">
+                            <div id="<?php echo $product['p_id']; ?>" class="block2-pic hov-img0" style="border: 0.1px dashed #000; border-radius: 50px;">
+                                <img src="images/<?php echo $product['p_image']; ?>" alt="IMG-PRODUCT">
+                            </div>
+                            <div class="block2-txt flex-w flex-t p-t-14">
+                                <div class="block2-txt-child1 flex-col-l">
+                                    <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6"><?php echo $product['p_name']; ?></a>
+                                    <p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text1"><?php echo $product['p_type']; ?></p>
+                                    <span class="stext-105 cl3 price">$<?php echo $product['p_price']; ?></span>
+                                </div>
+                                <div class="block2-txt-child2 flex-r p-t-3">
+                                    <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                                        <img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
+                                        <img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                    }
+                    ?>
+                </section>
 
-
-					<?php
-
-					foreach ($product as $p) {
-						$name = $p['p_name'];
-						$price = $p['p_price'];
-						$type = $p['p_type'];
-						$image = $p['p_image'];
-						$idFake = $p['p_idfake'];
-						$id = $p['p_id'];
-					?>
-						<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item toy ">
-
-							<!-- Block2 -->
-							<div class="block2">
-
-								<div id="<?= $idFake ?>" class="block2-pic hov-img0   " style="border: 0.1px dashed #000; border-radius: 50px;">
-									<img src="images/<?= $image ?>" alt="IMG-PRODUCT">
-
-
-
-
-
-
-								</div>
-
-								<div class="block2-txt flex-w flex-t p-t-14">
-									<div class="block2-txt-child1 flex-col-l ">
-										<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  ">
-											<?= $name ?>
-										</a>
-										<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  text1"><?= $type ?></p>
-
-										<span class="stext-105 cl3  price">
-											$<?= $price ?>
-										</span>
-									</div>
-
-									<div class="block2-txt-child2 flex-r p-t-3">
-										<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-											<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
-											<img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
-										</a>
-									</div>
-								</div>
-
-							</div>
-						</div>
-
-					<?php
-					}
-					?>
-				</section>
 
 
 

@@ -5,6 +5,8 @@ if(isset($_POST['sbm'])) {
     // Lấy thông tin sản phẩm từ form
     $p_id = $_POST['p_id'];
     $p_name = $_POST['p_name'];
+    $p_age= $_POST['p_age'];
+    $p_provider= $_POST['p_provider'];
     $p_price = $_POST['p_price'];
     $p_type = $_POST['p_type'];
 
@@ -13,10 +15,10 @@ if(isset($_POST['sbm'])) {
         $p_image = $_FILES['p_image']['name'];
         $p_image_tmp = $_FILES['p_image']['tmp_name'];
         move_uploaded_file($p_image_tmp, '../images/'. $p_image);
-        $sql = "UPDATE product SET p_name = '$p_name', p_price = '$p_price', p_type = '$p_type', p_image = '$p_image' WHERE p_id = $p_id";
+        $sql = "UPDATE product SET p_name = '$p_name',  p_age = '$p_age', p_provider = '$p_provider', p_price = '$p_price', p_type = '$p_type', p_image = '$p_image' WHERE p_id = $p_id";
     } else {
         // Nếu không có file hình ảnh mới, chỉ cập nhật thông tin về tên, giá và loại sản phẩm
-        $sql = "UPDATE product SET p_name = '$p_name', p_price = '$p_price', p_type = '$p_type' WHERE p_id = $p_id";
+        $sql = "UPDATE product SET p_name = '$p_name', p_age = '$p_age', p_provider = '$p_provider', p_price = '$p_price', p_type = '$p_type' WHERE p_id = $p_id";
     }
 
     // Thực thi truy vấn SQL

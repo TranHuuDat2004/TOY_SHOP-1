@@ -520,6 +520,8 @@
                     <th class="px-4 py-3">ID</th>
                     <th class="px-4 py-3">Image</th>
                     <th class="px-4 py-3">Name</th>
+                    <th class="px-4 py-3">Age</th>
+                    <th class="px-4 py-3">Provider</th>
                     <th class="px-4 py-3">Price</th>
                     <th class="px-4 py-3">Type</th>
                     <th class="px-4 py-3">Actions</th>

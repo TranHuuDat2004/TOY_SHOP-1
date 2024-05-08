@@ -656,7 +656,7 @@
 				<div class="col-lg-3 col-md-6 col-sm-12 p-b-30 m-lr-auto">
 					<!-- Block1 -->
 					<div class="ageimg">
-						<a href="#">
+						<a href="0_12months.php">
 							<img src="images/age1.jpg" alt="category-img" data-hover="images/age1.jpg">
 						</a>
 						<h5 class="stext-123">0 - 12 months</h5>
@@ -666,7 +666,7 @@
 				<div class="col-lg-3 col-md-6 col-sm-12 p-b-30 m-lr-auto">
 					<!-- Block2 -->
 					<div class="ageimg1">
-						<a href="#">
+						<a href="1_2years.php">
 							<img src="images/age1.jpg" alt="category-img" data-hover="images/age1.jpg">
 						</a>
 						<h5 class="stext-123">1 - 2 Years</h5>
@@ -676,7 +676,7 @@
 				<div class="col-lg-3 col-md-6 col-sm-12 p-b-30 m-lr-auto">
 					<!-- Block3 -->
 					<div class="ageimg2">
-						<a href="#">
+						<a href="3+years.php">
 							<img src="images/age1.jpg" alt="category-img" data-hover="images/age1.jpg">
 						</a>
 						<h5 class="stext-123">3+ Years</h5>
@@ -686,7 +686,7 @@
 				<div class="col-lg-3 col-md-6 col-sm-12 p-b-30 m-lr-auto">
 					<!-- Block4 -->
 					<div class="ageimg3">
-						<a href="#">
+						<a href="5+years.php">
 							<img src="images/age1.jpg" alt="category-img" data-hover="images/age1.jpg">
 						</a>
 						<h5 class="stext-123">5+ Years</h5>
@@ -1083,12 +1083,13 @@
 	<div class="container2">
 		<h1 class="text-primary1" style="padding-bottom: 10px; text-align: center;">Top Brands</h1>
 		<div class="logo-slider">
-			<div class="item1"><a href=""><img src="images/logo1.jpg" alt=""></a></div>
-			<div class="item1"><a href=""><img src="images/logo2.jpg" alt=""></a></div>
-			<div class="item1"><a href=""><img src="images/logo3.jpg" alt=""></a></div>
-			<div class="item1"><a href=""><img src="images/logo4.jpg" alt=""></a></div>
-			<div class="item1"><a href=""><img src="images/logo5.jpg" alt=""></a></div>
-			<div class="item1"><a href=""><img src="images/logo6.jpg" alt=""></a></div>
+			<div class="item1"><a href="frogleaf.php"><img src="images/logo1.jpg" alt=""></a></div>
+			<div class="item1"><a href="dun_dun_dun.php"><img src="images/logo2.jpg" alt=""></a></div>
+			<div class="item1"><a href="cloudfrog.php"><img src="images/logo3.jpg" alt=""></a></div>
+			<div class="item1"><a href="dino.php"><img src="images/logo4.jpg" alt=""></a></div>
+			<div class="item1"><a href="babylogo.php"><img src="images/logo5.jpg" alt=""></a></div>
+			<div class="item1"><a href="cookie.php"><img src="images/logo6.jpg" alt=""></a></div>
+			<div class="item1"><a href="barbie.php"><img src="images/logo7.jpg" alt=""></a></div>
 		</div>
 	</div>
 

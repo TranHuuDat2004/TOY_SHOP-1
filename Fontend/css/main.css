@@ -1673,10 +1673,10 @@ button.mfp-close {
 }
 
 .swal-button {
-  background-color: #717fe0;
+  background-color: #E7BCDE;
   font-family: Poppins-Regular;
   font-size: 16px;
-  color: white;
+  color: #BB9CC0;
   text-transform: uppercase;
   font-weight: unset;
   border-radius: 4px;
@@ -1688,6 +1688,7 @@ button.mfp-close {
 
 .swal-button:hover {
   background-color: #333;
+  color: #f74877;
 }
 
 .swal-button:active {
@@ -1696,7 +1697,7 @@ button.mfp-close {
 
 .swal-title {
   font-family: Poppins-Bold;
-  color: #333333;
+  color: #f74877;
   font-size: 18px;
   line-height: 1.5;
   padding: 0 15px;
@@ -1704,7 +1705,7 @@ button.mfp-close {
 
 .swal-text {
   font-family: Poppins-Regular;
-  color: #555555;
+  color: #000;
   font-size: 16px;
   line-height: 1.666667;
   text-align: center;
@@ -2089,14 +2090,14 @@ input.num-product::-webkit-inner-spin-button {
 /*==================================================================
     TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT
 ==================================================================*/
-.cl0 {color: #fff;}
+.cl0 {color: #000;}
 .cl1 {color: #717fe0;}
 .cl2 {color: #333;}
 .cl3 {color: #666;}
 .cl4 {color: #999;}
 .cl5 {color: #222;}
 .cl6 {color: #888;}
-.cl7 {color: #b2b2b2;}
+.cl7 {color: #000;}
 .cl8 {color: #555;}
 .cl9 {color: #aaa;}
 .cl10 {color: #1d1d1d;}
@@ -2644,7 +2645,7 @@ input.num-product::-webkit-inner-spin-button {
 .bg0 {background-color: #fff;}
 .bg1 {background-color: #717fe0;}
 .bg2 {background-color: #e6e6e6;}
-.bg3 {background-color: #F6F5F2;}
+.bg3 {background-color: #F9F5F6;}
 .bg5 {background-color: rgba(0,0,0,0.5);}
 .bg6 {background-color: #f2f2f2;}
 .bg7 {background-color: #333;}
@@ -4646,7 +4647,5 @@ form{
   }
 }
 
-.bg3{
-  border-radius: 40px;
-}
+
 

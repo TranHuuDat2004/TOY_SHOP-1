@@ -9,6 +9,8 @@
         $p_name = $_POST['p_name'];
         $p_image = $_FILES['p_image']['name'];
         $p_image_tmp = $_FILES['p_image']['tmp_name'];
+        $p_age= $_POST['p_age'];
+        $p_provider= $_POST['p_provider'];
         $p_price= $_POST['p_price'];
         $p_type = $_POST['p_type'];
       
@@ -17,8 +19,8 @@
         //$date = date("Y/m/d"); //thay sua
 
         //echo "Test3<br>";
-        $sql = "INSERT INTO product (p_name, p_image, p_price, p_type) 
-        VALUES ('$p_name', '$p_image', '$p_price', '$p_type')"; //thay sua them thuoc tính date
+        $sql = "INSERT INTO product (p_name, p_image, p_age, p_provider, p_price, p_type) 
+        VALUES ('$p_name', '$p_image', '$p_age', '$p_provider', '$p_price', '$p_type')"; //thay sua them thuoc tính date
         //echo "Test4<br>"; //met moi 
         //thay them try catch
         try 
@@ -549,6 +551,33 @@
             <div class="form-group text-gray-700 dark:text-gray-200">
               <label for="file">Image Product</label>
             <input id="file" name="p_image" type="file">
+            </div>
+
+            <div class="form-group text-gray-700 dark:text-gray-200">
+              <label for="type">Age</label>
+              <select id="type" class="form-control" name="p_age">
+                <option>Select Age</option>
+                  <option>0-12 months</option>
+                  <option>1-2 years</option>
+                  <option>3+ years</option>
+                  <option>5+ years</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <div class="form-group text-gray-700 dark:text-gray-200">
+              <label for="type">Provider</label>
+              <select id="type" class="form-control" name="p_provider">
+                <option>Select Provider</option>
+                  <option>Frog Leaf</option>
+                  <option>dun dun dun</option>
+                  <option>Cloud Frog</option>
+                  <option>DiNo</option>
+                  <option>Baby Logo</option>
+                  <option>Cookie</option>
+                  <option>BarBie</option>
+                </optgroup>
+              </select>
             </div>
 
             <div class="form-group text-gray-700 dark:text-gray-200">
