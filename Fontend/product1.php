@@ -15,7 +15,7 @@ require_once '../Admin/connection/connectData.php';
 	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v5.15.4/css/all.css">
 	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+	<link rel="stylesheet" href="image.css">
 	<link rel="stylesheet" href="cart.css">
 	<!-- link icon -->
 	<link rel="stylesheet" data-purpose="Layout StyleSheet" title="Web Awesome" href="/css/app-wa-8d95b745961f6b33ab3aa1b98a45291a.css?vsn=d">
@@ -59,6 +59,7 @@ require_once '../Admin/connection/connectData.php';
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<link rel="stylesheet" href="disproduct.css">
+	<link rel="stylesheet" href="footer_res.css">
 	<!--===============================================================================================-->
 </head>
 
@@ -258,12 +259,14 @@ require_once '../Admin/connection/connectData.php';
 					<img src="images/icons/icon-close2.png" alt="CLOSE">
 				</button>
 
-				<form class="wrap-search-header flex-w p-l-15">
-					<button class="flex-c-m trans-04">
+				<form action="searchProduct.php" method="POST" class="wrap-search-header flex-w p-l-15">
+					<button type="submit" class="flex-c-m trans-04">
 						<i class="zmdi zmdi-search"></i>
 					</button>
-					<input class="plh3" type="text" name="search" placeholder="Search...">
+					<input class="plh3" type="text" name="p_name" placeholder="Search...">
 				</form>
+				
+
 			</div>
 		</div>
 	</header>
@@ -454,35 +457,28 @@ require_once '../Admin/connection/connectData.php';
 
 
 
-				<script>
-					$(document).ready(function() {
-						$('#\\$10').click(function(event) {
-							event.preventDefault();
-							var pPrice = $(this).val();
+<script>
+                            function getSelectedValue() {
+                                // Lấy ra radio button được chọn
+                                document.getElementById("formFilter").addEventListener("submit", function(event){
+                                    event.preventDefault(); 
 
-							// Gửi pPrice và giá trị mới 30 đến trang Filter$10.php bằng AJAX
-							$.ajax({
-								url: 'filter/Filter$10.php',
-								type: 'POST',
-								data: {
-									p_price: pPrice, // Gửi giá trị pPrice
-									// Gửi giá trị mới là 30
-								},
-								success: function(response) {
-									$('.showproduct').html(response); // In kết quả vào class showproduct
-								}
-							});
-						});
-					});
-				</script>
-				<script>
-					$(document).ready(function() {
-						$('#\\$10').click(function(event) {
-							event.preventDefault(); // Ngăn chặn việc gửi biểu mẫu
-							$('.disproduct').addClass('disproduct1'); // Thêm class disproduct1 vào phần tử có class disproduct
-						});
-					});
-				</script>
+                                    var selectElement = document.getElementById("$10");
+                                    
+                                    var toys = document.querySelectorAll(".toy"); 
+
+                                    toys.forEach(function(toy) { 
+                                        var toyName = toy.textContent.toLowerCase();
+
+                                        if (toyName.includes(searchValue)) {
+                                            toy.style.display = "block"; // Hiển thị sản phẩm
+                                        } else {
+                                            toy.style.display = "none"; // Ẩn sản phẩm
+                                        }
+                                    });
+                                });
+                            }
+                        </script>
 				<!-- Filter -->
 				<div class="dis-none panel-filter w-full p-t-10">
 					<div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
@@ -493,7 +489,7 @@ require_once '../Admin/connection/connectData.php';
 
 							<ul>
 								<li class="p-b-6">
-									<button type="submit" value="10" id="$10">10-30 </button>
+									<button type="submit" value="10" id="$10" onchange="getSelectedValue()" >10-30 </button>
 								</li>
 
 								<li class="p-b-6">
@@ -591,7 +587,7 @@ require_once '../Admin/connection/connectData.php';
 						$price = $p['p_price'];
 						$type = $p['p_type'];
 						$image = $p['p_image'];
-						$idFake = $p['p_idfake'];
+						
 						$id = $p['p_id'];
 					?>
 						<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item toy ">
@@ -647,7 +643,7 @@ require_once '../Admin/connection/connectData.php';
 
 
 	<!-- Footer -->
-	<footer class="bg3 p-t-75 p-b-32">
+	<footer class="bg3 p-t-75 p-b-32 footer">
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-6 col-lg-3 p-b-50">

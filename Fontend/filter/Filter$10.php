@@ -21,13 +21,13 @@ $result = $stmt->get_result();
 if ($result->num_rows > 0) {
     // Lặp qua các hàng kết quả
     while($row = $result->fetch_assoc()) {
-        $idFake = $row['p_idfake'];
+        
         $image = $row['p_image'];
         $name = $row['p_name'];
         $type = $row['p_type'];
         $price = $row['p_price'];
         ?>
-        <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item toy">
+        <div class="  col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item toy">
             <div class="block2">
                 <div  class="block2-pic hov-img0" style="border: 0.1px dashed #000; border-radius: 50px;">
                     <img src="images/<?= $image ?>" alt="IMG-PRODUCT">
