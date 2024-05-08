@@ -2,14 +2,20 @@
 session_start();
 // Kết nối cơ sở dữ liệu
 $conn = new mysqli('localhost', 'root', '', 'toy-shop');
-$p_name = $_POST['p_name'];
+$min_price = 10; // Giá sản phẩm tối thiểu
+$max_price = 30; // Giá sản phẩm tối đa
 
 // Kiểm tra kết nối
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-$sql = "SELECT * FROM product WHERE p_name LIKE '%$p_name%'";
-$result = $conn->query($sql);
+
+// Sử dụng prepared statement để tránh các vấn đề liên quan đến SQL injection
+$sql = "SELECT * FROM product WHERE p_price BETWEEN ? AND ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("ii", $min_price, $max_price); // ii: kiểu dữ liệu của hai biến là integer
+$stmt->execute();
+$result = $stmt->get_result();
 
 // Kiểm tra xem có sản phẩm nào được tìm thấy không
 if ($result->num_rows > 0) {
@@ -23,7 +29,7 @@ if ($result->num_rows > 0) {
         ?>
         <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item toy">
             <div class="block2">
-                <div id="<?= $idFake ?>" class="block2-pic hov-img0" style="border: 0.1px dashed #000; border-radius: 50px;">
+                <div  class="block2-pic hov-img0" style="border: 0.1px dashed #000; border-radius: 50px;">
                     <img src="images/<?= $image ?>" alt="IMG-PRODUCT">
                 </div>
                 <div class="block2-txt flex-w flex-t p-t-14">
@@ -40,7 +46,8 @@ if ($result->num_rows > 0) {
                     </div>
                 </div>
             </div>
-            
+        </div>
+        
         <?php
     }
 } else {
@@ -48,5 +55,6 @@ if ($result->num_rows > 0) {
     echo "Không tìm thấy sản phẩm phù hợp";
 }
 // Đóng kết nối cơ sở dữ liệu
+$stmt->close();
 $conn->close();
 ?>
