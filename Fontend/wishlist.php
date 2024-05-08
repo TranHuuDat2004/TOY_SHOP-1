@@ -293,7 +293,6 @@ require_once '../Admin/connection/connectData.php';
 			</div>
 		</div>
 	</header>
-
 	<!-- Cart -->
 	<div class="wrap-header-cart js-panel-cart">
 		<div class="s-full js-hide-cart"></div>

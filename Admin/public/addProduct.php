@@ -1,7 +1,9 @@
 <!--php-->
 <?php
+  
     require_once '../connection/connectData.php';
     // them 
+    
     if(isset($_POST['sbm'])) {
         echo "Test1<br>";
         $p_name = $_POST['p_name'];
@@ -9,7 +11,7 @@
         $p_image_tmp = $_FILES['p_image']['tmp_name'];
         $p_price= $_POST['p_price'];
         $p_type = $_POST['p_type'];
-  
+      
         
 
         //$date = date("Y/m/d"); //thay sua

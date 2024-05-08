@@ -40,8 +40,9 @@ if ($result->num_rows > 0) {
                     </div>
                 </div>
             </div>
-            
+        </div>    
         <?php
+    
     }
 } else {
     // Hiển thị thông báo nếu không tìm thấy sản phẩm
