@@ -441,14 +441,15 @@ require_once '../Admin/connection/connectData.php';
 					})
 				</script>
 
-				<script>
-					$(document).ready(function() {
-						$('#buttonsearch_an').click(function(event) {
-							event.preventDefault(); // Ngăn chặn việc gửi biểu mẫu
-							$('.disproduct').addClass('disproduct1'); // Thêm class disproduct1 vào phần tử có class disproduct
-						});
-					});
-				</script>
+<script>
+	$(document).ready(function() {
+		$('#buttonsearch_an').click(function(event) {
+			event.preventDefault(); // Ngăn chặn việc gửi biểu mẫu
+			$('.disproduct').hide(); // Thêm class disproduct1 vào phần tử có class disproduct
+		});
+	});
+</script>
+
 
 
 
@@ -760,6 +761,9 @@ require_once '../Admin/connection/connectData.php';
 
 				<div>
                 
+
+                </div>
+
 
 
 
