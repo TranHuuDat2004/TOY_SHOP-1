@@ -1,4 +1,44 @@
-<!-- Trang này dùng để điền form -->
+<!-- Trang này xử lí form và hiển thị lời cảm ơn -->
+
+<?php
+// Kiểm tra xem form đã được submit chưa
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Kết nối đến cơ sở dữ liệu
+    $servername = "localhost";
+    $username = "root"; // Thay thế bằng username của bạn
+    $password = ""; // Thay thế bằng mật khẩu của bạn
+    $dbname = "toy-shop"; // Thay thế bằng tên cơ sở dữ liệu của bạn
+
+    // Tạo kết nối
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    // Kiểm tra kết nối
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Lấy dữ liệu từ form
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $subject = $_POST['subject'];
+    $message = $_POST['message'];
+
+    // Chuẩn bị câu lệnh SQL để chèn dữ liệu vào bảng
+    $sql = "INSERT INTO contacts (c_name, c_email, c_subject, c_message)
+            VALUES ('$name', '$email', '$subject', '$message')";
+
+    // Thực thi câu lệnh SQL
+    if ($conn->query($sql) === TRUE) {
+        echo "New record created successfully";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+
+    // Đóng kết nối
+    $conn->close();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,7 +110,25 @@
 	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-regular.css">
 
 	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-light.css">
+
+	<script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
 </head>
+
+<style>
+	.button{
+	width: 95%;
+	max-width: 700px;
+	border: 1px dashed #F2BED1;
+	font-size: .9rem;
+	padding: 1em;
+	outline: none;
+	margin-bottom: 1em;
+	background-color: #F8E8EE;
+	color: #000;
+	border-radius: 10px;
+	}
+</style>
+
 <body class="animsition">
 	
 	<!-- Header -->
@@ -399,28 +457,42 @@
 
 	<!-- Content page -->
 	<section1>
-		<!-- <h4 class="sectionHeader">Contact Us</h4> -->
-		<h1 class="stext-121 heading">Get In Touch</h1>
-		<p class="para">this is description</p>
-		<div class="contactForm">
-			<form action="contact.php" method="post">
-				<h1 class=" stext-121 sub-heading">Let's talk</h1>
-				<p class="para para2">
-					Contact us for a quote, help to join the them.
+		<div class="row">
+			<div class="col-md-8">
+				<!-- <h4 class="sectionHeader">Contact Us</h4> -->
+				<h1 class="stext-121 heading">Thank you for your contact!</h1>
+				<p class="para">
+					Your message has been successfully submitted. We will get back to you as soon as possible.
 				</p>
+				<p class="para">
+					Your feedback is invaluable in helping us improve our toy store management software. We appreciate you taking the time to share your thoughts and experiences with us. 
+					If you have any further questions or concerns, please don't hesitate to let us know. We're here to help!
+				</p>
+				<div class="row">
+					<div class="col-md-4">
+						<a href="index.html"><button class="button">Back to Home</button></a>	
+					</div>			
 
-				<input name="name" type="text" class="input" placeholder="Your name">
-				<input name="email" type="text" class="input" placeholder="Your email">
-				<input name="subject" type="text" class="input" placeholder="Your subject">
-				<textarea name="message" class="input" cols="30" rows="5"  placeholder="Your message"></textarea>
-				<input  type="submit" class="input submit">
-			</form>
-			<div class="map-container">
-				<div class="mapBg"></div>
-				<div class="map">
-					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3920.023832459382!2d106.6971889746857!3d10.73264516000052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317528b2747a81a3%3A0x33c1813055acb613!2zxJDhuqFpIGjhu41jIFTDtG4gxJDhu6ljIFRo4bqvbmc!5e0!3m2!1svi!2s!4v1714461852446!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+					<div class="col-md-4">
+						<a href="product.html"><button class="button">Continue Shopping</button></a>
+					</div>
+
+					<div class="col-md-4">
+						<a href="contact.html"><button class="button">Continue Contact</button></a>
+					</div>
 				</div>
-				
+			</div>
+		
+			
+
+			<div class="col-md-4">
+				<div class="map-container">
+					<div class="mapBg"></div>
+					<div class="map">
+						<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3920.023832459382!2d106.6971889746857!3d10.73264516000052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317528b2747a81a3%3A0x33c1813055acb613!2zxJDhuqFpIGjhu41jIFTDtG4gxJDhu6ljIFRo4bqvbmc!5e0!3m2!1svi!2s!4v1714461852446!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+					</div>
+					
+				</div>
 			</div>
 			
 			<div class="contactMethod">
@@ -643,7 +715,46 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 				ps.update();
 			})
 		});
+
+		
 	</script>
+
+<script>
+   const constraints = {
+       name: {
+           presence: { allowEmpty: false }
+       },
+       email: {
+           presence: { allowEmpty: false },
+           email: true
+       },
+       message: {
+           presence: { allowEmpty: false }
+       }
+   };
+
+   const form = document.getElementById('contact-form');
+
+   form.addEventListener('submit', function (event) {
+     const formValues = {
+         name: form.elements.name.value,
+         email: form.elements.email.value,
+         message: form.elements.message.value
+     };
+
+     const errors = validate(formValues, constraints);
+
+     if (errors) {
+       event.preventDefault();
+       const errorMessage = Object
+           .values(errors)
+           .map(function (fieldValues) { return fieldValues.join(', ')})
+           .join("\n");
+
+       alert(errorMessage);
+     }
+   }, false);
+</script>
 <!--===============================================================================================-->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKFWBqlKAGCeS1rMVoaNlwyayu0e0YRes"></script>
 	<script src="js/map-custom.js"></script>
