@@ -1,7 +1,7 @@
 <?php
 include('../Admin/connection/connectionpro.php');
 require_once '../Admin/connection/connectData.php';
-    $sql = "SELECT * FROM product";
+    $sql = "SELECT * FROM wishlist";
     $query = mysqli_query($conn, $sql);
 
 ?>
@@ -20,6 +20,39 @@ require_once '../Admin/connection/connectData.php';
 	<!-- link icon -->
 	<link rel="icon" type="image/png" href="images/icon.png" />
 	<!-- link icon -->
+	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v5.15.4/css/all.css">
+    <!-- link icon -->
+    <link
+      rel="stylesheet"
+      data-purpose="Layout StyleSheet"
+      title="Web Awesome"
+
+      href="/css/app-wa-8d95b745961f6b33ab3aa1b98a45291a.css?vsn=d"
+    >
+
+      <link
+        rel="stylesheet"
+
+        href="https://site-assets.fontawesome.com/releases/v6.4.0/css/all.css"
+      >
+
+      <link
+        rel="stylesheet"
+
+        href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-solid.css"
+      >
+
+      <link
+        rel="stylesheet"
+
+        href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-regular.css"
+      >
+
+      <link
+        rel="stylesheet"
+
+        href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-light.css"
+      >
 	<link rel="stylesheet" data-purpose="Layout StyleSheet" title="Web Awesome" href="/css/app-wa-8d95b745961f6b33ab3aa1b98a45291a.css?vsn=d">
 
 	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/all.css">
@@ -613,63 +646,35 @@ require_once '../Admin/connection/connectData.php';
 
 
 				<section class="disproduct">
-					<?php
-					$product = getproducts();
-					?>
-
-
-					<?php
-
-					foreach ($product as $p) {
-						$name = $p['p_name'];
-						$price = $p['p_price'];
-						$type = $p['p_type'];
-						$image = $p['p_image'];
-						$idFake = $p['p_idfake'];
-						$id = $p['p_id'];
-					?>
-						<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item toy ">
-
-							<!-- Block2 -->
-							<div class="block2">
-
-								<div id="<?= $idFake ?>" class="block2-pic hov-img0   " style="border: 0.1px dashed #000; border-radius: 50px;">
-									<img src="images/<?= $image ?>" alt="IMG-PRODUCT">
-
-
-
-
-
-
-								</div>
-
-								<div class="block2-txt flex-w flex-t p-t-14">
-									<div class="block2-txt-child1 flex-col-l ">
-										<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  ">
-											<?= $name ?>
-										</a>
-										<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  text1"><?= $type ?></p>
-
-										<span class="stext-105 cl3  price">
-											$<?= $price ?>
-										</span>
-									</div>
-
-									<div class="block2-txt-child2 flex-r p-t-3">
-										<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-											<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
-											<img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
-										</a>
-									</div>
-								</div>
-
-							</div>
-						</div>
-
-					<?php
-					}
-					?>
-				</section>
+                    <?php
+                    while ($wishlist = mysqli_fetch_assoc($query)) {
+                    ?>
+                    <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item toy">
+                        <!-- Block2 -->
+                        <div class="block2">
+                            <div id="<?php echo $wishlist['p_id']; ?>" class="block2-pic hov-img0" style="border: 0.1px dashed #000; border-radius: 50px;">
+                                <img src="images/<?php echo $wishlist['p_image']; ?>" alt="IMG-PRODUCT">
+                            </div>
+                            <div class="block2-txt flex-w flex-t p-t-14">
+                                <div class="block2-txt-child1 flex-col-l">
+                                    <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6"><?php echo $wishlist['p_name']; ?></a>
+                                    <p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text1"><?php echo $wishlist['p_type']; ?></p>
+                                    <span class="stext-105 cl3 price">$<?php echo $wishlist['p_price']; ?></span>
+                                </div>
+                                <div class="block2-txt-child2 flex-r p-t-3">
+								<a href="../Admin/public/deleteWishlist.php?p_id=<?php echo $wishlist['p_id']; ?>">
+									<i class="fa-solid fa-trash fa-lg" style="color: #3962a7;"></i>
+                                	<i class="fa-solid fa-heart fa-lg" style="color: #4f83de;"></i>
+                            	</a>
+									
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                    }
+                    ?>
+                </section>
 
 
 

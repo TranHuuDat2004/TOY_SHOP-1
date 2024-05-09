@@ -221,21 +221,17 @@ require_once '../Admin/connection/connectData.php';
 							Free shipping for standard order over $100
 						</div>
 					</li>
-
 					<li>
 						<div class="right-top-bar flex-w h-full">
 							<a href="#" class="flex-c-m p-lr-10 trans-04">
 								Help & FAQs
 							</a>
-
 							<a href="#" class="flex-c-m p-lr-10 trans-04">
 								My Account
 							</a>
-
 							<a href="#" class="flex-c-m p-lr-10 trans-04">
 								EN
 							</a>
-
 							<a href="#" class="flex-c-m p-lr-10 trans-04">
 								USD
 							</a>
@@ -590,7 +586,7 @@ require_once '../Admin/connection/connectData.php';
 									<button type="submit" value="street">Streetstyle </button>
 								</a>
 
-								
+
 							</div>
 						</div>
 
