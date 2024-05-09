@@ -1,7 +1,6 @@
 <?php
-include('../Admin/connection/connectionpro.php');
 require_once '../Admin/connection/connectData.php';
-    $sql = "SELECT * FROM product";
+    $sql = "SELECT * FROM product where p_provider = 'Cookie'";
     $query = mysqli_query($conn, $sql);
 
 ?>
@@ -15,8 +14,10 @@ require_once '../Admin/connection/connectData.php';
 	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v5.15.4/css/all.css">
 	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<link rel="stylesheet" href="image.css">
+
 	<link rel="stylesheet" href="cart.css">
+	<!-- link icon -->
+	<link rel="icon" type="image/png" href="images/icon.png" />
 	<!-- link icon -->
 	<link rel="stylesheet" data-purpose="Layout StyleSheet" title="Web Awesome" href="/css/app-wa-8d95b745961f6b33ab3aa1b98a45291a.css?vsn=d">
 
@@ -59,7 +60,6 @@ require_once '../Admin/connection/connectData.php';
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<link rel="stylesheet" href="disproduct.css">
-	<link rel="stylesheet" href="footer_res.css">
 	<!--===============================================================================================-->
 </head>
 
@@ -285,18 +285,15 @@ require_once '../Admin/connection/connectData.php';
 					<img src="images/icons/icon-close2.png" alt="CLOSE">
 				</button>
 
-				<form action="searchProduct.php" method="POST" class="wrap-search-header flex-w p-l-15">
-					<button type="submit" class="flex-c-m trans-04">
+				<form class="wrap-search-header flex-w p-l-15">
+					<button class="flex-c-m trans-04">
 						<i class="zmdi zmdi-search"></i>
 					</button>
-					<input class="plh3" type="text" name="p_name" placeholder="Search...">
+					<input class="plh3" type="text" name="search" placeholder="Search...">
 				</form>
-				
-
 			</div>
 		</div>
 	</header>
-
 	<!-- Cart -->
 	<div class="wrap-header-cart js-panel-cart">
 		<div class="s-full js-hide-cart"></div>
@@ -381,6 +378,14 @@ require_once '../Admin/connection/connectData.php';
 			</div>
 		</div>
 	</div>
+
+	<!-- home intro -->
+	<!-- Title page -->
+	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/background-image.png');">
+		<h2 style="color: #000;" class="ltext-105 cl0 txt-center">
+            Cookie
+		</h2>
+	</section>
 
 
 	<!-- Product -->
@@ -482,28 +487,35 @@ require_once '../Admin/connection/connectData.php';
 
 
 
-<script>
-                            function getSelectedValue() {
-                                // Lấy ra radio button được chọn
-                                document.getElementById("formFilter").addEventListener("submit", function(event){
-                                    event.preventDefault(); 
+				<script>
+					$(document).ready(function() {
+						$('#\\$10').click(function(event) {
+							event.preventDefault();
+							var pPrice = $(this).val();
 
-                                    var selectElement = document.getElementById("$10");
-                                    
-                                    var toys = document.querySelectorAll(".toy"); 
-
-                                    toys.forEach(function(toy) { 
-                                        var toyName = toy.textContent.toLowerCase();
-
-                                        if (toyName.includes(searchValue)) {
-                                            toy.style.display = "block"; // Hiển thị sản phẩm
-                                        } else {
-                                            toy.style.display = "none"; // Ẩn sản phẩm
-                                        }
-                                    });
-                                });
-                            }
-                        </script>
+							// Gửi pPrice và giá trị mới 30 đến trang Filter$10.php bằng AJAX
+							$.ajax({
+								url: 'filter/Filter$10.php',
+								type: 'POST',
+								data: {
+									p_price: pPrice, // Gửi giá trị pPrice
+									// Gửi giá trị mới là 30
+								},
+								success: function(response) {
+									$('.showproduct').html(response); // In kết quả vào class showproduct
+								}
+							});
+						});
+					});
+				</script>
+				<script>
+					$(document).ready(function() {
+						$('#\\$10').click(function(event) {
+							event.preventDefault(); // Ngăn chặn việc gửi biểu mẫu
+							$('.disproduct').addClass('disproduct1'); // Thêm class disproduct1 vào phần tử có class disproduct
+						});
+					});
+				</script>
 				<!-- Filter -->
 				<div class="dis-none panel-filter w-full p-t-10">
 					<div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
@@ -514,7 +526,7 @@ require_once '../Admin/connection/connectData.php';
 
 							<ul>
 								<li class="p-b-6">
-									<button type="submit" value="10" id="$10" onchange="getSelectedValue()" >10-30 </button>
+									<button type="submit" value="10" id="$10">10-30 </button>
 								</li>
 
 								<li class="p-b-6">
@@ -600,59 +612,35 @@ require_once '../Admin/connection/connectData.php';
 
 
 				<section class="disproduct">
-					<?php
-					$product = getproducts();
-					?>
+                    <?php
+                    while ($product = mysqli_fetch_assoc($query)) {
+                    ?>
+                    <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item toy">
+                        <!-- Block2 -->
+                        <div class="block2">
+                            <div id="<?php echo $product['p_id']; ?>" class="block2-pic hov-img0" style="border: 0.1px dashed #000; border-radius: 50px;">
+                                <img src="images/<?php echo $product['p_image']; ?>" alt="IMG-PRODUCT">
+                            </div>
+                            <div class="block2-txt flex-w flex-t p-t-14">
+                                <div class="block2-txt-child1 flex-col-l">
+                                    <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6"><?php echo $product['p_name']; ?></a>
+                                    <p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text1"><?php echo $product['p_type']; ?></p>
+                                    <span class="stext-105 cl3 price">$<?php echo $product['p_price']; ?></span>
+                                </div>
+                                <div class="block2-txt-child2 flex-r p-t-3">
+                                    <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                                        <img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
+                                        <img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                    }
+                    ?>
+                </section>
 
-
-					<?php
-
-					foreach ($product as $p) {
-						$name = $p['p_name'];
-						$price = $p['p_price'];
-						$type = $p['p_type'];
-						$image = $p['p_image'];
-						
-						$id = $p['p_id'];
-					?>
-						<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item toy ">
-
-							<!-- Block2 -->
-							<div class="block2">
-								<form method="POST">
-									<div id="<?= $idFake ?>" class="block2-pic hov-img0   " style="border: 0.1px dashed #000; border-radius: 50px;">
-										<img src="images/<?= $image ?>" alt="IMG-PRODUCT">
-
-									</div>
-
-									<div class="block2-txt flex-w flex-t p-t-14">
-										<div class="block2-txt-child1 flex-col-l ">
-											<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  ">
-												<?= $name ?>
-											</a>
-											<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6  text1"><?= $type ?></p>
-
-											<span class="stext-105 cl3  price">
-												$<?= $price ?>
-											</span>
-										</div>
-
-										<div class="block2-txt-child2 flex-r p-t-3">
-											<a href="../Admin/public/addWishlist.php?p_id=<?php echo $product['p_id']; ?>" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-												<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON" href="../Admin/public/addWishlist.php?p_id=<?php echo $product['p_id']; ?>">
-												<img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON" href="../Admin/public/addWishlist.php?p_id=<?php echo $product['p_id']; ?>">
-											</a>
-										</div>
-									</div>
-								</form>
-
-							</div>
-						</div>
-
-					<?php
-					}
-					?>
-				</section>
 
 
 
@@ -664,22 +652,6 @@ require_once '../Admin/connection/connectData.php';
 
 
 	<!-- Footer -->
-
-	<footer class="bg3 p-t-75 p-b-32 footer">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-6 col-lg-3 p-b-50">
-					<h4 class="stext-301 cl0 p-b-30">
-						Categories
-					</h4>
-
-					<ul>
-						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Women
-							</a>
-						</li>
-
 	<footer class="bg3 p-t-75 p-b-32" id="footer_res">
 			<div class="container">
 				<div class="row">
@@ -694,7 +666,6 @@ require_once '../Admin/connection/connectData.php';
 									Women
 								</a>
 							</li>
-
 
 							<li class="p-b-10">
 								<a href="#" class="stext-107 cl7 hov-cl1 trans-04">

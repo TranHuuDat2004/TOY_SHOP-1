@@ -27,6 +27,12 @@
                     '.$row['p_name'].'
                 </td>
                 <td class="px-4 py-3 text-sm">
+                    '.$row['p_age'].'
+                </td>
+                <td class="px-4 py-3 text-sm">
+                    '.$row['p_provider'].'
+                </td>
+                <td class="px-4 py-3 text-sm">
                     $'.$row['p_price'].'
                 </td>
                 <td class="px-4 py-3 text-sm">
