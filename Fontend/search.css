@@ -1,6 +1,19 @@
 .search-container {
     text-align: center;
 }
+/* For smaller screens like iPhone XR and iPad Mini */
+@media (max-width: 414px) {
+    .search-box input {
+        width: calc(100% - 60px); /* Adjust input width for smaller screens */
+    }
+    .search-box button[type="submit"] {
+        right: 10px; /* Adjust button position for smaller screens */
+    }
+}
+/* For Nest Hub Max and Nest Hub */
+@media (max-width: 1280px) {
+    /* Adjust styles for these devices */
+}
 
 .search-box {
     position: relative;
