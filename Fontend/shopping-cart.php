@@ -70,17 +70,17 @@ function sumTotalPrice($order_array, $u_id)
 	return $totalPrice; // Trả về tổng giá tiền
 }
 
-    // Truy vấn để đếm số dòng trong bảng order
-    $sql = "SELECT COUNT(*) AS total_rows FROM `order`";
-    $result = $conn->query($sql);
+// Truy vấn để đếm số dòng trong bảng order
+$sql = "SELECT COUNT(*) AS total_rows FROM `order`";
+$result = $conn->query($sql);
 
-    // Kiểm tra và hiển thị kết quả
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $order_count = $row["total_rows"];
-    } else {
-        // echo "Không có dữ liệu trong bảng order";
-    }
+// Kiểm tra và hiển thị kết quả
+if ($result->num_rows > 0) {
+	$row = $result->fetch_assoc();
+	$order_count = $row["total_rows"];
+} else {
+	// echo "Không có dữ liệu trong bảng order";
+}
 
 
 ?>
@@ -88,14 +88,10 @@ function sumTotalPrice($order_array, $u_id)
 <html lang="en">
 
 <head>
-	<title>Product</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Shopping Cart</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="search.css">
 	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v5.15.4/css/all.css">
-	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-	<link rel="stylesheet" href="cart.css">
 	<!-- link icon -->
 	<link rel="stylesheet" data-purpose="Layout StyleSheet" title="Web Awesome" href="/css/app-wa-8d95b745961f6b33ab3aa1b98a45291a.css?vsn=d">
 
@@ -106,10 +102,9 @@ function sumTotalPrice($order_array, $u_id)
 	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-regular.css">
 
 	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-light.css">
-	<!--===============================================================================================-->
-
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-	<link rel="icon" type="image/png" href="images/icons/favicon.png" />
+	<!-- link icon -->
+	<link rel="icon" type="image/png" href="images/icon.png" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
 	<!--===============================================================================================-->
@@ -127,41 +122,89 @@ function sumTotalPrice($order_array, $u_id)
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
 	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/slick/slick.css">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/MagnificPopup/magnific-popup.css">
-	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
-	<link rel="stylesheet" href="disproduct.css">
 	<!--===============================================================================================-->
+	<style>
+		#button-add {
+			border-radius: 30px;
+			padding: 10px;
+			background-color: black;
+			color: white;
+			margin-right: 10px;
+			/* Add margin to create space between buttons */
+		}
+
+		#button-add:hover {
+			background-color: #F4538A;
+		}
+
+		#button {
+			border-radius: 30px;
+			padding: 10px;
+			background-color: rgb(207, 204, 204);
+			color: rgb(0, 0, 0);
+			margin-right: 10px;
+			/* Add margin to create space between buttons */
+		}
+
+		#button:hover {
+			background-color: #F4538A;
+		}
+
+		.btn-remove-product {
+			cursor: pointer;
+			/* Đổi con trỏ chuột thành kiểu pointer khi di chuột qua */
+		}
+
+		.btn-remove-product i {
+			color: #F4538A;
+			/* Đổi màu của biểu tượng thành màu đỏ */
+		}
+
+		/* Định dạng hình ảnh sản phẩm */
+		.header-cart-item-img {
+			flex: 0 0 auto;
+			/* Không co giãn hình ảnh */
+			width: 100px;
+			/* Kích thước chiều rộng cố định */
+			height: auto;
+			/* Chiều cao tự động */
+			margin-right: 20px;
+			/* Khoảng cách giữa hình ảnh và văn bản */
+		}
+
+		#button-cart {
+			border-radius: 10px;
+			padding: 10px;
+			background-color: black;
+			color: white;
+		}
+
+		#button-cart:hover {
+			background-color: #F4538A;
+		}
+
+		.btn-up,
+		.btn-down {
+			width: 45px;
+			height: 100%;
+			cursor: pointer;
+		}
+
+		#update-cart {
+			background-color: #F4538A;
+			color: white;
+		}
+
+		#update-cart:hover {
+			background-color: black;
+			color: white;
+		}
+	</style>
 </head>
-
-<style>
-	/* Định dạng nút check out và view cart */
-	#btn-cart {
-		background-color: #F4538A;
-		color: #FFEFEF;
-	}
-
-	#btn-cart:hover {
-		background-color: black;
-		color: #FFEFEF;
-	}
-
-	/* Định dạng nút delete */
-	.btn-delete {
-		color: black;
-	}
-
-	.btn-delete:hover {
-		color:#F4538A;
-	}
-</style>
 
 <body class="animsition">
 
@@ -257,7 +300,7 @@ function sumTotalPrice($order_array, $u_id)
 							<i class="zmdi zmdi-search"></i>
 						</div>
 
-						<div class="icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="<?php print_r($order_count);  ?>">
+						<div class="icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="<?php echo $order_count ?>">
 							<i class="zmdi zmdi-shopping-cart"></i>
 						</div>
 
@@ -282,7 +325,7 @@ function sumTotalPrice($order_array, $u_id)
 					<i class="zmdi zmdi-search"></i>
 				</div>
 
-				<div class="icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="<?php print_r($order_count);  ?>">
+				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="<?php echo $order_count ?>">
 					<i class="zmdi zmdi-shopping-cart"></i>
 				</div>
 
@@ -302,33 +345,33 @@ function sumTotalPrice($order_array, $u_id)
 
 		<!-- Menu Mobile -->
 		<div class="menu-mobile">
-			<!-- <ul class="topbar-mobile">
-					<li>
-						<div class="left-top-bar">
-							Free shipping for standard order over $100
-						</div>
-					</li>
+			<ul class="topbar-mobile">
+				<li>
+					<div class="left-top-bar">
+						Free shipping for standard order over $100
+					</div>
+				</li>
 
-					<li>
-						<div class="right-top-bar flex-w h-full">
-							<a href="#" class="flex-c-m p-lr-10 trans-04">
-								Help & FAQs
-							</a>
+				<li>
+					<div class="right-top-bar flex-w h-full">
+						<a href="#" class="flex-c-m p-lr-10 trans-04">
+							Help & FAQs
+						</a>
 
-							<a href="#" class="flex-c-m p-lr-10 trans-04">
-								My Account
-							</a>
+						<a href="#" class="flex-c-m p-lr-10 trans-04">
+							My Account
+						</a>
 
-							<a href="#" class="flex-c-m p-lr-10 trans-04">
-								EN
-							</a>
+						<a href="#" class="flex-c-m p-lr-10 trans-04">
+							EN
+						</a>
 
-							<a href="#" class="flex-c-m p-lr-10 trans-04">
-								USD
-							</a>
-						</div>
-					</li>
-				</ul> -->
+						<a href="#" class="flex-c-m p-lr-10 trans-04">
+							USD
+						</a>
+					</div>
+				</li>
+			</ul>
 
 			<ul class="main-menu-m">
 				<li>
@@ -414,7 +457,7 @@ function sumTotalPrice($order_array, $u_id)
 										</div>
 									</div>
 									<div class="col-md-6">
-										<div >
+										<div>
 											<!-- Hiện tên sản phẩm trong giỏ hàng -->
 											<a href="#" class="header-cart-item-name hov-cl1 trans-04"><?php echo $item["p_name"]; ?></a>
 										</div>
@@ -422,7 +465,7 @@ function sumTotalPrice($order_array, $u_id)
 										<span class="header-cart-item-info"><?php echo $item["o_quantity"]; ?> x $<?php echo $item["p_price"]; ?></span>
 									</div>
 									<div class="col-md-3">
-										<form action="delete-cart.php" method="post">											
+										<form action="delete-cart.php" method="post">
 											<input type="hidden" name="p_id" value="<?php echo $item['p_id']; ?>">
 
 											<!-- Nút xóa tại đây -->
@@ -460,273 +503,196 @@ function sumTotalPrice($order_array, $u_id)
 	</div>
 
 
-	<!-- Product -->
-	<div class="bg0 m-t-23 p-b-140">
-		<div class="container">
-			<div class="flex-w flex-sb-m p-b-52">
-				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
-						All Products
-					</button>
-
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".women">
-						Women
-					</button>
-
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".men">
-						Men
-					</button>
-
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".bag">
-						Bag
-					</button>
-
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".shoes">
-						Shoes
-					</button>
-
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".watches">
-						Watches
-					</button>
-				</div>
-
-				<div class="flex-w flex-c-m m-tb-10">
-					<div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter" style="border-radius: 40px;">
-						<i class="icon-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-filter-list"></i>
-						<i class="icon-close-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
-						Filter
-					</div>
-
-					<div class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 js-show-search" style="border-radius: 40px;">
-						<i class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search"></i>
-						<i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
-						Search
-
-					</div>
-				</div>
-
-				<!-- Search product -->
-				<div class="dis-none panel-search w-full p-t-10 p-b-15">
-					<div class="bor8 dis-flex p-l-15" style="border-radius:20px">
-						<button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
-							<i class="zmdi zmdi-search"></i>
-						</button>
-
-						<input id="searchproduct" class="mtext-107 cl2 size-114 plh2 p-r-15 nutsearch" type="text" name="search-product" placeholder="Search">
-
-						<button class="mybtn" id="buttonsearch_an">
-							<i class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search" style="width:40px;"></i>
-						</button>
-
-					</div>
-				</div>
-
-
-
-
-
-				<script>
-					$(document).ready(function() {
-						$('#buttonsearch_an').click(function(event) {
-							event.preventDefault(); // Ngăn chặn hành vi mặc định của form submit
-
-							var p_name = $('#searchproduct').val();
-							console.log(p_name);
-							$.ajax({
-								url: 'filter/searchProduct.php',
-								type: 'POST',
-								data: {
-									p_name: p_name
-								},
-								success: function(response) {
-									console.log('aloo');
-									$('.showproduct').html(response);
-								}
-							})
-						})
-					})
-				</script>
-
-				<script>
-					$(document).ready(function() {
-						$('#buttonsearch_an').click(function(event) {
-							event.preventDefault(); // Ngăn chặn việc gửi biểu mẫu
-							$('.disproduct').addClass('disproduct1'); // Thêm class disproduct1 vào phần tử có class disproduct
-						});
-					});
-				</script>
-
-
-
-
-				<script>
-					$(document).ready(function() {
-						$('#\\$10').click(function(event) {
-							event.preventDefault();
-							var pPrice = $(this).val();
-
-							// Gửi pPrice và giá trị mới 30 đến trang Filter$10.php bằng AJAX
-							$.ajax({
-								url: 'filter/Filter$10.php',
-								type: 'POST',
-								data: {
-									p_price: pPrice, // Gửi giá trị pPrice
-									// Gửi giá trị mới là 30
-								},
-								success: function(response) {
-									$('.showproduct').html(response); // In kết quả vào class showproduct
-								}
-							});
-						});
-					});
-				</script>
-				<script>
-					$(document).ready(function() {
-						$('#\\$10').click(function(event) {
-							event.preventDefault(); // Ngăn chặn việc gửi biểu mẫu
-							$('.disproduct').addClass('disproduct1'); // Thêm class disproduct1 vào phần tử có class disproduct
-						});
-					});
-				</script>
-				<!-- Filter -->
-				<div class="dis-none panel-filter w-full p-t-10">
-					<div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
-						<div class="filter-col1 p-r-15 p-b-27">
-							<div class="mtext-102 cl2 p-b-15">
-								Prices
-							</div>
-
-							<ul>
-								<li class="p-b-6">
-									<button type="submit" value="10" id="$10">10-30 </button>
-								</li>
-
-								<li class="p-b-6">
-									<button type="submit" value="$20" id="$20">$20</button>
-								</li>
-
-								<li class="p-b-6">
-									<button type="submit" value="$30" id="$30">$30</button>
-								</li>
-
-
-								<li class="p-b-6">
-									<button type="submit" value="$50" id="$50">$50</button>
-								</li>
-
-
-
-
-							</ul>
-						</div>
-
-						<div class="filter-col2 p-r-15 p-b-27">
-							<div class="mtext-102 cl2 p-b-15">
-								Type
-							</div>
-
-							<ul>
-								<li class="p-b-6">
-									<button type="submit" value="Cotton">Cotton </button>
-								</li>
-
-								<li class="p-b-6">
-									<button type="submit" value="Fur">Fur</button>
-								</li>
-
-
-
-
-
-
-
-
-							</ul>
-						</div>
-
-						<div class="filter-col4 p-b-27">
-							<div class="mtext-102 cl2 p-b-15">
-								Tags
-							</div>
-
-							<div class="flex-w p-t-4 m-r--5">
-								<a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-									<button type="submit" value="Cute">Cute </button>
-								</a>
-
-								<a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-									<button type="submit" value="fashion">fashion</button>
-								</a>
-
-								<a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-									<button type="submit" value="street">Streetstyle </button>
-								</a>
-
-
-							</div>
-						</div>
-
-
-					</div>
-				</div>
-			</div>
-
-
-			<div class="row isotope-grid">
-
-
-				<section class="showproduct">
-
-				</section>
-
-
-
-
-
-				<section class="disproduct">
-					<?php
-					while ($product = mysqli_fetch_assoc($query)) {
-					?>
-						<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item toy">
-							<!-- Block2 -->
-							<div class="block2">
-								<form method="POST" action="productdetail.php">
-									<div id="<?php echo $product['p_id']; ?>" class="block2-pic hov-img0" style="border: 0.1px dashed #000; border-radius: 50px;">
-										<img src="images/<?php echo $product['p_image']; ?>" alt="IMG-PRODUCT">
-									</div>
-									<div class="block2-txt flex-w flex-t p-t-14">
-										<div class="block2-txt-child1 flex-col-l">
-											<input class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6" style="background-color: white;" type="submit" name="p_name" value="<?php echo $product["p_name"]; ?>">
-											<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text1"><?php echo $product['p_type']; ?></p>
-											<span class="stext-105 cl3 price">$<?php echo $product['p_price']; ?></span>
-										</div>
-										<div class="block2-txt-child2 flex-r p-t-3">
-											<a href="../Admin/public/addWishlist.php?p_id=<?php echo $product['p_id']; ?>" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-												<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON" href="../Admin/public/addWishlist.php?p_id=<?php echo $product['p_id']; ?>">
-												<img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON" href="../Admin/public/addWishlist.php?p_id=<?php echo $product['p_id']; ?>">
-
-											</a>
-										</div>
-									</div>
-								</form>
-							</div>
-						</div>
-					<?php
-					}
-					?>
-				</section>
-
-
-
-
-
-			</div>
+	<!-- breadcrumb -->
+	<div class="container">
+		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+			<a href="index.html" class="stext-109 cl8 hov-cl1 trans-04">
+				Home
+				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+			</a>
+
+			<span class="stext-109 cl4">
+				Shoping Cart
+			</span>
 		</div>
 	</div>
 
 
+	<!-- Shoping Cart -->
+	<form class="bg0 p-t-75 p-b-85">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
+					<div class="m-l-25 m-r--38 m-lr-0-xl">
+						<div class="wrap-table-shopping-cart">
+							<table class="table-shopping-cart">
+								<tr class="table_head">
+									<th class="column-1">Product</th>
+									<th class="column-2"></th>
+									<th class="column-3">Price</th>
+									<th class="column-4">Quantity</th>
+									<th class="column-5">Total</th>
+								</tr>
+
+								<?php foreach ($order_array as $item) : ?>
+									<tr class="table_row">
+										<td class="column-1">
+											<div class="how-itemcart1">
+												<img src="images/<?php echo $item["p_image"]; ?>" alt="IMG">
+											</div>
+										</td>
+										<td class="column-2"><?php echo $item["p_name"]; ?></td>
+										<td id="price_<?php echo $item['p_id']; ?>" class="column-3">$ <?php echo $item["p_price"]; ?></td>
+										<td class="column-4">
+											<div class="wrap-num-product flex-w m-l-auto m-r-0">
+												<div class="btn-down cl8 hov-btn3 trans-04 flex-c-m" onclick="decreaseQuantity(<?php echo $item['p_id']; ?>)">
+													<i class="fs-16 zmdi zmdi-minus"></i>
+												</div>
+
+												<input id="quantity_<?php echo $item['p_id']; ?>" class="mtext-104 cl3 txt-center num-product cart-quantity-input" type="number" name="num-product1" value="<?php echo $item["o_quantity"]; ?>" onchange="updateTotalPrice(<?php echo $item['p_id']; ?>, this.value)">
+
+												<div class="btn-up cl8 hov-btn3 trans-04 flex-c-m" onclick="increaseQuantity(<?php echo $item['p_id']; ?>)">
+													<i class="fs-16 zmdi zmdi-plus"></i>
+												</div>
+											</div>
+										</td>
+										<td id="total_<?php echo $item['p_id']; ?>" class="column-5">$ <?php echo $item["p_price"] * $item["o_quantity"]; ?></td>
+									</tr>
+								<?php endforeach; ?>
+							</table>
+
+
+						</div>
+
+						<div class="">
+							<div class="row">
+								<div class="col-md-4">
+									<div class="flex-w flex-m m-r-20 m-tb-5">
+										<input class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" type="text" name="coupon" placeholder="Coupon Code">
+									</div>
+								</div>
+
+								<div class="col-md-4">
+									<div id="update-cart" class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
+										Apply coupon
+									</div>
+								</div>
+
+								<div class="col-md-4">
+									<div class="">
+										<?php foreach ($order_array as $item) : ?>
+											<form id="form_<?php echo $item['p_id']; ?>" class="update-form" action="update-cart.php" method="post">
+												<!-- Các trường ẩn chứa thông tin của mỗi mục trong order -->
+												<input type="hidden" name="o_quantity" value="<?php echo $item["o_quantity"]; ?>">
+												<input type="hidden" name="p_id" value="<?php echo $item["p_id"]; ?>">
+											<?php endforeach; ?>
+											<!-- Nút cập nhật giỏ hàng -->
+											<input id="update-cart" type="submit" value="Update Cart" name="update-cart" class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
+											</form>
+									</div>
+								</div>
+							</div>
+
+
+
+
+
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
+					<div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
+						<h4 class="mtext-109 cl2 p-b-30">
+							Cart Totals
+						</h4>
+
+						<div class="flex-w flex-t bor12 p-b-13">
+							<div class="size-208">
+								<span class="stext-110 cl2">
+									Subtotal:
+								</span>
+							</div>
+
+							<div class="size-209">
+								<span class="mtext-110 cl2">
+									$ <?php echo sumTotalPrice($order_array, 123); ?>
+								</span>
+							</div>
+						</div>
+
+						<div class="flex-w flex-t bor12 p-t-15 p-b-30">
+							<div class="size-208 w-full-ssm">
+								<span class="stext-110 cl2">
+									Shipping:
+								</span>
+							</div>
+
+							<div class="size-209 p-r-18 p-r-0-sm w-full-ssm">
+								<p class="stext-111 cl6 p-t-2">
+									There are no shipping methods available. Please double check your address, or contact us if you need any help.
+								</p>
+
+								<div class="p-t-15">
+									<span class="stext-112 cl8">
+										Calculate Shipping
+									</span>
+
+									<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
+										<select class="js-select2" name="time">
+											<option>Select a country...</option>
+											<option>USA</option>
+											<option>UK</option>
+										</select>
+										<div class="dropDownSelect2"></div>
+									</div>
+
+									<div class="bor8 bg0 m-b-12">
+										<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="state" placeholder="State /  country">
+									</div>
+
+									<div class="bor8 bg0 m-b-22">
+										<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="postcode" placeholder="Postcode / Zip">
+									</div>
+
+									<div class="flex-w">
+										<div id="button" class="flex-c-m stext-101 cl2 size-115 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer">
+											Update Totals
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+						<div class="flex-w flex-t p-t-27 p-b-33">
+							<div class="size-208">
+								<span class="mtext-101 cl2">
+									Total:
+								</span>
+							</div>
+
+							<div class="size-209 p-t-1">
+								<span class="mtext-110 cl2">
+									$ <?php echo sumTotalPrice($order_array, 123); ?>
+								</span>
+							</div>
+						</div>
+
+						<button id="button-add" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+							Proceed to Checkout
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+
+
+
 	<!-- Footer -->
-	<footer class="bg3 p-t-75 p-b-32" id="footer_res">
+	<footer class="bg3 p-t-75 p-b-32">
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-6 col-lg-3 p-b-50">
@@ -799,9 +765,7 @@ function sumTotalPrice($order_array, $u_id)
 					</h4>
 
 					<p class="stext-107 cl7 size-201">
-						Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call
-						us
-						on (+1) 96 716 6879
+						Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on (+1) 96 716 6879
 					</p>
 
 					<div class="p-t-27">
@@ -864,10 +828,9 @@ function sumTotalPrice($order_array, $u_id)
 
 				<p class="stext-107 cl6 txt-center">
 					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-					Copyright &copy;
-					<script>
+					Copyright &copy;<script>
 						document.write(new Date().getFullYear());
-					</script> All rights reserved |Made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> &amp; distributed by <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
+					</script> All rights reserved | Made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> &amp; distributed by <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
 					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 
 				</p>
@@ -881,161 +844,6 @@ function sumTotalPrice($order_array, $u_id)
 		<span class="symbol-btn-back-to-top">
 			<i class="zmdi zmdi-chevron-up"></i>
 		</span>
-	</div>
-
-	<!-- Modal1 -->
-	<div class="wrap-modal1 js-modal1 p-t-60 p-b-20">
-		<div class="overlay-modal1 js-hide-modal1"></div>
-
-		<div class="container">
-			<div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
-				<button class="how-pos3 hov3 trans-04 js-hide-modal1">
-					<img src="images/icons/icon-close.png" alt="CLOSE">
-				</button>
-
-				<div class="row">
-					<div class="col-md-6 col-lg-7 p-b-30">
-						<div class="p-l-25 p-r-30 p-lr-0-lg">
-							<div class="wrap-slick3 flex-sb flex-w">
-								<div class="wrap-slick3-dots"></div>
-								<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
-
-								<div class="slick3 gallery-lb">
-									<div class="item-slick3" data-thumb="images/product-detail-01.jpg">
-										<div class="wrap-pic-w pos-relative">
-											<img src="images/product-detail-01.jpg" alt="IMG-PRODUCT">
-
-											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-01.jpg">
-												<i class="fa fa-expand"></i>
-											</a>
-										</div>
-									</div>
-
-									<div class="item-slick3" data-thumb="images/product-detail-02.jpg">
-										<div class="wrap-pic-w pos-relative">
-											<img src="images/product-detail-02.jpg" alt="IMG-PRODUCT">
-
-											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-02.jpg">
-												<i class="fa fa-expand"></i>
-											</a>
-										</div>
-									</div>
-
-									<div class="item-slick3" data-thumb="images/product-detail-03.jpg">
-										<div class="wrap-pic-w pos-relative">
-											<img src="images/product-detail-03.jpg" alt="IMG-PRODUCT">
-
-											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-03.jpg">
-												<i class="fa fa-expand"></i>
-											</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-md-6 col-lg-5 p-b-30">
-						<div class="p-r-50 p-t-5 p-lr-0-lg">
-							<h4 class="mtext-105 cl2 js-name-detail p-b-14">
-								Lightweight Jacket
-							</h4>
-
-							<span class="mtext-106 cl2">
-								$58.79
-							</span>
-
-							<p class="stext-102 cl3 p-t-23">
-								Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula. Mauris consequat
-								ornare feugiat.
-							</p>
-
-							<!--  -->
-							<div class="p-t-33">
-								<div class="flex-w flex-r-m p-b-10">
-									<div class="size-203 flex-c-m respon6">
-										Size
-									</div>
-
-									<div class="size-204 respon6-next">
-										<div class="rs1-select2 bor8 bg0">
-											<select class="js-select2" name="time">
-												<option>Choose an option</option>
-												<option>Size S</option>
-												<option>Size M</option>
-												<option>Size L</option>
-												<option>Size XL</option>
-											</select>
-											<div class="dropDownSelect2"></div>
-										</div>
-									</div>
-								</div>
-
-								<div class="flex-w flex-r-m p-b-10">
-									<div class="size-203 flex-c-m respon6">
-										Color
-									</div>
-
-									<div class="size-204 respon6-next">
-										<div class="rs1-select2 bor8 bg0">
-											<select class="js-select2" name="time">
-												<option>Choose an option</option>
-												<option>Red</option>
-												<option>Blue</option>
-												<option>White</option>
-												<option>Grey</option>
-											</select>
-											<div class="dropDownSelect2"></div>
-										</div>
-									</div>
-								</div>
-
-								<div class="flex-w flex-r-m p-b-10">
-									<div class="size-204 flex-w flex-m respon6-next">
-										<div class="wrap-num-product flex-w m-r-20 m-tb-10">
-											<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-												<i class="fs-16 zmdi zmdi-minus"></i>
-											</div>
-
-											<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
-
-											<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-												<i class="fs-16 zmdi zmdi-plus"></i>
-											</div>
-										</div>
-
-										<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-											Add to cart
-										</button>
-									</div>
-								</div>
-							</div>
-
-							<!--  -->
-							<div class="flex-w flex-m p-l-100 p-t-40 respon7">
-								<div class="flex-m bor9 p-r-10 m-r-11">
-									<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Add to Wishlist">
-										<i class="zmdi zmdi-favorite"></i>
-									</a>
-								</div>
-
-								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Facebook">
-									<i class="fa fa-facebook"></i>
-								</a>
-
-								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Twitter">
-									<i class="fa fa-twitter"></i>
-								</a>
-
-								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Google Plus">
-									<i class="fa fa-google-plus"></i>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 	</div>
 
 	<!--===============================================================================================-->
@@ -1056,69 +864,7 @@ function sumTotalPrice($order_array, $u_id)
 		})
 	</script>
 	<!--===============================================================================================-->
-	<script src="vendor/daterangepicker/moment.min.js"></script>
-	<script src="vendor/daterangepicker/daterangepicker.js"></script>
-	<!--===============================================================================================-->
-	<script src="vendor/slick/slick.min.js"></script>
-	<script src="js/slick-custom.js"></script>
-	<!--===============================================================================================-->
-	<script src="vendor/parallax100/parallax100.js"></script>
-	<script>
-		$('.parallax100').parallax100();
-	</script>
-	<!--===============================================================================================-->
 	<script src="vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
-	<script>
-		$('.gallery-lb').each(function() { // the containers for all your galleries
-			$(this).magnificPopup({
-				delegate: 'a', // the selector for gallery item
-				type: 'image',
-				gallery: {
-					enabled: true
-				},
-				mainClass: 'mfp-fade'
-			});
-		});
-	</script>
-	<!--===============================================================================================-->
-	<script src="vendor/isotope/isotope.pkgd.min.js"></script>
-	<!--===============================================================================================-->
-	<script src="vendor/sweetalert/sweetalert.min.js"></script>
-	<script>
-		$('.js-addwish-b2, .js-addwish-detail').on('click', function(e) {
-			e.preventDefault();
-		});
-
-		$('.js-addwish-b2').each(function() {
-			var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
-			$(this).on('click', function() {
-				swal(nameProduct, "is added to wishlist !", "success");
-
-				$(this).addClass('js-addedwish-b2');
-				$(this).off('click');
-			});
-		});
-
-		$('.js-addwish-detail').each(function() {
-			var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
-
-			$(this).on('click', function() {
-				swal(nameProduct, "is added to wishlist !", "success");
-
-				$(this).addClass('js-addedwish-detail');
-				$(this).off('click');
-			});
-		});
-
-		/*---------------------------------------------*/
-
-		$('.js-addcart-detail').each(function() {
-			var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
-			$(this).on('click', function() {
-				swal(nameProduct, "is added to cart !", "success");
-			});
-		});
-	</script>
 	<!--===============================================================================================-->
 	<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 	<script>
@@ -1135,6 +881,61 @@ function sumTotalPrice($order_array, $u_id)
 				ps.update();
 			})
 		});
+
+		// Function to update total price for a product
+		function updateTotalPrice(productId) {
+			var quantityInput = document.querySelector('#quantity_' + productId);
+			var totalPriceElement = document.querySelector('#total_' + productId);
+			var priceElement = document.querySelector('#price_' + productId);
+
+
+			var quantity = parseInt(quantityInput.value);
+			var price = parseFloat(priceElement.innerText.split('$ ')[1]);
+
+			var totalPrice = quantity * price;
+			totalPriceElement.innerText = '$ ' + totalPrice;
+		}
+
+		// Function to handle increase quantity
+		function increaseQuantity(productId) {
+			var quantityInput = document.querySelector('#quantity_' + productId);
+			var currentQuantity = parseInt(quantityInput.value);
+			quantityInput.value = currentQuantity + 1;
+
+			// Update total price
+			updateTotalPrice(productId);
+
+			// Send AJAX request to update quantity in database
+			updateQuantity(productId, quantityInput.value);
+		}
+
+		// Function to handle decrease quantity
+		function decreaseQuantity(productId) {
+			var quantityInput = document.querySelector('#quantity_' + productId);
+			var currentQuantity = parseInt(quantityInput.value);
+			if (currentQuantity > 1) {
+				quantityInput.value = currentQuantity - 1;
+
+				// Update total price
+				updateTotalPrice(productId);
+
+				// Send AJAX request to update quantity in database
+				updateQuantity(productId, quantityInput.value);
+			}
+		}
+
+		// Function to update quantity in database via AJAX
+		function updateQuantity(productId, newQuantity) {
+			var xhr = new XMLHttpRequest();
+			xhr.open('POST', 'update-cart.php', true);
+			xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+			xhr.onload = function() {
+				if (xhr.status == 200) {
+					// Handle response from server if needed
+				}
+			};
+			xhr.send('product_id=' + productId + '&quantity=' + newQuantity);
+		}
 	</script>
 	<!--===============================================================================================-->
 	<script src="js/main.js"></script>
