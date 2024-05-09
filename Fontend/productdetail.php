@@ -1,39 +1,294 @@
 <!--php-->
 <?php
-    //echo "Test1<br>";
-    require_once ('../Admin/connection/connectData.php');
-    //echo "Test2<br>";
-    if(isset($_POST['sbm'])) {
-        //echo "Test1<br>";
-        $r_name = $_POST['r_name'];
-        $r_star= $_POST['r_star'];
-        $r_email = $_POST['r_email'];
-        $r_description = $_POST['r_description'];
-  
-        
 
-        //$date = date("Y/m/d"); //thay sua
+include('../Admin/connection/connectionpro.php');
+require_once '../Admin/connection/connectData.php';
 
-        //echo "Test3<br>";
-        $sql = "INSERT INTO review (r_name, r_star, r_email, r_description) 
-        VALUES ('$r_name', '$r_star', '$r_email', '$r_description')"; //thay sua them thuoc tính date
-        //echo "Test4<br>"; //met moi 
-        //thay them try catch
-        try 
-        {
-            $query = mysqli_query($conn, $sql);
+// Kết nối đến cơ sở dữ liệu
+$conn = new mysqli('localhost', 'root', '', 'toy-shop'); //servername, username, password, database's name
+
+// Kiểm tra kết nối
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['p_name'])) {
+    $p_name = $_POST['p_name'];
+
+    // Truy vấn p_id dựa trên p_name
+    $sqlProductId = "SELECT `p_id` FROM `product` WHERE `p_name` = '$p_name'";
+
+    try {
+        $resultProductId = mysqli_query($conn, $sqlProductId);
+
+        // Kiểm tra xem có kết quả trả về không
+        if ($resultProductId->num_rows > 0) {
+            // Lấy p_id từ kết quả truy vấn
+            $rowProductId = $resultProductId->fetch_assoc();
+            $p_id = $rowProductId["p_id"];
+
+            // Truy vấn chi tiết sản phẩm dựa trên p_id
+            $sqlProduct = "SELECT * FROM `product` WHERE `p_id` = '$p_id'";
+            $result = mysqli_query($conn, $sqlProduct);
+
+            // Kiểm tra xem có kết quả trả về không
+            if ($result->num_rows > 0) {
+                // Lấy thông tin chi tiết của sản phẩm và đưa vào mảng product
+                $row = $result->fetch_assoc();
+                $product = array(
+                    "p_id" => $row["p_id"],
+                    "p_type" => $row["p_type"],
+                    "p_image" => $row["p_image"],
+                    "p_name" => $row["p_name"],
+                    "p_price" => $row["p_price"],
+                    "p_provider" => $row["p_provider"],
+                    "p_age" => $row["p_age"]
+                );
+
+                // Hiển thị thông tin chi tiết của sản phẩm
+                // print_r($product);
+            } else {
+                echo "Không tìm thấy sản phẩm với p_id là $p_id";
+            }
+        } else {
+            echo "Không tìm thấy sản phẩm với p_name là $p_name";
         }
-        catch(Exception $e)
-        {
-            var_dump($e);
-        }
-
-        
-        
+    } catch (Exception $e) {
+        var_dump($e);
     }
-    // xoa 
-    
-    //else echo "Test2<br>";
+}
+
+
+
+
+
+
+// Hàm xác thực đăng nhập
+// mới có u_id 123, 555
+function authenticateUser($email, $password)
+{
+	global $conn;
+
+	// Chuẩn bị truy vấn SQL
+	$sql = "SELECT * FROM user WHERE uemail = '$email' AND upassword = '$password'";
+
+	// Thực hiện truy vấn
+	$result = $conn->query($sql);
+
+	// Kiểm tra kết quả truy vấn
+	if ($result->num_rows == 1) {
+		// Đăng nhập thành công
+		return true;
+	} else {
+		// Đăng nhập không thành công
+		return false;
+	}
+}
+
+// Hàm lấy thông tin người dùng
+function getUserInfo($email)
+{
+	global $conn;
+
+	// Chuẩn bị truy vấn SQL
+	$sql = "SELECT * FROM user WHERE uemail = '$email'";
+
+	// Thực hiện truy vấn
+	$result = $conn->query($sql);
+
+	// Kiểm tra kết quả truy vấn
+	if ($result->num_rows == 1) {
+		// Trả về thông tin người dùng
+		return $result->fetch_assoc();
+	} else {
+		// Không tìm thấy thông tin người dùng
+		return null;
+	}
+}
+
+
+// // Sử dụng hàm xác thực đăng nhập
+// if (authenticateUser($user_email, $user_password)) {
+//     // Lưu trạng thái đăng nhập (ví dụ: sử dụng session)
+//     session_start();
+//     $_SESSION["loggedin"] = true;
+
+//     // Lấy thông tin người dùng đăng nhập
+//     $user_info = getUserInfo($user_email);
+
+//     // Hiển thị thông tin người dùng
+//     echo "Welcome " . $user_info["uname"];
+// } else {
+//     // Đăng nhập không thành công
+//     echo "Invalid email or password";
+// }
+
+// // Đóng kết nối
+// $conn->close();
+
+//echo "Test1<br>";
+require_once('../Admin/connection/connectData.php');
+//echo "Test2<br>";
+if (isset($_POST['sbm'])) {
+	//echo "Test1<br>";
+	$r_name = $_POST['r_name'];
+	$r_star = $_POST['r_star'];
+	$r_email = $_POST['r_email'];
+	$r_description = $_POST['r_description'];
+
+
+
+	//$date = date("Y/m/d"); //thay sua
+
+	//echo "Test3<br>";
+	$sql = "INSERT INTO review (r_name, r_star, r_email, r_description) 
+			VALUES ('$r_name', '$r_star', '$r_email', '$r_description')"; //thay sua them thuoc tính date
+	//echo "Test4<br>"; //met moi 
+	//thay them try catch
+	try {
+		$query = mysqli_query($conn, $sql);
+	} catch (Exception $e) {
+		// var_dump($e);
+	}
+
+	$sql = "SELECT * from review";
+	$query = mysqli_query($conn, $sql);
+}
+
+// Câu truy vấn SQL SELECT
+$sqlOrder = "SELECT 
+	`order`.o_id, 
+	`order`.u_id, 
+	`order`.p_id, 
+	`order`.o_price, 
+	`order`.o_status, 
+	`order`.o_quantity,
+	product.p_type, 
+	product.p_image, 
+	product.p_name, 
+	product.p_price 
+	FROM 
+	`order`
+	INNER JOIN 
+	product ON `order`.p_id = product.p_id";
+
+// Thực hiện truy vấn
+$resultOrder = $conn->query($sqlOrder);
+
+// Mảng chứa thông tin các đơn hàng
+$order_array = array();
+
+// // Kiểm tra kết quả truy vấn
+// if ($resultOrder->num_rows > 0) {
+// 	// Duyệt qua từng hàng dữ liệu từ kết quả truy vấn
+// 	while ($row = $resultOrder->fetch_assoc()) {
+// 		// Hiển thị thông tin sản phẩm
+// 		echo "Order ID: " . $row["o_id"] . "<br>";
+// 		echo "User ID: " . $row["u_id"] . "<br>";
+// 		echo "Product ID: " . $row["p_id"] . "<br>";
+// 		echo "Order Price: " . $row["o_price"] . "<br>";
+// 		echo "Order Status: " . $row["o_status"] . "<br>";
+// 		echo "Product Type: " . $row["p_type"] . "<br>";
+// 		echo "Product Image: " . $row["p_image"] . "<br>";
+// 		echo "Product Name: " . $row["p_name"] . "<br>";
+// 		echo "Product Price: " . $row["p_price"] . "<br>";
+// 		echo "<br>";
+// 	}
+// } else {
+// 	echo "0 results";
+// }
+
+
+// Kiểm tra kết quả truy vấn
+if ($resultOrder->num_rows > 0) {
+	// Duyệt qua từng hàng dữ liệu từ kết quả truy vấn
+	while ($row = $resultOrder->fetch_assoc()) {
+		// Thêm thông tin từng hàng vào mảng $order_array
+		$order_array[] = array(
+			"o_id" => $row["o_id"],
+			"u_id" => $row["u_id"],
+			"p_id" => $row["p_id"],
+			"o_price" => $row["o_price"],
+			"o_quantity" => $row["o_quantity"],
+			"o_status" => $row["o_status"],
+			"p_type" => $row["p_type"],
+			"p_image" => $row["p_image"],
+			"p_name" => $row["p_name"],
+			"p_price" => $row["p_price"]
+		);
+	}
+} else {
+	// echo "0 results";
+}
+
+
+
+
+function sumTotalPrice($order_array, $u_id)
+{
+	$totalPrice = 0; // Khởi tạo biến tổng giá tiền
+
+	// Duyệt qua từng sản phẩm trong giỏ hàng và tính tổng giá tiền
+	foreach ($order_array as $item) {
+		// Kiểm tra xem u_id của sản phẩm có khớp với u_id được chỉ định hay không
+		if ($item["u_id"] == $u_id) {
+			// Tính giá tiền của mỗi sản phẩm (giá tiền * số lượng)
+			$productPrice = $item["p_price"] * $item["o_quantity"];
+
+			// Cộng vào tổng giá tiền
+			$totalPrice += $productPrice;
+		}
+	}
+
+	return $totalPrice; // Trả về tổng giá tiền
+}
+
+// xoa 
+// Đoạn mã PHP để xử lý xóa giỏ hàng 
+
+// Hàm xử lý xóa giỏ hàng
+function deleteCart($user_id)
+{
+	// Viết mã SQL để xóa các mục trong giỏ hàng cho user có user_id là $user_id
+	// Ví dụ:
+	$sql = "DELETE FROM order WHERE u_id = 123";
+
+	// Thực thi câu lệnh SQL
+	$conn = new mysqli('localhost', 'root', '', 'toy-shop');
+	$result = mysqli_query($conn, $sql);
+
+	// Kiểm tra xem có xóa thành công hay không
+	if ($result) {
+		echo "Giỏ hàng đã được xóa thành công";
+	} else {
+		echo "Có lỗi xảy ra khi xóa giỏ hàng";
+	}
+}
+
+// Kiểm tra xem người dùng đã nhấn nút Xóa giỏ hàng chưa
+if (isset($_POST['delete_cart'])) {
+	// Lấy user_id của người dùng hiện tại
+	$user_id = 123; // Thay thế bằng cách lấy user_id của người dùng từ session hoặc cookie
+
+	// Gọi hàm xóa giỏ hàng
+	deleteCart($user_id);
+}
+
+//else echo "Test2<br>";
+
+    // Truy vấn để đếm số dòng trong bảng order
+    $sql = "SELECT COUNT(*) AS total_rows FROM `order`";
+    $result = $conn->query($sql);
+
+    // Kiểm tra và hiển thị kết quả
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $order_count = $row["total_rows"];
+    } else {
+        // echo "Không có dữ liệu trong bảng order";
+    }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,8 +299,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v5.15.4/css/all.css">
 	<!-- link icon -->
-	<link rel="stylesheet" data-purpose="Layout StyleSheet" title="Web Awesome"
-		href="/css/app-wa-8d95b745961f6b33ab3aa1b98a45291a.css?vsn=d">
+	<link rel="stylesheet" data-purpose="Layout StyleSheet" title="Web Awesome" href="/css/app-wa-8d95b745961f6b33ab3aa1b98a45291a.css?vsn=d">
 
 	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/all.css">
 
@@ -86,8 +340,7 @@
 	<!--===============================================================================================-->
 	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v5.15.4/css/all.css">
 	<!-- link icon -->
-	<link rel="stylesheet" data-purpose="Layout StyleSheet" title="Web Awesome"
-		href="/css/app-wa-8d95b745961f6b33ab3aa1b98a45291a.css?vsn=d">
+	<link rel="stylesheet" data-purpose="Layout StyleSheet" title="Web Awesome" href="/css/app-wa-8d95b745961f6b33ab3aa1b98a45291a.css?vsn=d">
 
 	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/all.css">
 
@@ -100,23 +353,26 @@
 </head>
 
 <style>
-		/* CSS to change the size of the image */
-		.item-slick3 img {
-		width: 100%; /* Set the width of the image to 100% of the parent element */
-		height: auto; /* Allow the aspect ratio of the image to be maintained */
+	/* CSS to change the size of the image */
+	.item-slick3 img {
+		width: 100%;
+		/* Set the width of the image to 100% of the parent element */
+		height: auto;
+		/* Allow the aspect ratio of the image to be maintained */
 	}
 
 	/* # for id */
-	#font-size{
+	#font-size {
 		font-size: 20px;
-	} 
+	}
 
 	/* Setting size thumb image  */
-	.wrap-slick3-dots{
+	.wrap-slick3-dots {
 		width: 20%;
 	}
+
 	/* Setting size display image  */
-	.gallery-lb{
+	.gallery-lb {
 		width: 70%;
 	}
 
@@ -135,15 +391,18 @@
 
 	/* Zoom Hover */
 	.zoom-container:hover img {
-		transform: scale(1.5); /* Scale upsize 150% hover */
+		transform: scale(1.5);
+		/* Scale upsize 150% hover */
 	}
+
 	/* Add cart */
 	#button-add {
 		border-radius: 8px;
 		padding: 10px;
 		background-color: #F4538A;
 		color: white;
-		margin-bottom: 10px; /* Add margin to create space between buttons */
+		margin-bottom: 10px;
+		/* Add margin to create space between buttons */
 		width: 75%;
 	}
 
@@ -166,40 +425,44 @@
 		background-color: #F4538A;
 	}
 
-	
+
 	/* Radio button container style */
 	.size-204 {
-		display: flex; /* Use flexbox for the container */
-		align-items: center; /* Align items vertically */
+		display: flex;
+		/* Use flexbox for the container */
+		align-items: center;
+		/* Align items vertically */
 	}
 
 	/* Radio button style */
 	input[type="radio"] {
-		display: none; /* Hide the default radio button */
+		display: none;
+		/* Hide the default radio button */
 	}
 
 	/* Custom radio button style */
-	input[type="radio"] + label {
+	input[type="radio"]+label {
 		border-radius: 8px;
 		padding: 10px;
 		background-color: white;
 		color: black;
 		cursor: pointer;
-		margin-right: 10px; /* Add margin to create space between buttons */
+		margin-right: 10px;
+		/* Add margin to create space between buttons */
 	}
 
 	/* Styling for when radio button is checked */
-	input[type="radio"]:checked + label {
+	input[type="radio"]:checked+label {
 		background-color: black;
 		color: white;
 	}
 
-	#bolder{
+	#bolder {
 		font-weight: bolder;
 	}
 
 	.info-item {
-    	margin-bottom: 10px;
+		margin-bottom: 10px;
 	}
 
 	.info-label {
@@ -212,10 +475,35 @@
 
 	/* Responsive styles for screens up to 800px */
 	@media (max-width: 800px) {
-	    .col-lg-6, .col-md-8, .col-sm-10 {
-	        width: 100%; /* Make columns full width on small screens */
-	    }
+
+		.col-lg-6,
+		.col-md-8,
+		.col-sm-10 {
+			width: 100%;
+			/* Make columns full width on small screens */
+		}
 	}
+
+	/* Định dạng nút check out và view cart */
+	#btn-cart {
+		background-color: #F4538A;
+		color: #FFEFEF;
+	}
+
+	#btn-cart:hover {
+		background-color: black;
+		color: #FFEFEF;
+	}
+
+	/* Định dạng nút delete */
+	.btn-delete {
+		color: black;
+	}
+
+	.btn-delete:hover {
+		color:#F4538A;
+	}
+
 </style>
 
 
@@ -230,32 +518,24 @@
 				<div class="content-topbar flex-sb-m h-full container">
 					<div class="left-top-bar">
 						<div class="d-inline-flex align-items-center">
-							<p style="color: #F4538A"><i class="fa fa-envelope mr-2"></i><a
-									href="mailto:omachacontact@gmail.com"
-									style="color: #000; text-decoration: none;">omachacontact@gmail.com</a></p>
+							<p style="color: #F4538A"><i class="fa fa-envelope mr-2"></i><a href="mailto:omachacontact@gmail.com" style="color: #000; text-decoration: none;">omachacontact@gmail.com</a></p>
 							<p class="text-body px-3">|</p>
-							<p style="color: #F4538A"><i class="fa fa-phone-alt mr-2"></i><a href="tel:+19223600"
-									style="color: #000; text-decoration: none;">+1922 4800</a></p>
+							<p style="color: #F4538A"><i class="fa fa-phone-alt mr-2"></i><a href="tel:+19223600" style="color: #000; text-decoration: none;">+1922 4800</a></p>
 						</div>
 					</div>
 
 					<div class="col-lg-6 text-center text-lg-right">
 						<div class="d-inline-flex align-items-center">
-							<a class="text-primary px-3" href="https://www.facebook.com/profile.php?id=61557250007525"
-								target="_blank" title="Visit the Reis Adventures fanpage.">
+							<a class="text-primary px-3" href="https://www.facebook.com/profile.php?id=61557250007525" target="_blank" title="Visit the Reis Adventures fanpage.">
 								<i style="color: #49243E;" class="fab fa-facebook-f"></i>
 							</a>
-							<a class="text-primary px-3" href="https://twitter.com/reis_adventures" target="_blank"
-								title="Visit the Reis Adventures Twitter.">
+							<a class="text-primary px-3" href="https://twitter.com/reis_adventures" target="_blank" title="Visit the Reis Adventures Twitter.">
 								<i style="color: #49243E;" class="fab fa-twitter"></i>
 							</a>
-							<a class="text-primary px-3" href="https://www.linkedin.com/in/reis-adventures-458144300/"
-								target="_blank" title="Visit the Reis Adventures Linkedin.">
+							<a class="text-primary px-3" href="https://www.linkedin.com/in/reis-adventures-458144300/" target="_blank" title="Visit the Reis Adventures Linkedin.">
 								<i style="color: #49243E;" class="fab fa-linkedin-in"></i>
 							</a>
-							<a class="text-primary px-3"
-								href="https://www.instagram.com/reis_adventures2024?igsh=YTQwZjQ0NmI0OA%3D%3D&utm_source=qr"
-								target="_blank" title="Visit the Reis Adventures Instagram.">
+							<a class="text-primary px-3" href="https://www.instagram.com/reis_adventures2024?igsh=YTQwZjQ0NmI0OA%3D%3D&utm_source=qr" target="_blank" title="Visit the Reis Adventures Instagram.">
 								<i style="color: #49243E;" class="fab fa-instagram"></i>
 							</a>
 							<div class="data1">
@@ -265,8 +545,7 @@
 							</div>
 							<div class="data2">
 								<i style="color: #49243E;" class=""></i>
-								<a href="register.html" class="btn2 btn-primary2 mt-1"
-									style="color: #49243E;"><b>Register</b></a>
+								<a href="register.html" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b>Register</b></a>
 							</div>
 						</div>
 					</div>
@@ -278,8 +557,7 @@
 
 					<!-- Logo desktop -->
 					<a href="index.html" class="navbar-brand">
-						<h1 class="m-0 text-primary1 mt-3 "><span class="text-dark1"><img class="Imagealignment"
-									src="images/icon.png">Omacha</h1>
+						<h1 class="m-0 text-primary1 mt-3 "><span class="text-dark1"><img class="Imagealignment" src="images/icon.png">Omacha</h1>
 					</a>
 
 					<!-- Menu desktop -->
@@ -323,14 +601,11 @@
 							<i class="zmdi zmdi-search"></i>
 						</div>
 
-						<div class="icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-							data-notify="2">
+						<div class="icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="<?php echo ($order_count);?>">
 							<i class="zmdi zmdi-shopping-cart"></i>
 						</div>
 
-						<a href="#"
-							class="dis-block icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
-							data-notify="0">
+						<a href="#" class="dis-block icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
 							<i class="zmdi zmdi-favorite-outline"></i>
 						</a>
 					</div>
@@ -351,13 +626,11 @@
 					<i class="zmdi zmdi-search"></i>
 				</div>
 
-				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart"
-					data-notify="2">
+				<div class="icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="<?php echo ($order_count);?>">
 					<i class="zmdi zmdi-shopping-cart"></i>
 				</div>
 
-				<a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti"
-					data-notify="0">
+				<a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti" data-notify="0">
 					<i class="zmdi zmdi-favorite-outline"></i>
 				</a>
 			</div>
@@ -470,68 +743,58 @@
 
 			<div class="header-cart-content flex-w js-pscroll">
 				<ul class="header-cart-wrapitem w-full">
-					<li class="header-cart-item flex-w flex-t m-b-12">
-						<div class="header-cart-item-img">
-							<img src="images/item-cart-01.jpg" alt="IMG">
-						</div>
+					<?php
+					// Duyệt qua mỗi sản phẩm trong giỏ hàng và hiển thị thông tin
+					foreach ($order_array as $item) {
+						// mới có u_id 123, 555
+						if ($item["u_id"] == 123 && $item["o_quantity"] > 0) {
+					?>
+							<li class="header-cart-item m-b-20">
+								<div class="row">
+									<div class="col-md-3">
+										<div class="header-cart-item-img">
+											<!-- Hiện hình trong giỏ hàng -->
+											<img src="images/<?php echo $item["p_image"]; ?>" alt="IMG">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div >
+											<!-- Hiện tên sản phẩm trong giỏ hàng -->
+											<a href="#" class="header-cart-item-name hov-cl1 trans-04"><?php echo $item["p_name"]; ?></a>
+										</div>
+										<!-- Hiện số lượng sản phẩm và giá tiền -->
+										<span class="header-cart-item-info"><?php echo $item["o_quantity"]; ?> x $<?php echo $item["p_price"]; ?></span>
+									</div>
+									<div class="col-md-3">
+										<form action="delete-cart.php" method="post">											
+											<input type="hidden" name="p_id" value="<?php echo $item['p_id']; ?>">
 
-						<div class="header-cart-item-txt p-t-8">
-							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-								White Shirt Pleat
-							</a>
-
-							<span class="header-cart-item-info">
-								1 x $19.00
-							</span>
-						</div>
-					</li>
-
-					<li class="header-cart-item flex-w flex-t m-b-12">
-						<div class="header-cart-item-img">
-							<img src="images/item-cart-02.jpg" alt="IMG">
-						</div>
-
-						<div class="header-cart-item-txt p-t-8">
-							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-								Converse All Star
-							</a>
-
-							<span class="header-cart-item-info">
-								1 x $39.00
-							</span>
-						</div>
-					</li>
-
-					<li class="header-cart-item flex-w flex-t m-b-12">
-						<div class="header-cart-item-img">
-							<img src="images/item-cart-03.jpg" alt="IMG">
-						</div>
-
-						<div class="header-cart-item-txt p-t-8">
-							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-								Nixon Porter Leather
-							</a>
-
-							<span class="header-cart-item-info">
-								1 x $17.00
-							</span>
-						</div>
-					</li>
+											<!-- Nút xóa tại đây -->
+											<input type="submit" value="X" name="delete-cart" class="btn-delete">
+											<!-- <//?php print_r($item['p_id']); ?> -->
+										</form>
+									</div>
+								</div>
+							</li>
+					<?php
+						}
+					}
+					?>
 				</ul>
+
 
 				<div class="w-full">
 					<div class="header-cart-total w-full p-tb-40">
-						Total: $75.00
+						<?php $totalPrice = sumTotalPrice($order_array, 123); ?> <!-- thay doi user -->
+						<p>Total: $<?php echo $totalPrice; ?></p>
 					</div>
 
 					<div class="header-cart-buttons flex-w w-full">
-						<a href="shoping-cart.html"
-							class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
+						<a href="shoping-cart.php" id="btn-cart" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
 							View Cart
 						</a>
 
-						<a href="shoping-cart.html"
-							class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
+						<a href="shoping-cart.php" id="btn-cart" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
 							Check Out
 						</a>
 					</div>
@@ -539,6 +802,7 @@
 			</div>
 		</div>
 	</div>
+
 
 
 	<!-- breadcrumb -->
@@ -568,19 +832,19 @@
 				<div class="col-md-6 col-lg-7 p-b-30">
 					<div class="p-l-25 p-r-30 p-lr-0-lg">
 						<div class="wrap-slick3 flex-sb flex-w">
-							<div class="wrap-slick3-dots"></div>							
+							<div class="wrap-slick3-dots"></div>
 							<div class="slick3 gallery-lb">
 
 								<!-- Image 1 -->
-								<div class="item-slick3" data-thumb="images/teddy-bear-1.png">
+								<div class="item-slick3" data-thumb="images/<?php echo $product["p_image"];?>">
 									<div class="wrap-pic-w pos-relative zoom-container">
-										<img src="images/teddy-bear-1.png" alt="IMG-PRODUCT">
+										<img src="images/<?php echo $product['p_image']; ?>" alt="IMG-PRODUCT">
 
 										<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/teddy-bear-1.png">
 											<i class="fa fa-expand"></i>
 										</a>
 									</div>
-								</div>				
+								</div>
 
 								<!-- Image 2 -->
 								<div class="item-slick3" data-thumb="images/teddy-bear-2.jpg">
@@ -608,22 +872,22 @@
 						</div>
 					</div>
 				</div>
-					
+
 				<div class="col-md-6 col-lg-5 p-b-30">
 					<div class="p-r-50 p-t-5 p-lr-0-lg">
 						<h4 class="mtext-105 cl2 js-name-detail p-b-14">
-							Teddy Bear 
+							<?php echo $product["p_name"];?>
 						</h4>
 
 						<span class="mtext-106 cl2">
-							$9.99
+							$ <?php echo $product["p_price"];?>
 						</span>
 
 						<p class="stext-102 cl3 p-t-23">
-							A teddy bear is a popular plush toy, often designed in the shape of a small bear with soft plush fur. 
+							A teddy bear is a popular plush toy, often designed in the shape of a small bear with soft plush fur.
 							It is typically made from fabric materials such as sheepskin, fleece, or stuffed cotton and can come in various colors and styles.
 						</p>
-						
+
 						<!-- Size selection -->
 						<div class="p-t-33">
 							<div class="flex-w flex-r-m p-b-10">
@@ -684,256 +948,234 @@
 							</div>
 						</div>
 
-							<div class="flex-w flex-r-m p-b-10">
-								<div class="size-204 flex-w flex-m respon6-next">
-									<div class="wrap-num-product flex-w m-r-20 m-tb-10">
-										<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-											<i class="fs-16 zmdi zmdi-minus"></i>
-										</div>
+						<div class="flex-w flex-r-m p-b-10">
+							<div class="size-204 flex-w flex-m respon6-next">
+								<div class="wrap-num-product flex-w m-r-20 m-tb-10">
+									<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+										<i class="fs-16 zmdi zmdi-minus"></i>
+									</div>
 
-										<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
+									<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
 
-										<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-											<i class="fs-16 zmdi zmdi-plus"></i>
-										</div>
+									<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+										<i class="fs-16 zmdi zmdi-plus"></i>
 									</div>
 								</div>
-
-								<div class="size-204 flex-w flex-m respon6-next">
-									<button id="button-add" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-										Add to cart
-									</button>
-
-									
-									<button id="button-buy" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-buycart-detail">
-										Buy it now
-									</button>
-								</div>
-							</div>	
-						</div>
-
-						<!--  -->
-						<div class="flex-w flex-m p-l-100 p-t-40 respon7">
-							<div class="flex-m bor9 p-r-10 m-r-11">
-								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Add to Wishlist">
-									<i class="zmdi zmdi-favorite"></i>
-								</a>
 							</div>
 
-							<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Facebook">
-								<i class="fab fa-facebook"></i> <!-- Use "fab" for brand icons -->
-							</a>
-							
-							<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Twitter">
-								<i class="fab fa-twitter"></i>
-							</a>
-							
-							<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Google Plus">
-								<i class="fab fa-google-plus"></i>
+							<div class="size-204 flex-w flex-m respon6-next">
+								<form action="add-to-order.php" method="post">
+									<!-- Name input is add-to-order -->
+									<input type="submit" value="Add to cart" id="button-add" name="add-to-order" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+									<input type="hidden" name="p_id" value="<?php echo $product["p_id"];?>">
+									<input type="hidden" name="p_image" value="<?php echo $product["p_image"];?>">
+									<input type="hidden" name="p_name" value="<?php echo $product["p_name"];?>">
+									<input type="hidden" name="p_price" value="<?php echo $product["p_price"];?>">
+									<input type="hidden" name="p_type" value="<?php echo $product["p_type"];?>">
+									<input type="hidden" name="o_quantity" value="<?php $item["o_quantity"]; ?>">
+									<input type="hidden" name="o_status" value="0">
+								</form>
+
+
+								<button id="button-buy" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-buycart-detail">
+									Buy it now
+								</button>
+							</div>
+						</div>
+					</div>
+
+					<!--  -->
+					<div class="flex-w flex-m p-l-100 p-t-40 respon7">
+						<div class="flex-m bor9 p-r-10 m-r-11">
+							<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Add to Wishlist">
+								<i class="zmdi zmdi-favorite"></i>
 							</a>
 						</div>
+
+						<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Facebook">
+							<i class="fab fa-facebook"></i> <!-- Use "fab" for brand icons -->
+						</a>
+
+						<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Twitter">
+							<i class="fab fa-twitter"></i>
+						</a>
+
+						<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Google Plus">
+							<i class="fab fa-google-plus"></i>
+						</a>
 					</div>
 				</div>
 			</div>
+		</div>
 
-			<div class="bor10 m-t-50 p-t-43 p-b-40">
-				<!-- Tab01 -->
-				<div class="tab01">
-					<!-- Nav tabs -->
-					<ul class="nav nav-tabs" role="tablist">
-						<li class="nav-item p-b-10">
-							<a class="nav-link active" data-toggle="tab" href="#description" role="tab">Description</a>
-						</li>
+		<div class="bor10 m-t-50 p-t-43 p-b-40">
+			<!-- Tab01 -->
+			<div class="tab01">
+				<!-- Nav tabs -->
+				<ul class="nav nav-tabs" role="tablist">
+					<li class="nav-item p-b-10">
+						<a class="nav-link active" data-toggle="tab" href="#description" role="tab">Description</a>
+					</li>
 
-						<li class="nav-item p-b-10">
-							<a class="nav-link" data-toggle="tab" href="#information" role="tab">Additional information</a>
-						</li>
+					<li class="nav-item p-b-10">
+						<a class="nav-link" data-toggle="tab" href="#information" role="tab">Additional information</a>
+					</li>
 
-						<li class="nav-item p-b-10">
-							<a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews (1)</a>
-						</li>
-					</ul>
+					<li class="nav-item p-b-10">
+						<a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews (1)</a>
+					</li>
+				</ul>
 
-					<!-- Tab panes -->
-					<div class="tab-content p-t-43">
-						<!-- Description -->
-						<div class="tab-pane fade show active" id="description" role="tabpanel">
-							<div class="how-pos2 p-lr-15-md">
-								<p class="stext-102 cl6">
-									<b>Shape and Size:</b> Teddy bears often have a bear-like appearance, with two ears, a round nose, and two round eyes. 
-									The size of a teddy bear can vary from small to large.								
-								</p>
+				<!-- Tab panes -->
+				<div class="tab-content p-t-43">
+					<!-- Description -->
+					<div class="tab-pane fade show active" id="description" role="tabpanel">
+						<div class="how-pos2 p-lr-15-md">
+							<p class="stext-102 cl6">
+								<b>Shape and Size:</b> Teddy bears often have a bear-like appearance, with two ears, a round nose, and two round eyes.
+								The size of a teddy bear can vary from small to large.
+							</p>
 
-								<p class="stext-102 cl6">
-									<b>Material: </b> The product is made from soft and safe fabric materials such as sheepskin, fleece, cotton, or synthetic plush. 
-									Sometimes, accessories like silk or velvet fabric may also be used to create accents.
+							<p class="stext-102 cl6">
+								<b>Material: </b> The product is made from soft and safe fabric materials such as sheepskin, fleece, cotton, or synthetic plush.
+								Sometimes, accessories like silk or velvet fabric may also be used to create accents.
 
-								<p class="stext-102 cl6">
-									<b>Color: </b>Teddy bears can come in a variety of colors, from the natural brown of real bears to vibrant colors like pink, blue, and yellow. 
-									Colors are often chosen to reflect personality traits or create interesting accents for the product.
-								</p>
+							<p class="stext-102 cl6">
+								<b>Color: </b>Teddy bears can come in a variety of colors, from the natural brown of real bears to vibrant colors like pink, blue, and yellow.
+								Colors are often chosen to reflect personality traits or create interesting accents for the product.
+							</p>
 
-								<p class="stext-102 cl6">
-									<b>Accessories:</b> Some teddy bears may be adorned with accessories like knitted sweaters, bow ties, or ribbons. 
-									These accessories are often added to create unique styles or make the product more adorable.
-								</p>
+							<p class="stext-102 cl6">
+								<b>Accessories:</b> Some teddy bears may be adorned with accessories like knitted sweaters, bow ties, or ribbons.
+								These accessories are often added to create unique styles or make the product more adorable.
+							</p>
 
-								<p class="stext-102 cl6">
-									<b>Safety and Quality: </b>Teddy bear products are typically manufactured to high safety standards, ensuring that they are safe for children and pose no health hazards. 
-									The quality of the product is also ensured to ensure that the teddy bear is durable and maintains its shape and color after repeated use.							
-								</p>
-							</div>
+							<p class="stext-102 cl6">
+								<b>Safety and Quality: </b>Teddy bear products are typically manufactured to high safety standards, ensuring that they are safe for children and pose no health hazards.
+								The quality of the product is also ensured to ensure that the teddy bear is durable and maintains its shape and color after repeated use.
+							</p>
 						</div>
+					</div>
 
-						<!-- Additional information -->
-						<div class="tab-pane fade" id="information" role="tabpanel">
-							<div style="margin-left: 50px;" class="how-pos2 p-lr-15-md">
-								<div class="row how-pos2 p-lr-15-md">
-									<div class="stext-102 cl6 col-md-6">
-										<div class="info-item">
-											<span class="info-label">Weight:</span>
-											<span class="info-value">0.79 kg</span>
-										</div>
-									</div>
-									<div class="stext-102 cl6 col-md-6">
-										<div class="info-item">
-											<span class="info-label">Dimensions:</span>
-											<span class="info-value">110 x 33 x 100 cm</span>
-										</div>
-									</div>
-									<div class="stext-102 cl6 col-md-6">
-										<div class="info-item">
-											<span class="info-label">Materials:</span>
-											<span class="info-value">60% cotton</span>
-										</div>
-									</div>
-									<div class="stext-102 cl6 col-md-6">
-										<div class="info-item">
-											<span class="info-label">Color:</span>
-											<span class="info-value">Black, Blue, Grey, Green, Red, White</span>
-										</div>
-									</div>
-									<div class="stext-102 cl6 col-md-6">
-										<div class="info-item">
-											<span class="info-label">Size:</span>
-											<span class="info-value">XL, L, M, S</span>
-										</div>
+					<!-- Additional information -->
+					<div class="tab-pane fade" id="information" role="tabpanel">
+						<div style="margin-left: 50px;" class="how-pos2 p-lr-15-md">
+							<div class="row how-pos2 p-lr-15-md">
+								<div class="stext-102 cl6 col-md-6">
+									<div class="info-item">
+										<span class="info-label">Weight:</span>
+										<span class="info-value">0.79 kg</span>
 									</div>
 								</div>
-							</div>							
+								<div class="stext-102 cl6 col-md-6">
+									<div class="info-item">
+										<span class="info-label">Dimensions:</span>
+										<span class="info-value">110 x 33 x 100 cm</span>
+									</div>
+								</div>
+								<div class="stext-102 cl6 col-md-6">
+									<div class="info-item">
+										<span class="info-label">Materials:</span>
+										<span class="info-value">60% cotton</span>
+									</div>
+								</div>
+								<div class="stext-102 cl6 col-md-6">
+									<div class="info-item">
+										<span class="info-label">Color:</span>
+										<span class="info-value">Black, Blue, Grey, Green, Red, White</span>
+									</div>
+								</div>
+								<div class="stext-102 cl6 col-md-6">
+									<div class="info-item">
+										<span class="info-label">Size:</span>
+										<span class="info-value">XL, L, M, S</span>
+									</div>
+								</div>
+							</div>
 						</div>
+					</div>
 
-						<!-- - -->
-						<div class="tab-pane fade" id="reviews" role="tabpanel">
-							<div class="row">
-								<div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
-									<div class="p-b-30 m-lr-15-sm">
-										<!-- Review -->
-										<div class="flex-w flex-t p-b-68">
-											<div>
-												<div class="flex-w flex-sb-m p-b-17">
-													<span class="mtext-107 cl2 p-r-20">
-														Ariana Grande
-													</span>
-						
-													<span class="fs-18 cl11">
-														<i class="zmdi zmdi-star"></i>
-														<i class="zmdi zmdi-star"></i>
-														<i class="zmdi zmdi-star"></i>
-														<i class="zmdi zmdi-star"></i>
-														<i class="zmdi zmdi-star-half"></i>
-													</span>
-												</div>
-						
-												<p class="stext-102 cl6">
-													With soft materials and eye-catching colors, cotton buckets are the perfect choice for children to play and simulate daily activities such as bathing, cooking, or taking care of their small family.
-												</p>
-											</div>
-										</div>
-										
+					<!-- - -->
+					<div class="tab-pane fade" id="reviews" role="tabpanel">
+						<div class="row">
+							<div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
+								<div class="p-b-30 m-lr-15-sm">
+									<!-- Review -->
+									<div class="flex-w flex-t p-b-68">
 										<div>
-											<?php
-											require_once ('../Admin/connection/connectData.php');
-											$sql = "SELECT * from review";
-        									$query = mysqli_query($conn, $sql);
-											while ($row = mysqli_fetch_assoc($query)) {
-											?>
-												<div class="flex-w flex-sb-m p-b-17">
-													<span class="mtext-107 cl2 p-r-20">
-														<?php echo $row['r_name']; ?>
-													</span>
+											<div class="flex-w flex-sb-m p-b-17">
+												<span class="mtext-107 cl2 p-r-20">
+													Ariana Grande
+												</span>
 
-													<span class="fs-18 cl11">
-														<i class="zmdi zmdi-star"></i>
-														<i class="zmdi zmdi-star"></i>
-														<i class="zmdi zmdi-star"></i>
-														<i class="zmdi zmdi-star"></i>
-														<i class="zmdi zmdi-star"></i>
-														<input class="dis-none" type="number" name="rating">
-													</span>
-												</div>
+												<span class="fs-18 cl11">
+													<i class="zmdi zmdi-star"></i>
+													<i class="zmdi zmdi-star"></i>
+													<i class="zmdi zmdi-star"></i>
+													<i class="zmdi zmdi-star"></i>
+													<i class="zmdi zmdi-star-half"></i>
+												</span>
+											</div>
 
-												<p class="stext-102 cl6">
-													<?php echo $row['r_description']; ?>
-												</p>
-											<?php }?>
+											<p class="stext-102 cl6">
+												With soft materials and eye-catching colors, cotton buckets are the perfect choice for children to play and simulate daily activities such as bathing, cooking, or taking care of their small family.
+											</p>
+										</div>
+									</div>
+
+									<!-- Add review -->
+									<form class="w-full">
+										<h5 class="mtext-108 cl2 p-b-7">
+											Add a review
+										</h5>
+
+										<p class="stext-102 cl6">
+											Your email address will not be published. Required fields are marked *
+										</p>
+
+										<div class="flex-w flex-m p-t-50 p-b-23">
+											<span class="stext-102 cl3 m-r-16">
+												Your Rating
+											</span>
+
+											<span class="wrap-rating fs-18 cl11 pointer">
+												<i class="item-rating pointer zmdi zmdi-star-outline"></i>
+												<i class="item-rating pointer zmdi zmdi-star-outline"></i>
+												<i class="item-rating pointer zmdi zmdi-star-outline"></i>
+												<i class="item-rating pointer zmdi zmdi-star-outline"></i>
+												<i class="item-rating pointer zmdi zmdi-star-outline"></i>
+												<input class="dis-none" type="number" name="rating">
+											</span>
 										</div>
 
+										<div class="row p-b-25">
+											<div class="col-12 p-b-5">
+												<label class="stext-102 cl3" for="review">Your review</label>
+												<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="review" name="review"></textarea>
+											</div>
 
-										
-										<!-- Add review -->
-										<form form method="POST" enctype="multipart/form-data" class="w-full">
-											<h5 class="mtext-108 cl2 p-b-7">
-												Add a review
-											</h5>
-						
-											<p class="stext-102 cl6">
-												Your email address will not be published. Required fields are marked *
-											</p>
-						
-											<div class="flex-w flex-m p-t-50 p-b-23">
-												<span class="stext-102 cl3 m-r-16">
-													Your Rating
-												</span>
-						
-												<span class="wrap-rating fs-18 cl11 pointer">
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<input class="dis-none" type="number" name="r_star">
-												</span>
+											<div class="col-sm-6 p-b-5">
+												<label class="stext-102 cl3" for="name">Name</label>
+												<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="name" type="text" name="name">
 											</div>
-						
-											<div class="row p-b-25">
-												<div class="col-12 p-b-5">
-													<label class="stext-102 cl3" for="review">Your review</label>
-													<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="review" name="r_description"></textarea>
-												</div>
-						
-												<div class="col-sm-6 p-b-5">
-													<label class="stext-102 cl3" for="name">Name</label>
-													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="name" type="text" name="r_name">
-												</div>
-						
-												<div class="col-sm-6 p-b-5">
-													<label class="stext-102 cl3" for="email">Email</label>
-													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="email" type="text" name="r_email">
-												</div>
+
+											<div class="col-sm-6 p-b-5">
+												<label class="stext-102 cl3" for="email">Email</label>
+												<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="email" type="text" name="email">
 											</div>
-						
-											<button name="sbm" class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
-												Submit
-											</button>
-										</form>
-									</div>
+										</div>
+
+										<button class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
+											Submit
+										</button>
+									</form>
 								</div>
-							</div>					
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
 		</div>
 
 		<div class="bg6 flex-c-m flex-w size-302 m-t-73 p-tb-15">
@@ -1319,8 +1561,7 @@
 
 					<form>
 						<div class="wrap-input1 w-full p-b-4">
-							<input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email"
-								placeholder="email@example.com">
+							<input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email" placeholder="email@example.com">
 							<div class="focus-input1 trans-04"></div>
 						</div>
 
@@ -1359,10 +1600,9 @@
 				<p class="stext-107 cl6 txt-center">
 					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 					Copyright &copy;
-					<script>document.write(new Date().getFullYear());</script> All rights reserved | Made with <i
-						class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com"
-						target="_blank">Colorlib</a> &amp; distributed by <a href="https://themewagon.com"
-						target="_blank">ThemeWagon</a>
+					<script>
+						document.write(new Date().getFullYear());
+					</script> All rights reserved | Made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> &amp; distributed by <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
 					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 
 				</p>
@@ -1400,8 +1640,7 @@
 										<div class="wrap-pic-w pos-relative">
 											<img src="images/teddy-bear-1.png" alt="IMG-PRODUCT">
 
-											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-												href="images/teddy-bear-1.png">
+											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/teddy-bear-1.png">
 												<i class="fa fa-expand"></i>
 											</a>
 										</div>
@@ -1411,8 +1650,7 @@
 										<div class="wrap-pic-w pos-relative">
 											<img src="images/teddy-bear-2.jpg" alt="IMG-PRODUCT">
 
-											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-												href="images/teddy-bear-2.jpg">
+											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/teddy-bear-2.jpg">
 												<i class="fa fa-expand"></i>
 											</a>
 										</div>
@@ -1422,8 +1660,7 @@
 										<div class="wrap-pic-w pos-relative">
 											<img src="images/teddy-bear-3.jpg" alt="IMG-PRODUCT">
 
-											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-												href="images/teddy-bear-3.jpg">
+											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/teddy-bear-3.jpg">
 												<i class="fa fa-expand"></i>
 											</a>
 										</div>
@@ -1495,16 +1732,14 @@
 												<i class="fs-16 zmdi zmdi-minus"></i>
 											</div>
 
-											<input class="mtext-104 cl3 txt-center num-product" type="number"
-												name="num-product" value="1">
+											<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
 
 											<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
 												<i class="fs-16 zmdi zmdi-plus"></i>
 											</div>
 										</div>
 
-										<button
-											class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+										<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
 											Add to cart
 										</button>
 									</div>
@@ -1514,25 +1749,20 @@
 							<!--  -->
 							<div class="flex-w flex-m p-l-100 p-t-40 respon7">
 								<div class="flex-m bor9 p-r-10 m-r-11">
-									<a href="#"
-										class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100"
-										data-tooltip="Add to Wishlist">
+									<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Add to Wishlist">
 										<i class="zmdi zmdi-favorite"></i>
 									</a>
 								</div>
 
-								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
-									data-tooltip="Facebook">
+								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Facebook">
 									<i class="fa fa-facebook"></i>
 								</a>
 
-								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
-									data-tooltip="Twitter">
+								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Twitter">
 									<i class="fa fa-twitter"></i>
 								</a>
 
-								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
-									data-tooltip="Google Plus">
+								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Google Plus">
 									<i class="fa fa-google-plus"></i>
 								</a>
 							</div>
@@ -1553,7 +1783,7 @@
 	<!--===============================================================================================-->
 	<script src="vendor/select2/select2.min.js"></script>
 	<script>
-		$(".js-select2").each(function () {
+		$(".js-select2").each(function() {
 			$(this).select2({
 				minimumResultsForSearch: 20,
 				dropdownParent: $(this).next('.dropDownSelect2')
@@ -1574,7 +1804,7 @@
 	<!--===============================================================================================-->
 	<script src="vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
 	<script>
-		$('.gallery-lb').each(function () { // the containers for all your galleries
+		$('.gallery-lb').each(function() { // the containers for all your galleries
 			$(this).magnificPopup({
 				delegate: 'a', // the selector for gallery item
 				type: 'image',
@@ -1590,13 +1820,13 @@
 	<!--===============================================================================================-->
 	<script src="vendor/sweetalert/sweetalert.min.js"></script>
 	<script>
-		$('.js-addwish-b2, .js-addwish-detail').on('click', function (e) {
+		$('.js-addwish-b2, .js-addwish-detail').on('click', function(e) {
 			e.preventDefault();
 		});
 
-		$('.js-addwish-b2').each(function () {
+		$('.js-addwish-b2').each(function() {
 			var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
-			$(this).on('click', function () {
+			$(this).on('click', function() {
 				swal(nameProduct, "is added to wishlist !", "success");
 
 				$(this).addClass('js-addedwish-b2');
@@ -1604,10 +1834,10 @@
 			});
 		});
 
-		$('.js-addwish-detail').each(function () {
+		$('.js-addwish-detail').each(function() {
 			var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
 
-			$(this).on('click', function () {
+			$(this).on('click', function() {
 				swal(nameProduct, "is added to wishlist !", "success");
 
 				$(this).addClass('js-addedwish-detail');
@@ -1617,23 +1847,23 @@
 
 		/*---------------------------------------------*/
 
-		$('.js-addcart-detail').each(function () {
+		$('.js-addcart-detail').each(function() {
 			var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
-			$(this).on('click', function () {
+			$(this).on('click', function() {
 				swal(nameProduct, "is added to cart !", "success");
 			});
 		});
 
-		$('.js-buycart-detail').each(function () {
+		$('.js-buycart-detail').each(function() {
 			var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
-			$(this).on('click', function () {
+			$(this).on('click', function() {
 				swal(nameProduct, "is ready to buy !", "success");
 			});
 		});
 
 		// Zoom Image
-		$(document).ready(function () {
-			$(".zoom-container").mousemove(function (e) {
+		$(document).ready(function() {
+			$(".zoom-container").mousemove(function(e) {
 				var image = $(this).find("img");
 				var offsetX = e.pageX - $(this).offset().left;
 				var offsetY = e.pageY - $(this).offset().top;
@@ -1642,12 +1872,11 @@
 				image.css("transform-origin", posX + "% " + posY + "%");
 			});
 		});
-
 	</script>
 	<!--===============================================================================================-->
 	<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 	<script>
-		$('.js-pscroll').each(function () {
+		$('.js-pscroll').each(function() {
 			$(this).css('position', 'relative');
 			$(this).css('overflow', 'hidden');
 			var ps = new PerfectScrollbar(this, {
@@ -1656,13 +1885,31 @@
 				wheelPropagation: false,
 			});
 
-			$(window).on('resize', function () {
+			$(window).on('resize', function() {
 				ps.update();
 			})
+		});
+
+		document.getElementById("button-add").addEventListener("click", function() {
+			var productId = 123; // Thay đổi productId bằng ID thực của sản phẩm
+			var quantity = 1; // Số lượng sản phẩm, bạn có thể thay đổi tùy theo yêu cầu
+
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", "add_to_cart.php", true);
+			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState === 4 && xhr.status === 200) {
+					// Xử lý phản hồi từ máy chủ (nếu cần)
+					console.log(xhr.responseText);
+				}
+			};
+			xhr.send("productId=" + productId + "&quantity=" + quantity);
 		});
 	</script>
 	<!--===============================================================================================-->
 	<script src="js/main.js"></script>
+
+
 </body>
 
 </html>
