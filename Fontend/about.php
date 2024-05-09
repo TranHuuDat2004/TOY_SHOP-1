@@ -666,7 +666,7 @@
 						<div class="col-md-3">
 							<div class="about-icon">
 								<div style="color: #000; text-align: center; margin: 20px;">
-									<i style="padding-top: 20px; color: #ff9ee5;" class="fa-regular fa-user fa-2xl"></i>
+									<i style="padding-top: 20px; color: #ff9ee5;" class="fa-duotone fa-user fa-bounce fa-2xl"></i>
 									<div style="padding-top: 20px; font-size: 30px; font-weight: bold;" id="counter-user">1</div>
 									<p style="font-size: 30px;">Users</p>
 								</div>
@@ -677,7 +677,7 @@
 						<div class="col-md-3">
 							<div class="about-icon">
 								<div style="color: #000; text-align: center; margin: 20px;">
-									<i style="padding-top: 20px; color: #ff9ee5;" class="fa-duotone fa-teddy-bear fa-2xl"></i>
+									<i style="padding-top: 20px; color: #ff9ee5;" class="fa-duotone fa-teddy-bear fa-bounce fa-2xl"></i>
 									<div style="padding-top: 20px; font-size: 30px; font-weight: bold;" id="counter-product">1</div>
 									<p style="font-size: 30px;">Products</p>
 								</div>
@@ -688,7 +688,7 @@
 						<div class="col-md-3">
 							<div class="about-icon">
 								<div style="color: #000; text-align: center; margin: 20px;">
-									<i style="padding-top: 20px; color: #ff9ee5;" class="fa-duotone fa-cart-shopping fa-2xl"></i>
+									<i style="padding-top: 20px; color: #ff9ee5;" class="fa-duotone fa-cart-shopping-fast fa-bounce fa-2xl"></i>
 									<div style="padding-top: 20px; font-size: 30px; font-weight: bold;" id="counter-sold">1</div>
 									<p style="font-size: 30px;">Quantity sold</p>
 								</div>
@@ -699,7 +699,7 @@
 						<div class="col-md-3">
 							<div class="about-icon">
 								<div style="color: #000; text-align: center; margin: 20px;">
-									<i style="padding-top: 20px; color: #ff9ee5;" class="fa-solid fa-truck-fast fa-2xl"></i>
+									<i style="padding-top: 20px; color: #ff9ee5;" class="fa-duotone fa-truck-fast fa-bounce fa-2xl"></i>
 									<div style="padding-top: 20px; font-size: 30px; font-weight: bold;" id="counter-delivery">1</div>
 									<p style="font-size: 30px;">Orders</p>
 								</div>

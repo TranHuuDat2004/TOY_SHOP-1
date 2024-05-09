@@ -1,4 +1,10 @@
+<?php
 
+require_once '../Admin/connection/connectData.php';
+    $sql = "SELECT * FROM discount";
+    $query = mysqli_query($conn, $sql);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -131,7 +137,7 @@
 				<nav class="limiter-menu-desktop container" style="background-color: #FFEFEF;">
 
 					<!-- Logo desktop -->
-					<a href="index.html" class="navbar-brand">
+					<a href="index.php" class="navbar-brand">
 						<h1 class="m-0 text-primary1 mt-3 "><span class="text-dark1"><img class="Imagealignment"
 									src="images/icon.png">Omacha</h1>
 					</a>
@@ -140,32 +146,33 @@
 					<div class="menu-desktop">
 						<ul class="main-menu">
 							<li class="active-menu">
-								<a href="index.html">Home</a>
+								<a href="index.php">Home</a>
 
 							</li>
 
 							<li class="label1" data-label1="hot">
-								<a href="product.html">Shop</a>
+								<a href="product2.php">Shop</a>
 								<ul class="sub-menu">
-									<li><a href="index.html">Homepage 1</a></li>
-									<li><a href="home-02.html">Homepage 2</a></li>
-									<li><a href="home-03.html">Homepage 3</a></li>
+									<li><a href="0_12months.php">0-12 Months</a></li>
+									<li><a href="1_2years.php">1-2 Years</a></li>
+									<li><a href="3+years.php">3+ Years</a></li>
+									<li><a href="5+years.php">5+ Years</a></li>
 								</ul>
 							</li>
 
 							<li>
-								<a href="blog.html">Blog</a>
+								<a href="blog.php">Blog</a>
 							</li>
 
 							<li>
-								<a href="contact.html">Contact</a>
+								<a href="contact.php">Contact</a>
 							</li>
 
 							<li>
-								<a href="about.html">Pages</a>
+								<a href="about.php">Pages</a>
 								<ul class="sub-menu">
-									<li><a href="index.html">About</a></li>
-									<li><a href="home-02.html">Faq</a></li>
+									<li><a href="about.php">About</a></li>
+									<li><a href="FAQ.php">Faq</a></li>
 								</ul>
 							</li>
 						</ul>
@@ -196,7 +203,11 @@
 		<div class="wrap-header-mobile">
 			<!-- Logo moblie -->
 			<div class="logo-mobile">
-				<a href="index.html"><img src="images/icons/logo-01.png" alt="IMG-LOGO"></a>
+				<a href="index.html" class="navbar-brand">
+							
+					<img class="Imagealignment"src="images/icon.png">
+					
+				</a>
 			</div>
 
 			<!-- Icon header -->
@@ -578,26 +589,31 @@
 			<div class="row">
 				<div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
 					<!-- Block1 -->
-					<div class="block1 wrap-pic-w">
-						<img class="retangle" src="images/rectangle1.jpg" alt="IMG-BANNER">
-						<div class="block1-content">
-							<div class="block2-txt-child1 flex-col-l">
-								<span class="block1-name stext-122  trans-04 p-b-8">
-									Wood toys for your kids
-								</span>
-								<span class="block1-info stext-102 trans-04">
-									Get 20% flate your first purchase
-								</span>
-							</div>
-							<div class="block1-txt-child2 p-b-4 trans-05">
-								<a href="product.html" class="block1-btn stext-101 cl0 trans-09">
-									Shop Now
-								</a>
+					<?php 
+						$query = mysqli_query($conn, $sql);
+						while ($discount = mysqli_fetch_assoc($query)) {
+					?>
+						<div class="block1 wrap-pic-w">
+							<img class="retangle" src="images/rectangle1.jpg" alt="IMG-BANNER">
+							<div class="block1-content">
+								<div class="block2-txt-child1 flex-col-l">
+									<span class="block1-name stext-122 trans-04 p-b-8">
+										<?php echo $discount['d_name'];?>
+									</span>
+									<span class="block1-info stext-102 trans-04">
+										Get <?php echo $discount['d_amount'];?>% off your first purchase
+									</span>
+								</div>
+								<div class="block1-txt-child2 p-b-4 trans-05">
+									<a href="product1.php" class="block1-btn stext-101 cl0 trans-09">
+										Shop Now
+									</a>
+								</div>
 							</div>
 						</div>
-					</div>
-
+					<?php } ?>
 				</div>
+
 
 				<div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
 					<!-- Block1 -->
@@ -1045,8 +1061,7 @@
 					</div>
 					<div class="blog-text">
 						<span>14 Mar 2024 / Toy Shop</span>
-						<a href="#" class="blog-title">Eco-Friendly Toys: Choosing Sustainable Options for a Greener
-							Planet</a>
+						<a href="#" class="blog-title">Eco-Friendly Toys: Choosing Options for a Greener Planet</a>
 						<p>Explore Eco-Friendly Toys for Conscious Consumers Committed to Preserving Our Planet's
 							Future.</p>
 						<div class="readmore">
@@ -1258,7 +1273,7 @@
 	<!-- Back to top -->
 	<div class="btn-back-to-top" id="myBtn">
 		<span class="symbol-btn-back-to-top">
-			<i class="fa-solid fa-hand-pointer fa-shake fa-xl" style="color: #ff337a;"></i>
+			<i class="fa-duotone fa-arrow-up fa-xl" style="--fa-primary-color: #e83b6f; --fa-secondary-color: #e83b6f;"></i>
 		</span>
 	</div>
 

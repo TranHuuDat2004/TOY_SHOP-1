@@ -470,15 +470,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				</p>
 				<div class="row">
 					<div class="col-md-4">
-						<a href="index.html"><button class="button">Back to Home</button></a>	
+						<a href="index.php"><button class="button">Back to Home</button></a>	
 					</div>			
 
 					<div class="col-md-4">
-						<a href="product.html"><button class="button">Continue Shopping</button></a>
+						<a href="product2.php"><button class="button">Continue Shopping</button></a>
 					</div>
 
 					<div class="col-md-4">
-						<a href="contact.html"><button class="button">Continue Contact</button></a>
+						<a href="contact.php"><button class="button">Continue Contact</button></a>
 					</div>
 				</div>
 			</div>

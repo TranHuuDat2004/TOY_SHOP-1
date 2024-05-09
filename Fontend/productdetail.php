@@ -864,7 +864,12 @@
 													</span>
 
 													<span class="fs-18 cl11">
-														<?php echo $row['r_star']; ?>
+														<i class="zmdi zmdi-star"></i>
+														<i class="zmdi zmdi-star"></i>
+														<i class="zmdi zmdi-star"></i>
+														<i class="zmdi zmdi-star"></i>
+														<i class="zmdi zmdi-star"></i>
+														<input class="dis-none" type="number" name="rating">
 													</span>
 												</div>
 

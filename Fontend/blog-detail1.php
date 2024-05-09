@@ -104,6 +104,11 @@
 		margin-right: 20px; /* Khoảng cách giữa hình ảnh và văn bản */
 	}
 
+	.img04 img{
+		border-radius:12px;
+	}
+	
+
 </style>
 
 <body class="animsition">
@@ -476,7 +481,7 @@
 				<div class="col-md-8 col-lg-9 p-b-80">
 					<div class="p-r-45 p-r-0-lg">
 						<!--  -->
-						<div class="wrap-pic-w how-pos5-parent">
+						<div class="wrap-pic-w how-pos5-parent img04">
 							<img src="images/blog-04.jpg" alt="IMG-BLOG">
 
 							<div class="flex-col-c-m size-123 bg9 how-pos5">
@@ -557,7 +562,7 @@
 
 							<form action="process_comment.php" method="post">
 								<div class="bor19 m-b-20">
-									<textarea class="stext-111 cl2 plh3 size-124 p-lr-18 p-tb-15" name="cmt" placeholder="Comment..."></textarea>
+									<textarea class="stext-111 cl2 plh3 size-124 p-lr-18 p-tb-15 fixborder" name="cmt" placeholder="Comment..."></textarea>
 								</div>
 							
 								<div class="bor19 size-218 m-b-20">

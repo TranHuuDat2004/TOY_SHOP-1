@@ -2645,7 +2645,7 @@ input.num-product::-webkit-inner-spin-button {
 .bg0 {background-color: #fff;}
 .bg1 {background-color: #717fe0;}
 .bg2 {background-color: #e6e6e6;}
-.bg3 {background-color: #FFEFEF;}
+.bg3 {background-color: #F9F5F6;}
 .bg5 {background-color: rgba(0,0,0,0.5);}
 .bg6 {background-color: #f2f2f2;}
 .bg7 {background-color: #333;}
@@ -3011,7 +3011,7 @@ input.num-product::-webkit-inner-spin-button {
   z-index: -1;
   width: 100%;
   height: 100%;
-  border: 3px solid #ccc;
+  border: 3px dashed #E7BCDE;
 }
 
 .how-bor1::before {
@@ -3355,6 +3355,7 @@ img.Imagealignment{
   font-size: 30px;
 }
 
+
 .navbar-brand{
   padding-bottom: 15px;
 }
@@ -3683,7 +3684,7 @@ img.Imagealignment{
     top: -2px; /* Giữ nguyên giá trị top của pseudo-element */
   }
   .tooltip-content1{
-    margin-top: -150px;
+    margin-top: -115px;
   }
 }
 
@@ -3715,7 +3716,7 @@ img.Imagealignment{
   }
 
   .tooltip-content1{
-    margin-top: -51px;
+    margin-top: -10px;
   }
 }
 
@@ -3731,7 +3732,7 @@ img.Imagealignment{
   }
 
   .tooltip-content1{
-    margin-top: -71px;
+    margin-top: -23px;
   }
 }
 
@@ -3827,7 +3828,7 @@ img.Imagealignment{
   }
 
   .tooltip-content2{
-    margin-top: -140px;
+    margin-top: 53px;
   }
 }
 
@@ -3859,7 +3860,7 @@ img.Imagealignment{
   }
 
   .tooltip-content2{
-    margin-top: -51px;
+    margin-top: 1px;
   }
 }
 
@@ -3875,7 +3876,7 @@ img.Imagealignment{
   }
 
   .tooltip-content2{
-    margin-top: -71px;
+    margin-top: -20px;
   }
   
 }
@@ -4021,6 +4022,7 @@ img.Imagealignment{
 
   .tooltip-content3{
     margin-top: -71px;
+    right: -14px;
   }
   
 }
@@ -4533,7 +4535,7 @@ section1 {
   margin-top: 3em;
 }
 
-.para{
+.para a{ 
   color: #000;
   font-size: 1.1rem;
   line-height: 1.5em;
