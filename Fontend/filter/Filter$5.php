@@ -2,8 +2,8 @@
 session_start();
 // Kết nối cơ sở dữ liệu
 $conn = new mysqli('localhost', 'root', '', 'toy-shop');
-$min_price = 10; // Giá sản phẩm tối thiểu
-$max_price = 11; // Giá sản phẩm tối đa
+$min_price = 5; // Giá sản phẩm tối thiểu
+$max_price = 8; // Giá sản phẩm tối đa
 
 // Kiểm tra kết nối
 if ($conn->connect_error) {
