@@ -4649,7 +4649,7 @@ form{
   }
 }
 
-.progress{
+.progress1{
   width: 340px;
   height: 20px;
   background-color: #FFB1B1;
@@ -4666,11 +4666,11 @@ form{
     transparent 100%
   );
   background-size: 30px;
-  animation: progress 1s linear infinite;
+  animation: progress1 1s linear infinite;
   
 }
 
-.progress:before {
+.progress1:before {
   content: "";
   width: 66px;
   height: 55px;
@@ -4686,7 +4686,7 @@ form{
   z-index: 1;  
 }
 
-@keyframes progress {
+@keyframes progress1 {
   to{
     background-position-x: 30px;
   }

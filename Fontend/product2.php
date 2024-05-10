@@ -398,7 +398,7 @@ function sumTotalPrice($order_array, $u_id)
 			</div>
 
 			<div class="header-cart-content flex-w js-pscroll">
-				<div class="progress"></div>
+				<div class="progress1"></div>
 				<ul class="header-cart-wrapitem w-full">
 					<?php
 					// Duyệt qua mỗi sản phẩm trong giỏ hàng và hiển thị thông tin
