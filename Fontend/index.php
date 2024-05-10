@@ -1,8 +1,31 @@
 <?php
+include 'login.php';
 
 require_once '../Admin/connection/connectData.php';
     $sql = "SELECT * FROM discount";
     $query = mysqli_query($conn, $sql);
+
+if (!isset($_SESSION["user"])) {
+	// Redirect user to the login page if not logged in
+	header("Location: login.php");
+	exit(); // Stop further execution of the script
+}
+
+$userName = $_SESSION["user"];	
+// print_r($userName);
+$sqlLogin = "SELECT * FROM `login` WHERE userName = '$userName' " ;
+$queryLogin = mysqli_query($conn, $sqlLogin);
+// print_r($queryLogin);
+// Kiểm tra kết quả truy vấn
+
+// Duyệt qua từng hàng dữ liệu từ kết quả truy vấn
+$row = $queryLogin->fetch_assoc();
+	// Thêm thông tin từng hàng vào mảng $vuserLogin
+	$userLogin = array(
+		"userID" => $row["userID"],
+		"userName" => $row["userName"],
+		"email" => $row["email"],
+	);
 
 ?>
 <!DOCTYPE html>
@@ -120,13 +143,13 @@ require_once '../Admin/connection/connectData.php';
 							</a>
 							<div class="data1">
 								<i style="color: #49243E;" class=""></i>
-								<a href="register.html" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b>Login
+								<a href="register.html" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b><?php echo $userLogin["userID"];?>
 										/</b></a>
 							</div>
 							<div class="data2">
 								<i style="color: #49243E;" class=""></i>
 								<a href="register.html" class="btn2 btn-primary2 mt-1"
-									style="color: #49243E;"><b>Register</b></a>
+									style="color: #49243E;"><b><?php echo $userLogin["userName"];?></b></a>
 							</div>
 						</div>
 					</div>
@@ -151,7 +174,7 @@ require_once '../Admin/connection/connectData.php';
 							</li>
 
 							<li class="label1" data-label1="hot">
-								<a href="product2.php">Shop</a>
+							<a href="product2.php">Shop</a>
 								<ul class="sub-menu">
 									<li><a href="0_12months.php">0-12 Months</a></li>
 									<li><a href="1_2years.php">1-2 Years</a></li>
@@ -280,7 +303,7 @@ require_once '../Admin/connection/connectData.php';
 				</li>
 
 				<li>
-					<a href="product.html">Shop</a>
+					<a href="product2.php">Shop</a>
 				</li>
 
 				<li>
@@ -288,7 +311,7 @@ require_once '../Admin/connection/connectData.php';
 				</li>
 
 				<li>
-					<a href="blog.html">Blog</a>
+					<a href="blog.php">Blog</a>
 				</li>
 
 				<li>
@@ -436,7 +459,7 @@ require_once '../Admin/connection/connectData.php';
 							</div>
 
 							<div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
-								<a href="product.html"
+								<a href="product2.php"
 									class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
 									Shop Now
 								</a>
@@ -462,7 +485,7 @@ require_once '../Admin/connection/connectData.php';
 							</div>
 
 							<div class="layer-slick1 animated visible-false" data-appear="slideInUp" data-delay="1600">
-								<a href="product.html"
+								<a href="product2.php"
 									class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
 									Shop Now
 								</a>
@@ -489,7 +512,7 @@ require_once '../Admin/connection/connectData.php';
 							</div>
 
 							<div class="layer-slick1 animated visible-false" data-appear="rotateIn" data-delay="1600">
-								<a href="product.html"
+								<a href="product2.php"
 									class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
 									Shop Now
 								</a>
@@ -516,7 +539,7 @@ require_once '../Admin/connection/connectData.php';
 							</div>
 
 							<div class="layer-slick1 animated visible-false" data-appear="rotateIn" data-delay="1600">
-								<a href="product.html"
+								<a href="product2.php"
 									class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
 									Shop Now
 								</a>
@@ -605,7 +628,7 @@ require_once '../Admin/connection/connectData.php';
 									</span>
 								</div>
 								<div class="block1-txt-child2 p-b-4 trans-05">
-									<a href="product1.php" class="block1-btn stext-101 cl0 trans-09">
+									<a href="product2.php" class="block1-btn stext-101 cl0 trans-09">
 										Shop Now
 									</a>
 								</div>
@@ -629,7 +652,7 @@ require_once '../Admin/connection/connectData.php';
 								</span>
 							</div>
 							<div class="block1-txt-child2 p-b-4 trans-05">
-								<a href="product.html" class="block1-btn stext-101 cl0 trans-09">
+								<a href="product2.php" class="block1-btn stext-101 cl0 trans-09">
 									Shop Now
 								</a>
 							</div>
@@ -651,7 +674,7 @@ require_once '../Admin/connection/connectData.php';
 								</span>
 							</div>
 							<div class="block1-txt-child2 p-b-4 trans-05">
-								<a href="product.html" class="block1-btn stext-101 cl0 trans-09">
+								<a href="product2.php" class="block1-btn stext-101 cl0 trans-09">
 									Shop Now
 								</a>
 							</div>

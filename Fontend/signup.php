@@ -15,7 +15,7 @@
       $stmt->bind_param("sss", $userName, $email, $loginpassword);
       $execval = $stmt->execute();
       echo $execval;
-      header('Location: login.php');
+      header('Location: login.html');
       $stmt->close();
       $conn->close();
     }
