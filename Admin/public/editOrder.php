@@ -4,15 +4,16 @@
 require_once '../connection/connectData.php';
 
 // Kiểm tra xem p_id có tồn tại không
-if(isset($_GET['p_id']) && is_numeric($_GET['p_id'])) {
-    $p_id = mysqli_real_escape_string($conn, $_GET['p_id']);
+if(isset($_GET['o_id']) && is_numeric($_GET['o_id'])) {
+    $o_id = mysqli_real_escape_string($conn, $_GET['o_id']);
     // Truy vấn để lấy thông tin sản phẩm dựa trên p_id
-    $sql = "SELECT * FROM product WHERE p_id = $p_id";
+    $sql = "SELECT * FROM `order` WHERE o_id = $o_id";
+
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
 } else {
     // Nếu không có p_id hoặc giá trị không hợp lệ, chuyển hướng người dùng về trang quản lý sản phẩm
-    header('Location: manageProduct.php');
+    header('Location: ManageOrder.php');
     exit();
 }
 ?>
@@ -510,78 +511,34 @@ if(isset($_GET['p_id']) && is_numeric($_GET['p_id'])) {
       <main class="h-full pb-16 overflow-y-auto">
         <div class="container grid px-6 mx-auto">
           <h2 class="stext-121 my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-            Edit Product
+            Edit Order
           </h2>
 
           <!-- With actions -->
         </div>
-
-        <form method="POST" enctype="multipart/form-data" action="updateProduct.php">
+        
+        <form method="POST" enctype="multipart/form-data" action="updateOrder.php">
           <div class="content">
-          <input type="hidden" name="p_id" value="<?php echo $row['p_id']; ?>">
-            <div class="form-group text-gray-700 dark:text-gray-200">
-              <label for="name">Name Product</label>
-              <input class="form-control" name="p_name" id="name" type="text" placeholder="Name Product" value="<?php echo $row['p_name']; ?>">
-            </div>
-            <div class="form-group text-gray-700 dark:text-gray-200">
-              <label for="file">Image Product</label>
-            <input id="file" name="p_image" type="file" value="<?php echo $row['p_image']; ?>">
-            </div>
-
-            <div class="form-group text-gray-700 dark:text-gray-200">
-              <label for="type">Age</label>
-              <select id="type" class="form-control" name="p_age">
-                <option>Select Age</option>
-                  <option value="0-12 months" <?php if($row['p_age'] == '0-12 months') echo 'selected'; ?>>0-12 months</option>
-                  <option value="1-2 years" <?php if($row['p_age'] == '1-2 years') echo 'selected'; ?>>1-2 years</option>
-                  <option value="3+ years" <?php if($row['p_age'] == '3+ years') echo 'selected'; ?>>3+ years</option>
-                  <option value="5+ years" <?php if($row['p_age'] == '5+ years') echo 'selected'; ?>>5+ years</option>
-                </optgroup>
-              </select>
-            </div>
-
-            <div class="form-group text-gray-700 dark:text-gray-200">
-              <label for="type">Provider</label>
-              <select id="type" class="form-control" name="p_provider">
-                <option>Select Provider</option>
-                  <option value="Frog Leaf" <?php if($row['p_provider'] == 'Frog Leaf') echo 'selected'; ?>>Frog Leaf</option>
-                  <option value="dun dun dun" <?php if($row['p_provider'] == 'dun dun dun') echo 'selected'; ?>>dun dun dun</option>
-                  <option value="Cloud Frog" <?php if($row['p_provider'] == 'Cloud Frog') echo 'selected'; ?>>Cloud Frog</option>
-                  <option value="DiNo" <?php if($row['p_provider'] == 'DiNo') echo 'selected'; ?>>DiNo</option>
-                  <option value="Baby Logo" <?php if($row['p_provider'] == 'Baby Logo') echo 'selected'; ?>>Baby Logo</option>
-                  <option value="Cookie" <?php if($row['p_provider'] == 'Cookie') echo 'selected'; ?>>Cookie</option>
-                  <option value="BarBie" <?php if($row['p_provider'] == 'BarBie') echo 'selected'; ?>>BarBie</option>
-                </optgroup>
-              </select>
-            </div>
-
-            <div class="form-group text-gray-700 dark:text-gray-200">
-              <label for="price">Price</label>
-              <input class="form-control" id="name" name="p_price" type="text" placeholder="Price" value="<?php echo $row['p_price']; ?>">
-            </div>
+          <input type="hidden" name="o_id" value="<?php echo $row['o_id']; ?>"  >
             
+
+            
+
+            
+
+            
+            
+          <div class="form-group text-gray-700 dark:text-gray-200">
+    <label for="status">Status</label>
+    <select id="status" class="form-control" name="o_status">
+        <option>Select a Status</option>
+        <option value="0" <?php if($row['o_status'] == '0') echo 'selected'; ?>>0</option>
+        <option value="1" <?php if($row['o_status'] == '1') echo 'selected'; ?>>1</option>
+    </select>
+</div>
+
             <div class="form-group text-gray-700 dark:text-gray-200">
-              <label for="type">Type</label>
-              <select id="type" class="form-control" name="p_type" >
-                <option>Select a Type</option>
-                <optgroup label="Natural">
-                    <option value="Wood" <?php if($row['p_type'] == 'Wood') echo 'selected'; ?>>Wood</option>
-                    <option value="Cotton" <?php if($row['p_type'] == 'Cotton') echo 'selected'; ?>>Cotton</option>
-                    <option value="Wool" <?php if($row['p_type'] == 'Wool') echo 'selected'; ?>>Wool</option>
-                    <option value="Clay" <?php if($row['p_type'] == 'Clay') echo 'selected'; ?>>Clay</option>
-                    <option value="Bamboo" <?php if($row['p_type'] == 'Bamboo') echo 'selected'; ?>>Bamboo</option>
-                </optgroup>
-                <optgroup label="Man-Made">
-                    <option value="Plastic" <?php if($row['p_type'] == 'Plastic') echo 'selected'; ?>>Plastic</option>
-                    <option value="Metal" <?php if($row['p_type'] == 'Metal') echo 'selected'; ?>>Metal</option>
-                    <option value="Polyester" <?php if($row['p_type'] == 'Polyester') echo 'selected'; ?>>Polyester</option>
-                    <option value="Rubberized Plastic" <?php if($row['p_type'] == 'Rubberized Plastic') echo 'selected'; ?>>Rubberized Plastic</option>
-                    <option value="Foam" <?php if($row['p_type'] == 'Foam') echo 'selected'; ?>>Foam</option>
-                </optgroup>
-            </select>
-            </div>
-            <div class="form-group text-gray-700 dark:text-gray-200">
-            <button name="sbm" class="main-btn" type="submit">Edit Product</button>
+            <button name="editbutton" class="main-btn" type="submit">Edit Order</button>
             </div>
           </div>
         </form>
