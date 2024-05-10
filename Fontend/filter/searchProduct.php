@@ -53,9 +53,6 @@ if(isset($_POST['p_name'])) {
     } else {
         // Hiển thị thông báo nếu không tìm thấy sản phẩm
         echo "Không tìm thấy sản phẩm phù hợp";
-
-        </div>    
-        <?php
     
 
     }
