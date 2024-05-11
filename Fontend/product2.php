@@ -1,4 +1,5 @@
 <?php
+
 include 'login.php';
 
 include('../Admin/connection/connectionpro.php');
@@ -28,6 +29,7 @@ $row = $queryLogin->fetch_assoc();
 
 $sql = "SELECT * FROM product";
 $query = mysqli_query($conn, $sql);
+
 
 // Câu truy vấn SQL SELECT
 $sqlOrder = "SELECT 
@@ -584,6 +586,64 @@ function sumTotalPrice($order_array, $u_id)
 
 
 
+<script>
+					$(document).ready(function() {
+						$('#\\$5').click(function(event) {
+							event.preventDefault();
+							var pPrice = $(this).val();
+
+							// Gửi pPrice và giá trị mới 30 đến trang Filter$10.php bằng AJAX
+							$.ajax({
+								url: 'filter/Filter$5.php',
+								type: 'POST',
+								data: {
+									p_price: pPrice, // Gửi giá trị pPrice
+									// Gửi giá trị mới là 30
+								},
+								success: function(response) {
+									$('.showproduct').html(response); // In kết quả vào class showproduct
+								}
+							});
+						});
+					});
+				</script>
+				<script>
+					$(document).ready(function() {
+						$('#\\$5').click(function(event) {
+							event.preventDefault(); // Ngăn chặn việc gửi biểu mẫu
+							$('.disproduct').addClass('disproduct1'); // Thêm class disproduct1 vào phần tử có class disproduct
+						});
+					});
+				</script>
+				<script>
+					$(document).ready(function() {
+						$('#\\$8').click(function(event) {
+							event.preventDefault();
+							var pPrice = $(this).val();
+
+							// Gửi pPrice và giá trị mới 30 đến trang Filter$10.php bằng AJAX
+							$.ajax({
+								url: 'filter/Filter$8.php',
+								type: 'POST',
+								data: {
+									p_price: pPrice, // Gửi giá trị pPrice
+									// Gửi giá trị mới là 30
+								},
+								success: function(response) {
+									$('.showproduct').html(response); // In kết quả vào class showproduct
+								}
+							});
+						});
+					});
+				</script>
+				<script>
+					$(document).ready(function() {
+						$('#\\$8').click(function(event) {
+							event.preventDefault(); // Ngăn chặn việc gửi biểu mẫu
+							$('.disproduct').addClass('disproduct1'); // Thêm class disproduct1 vào phần tử có class disproduct
+						});
+					});
+				</script>
 				<script>
 					$(document).ready(function() {
 						$('#\\$10').click(function(event) {
@@ -613,30 +673,117 @@ function sumTotalPrice($order_array, $u_id)
 						});
 					});
 				</script>
+				<script>
+					$(document).ready(function() {
+						$('#\\$11').click(function(event) {
+							event.preventDefault();
+							var pPrice = $(this).val();
+
+							// Gửi pPrice và giá trị mới 30 đến trang Filter$10.php bằng AJAX
+							$.ajax({
+								url: 'filter/Filter$11.php',
+								type: 'POST',
+								data: {
+									p_price: pPrice, // Gửi giá trị pPrice
+									// Gửi giá trị mới là 30
+								},
+								success: function(response) {
+									$('.showproduct').html(response); // In kết quả vào class showproduct
+								}
+							});
+						});
+					});
+				</script>
+				<script>
+					$(document).ready(function() {
+						$('#\\$11').click(function(event) {
+							event.preventDefault(); // Ngăn chặn việc gửi biểu mẫu
+							$('.disproduct').addClass('disproduct1'); // Thêm class disproduct1 vào phần tử có class disproduct
+						});
+					});
+				</script>
+				<script>
+					$(document).ready(function() {
+						$('#Cotton').click(function(event) {
+							event.preventDefault();
+							var pPrice = $(this).val();
+
+							// Gửi pPrice và giá trị mới 30 đến trang Filter$10.php bằng AJAX
+							$.ajax({
+								url: 'filter/FilterCotton.php',
+								type: 'POST',
+								data: {
+									p_price: pPrice, // Gửi giá trị pPrice
+									// Gửi giá trị mới là 30
+								},
+								success: function(response) {
+									$('.showproduct').html(response); // In kết quả vào class showproduct
+								}
+							});
+						});
+					});
+				</script>
+				<script>
+					$(document).ready(function() {
+						$('#Cotton').click(function(event) {
+							event.preventDefault(); // Ngăn chặn việc gửi biểu mẫu
+							$('.disproduct').addClass('disproduct1'); // Thêm class disproduct1 vào phần tử có class disproduct
+						});
+					});
+				</script>
+				<script>
+					$(document).ready(function() {
+						$('#Plastic').click(function(event) {
+							event.preventDefault();
+							var pPrice = $(this).val();
+
+							// Gửi pPrice và giá trị mới 30 đến trang Filter$10.php bằng AJAX
+							$.ajax({
+								url: 'filter/FilterPlastic.php',
+								type: 'POST',
+								data: {
+									p_price: pPrice, // Gửi giá trị pPrice
+									// Gửi giá trị mới là 30
+								},
+								success: function(response) {
+									$('.showproduct').html(response); // In kết quả vào class showproduct
+								}
+							});
+						});
+					});
+				</script>
+				<script>
+					$(document).ready(function() {
+						$('#Plastic').click(function(event) {
+							event.preventDefault(); // Ngăn chặn việc gửi biểu mẫu
+							$('.disproduct').addClass('disproduct1'); // Thêm class disproduct1 vào phần tử có class disproduct
+						});
+					});
+				</script>
 				<!-- Filter -->
 				<div class="dis-none panel-filter w-full p-t-10">
 					<div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
-						<div class="filter-col1 p-r-15 p-b-27">
+					<div class="filter-col1 p-r-15 p-b-27">
 							<div class="mtext-102 cl2 p-b-15">
 								Prices
 							</div>
 
 							<ul>
 								<li class="p-b-6">
-									<button type="submit" value="10" id="$10">10-30 </button>
+									<button type="submit" value="10" id="$5">5-8</button>
 								</li>
 
 								<li class="p-b-6">
-									<button type="submit" value="$20" id="$20">$20</button>
+									<button type="submit" value="20" id="$8">8-9</button>
 								</li>
 
 								<li class="p-b-6">
-									<button type="submit" value="$30" id="$30">$30</button>
+									<button type="submit" value="$30" id="$10">10-11</button>
 								</li>
 
 
 								<li class="p-b-6">
-									<button type="submit" value="$50" id="$50">$50</button>
+									<button type="submit" value="$50" id="$11">11-13</button>
 								</li>
 
 
@@ -656,7 +803,7 @@ function sumTotalPrice($order_array, $u_id)
 								</li>
 
 								<li class="p-b-6">
-									<button type="submit" value="Fur">Fur</button>
+								<button type="submit" value="Plastic" id="Plastic" >Plastic</button>
 								</li>
 
 

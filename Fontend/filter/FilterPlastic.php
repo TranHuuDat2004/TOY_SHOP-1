@@ -2,18 +2,18 @@
 session_start();
 // Kết nối cơ sở dữ liệu
 $conn = new mysqli('localhost', 'root', '', 'toy-shop');
-$min_price = 10; // Giá sản phẩm tối thiểu
-$max_price = 11; // Giá sản phẩm tối đa
 
 // Kiểm tra kết nối
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+$p_type = 'Plastic'; // Giá trị bạn muốn tìm kiếm
+
 // Sử dụng prepared statement để tránh các vấn đề liên quan đến SQL injection
-$sql = "SELECT * FROM product WHERE p_price BETWEEN ? AND ?";
+$sql = "SELECT * FROM product WHERE p_type = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("ii", $min_price, $max_price); // ii: kiểu dữ liệu của hai biến là integer
+$stmt->bind_param("s", $p_type); // s: kiểu dữ liệu của biến là string
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -22,7 +22,7 @@ if ($result->num_rows > 0) {
     // Lặp qua các hàng kết quả
     while($product = $result->fetch_assoc()) {
         ?>
-        <div class=" Duck col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item toy">
+        <div class="Duck col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item toy">
             <!-- Block2 -->
             <div class="block2">
                 <form method="POST">
