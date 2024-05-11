@@ -4677,7 +4677,7 @@ form{
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-  background-image:  url(/Fontend/images/airplane.jpg);
+  background-image:  url(../images/airplane.jpg);
   display:block;
   right: 0;
   top: -5px;
