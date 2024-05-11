@@ -1,3 +1,118 @@
+<?php
+include 'login.php';
+
+include('../Admin/connection/connectionpro.php');
+require_once '../Admin/connection/connectData.php';
+
+
+if (!isset($_SESSION["user"])) {
+	// Redirect user to the login page if not logged in
+	header("Location: login.html");
+	exit(); // Stop further execution of the script
+}
+
+$userName = $_SESSION["user"];
+// print_r($userName);
+$sqlLogin = "SELECT * FROM `login` WHERE userName = '$userName' ";
+$queryLogin = mysqli_query($conn, $sqlLogin);
+// print_r($queryLogin);
+// Kiểm tra kết quả truy vấn
+
+// Duyệt qua từng hàng dữ liệu từ kết quả truy vấn
+$row = $queryLogin->fetch_assoc();
+// Thêm thông tin từng hàng vào mảng $vuserLogin
+$userLogin = array(
+	"userID" => $row["userID"],
+	"userName" => $row["userName"],
+	"email" => $row["email"],
+);
+
+$sql = "SELECT * FROM product";
+$query = mysqli_query($conn, $sql);
+
+
+// Câu truy vấn SQL SELECT
+$sqlOrder = "SELECT 
+`order`.o_id, 
+`order`.u_id, 
+`order`.p_id, 
+`order`.o_price, 
+`order`.o_status, 
+`order`.o_quantity,
+product.p_type, 
+product.p_image, 
+product.p_name, 
+product.p_price 
+FROM 
+`order`
+INNER JOIN 
+product ON `order`.p_id = product.p_id";
+
+// Thực hiện truy vấn
+$resultOrder = $conn->query($sqlOrder);
+
+// Mảng chứa thông tin các đơn hàng
+$order_array = array();
+
+// Kiểm tra kết quả truy vấn
+if ($resultOrder->num_rows > 0) {
+	// Duyệt qua từng hàng dữ liệu từ kết quả truy vấn
+	while ($row = $resultOrder->fetch_assoc()) {
+		if ($row['u_id'] == $userLogin['userID']) {
+			// Thêm thông tin từng hàng vào mảng $order_array
+			$order_array[] = array(
+				"o_id" => $row["o_id"],
+				"u_id" => $row["u_id"],
+				"p_id" => $row["p_id"],
+				"o_price" => $row["o_price"],
+				"o_quantity" => $row["o_quantity"],
+				"o_status" => $row["o_status"],
+				"p_type" => $row["p_type"],
+				"p_image" => $row["p_image"],
+				"p_name" => $row["p_name"],
+				"p_price" => $row["p_price"]
+			);
+		}
+	};
+} else {
+	// echo "0 results";
+}
+
+
+function sumTotalPrice($order_array, $u_id)
+{
+	$totalPrice = 0; // Khởi tạo biến tổng giá tiền
+
+	// Duyệt qua từng sản phẩm trong giỏ hàng và tính tổng giá tiền
+	foreach ($order_array as $item) {
+		// Kiểm tra xem u_id của sản phẩm có khớp với u_id được chỉ định hay không
+		if ($item["u_id"] == $u_id) {
+			// Tính giá tiền của mỗi sản phẩm (giá tiền * số lượng)
+			$productPrice = $item["p_price"] * $item["o_quantity"];
+
+			// Cộng vào tổng giá tiền
+			$totalPrice += $productPrice;
+		}
+	}
+
+	return $totalPrice; // Trả về tổng giá tiền
+}
+
+// Truy vấn để đếm số dòng trong bảng order
+$sql = "SELECT COUNT(*) AS total_rows FROM `order` WHERE u_id = '{$userLogin['userID']}'";
+$result = $conn->query($sql);
+
+// Kiểm tra và hiển thị kết quả
+if ($result->num_rows > 0) {
+	$row = $result->fetch_assoc();
+	$order_count = $row["total_rows"];
+} else {
+	// echo "Không có dữ liệu trong bảng order";
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -143,13 +258,12 @@
 							</a>
 							<div class="data1">
 								<i style="color: #49243E;" class=""></i>
-								<a href="register.html" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b>Login
+								<a href="register.html" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b><?php echo $userLogin["userID"];?>
 										/</b></a>
 							</div>
 							<div class="data2">
 								<i style="color: #49243E;" class=""></i>
-								<a href="register.html" class="btn2 btn-primary2 mt-1"
-									style="color: #49243E;"><b>Register</b></a>
+								<a href="register.html" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b><?php echo $userLogin["userName"];?></b></a>
 							</div>
 						</div>
 					</div>
@@ -174,7 +288,7 @@
 							</li>
 
 							<li class="label1" data-label1="hot">
-								<a href="product.html">Shop</a>
+								<a href="product2.php">Shop</a>
 								<ul class="sub-menu">
 									<li><a href="index.html">Homepage 1</a></li>
 									<li><a href="home-02.html">Homepage 2</a></li>
@@ -183,7 +297,7 @@
 							</li>
 
 							<li>
-								<a href="blog.html">Blog</a>
+								<a href="blog.php">Blog</a>
 							</li>
 
 							<li>
@@ -296,7 +410,7 @@
 				</li>
 
 				<li>
-					<a href="product.html">Shop</a>
+					<a href="product2.php">Shop</a>
 				</li>
 
 				<li>
@@ -304,7 +418,7 @@
 				</li>
 
 				<li>
-					<a href="blog.html">Blog</a>
+					<a href="blog.php">Blog</a>
 				</li>
 
 				<li>
@@ -335,117 +449,80 @@
 	</header>
 <!-- Cart -->
 <div class="wrap-header-cart js-panel-cart">
-	<div class="s-full js-hide-cart"></div>
+		<div class="s-full js-hide-cart"></div>
 
-	<div class="header-cart flex-col-l p-l-65 p-r-25">
-		<div class="header-cart-title flex-w flex-sb-m p-b-8">
-			<span class="mtext-103 cl2">
-				Your Cart
-			</span>
+		<div class="header-cart flex-col-l p-l-65 p-r-25">
+			<div class="header-cart-title flex-w flex-sb-m p-b-8">
+				<span class="mtext-103 cl2">
+					Your Cart
+				</span>
 
-			<div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
-				<i class="zmdi zmdi-close"></i>
-			</div>
-		</div>
-		
-		<div class="header-cart-content flex-w js-pscroll">
-			<ul class="header-cart-wrapitem w-full">
-				<li class="header-cart-item flex-w flex-t m-b-12">
-					<div class="header-cart-item-img">
-						<img src="images/dog.jpg" alt="Nixon Porter Leather" style="width: 100px; height: auto;">
-					</div>
-					<div class="header-cart-item-txt p-t-8">
-						<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-							Dog pillow
-						</a>
-						<span class="header-cart-item-info">$63.16</span>
-						<!-- Trash icon for removing product -->
-						<div class="btn-remove-product">
-							<i class="fs-24 zmdi zmdi-delete"></i>
-						</div>
-						<div class="wrap-num-product flex-w m-r-20 m-tb-10">
-							<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-								<i class="fs-16 zmdi zmdi-minus"></i>
-							</div>
-							<input id="product3-quantity" class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
-							<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-								<i class="fs-16 zmdi zmdi-plus"></i>
-							</div>
-						</div>
-					</div>
-				</li>										
-
-				<li class="header-cart-item flex-w flex-t m-b-12">
-					<div class="header-cart-item-img">
-						<img src="images/deer.png" alt="Nixon Porter Leather" style="width: 100px; height: auto;">
-					</div>
-					<div class="header-cart-item-txt p-t-8">
-						<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-							Deer toy
-						</a>
-						<span class="header-cart-item-info">$34.75</span>
-						<!-- Trash icon for removing product -->
-						<div class="btn-remove-product">
-							<i class="fs-24 zmdi zmdi-delete"></i>
-						</div>
-						<div class="wrap-num-product flex-w m-r-20 m-tb-10">
-							<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-								<i class="fs-16 zmdi zmdi-minus"></i>
-							</div>
-							<input id="product3-quantity" class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
-							<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-								<i class="fs-16 zmdi zmdi-plus"></i>
-							</div>
-						</div>
-					</div>
-				</li>	
-
-				<li class="header-cart-item flex-w flex-t m-b-12">
-					<div class="header-cart-item-img">
-						<img src="images/robot.jpg" alt="Nixon Porter Leather" style="width: 100px; height: auto;">
-					</div>
-					<div class="header-cart-item-txt p-t-8">
-						<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-							Robot
-						</a>
-						<span class="header-cart-item-info">$18.96</span>
-						<!-- Trash icon for removing product -->
-						<div class="btn-remove-product">
-							<i class="fs-24 zmdi zmdi-delete"></i>
-						</div>
-						<div class="wrap-num-product flex-w m-r-20 m-tb-10">
-							<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-								<i class="fs-16 zmdi zmdi-minus"></i>
-							</div>
-							<input id="product3-quantity" class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
-							<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-								<i class="fs-16 zmdi zmdi-plus"></i>
-							</div>
-						</div>
-					</div>
-				</li>	
-			</ul>
-			
-			<div class="w-full">
-				<div class="header-cart-total w-full p-tb-40">
-					Total: $116.87
+				<div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
+					<i class="zmdi zmdi-close"></i>
 				</div>
+			</div>
 
-				<div class="header-cart-buttons flex-w w-full">
-					<a id="button-cart" href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
-						View Cart
-					</a>
+			<div class="header-cart-content flex-w js-pscroll">
+				<ul class="header-cart-wrapitem w-full">
+					<?php
+					// Duyệt qua mỗi sản phẩm trong giỏ hàng và hiển thị thông tin
+					foreach ($order_array as $item) {
+						// mới có u_id $userLogin["userID"], 555
+						if ($item["u_id"] == $userLogin["userID"] && $item["o_quantity"] > 0) {
+					?>
+							<li class="header-cart-item m-b-20">
+								<div class="row">
+									<div class="col-md-3">
+										<div class="header-cart-item-img">
+											<!-- Hiện hình trong giỏ hàng -->
+											<img src="images/<?php echo $item["p_image"]; ?>" alt="IMG">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div>
+											<!-- Hiện tên sản phẩm trong giỏ hàng -->
+											<a href="#" class="header-cart-item-name hov-cl1 trans-04"><?php echo $item["p_name"]; ?></a>
+										</div>
+										<!-- Hiện số lượng sản phẩm và giá tiền -->
+										<span class="header-cart-item-info"><?php echo $item["o_quantity"]; ?> x $<?php echo $item["p_price"]; ?></span>
+									</div>
+									<div class="col-md-3">
+										<form action="delete-cart.php" method="post">
+											<input type="hidden" name="p_id" value="<?php echo $item['p_id']; ?>">
 
-					<a id="button-cart" href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
-						Check Out
-					</a>
+											<!-- Nút xóa tại đây -->
+											<input type="submit" value="X" name="delete-cart" class="btn-delete">
+											<!-- <//?php print_r($item['p_id']); ?> -->
+										</form>
+									</div>
+								</div>
+							</li>
+					<?php
+						}
+					}
+					?>
+				</ul>
+
+
+				<div class="w-full">
+					<div class="header-cart-total w-full p-tb-40">
+						<?php $totalPrice = sumTotalPrice($order_array, $userLogin["userID"]); ?> <!-- thay doi user -->
+						<p>Total: $<?php echo $totalPrice; ?></p>
+					</div>
+
+					<div class="header-cart-buttons flex-w w-full">
+						<a href="shopping-cart.php" id="btn-cart" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
+							View Cart
+						</a>
+
+						<a href="shopping-cart.php" id="btn-cart" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
+							Check Out
+						</a>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
-
-</script>
 
 
 	<!-- Title page -->
@@ -967,7 +1044,7 @@
 						</li>
 
 						<li class="p-b-10">
-							<a href="product.html" class="stext-107 cl7 hov-cl1 trans-04">Shop</a>
+							<a href="product2.php" class="stext-107 cl7 hov-cl1 trans-04">Shop</a>
 							
 						</li>
 

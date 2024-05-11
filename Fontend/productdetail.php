@@ -1,6 +1,6 @@
 <!--php-->
 <?php
-
+include 'login.php';
 include('../Admin/connection/connectionpro.php');
 require_once '../Admin/connection/connectData.php';
 
@@ -11,6 +11,29 @@ $conn = new mysqli('localhost', 'root', '', 'toy-shop'); //servername, username,
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+
+
+if (!isset($_SESSION["user"])) {
+	// Redirect user to the login page if not logged in
+	header("Location: login.html");
+	exit(); // Stop further execution of the script
+}
+
+$userName = $_SESSION["user"];	
+// print_r($userName);
+$sqlLogin = "SELECT * FROM `login` WHERE userName = '$userName' " ;
+$queryLogin = mysqli_query($conn, $sqlLogin);
+// print_r($queryLogin);
+// Kiểm tra kết quả truy vấn
+
+// Duyệt qua từng hàng dữ liệu từ kết quả truy vấn
+$row = $queryLogin->fetch_assoc();
+	// Thêm thông tin từng hàng vào mảng $vuserLogin
+	$userLogin = array(
+		"userID" => $row["userID"],
+		"userName" => $row["userName"],
+		"email" => $row["email"],
+	);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['p_name'])) {
     $p_name = $_POST['p_name'];
@@ -58,73 +81,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['p_name'])) {
     }
 }
 
-
-
-
-
-
-// Hàm xác thực đăng nhập
-// mới có u_id 123, 555
-function authenticateUser($email, $password)
-{
-	global $conn;
-
-	// Chuẩn bị truy vấn SQL
-	$sql = "SELECT * FROM user WHERE uemail = '$email' AND upassword = '$password'";
-
-	// Thực hiện truy vấn
-	$result = $conn->query($sql);
-
-	// Kiểm tra kết quả truy vấn
-	if ($result->num_rows == 1) {
-		// Đăng nhập thành công
-		return true;
-	} else {
-		// Đăng nhập không thành công
-		return false;
-	}
-}
-
-// Hàm lấy thông tin người dùng
-function getUserInfo($email)
-{
-	global $conn;
-
-	// Chuẩn bị truy vấn SQL
-	$sql = "SELECT * FROM user WHERE uemail = '$email'";
-
-	// Thực hiện truy vấn
-	$result = $conn->query($sql);
-
-	// Kiểm tra kết quả truy vấn
-	if ($result->num_rows == 1) {
-		// Trả về thông tin người dùng
-		return $result->fetch_assoc();
-	} else {
-		// Không tìm thấy thông tin người dùng
-		return null;
-	}
-}
-
-
-// // Sử dụng hàm xác thực đăng nhập
-// if (authenticateUser($user_email, $user_password)) {
-//     // Lưu trạng thái đăng nhập (ví dụ: sử dụng session)
-//     session_start();
-//     $_SESSION["loggedin"] = true;
-
-//     // Lấy thông tin người dùng đăng nhập
-//     $user_info = getUserInfo($user_email);
-
-//     // Hiển thị thông tin người dùng
-//     echo "Welcome " . $user_info["uname"];
-// } else {
-//     // Đăng nhập không thành công
-//     echo "Invalid email or password";
-// }
-
-// // Đóng kết nối
-// $conn->close();
 
 //echo "Test1<br>";
 require_once('../Admin/connection/connectData.php');
@@ -243,41 +199,11 @@ function sumTotalPrice($order_array, $u_id)
 	return $totalPrice; // Trả về tổng giá tiền
 }
 
-// xoa 
-// Đoạn mã PHP để xử lý xóa giỏ hàng 
-
-// Hàm xử lý xóa giỏ hàng
-function deleteCart($user_id)
-{
-	// Viết mã SQL để xóa các mục trong giỏ hàng cho user có user_id là $user_id
-	// Ví dụ:
-	$sql = "DELETE FROM order WHERE u_id = 123";
-
-	// Thực thi câu lệnh SQL
-	$conn = new mysqli('localhost', 'root', '', 'toy-shop');
-	$result = mysqli_query($conn, $sql);
-
-	// Kiểm tra xem có xóa thành công hay không
-	if ($result) {
-		echo "Giỏ hàng đã được xóa thành công";
-	} else {
-		echo "Có lỗi xảy ra khi xóa giỏ hàng";
-	}
-}
-
-// Kiểm tra xem người dùng đã nhấn nút Xóa giỏ hàng chưa
-if (isset($_POST['delete_cart'])) {
-	// Lấy user_id của người dùng hiện tại
-	$user_id = 123; // Thay thế bằng cách lấy user_id của người dùng từ session hoặc cookie
-
-	// Gọi hàm xóa giỏ hàng
-	deleteCart($user_id);
-}
 
 //else echo "Test2<br>";
 
     // Truy vấn để đếm số dòng trong bảng order
-    $sql = "SELECT COUNT(*) AS total_rows FROM `order`";
+    $sql = "SELECT COUNT(*) AS total_rows FROM `order` WHERE u_id = '{$userLogin['userID']}'";
     $result = $conn->query($sql);
 
     // Kiểm tra và hiển thị kết quả
@@ -540,12 +466,13 @@ if (isset($_POST['delete_cart'])) {
 							</a>
 							<div class="data1">
 								<i style="color: #49243E;" class=""></i>
-								<a href="register.html" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b>Login
+								<a href="register.html" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b><?php echo $userLogin["userID"];?>
 										/</b></a>
 							</div>
 							<div class="data2">
 								<i style="color: #49243E;" class=""></i>
-								<a href="register.html" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b>Register</b></a>
+								<a href="register.html" class="btn2 btn-primary2 mt-1"
+									style="color: #49243E;"><b><?php echo $userLogin["userName"];?></b></a>
 							</div>
 						</div>
 					</div>
@@ -569,7 +496,7 @@ if (isset($_POST['delete_cart'])) {
 							</li>
 
 							<li class="label1" data-label1="hot">
-								<a href="product.html">Shop</a>
+								<a href="product2.php">Shop</a>
 								<ul class="sub-menu">
 									<li><a href="index.html">Homepage 1</a></li>
 									<li><a href="home-02.html">Homepage 2</a></li>
@@ -578,11 +505,11 @@ if (isset($_POST['delete_cart'])) {
 							</li>
 
 							<li>
-								<a href="blog.html">Blog</a>
+								<a href="blog.php">Blog</a>
 							</li>
 
 							<li>
-								<a href="contact.html">Contact</a>
+								<a href="contact.php">Contact</a>
 							</li>
 
 							<li>
@@ -688,7 +615,7 @@ if (isset($_POST['delete_cart'])) {
 				</li>
 
 				<li>
-					<a href="product.html">Shop</a>
+					<a href="product2.php">Shop</a>
 				</li>
 
 				<li>
@@ -696,7 +623,7 @@ if (isset($_POST['delete_cart'])) {
 				</li>
 
 				<li>
-					<a href="blog.html">Blog</a>
+					<a href="blog.php">Blog</a>
 				</li>
 
 				<li>
@@ -704,7 +631,7 @@ if (isset($_POST['delete_cart'])) {
 				</li>
 
 				<li>
-					<a href="contact.html">Contact</a>
+					<a href="contact.php">Contact</a>
 				</li>
 			</ul>
 		</div>
@@ -747,7 +674,7 @@ if (isset($_POST['delete_cart'])) {
 					// Duyệt qua mỗi sản phẩm trong giỏ hàng và hiển thị thông tin
 					foreach ($order_array as $item) {
 						// mới có u_id 123, 555
-						if ($item["u_id"] == 123 && $item["o_quantity"] > 0) {
+						if ($item["u_id"] == $userLogin["userID"] && $item["o_quantity"] > 0) {
 					?>
 							<li class="header-cart-item m-b-20">
 								<div class="row">
@@ -785,16 +712,16 @@ if (isset($_POST['delete_cart'])) {
 
 				<div class="w-full">
 					<div class="header-cart-total w-full p-tb-40">
-						<?php $totalPrice = sumTotalPrice($order_array, 123); ?> <!-- thay doi user -->
+						<?php $totalPrice = sumTotalPrice($order_array, $userLogin["userID"]); ?> <!-- thay doi user -->
 						<p>Total: $<?php echo $totalPrice; ?></p>
 					</div>
 
 					<div class="header-cart-buttons flex-w w-full">
-						<a href="shoping-cart.php" id="btn-cart" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
+						<a href="shopping-cart.php" id="btn-cart" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
 							View Cart
 						</a>
 
-						<a href="shoping-cart.php" id="btn-cart" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
+						<a href="shopping-cart.php" id="btn-cart" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
 							Check Out
 						</a>
 					</div>
@@ -813,7 +740,7 @@ if (isset($_POST['delete_cart'])) {
 				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
 			</a>
 
-			<a href="product.html" class="stext-109 cl8 hov-cl1 trans-04">
+			<a href="product2.php" class="stext-109 cl8 hov-cl1 trans-04">
 				Men
 				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
 			</a>
@@ -964,9 +891,9 @@ if (isset($_POST['delete_cart'])) {
 							</div>
 
 							<div class="size-204 flex-w flex-m respon6-next">
-								<form action="add-to-order.php" method="post">
+								<form action="add-to-cart.php" method="post">
 									<!-- Name input is add-to-order -->
-									<input type="submit" value="Add to cart" id="button-add" name="add-to-order" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+									<input type="submit" value="Add to cart" id="button-add" name="add-to-cart" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
 									<input type="hidden" name="p_id" value="<?php echo $product["p_id"];?>">
 									<input type="hidden" name="p_image" value="<?php echo $product["p_image"];?>">
 									<input type="hidden" name="p_name" value="<?php echo $product["p_name"];?>">
@@ -977,9 +904,17 @@ if (isset($_POST['delete_cart'])) {
 								</form>
 
 
-								<button id="button-buy" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-buycart-detail">
-									Buy it now
-								</button>
+								<form action="buy-it-now.php" method="post">
+									<!-- Name input is buy-it-now -->
+									<input type="submit" value="Buy it now" id="button-buy" name="buy-it-now" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+									<input type="hidden" name="p_id" value="<?php echo $product["p_id"];?>">
+									<input type="hidden" name="p_image" value="<?php echo $product["p_image"];?>">
+									<input type="hidden" name="p_name" value="<?php echo $product["p_name"];?>">
+									<input type="hidden" name="p_price" value="<?php echo $product["p_price"];?>">
+									<input type="hidden" name="p_type" value="<?php echo $product["p_type"];?>">
+									<input type="hidden" name="o_quantity" value="<?php $item["o_quantity"]; ?>">
+									<input type="hidden" name="o_status" value="0">
+								</form>
 							</div>
 						</div>
 					</div>

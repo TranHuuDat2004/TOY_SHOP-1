@@ -1,10 +1,36 @@
 <?php
-	include('../Admin/connection/connectionpro.php');
-	require_once '../Admin/connection/connectData.php';
-	$sql = "SELECT * FROM product";
-	$query = mysqli_query($conn, $sql);
 
- 
+include 'login.php';
+
+include('../Admin/connection/connectionpro.php');
+require_once '../Admin/connection/connectData.php';
+
+if (!isset($_SESSION["user"])) {
+	// Redirect user to the login page if not logged in
+	header("Location: login.html");
+	exit(); // Stop further execution of the script
+}
+
+$userName = $_SESSION["user"];	
+// print_r($userName);
+$sqlLogin = "SELECT * FROM `login` WHERE userName = '$userName' " ;
+$queryLogin = mysqli_query($conn, $sqlLogin);
+// print_r($queryLogin);
+
+// Duyệt qua từng hàng dữ liệu từ kết quả truy vấn
+$row = $queryLogin->fetch_assoc();
+	// Thêm thông tin từng hàng vào mảng $vuserLogin
+	$userLogin = array(
+		"userID" => $row["userID"],
+		"userName" => $row["userName"],
+		"email" => $row["email"],
+	);
+	
+
+$sql = "SELECT * FROM product";
+$query = mysqli_query($conn, $sql);
+
+
 // Câu truy vấn SQL SELECT
 $sqlOrder = "SELECT 
 `order`.o_id, 
@@ -25,15 +51,12 @@ product ON `order`.p_id = product.p_id";
 // Thực hiện truy vấn
 $resultOrder = $conn->query($sqlOrder);
 
-// Mảng chứa thông tin các đơn hàng
-$order_array = array();
-
 // Kiểm tra kết quả truy vấn
 if ($resultOrder->num_rows > 0) {
 	// Duyệt qua từng hàng dữ liệu từ kết quả truy vấn
 	while ($row = $resultOrder->fetch_assoc()) {
 		// Thêm thông tin từng hàng vào mảng $order_array
-		$order_array[] = array(
+		$order_array[] = array( // hãy giữ []
 			"o_id" => $row["o_id"],
 			"u_id" => $row["u_id"],
 			"p_id" => $row["p_id"],
@@ -71,7 +94,8 @@ function sumTotalPrice($order_array, $u_id)
 }
 
     // Truy vấn để đếm số dòng trong bảng order
-    $sql = "SELECT COUNT(*) AS total_rows FROM `order`";
+    $sql = "SELECT COUNT(*) AS total_rows FROM `order` WHERE u_id = '{$userLogin['userID']}'";
+
     $result = $conn->query($sql);
 
     // Kiểm tra và hiển thị kết quả
@@ -196,12 +220,12 @@ function sumTotalPrice($order_array, $u_id)
 							</a>
 							<div class="data1">
 								<i style="color: #49243E;" class=""></i>
-								<a href="register.html" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b>Login
+								<a href="register.html" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b><?php echo $userLogin["userID"];?>
 										/</b></a>
 							</div>
 							<div class="data2">
 								<i style="color: #49243E;" class=""></i>
-								<a href="register.html" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b>Register</b></a>
+								<a href="register.html" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b><?php echo $userLogin["userName"];?></b></a>
 							</div>
 						</div>
 					</div>
@@ -212,7 +236,7 @@ function sumTotalPrice($order_array, $u_id)
 				<nav class="limiter-menu-desktop container" style="background-color: #FFEFEF;">
 
 					<!-- Logo desktop -->
-					<a href="index.html" class="navbar-brand">
+					<a href="index.php" class="navbar-brand">
 						<h1 class="m-0 text-primary1 mt-3 "><span class="text-dark1"><img class="Imagealignment" src="images/icon.png">Omacha</h1>
 					</a>
 
@@ -220,31 +244,31 @@ function sumTotalPrice($order_array, $u_id)
 					<div class="menu-desktop">
 						<ul class="main-menu">
 							<li class="active-menu">
-								<a href="index.html">Home</a>
+								<a href="index.php">Home</a>
 
 							</li>
 
 							<li class="label1" data-label1="hot">
-								<a href="product.html">Shop</a>
+								<a href="product2.php">Shop</a>
 								<ul class="sub-menu">
-									<li><a href="index.html">Homepage 1</a></li>
+									<li><a href="index.php">Homepage 1</a></li>
 									<li><a href="home-02.html">Homepage 2</a></li>
 									<li><a href="home-03.html">Homepage 3</a></li>
 								</ul>
 							</li>
 
 							<li>
-								<a href="blog.html">Blog</a>
+								<a href="blog.php">Blog</a>
 							</li>
 
 							<li>
-								<a href="contact.html">Contact</a>
+								<a href="contact.php">Contact</a>
 							</li>
 
 							<li>
 								<a href="about.html">Pages</a>
 								<ul class="sub-menu">
-									<li><a href="index.html">About</a></li>
+									<li><a href="index.php">About</a></li>
 									<li><a href="home-02.html">Faq</a></li>
 								</ul>
 							</li>
@@ -261,7 +285,7 @@ function sumTotalPrice($order_array, $u_id)
 							<i class="zmdi zmdi-shopping-cart"></i>
 						</div>
 
-						<a href="#" class="dis-block icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
+						<a href="wishlist.php" class="dis-block icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
 							<i class="zmdi zmdi-favorite-outline"></i>
 						</a>
 					</div>
@@ -273,7 +297,7 @@ function sumTotalPrice($order_array, $u_id)
 		<div class="wrap-header-mobile">
 			<!-- Logo moblie -->
 			<div class="logo-mobile">
-				<a href="index.html"><img src="images/icons/logo-01.png" alt="IMG-LOGO"></a>
+				<a href="index.php"><img src="images/icons/logo-01.png" alt="IMG-LOGO"></a>
 			</div>
 
 			<!-- Icon header -->
@@ -332,9 +356,9 @@ function sumTotalPrice($order_array, $u_id)
 
 			<ul class="main-menu-m">
 				<li>
-					<a href="index.html">Home</a>
+					<a href="index.php">Home</a>
 					<ul class="sub-menu-m">
-						<li><a href="index.html">Homepage 1</a></li>
+						<li><a href="index.php">Homepage 1</a></li>
 						<li><a href="home-02.html">Homepage 2</a></li>
 						<li><a href="home-03.html">Homepage 3</a></li>
 					</ul>
@@ -344,7 +368,7 @@ function sumTotalPrice($order_array, $u_id)
 				</li>
 
 				<li>
-					<a href="product.html">Shop</a>
+					<a href="product2.php">Shop</a>
 				</li>
 
 				<li>
@@ -352,7 +376,7 @@ function sumTotalPrice($order_array, $u_id)
 				</li>
 
 				<li>
-					<a href="blog.html">Blog</a>
+					<a href="blog.php">Blog</a>
 				</li>
 
 				<li>
@@ -360,7 +384,7 @@ function sumTotalPrice($order_array, $u_id)
 				</li>
 
 				<li>
-					<a href="contact.html">Contact</a>
+					<a href="contact.php">Contact</a>
 				</li>
 			</ul>
 		</div>
@@ -399,11 +423,14 @@ function sumTotalPrice($order_array, $u_id)
 
 			<div class="header-cart-content flex-w js-pscroll">
 				<ul class="header-cart-wrapitem w-full">
+					<span>Congratulations! You&#39;ve got <strong>Free Shipping!</strong></span>
+					<div class="progress1"></div>
+					<br>
 					<?php
 					// Duyệt qua mỗi sản phẩm trong giỏ hàng và hiển thị thông tin
 					foreach ($order_array as $item) {
-						// mới có u_id 123, 555
-						if ($item["u_id"] == 123 && $item["o_quantity"] > 0) {
+						// mới có u_id $userLogin["userID"], 555
+						if ($item["u_id"] == $userLogin["userID"] && $item["o_quantity"] > 0) {
 					?>
 							<li class="header-cart-item m-b-20">
 								<div class="row">
@@ -422,7 +449,7 @@ function sumTotalPrice($order_array, $u_id)
 										<span class="header-cart-item-info"><?php echo $item["o_quantity"]; ?> x $<?php echo $item["p_price"]; ?></span>
 									</div>
 									<div class="col-md-3">
-										<form action="delete-cart.php" method="post">											
+										<form action="delete-cart2.php" method="post">											
 											<input type="hidden" name="p_id" value="<?php echo $item['p_id']; ?>">
 
 											<!-- Nút xóa tại đây -->
@@ -441,16 +468,16 @@ function sumTotalPrice($order_array, $u_id)
 
 				<div class="w-full">
 					<div class="header-cart-total w-full p-tb-40">
-						<?php $totalPrice = sumTotalPrice($order_array, 123); ?> <!-- thay doi user -->
+						<?php $totalPrice = sumTotalPrice($order_array, $userLogin["userID"]); ?> <!-- thay doi user -->
 						<p>Total: $<?php echo $totalPrice; ?></p>
 					</div>
 
 					<div class="header-cart-buttons flex-w w-full">
-						<a href="shoping-cart.php" id="btn-cart" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
+						<a href="shopping-cart.php" id="btn-cart" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
 							View Cart
 						</a>
 
-						<a href="shoping-cart.php" id="btn-cart" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
+						<a href="shopping-cart.php" id="btn-cart" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
 							Check Out
 						</a>
 					</div>
@@ -842,6 +869,7 @@ function sumTotalPrice($order_array, $u_id)
 									<div class="block2-txt flex-w flex-t p-t-14">
 										<div class="block2-txt-child1 flex-col-l">
 											<input class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6" style="background-color: white;" type="submit" name="p_name" value="<?php echo $product["p_name"]; ?>">
+											<input type="hidden" name="user" value="<?php $userLogin["userName"]; ?>">
 											<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text1"><?php echo $product['p_type']; ?></p>
 											<span class="stext-105 cl3 price">$<?php echo $product['p_price']; ?></span>
 										</div>

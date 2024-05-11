@@ -1,7 +1,4 @@
-<!-- Trang này xử lí form và hiển thị lời cảm ơn -->
-
 <?php
-
 include 'login.php';
 
 include('../Admin/connection/connectionpro.php');
@@ -113,57 +110,73 @@ if ($result->num_rows > 0) {
 	// echo "Không có dữ liệu trong bảng order";
 }
 
-// Kiểm tra xem form đã được submit chưa
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Kết nối đến cơ sở dữ liệu
-    $servername = "localhost";
-    $username = "root"; // Thay thế bằng username của bạn
-    $password = ""; // Thay thế bằng mật khẩu của bạn
-    $dbname = "toy-shop"; // Thay thế bằng tên cơ sở dữ liệu của bạn
+// Truy vấn thông tin chiết khấu dựa trên tên discount (d_name)
+$sqlDiscount = "SELECT * FROM discount";
+$query = mysqli_query($conn, $sqlDiscount);
 
-    // Tạo kết nối
-    $conn = new mysqli($servername, $username, $password, $dbname);
+// Mảng chứa thông tin chiết khấu
+$discount = array();
 
-    // Kiểm tra kết nối
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    // Lấy dữ liệu từ form
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $subject = $_POST['subject'];
-    $message = $_POST['message'];
-
-    // Chuẩn bị câu lệnh SQL để chèn dữ liệu vào bảng
-    $sql = "INSERT INTO contacts (c_name, c_email, c_subject, c_message)
-            VALUES ('$name', '$email', '$subject', '$message')";
-
-    // Thực thi câu lệnh SQL
-    if ($conn->query($sql) === TRUE) {
-        // echo "New record created successfully";
-    } else {
-        // echo "Error: " . $sql . "<br>" . $conn->error;
-    }
-
-    // Đóng kết nối
-    $conn->close();
+// Kiểm tra kết quả truy vấn
+if ($query->num_rows > 0) {
+	// Lặp qua từng hàng dữ liệu từ kết quả truy vấn
+	while ($row = $query->fetch_assoc()) {
+		// Thêm thông tin từng hàng vào mảng $discount
+		$discount = array(
+			"d_id" => $row["d_id"],
+			"d_name" => $row["d_name"],
+			"d_amount" => $row["d_amount"],
+			"d_description" => $row["d_description"],
+			"d_start_date" => $row["d_start_date"],
+			"d_end_date" => $row["d_end_date"]
+		);
+	}
+} else {
+	// Nếu không tìm thấy kết quả
+	// echo "0 results";
 }
-?>
 
+
+
+// Kiểm tra xem d_name đã được truyền từ URL hay chưa
+
+    // Truy vấn thông tin chiết khấu dựa trên tên discount (d_name)
+    $sqlDiscount = "SELECT * FROM discount";
+    $query = mysqli_query($conn, $sqlDiscount);
+
+    // Mảng chứa thông tin chiết khấu
+    $discount = array();
+
+    // Kiểm tra kết quả truy vấn
+    if ($query->num_rows > 0) {
+        // Lặp qua từng hàng dữ liệu từ kết quả truy vấn
+        while ($row = $query->fetch_assoc()) {
+            // Thêm thông tin từng hàng vào mảng $discount
+            $discount = array(
+                "d_id" => $row["d_id"],
+                "d_name" => $row["d_name"],
+                "d_amount" => $row["d_amount"],
+                "d_description" => $row["d_description"],
+                "d_start_date" => $row["d_start_date"],
+                "d_end_date" => $row["d_end_date"]
+            );
+        }
+    } else {
+        // Nếu không tìm thấy kết quả
+        // echo "0 results";
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<title>Omacha - Playful World</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Shopping Cart</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="search.css">
 	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v5.15.4/css/all.css">
-
-
 	<!-- link icon -->
-	<link rel="stylesheet" data-purpose="Layout StyleSheet" title="Web Awesome"
-		href="/css/app-wa-8d95b745961f6b33ab3aa1b98a45291a.css?vsn=d">
-
+	<link rel="stylesheet" data-purpose="Layout StyleSheet" title="Web Awesome" href="/css/app-wa-8d95b745961f6b33ab3aa1b98a45291a.css?vsn=d">
 
 	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/all.css">
 
@@ -172,13 +185,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-regular.css">
 
 	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-light.css">
-
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
-
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
-
 	<!-- link icon -->
 	<link rel="icon" type="image/png" href="images/icon.png" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
 	<!--===============================================================================================-->
@@ -196,53 +205,112 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
 	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/slick/slick.css">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/MagnificPopup/magnific-popup.css">
-	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<!--===============================================================================================-->
 	<style>
-		@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&display=swap');
+		#button-add {
+			border-radius: 30px;
+			padding: 10px;
+			background-color: black;
+			color: white;
+			margin-right: 10px;
+			/* Add margin to create space between buttons */
+		}
+
+		#button-add:hover {
+			background-color: #F4538A;
+		}
+
+		#button {
+			border-radius: 30px;
+			padding: 10px;
+			background-color: rgb(207, 204, 204);
+			color: rgb(0, 0, 0);
+			margin-right: 10px;
+			/* Add margin to create space between buttons */
+		}
+
+		#button:hover {
+			background-color: #F4538A;
+		}
+
+		.btn-remove-product {
+			cursor: pointer;
+			/* Đổi con trỏ chuột thành kiểu pointer khi di chuột qua */
+		}
+
+		.btn-remove-product i {
+			color: #F4538A;
+			/* Đổi màu của biểu tượng thành màu đỏ */
+		}
+
+		/* Định dạng hình ảnh sản phẩm */
+		/* .header-cart-item-img {
+			flex: 0 0 auto;
+			
+			width: 100px;
+			
+			height: auto;
+			
+			margin-right: 20px;
+			
+		} */
+
+		#button-cart {
+			border-radius: 10px;
+			padding: 10px;
+			background-color: black;
+			color: white;
+		}
+
+		#button-cart:hover {
+			background-color: #F4538A;
+		}
+
+		.btn-up,
+		.btn-down {
+			width: 45px;
+			height: 100%;
+			cursor: pointer;
+		}
+
+		#update-cart {
+			background-color: #F4538A;
+			color: white;
+		}
+
+		#update-cart:hover {
+			background-color: black;
+			color: white;
+		}
+
+		/* Định dạng nút check out và view cart */
+		#btn-cart {
+			background-color: #F4538A;
+			color: #FFEFEF;
+		}
+
+		#btn-cart:hover {
+			background-color: black;
+			color: #FFEFEF;
+		}
+
+		/* Định dạng nút delete */
+		.btn-delete {
+			color: black;
+		}
+
+		.btn-delete:hover {
+			color: #F4538A;
+		}
 	</style>
-	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v5.15.4/css/all.css">
-	<!-- link icon -->
-	<link rel="stylesheet" data-purpose="Layout StyleSheet" title="Web Awesome"
-		href="/css/app-wa-8d95b745961f6b33ab3aa1b98a45291a.css?vsn=d">
-
-	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/all.css">
-
-	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-solid.css">
-
-	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-regular.css">
-
-	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-light.css">
-
-	<script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
 </head>
 
-<style>
-	.button{
-	width: 95%;
-	max-width: 700px;
-	border: 1px dashed #F2BED1;
-	font-size: .9rem;
-	padding: 1em;
-	outline: none;
-	margin-bottom: 1em;
-	background-color: #F8E8EE;
-	color: #000;
-	border-radius: 10px;
-	}
-</style>
-
 <body class="animsition">
-	
+
 	<!-- Header -->
 	<header class="header-v4">
 		<!-- Header desktop -->
@@ -252,32 +320,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				<div class="content-topbar flex-sb-m h-full container">
 					<div class="left-top-bar">
 						<div class="d-inline-flex align-items-center">
-							<p style="color: #F4538A"><i class="fa fa-envelope mr-2"></i><a
-									href="mailto:omachacontact@gmail.com"
-									style="color: #000; text-decoration: none;">omachacontact@gmail.com</a></p>
+							<p style="color: #F4538A"><i class="fa fa-envelope mr-2"></i><a href="mailto:omachacontact@gmail.com" style="color: #000; text-decoration: none;">omachacontact@gmail.com</a></p>
 							<p class="text-body px-3">|</p>
-							<p style="color: #F4538A"><i class="fa fa-phone-alt mr-2"></i><a href="tel:+19223600"
-									style="color: #000; text-decoration: none;">+1922 4800</a></p>
+							<p style="color: #F4538A"><i class="fa fa-phone-alt mr-2"></i><a href="tel:+19223600" style="color: #000; text-decoration: none;">+1922 4800</a></p>
 						</div>
 					</div>
 
 					<div class="col-lg-6 text-center text-lg-right">
 						<div class="d-inline-flex align-items-center">
-							<a class="text-primary px-3" href="https://www.facebook.com/profile.php?id=61557250007525"
-								target="_blank" title="Visit the Reis Adventures fanpage.">
+							<a class="text-primary px-3" href="https://www.facebook.com/profile.php?id=61557250007525" target="_blank" title="Visit the Reis Adventures fanpage.">
 								<i style="color: #49243E;" class="fab fa-facebook-f"></i>
 							</a>
-							<a class="text-primary px-3" href="https://twitter.com/reis_adventures" target="_blank"
-								title="Visit the Reis Adventures Twitter.">
+							<a class="text-primary px-3" href="https://twitter.com/reis_adventures" target="_blank" title="Visit the Reis Adventures Twitter.">
 								<i style="color: #49243E;" class="fab fa-twitter"></i>
 							</a>
-							<a class="text-primary px-3" href="https://www.linkedin.com/in/reis-adventures-458144300/"
-								target="_blank" title="Visit the Reis Adventures Linkedin.">
+							<a class="text-primary px-3" href="https://www.linkedin.com/in/reis-adventures-458144300/" target="_blank" title="Visit the Reis Adventures Linkedin.">
 								<i style="color: #49243E;" class="fab fa-linkedin-in"></i>
 							</a>
-							<a class="text-primary px-3"
-								href="https://www.instagram.com/reis_adventures2024?igsh=YTQwZjQ0NmI0OA%3D%3D&utm_source=qr"
-								target="_blank" title="Visit the Reis Adventures Instagram.">
+							<a class="text-primary px-3" href="https://www.instagram.com/reis_adventures2024?igsh=YTQwZjQ0NmI0OA%3D%3D&utm_source=qr" target="_blank" title="Visit the Reis Adventures Instagram.">
 								<i style="color: #49243E;" class="fab fa-instagram"></i>
 							</a>
 							<div class="data1">
@@ -299,8 +359,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 					<!-- Logo desktop -->
 					<a href="index.html" class="navbar-brand">
-						<h1 class="m-0 text-primary1 mt-3 "><span class="text-dark1"><img class="Imagealignment"
-									src="images/icon.png">Omacha</h1>
+						<h1 class="m-0 text-primary1 mt-3 "><span class="text-dark1"><img class="Imagealignment" src="images/icon.png">Omacha</h1>
 					</a>
 
 					<!-- Menu desktop -->
@@ -325,7 +384,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							</li>
 
 							<li>
-								<a href="contact.html">Contact</a>
+								<a href="contact.php">Contact</a>
 							</li>
 
 							<li>
@@ -344,14 +403,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<i class="zmdi zmdi-search"></i>
 						</div>
 
-						<div class="icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-							data-notify="2">
+						<div class="icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="<?php echo $order_count ?>">
 							<i class="zmdi zmdi-shopping-cart"></i>
 						</div>
 
-						<a href="#"
-							class="dis-block icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
-							data-notify="0">
+						<a href="#" class="dis-block icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
 							<i class="zmdi zmdi-favorite-outline"></i>
 						</a>
 					</div>
@@ -361,7 +417,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 		<!-- Header Mobile -->
 		<div class="wrap-header-mobile">
-			<!-- Logo moblie -->		
+			<!-- Logo moblie -->
 			<div class="logo-mobile">
 				<a href="index.html"><img src="images/icons/logo-01.png" alt="IMG-LOGO"></a>
 			</div>
@@ -372,7 +428,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					<i class="zmdi zmdi-search"></i>
 				</div>
 
-				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="2">
+				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="<?php echo $order_count ?>">
 					<i class="zmdi zmdi-shopping-cart"></i>
 				</div>
 
@@ -392,33 +448,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 		<!-- Menu Mobile -->
 		<div class="menu-mobile">
-				<!-- <ul class="topbar-mobile">
-					<li>
-						<div class="left-top-bar">
-							Free shipping for standard order over $100
-						</div>
-					</li>
+			<ul class="topbar-mobile">
+				<li>
+					<div class="left-top-bar">
+						Free shipping for standard order over $100
+					</div>
+				</li>
 
-					<li>
-						<div class="right-top-bar flex-w h-full">
-							<a href="#" class="flex-c-m p-lr-10 trans-04">
-								Help & FAQs
-							</a>
+				<li>
+					<div class="right-top-bar flex-w h-full">
+						<a href="#" class="flex-c-m p-lr-10 trans-04">
+							Help & FAQs
+						</a>
 
-							<a href="#" class="flex-c-m p-lr-10 trans-04">
-								My Account
-							</a>
+						<a href="#" class="flex-c-m p-lr-10 trans-04">
+							My Account
+						</a>
 
-							<a href="#" class="flex-c-m p-lr-10 trans-04">
-								EN
-							</a>
+						<a href="#" class="flex-c-m p-lr-10 trans-04">
+							EN
+						</a>
 
-							<a href="#" class="flex-c-m p-lr-10 trans-04">
-								USD
-							</a>
-						</div>
-					</li>
-				</ul> -->
+						<a href="#" class="flex-c-m p-lr-10 trans-04">
+							USD
+						</a>
+					</div>
+				</li>
+			</ul>
 
 			<ul class="main-menu-m">
 				<li>
@@ -450,7 +506,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				</li>
 
 				<li>
-					<a href="contact.html">Contact</a>
+					<a href="contact.php">Contact</a>
 				</li>
 			</ul>
 		</div>
@@ -550,83 +606,202 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	</div>
 
 
-	<!-- Title page -->
-	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/background-image.png');">
-		<h2 style="color: #000;" class="ltext-105 cl0 txt-center">
-			Contact
-		</h2>
-	</section>	
+	<!-- breadcrumb -->
+	<div class="container">
+		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+			<a href="index.html" class="stext-109 cl8 hov-cl1 trans-04">
+				Home
+				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+			</a>
 
-
-	<!-- Content page -->
-	<section1>
-		<div class="row">
-			<div class="col-md-8">
-				<!-- <h4 class="sectionHeader">Contact Us</h4> -->
-				<h1 class="stext-121 heading">Thank you for your contact!</h1>
-				<p class="para">
-					Your message has been successfully submitted. We will get back to you as soon as possible.
-				</p>
-				<p class="para">
-					Your feedback is invaluable in helping us improve our toy store management software. We appreciate you taking the time to share your thoughts and experiences with us. 
-					If you have any further questions or concerns, please don't hesitate to let us know. We're here to help!
-				</p>
-				<div class="row">
-					<div class="col-md-4">
-						<a href="index.php"><button class="button">Back to Home</button></a>	
-					</div>			
-
-					<div class="col-md-4">
-						<a href="product2.php"><button class="button">Continue Shopping</button></a>
-					</div>
-
-					<div class="col-md-4">
-						<a href="contact.php"><button class="button">Continue Contact</button></a>
-					</div>
-				</div>
-			</div>
-		
-			
-
-			<div class="col-md-4">
-				<div class="map-container">
-					<div class="mapBg"></div>
-					<div class="map">
-						<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3920.023832459382!2d106.6971889746857!3d10.73264516000052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317528b2747a81a3%3A0x33c1813055acb613!2zxJDhuqFpIGjhu41jIFTDtG4gxJDhu6ljIFRo4bqvbmc!5e0!3m2!1svi!2s!4v1714461852446!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-					</div>
-					
-				</div>
-			</div>
-			
-			<div class="contactMethod">
-
-				<div class="method">
-					<i class="fa-duotone fa-location-check fa-beat-fade contactIcon" style="--fa-primary-color: #ee1153; --fa-secondary-color: #f4679f;"></i>
-					<article class="text">
-						<h1 class="stext-121 sub-heading">Location</h1>
-						<p class="para">17 Nguyen Huu Tho Street</p>
-					</article>
-				</div>
-
-				<div class="method">
-					<i class="fa-duotone fa-envelope fa-beat-fade contactIcon" style="--fa-primary-color: #dd2776; --fa-secondary-color: #f486c6;"></i>						
-					<article class="text">
-						<h1 class="stext-121 sub-heading">Email</h1>
-						<p class="para">omachacontact@gmail.com</p>
-					</article>
-				</div>
-
-				<div class="method">
-					<i class="fa-duotone fa-phone-volume fa-beat-fade contactIcon" style="--fa-primary-color: #d71d55; --fa-secondary-color: #d6669c;"></i>					
-					<article class="text">
-						<h1 class="stext-121 sub-heading">Phone</h1>
-						<p class="para">+1922 4800</p>
-					</article>
-				</div>
-			</div>
-
+			<span class="stext-109 cl4">
+				Shoping Cart
+			</span>
 		</div>
-	</section1>
+	</div>
+
+
+	<!-- Shoping Cart -->
+	<form class="bg0 p-t-75 p-b-85">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
+					<div class="m-l-25 m-r--38 m-lr-0-xl">
+						<div class="wrap-table-shopping-cart">
+							<table class="table-shopping-cart">
+								<tr class="table_head">
+									<th class="column-1">Product</th>
+									<th class="column-2"></th>
+									<th class="column-3">Price</th>
+									<th class="column-4">Quantity</th>
+									<th class="column-5">Total</th>
+								</tr>
+
+								<?php foreach ($order_array as $item) : ?>
+									<?php if ($item['u_id'] == $userLogin['userID']) ?>
+									<tr class="table_row">
+										<td class="column-1">
+											<div class="how-itemcart1">
+												<img src="images/<?php echo $item["p_image"]; ?>" alt="IMG">
+											</div>
+										</td>
+										<td class="column-2"><?php echo $item["p_name"]; ?></td>
+										<td id="price_<?php echo $item['p_id']; ?>" class="column-3">$ <?php echo $item["p_price"]; ?></td>
+										<td class="column-4">
+											<div class="wrap-num-product flex-w m-l-auto m-r-0">
+												<div class="btn-down cl8 hov-btn3 trans-04 flex-c-m" onclick="decreaseQuantity(<?php echo $item['p_id']; ?>)">
+													<i class="fs-16 zmdi zmdi-minus"></i>
+												</div>
+
+												<input id="quantity_<?php echo $item['p_id']; ?>" class="mtext-104 cl3 txt-center num-product cart-quantity-input" type="number" name="num-product1" value="<?php echo $item["o_quantity"]; ?>" onchange="updateTotalPrice(<?php echo $item['p_id']; ?>, this.value)">
+
+												<div class="btn-up cl8 hov-btn3 trans-04 flex-c-m" onclick="increaseQuantity(<?php echo $item['p_id']; ?>)">
+													<i class="fs-16 zmdi zmdi-plus"></i>
+												</div>
+											</div>
+										</td>
+										<td id="total_<?php echo $item['p_id']; ?>" class="column-5">$ <?php echo $item["p_price"] * $item["o_quantity"]; ?></td>
+									</tr>
+								<?php endforeach; ?>
+							</table>
+
+
+						</div>
+
+						<div class="">
+							<div class="row">
+								<div class="col-md-4">
+									<div class="flex-w flex-m m-r-20 m-tb-5">
+										<input class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" type="text" name="coupon" placeholder="Coupon Code">
+									</div>
+								</div>
+
+								<div class="col-md-4">
+									<div id="update-cart" class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
+										<a style="color: white;"  href="shopping-cart-coupon.php">Apply coupon</a>
+									</div>
+								</div>
+
+
+								<div class="col-md-4">
+									<div class="">
+										<?php foreach ($order_array as $item) : ?>
+											<form id="form_<?php echo $item['p_id']; ?>" class="update-form" action="update-cart.php" method="post">
+												<!-- Các trường ẩn chứa thông tin của mỗi mục trong order -->
+												<input type="hidden" name="o_quantity" value="<?php echo $item["o_quantity"]; ?>">
+												<input type="hidden" name="p_id" value="<?php echo $item["p_id"]; ?>">
+											<?php endforeach; ?>
+											<!-- Nút cập nhật giỏ hàng -->
+											<input id="update-cart" type="submit" value="Update Cart" name="update-cart" class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
+											</form>
+									</div>
+								</div>
+							</div>
+
+
+
+
+
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
+					<div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
+						<h4 class="mtext-109 cl2 p-b-30">
+							Cart Totals
+						</h4>
+
+						<div class="flex-w flex-t bor12 p-b-13">
+							<div class="size-208">
+								<span class="stext-110 cl2">
+									Subtotal:
+								</span>
+							</div>
+
+							<div class="size-209">
+								<span class="mtext-110 cl2">
+									$ <?php echo sumTotalPrice($order_array, $userLogin["userID"]); ?>
+								</span>
+							</div>
+						</div>
+
+						<div class="flex-w flex-t bor12 p-t-15 p-b-30">
+							<div class="size-208 w-full-ssm">
+								<span class="stext-110 cl2">
+									Shipping:
+								</span>
+							</div>
+
+							<div class="size-209 p-r-18 p-r-0-sm w-full-ssm">
+								<p class="stext-111 cl6 p-t-2">
+									There are no shipping methods available. Please double check your address, or contact us if you need any help.
+								</p>
+
+								<div class="p-t-15">
+									<span class="stext-112 cl8">
+										Calculate Shipping
+									</span>
+
+									<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
+										<select class="js-select2" name="time">
+											<option>Select a country...</option>
+											<option>USA</option>
+											<option>UK</option>
+										</select>
+										<div class="dropDownSelect2"></div>
+									</div>
+
+									<div class="bor8 bg0 m-b-12">
+										<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="state" placeholder="State /  country">
+									</div>
+
+									<div class="bor8 bg0 m-b-22">
+										<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="postcode" placeholder="Postcode / Zip">
+									</div>
+
+									<div class="flex-w">
+										<div id="button" class="flex-c-m stext-101 cl2 size-115 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer">
+											Update Totals
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+						<div class="flex-w flex-t p-t-27 p-b-33">
+							<div class="size-208">
+								<span class="mtext-101 cl2">
+									Total:
+								</span>
+							</div>
+
+							<div class="size-209 p-t-1">
+								<?php
+								// Kiểm tra xem người dùng đã nhập mã giảm giá hay chưa
+								if ($discount['d_amount'] > 0) {
+									// Hiển thị giá trị ban đầu với thẻ <del> để đánh dấu và giá trị giảm giá mới
+									echo '<del>$' . sumTotalPrice($order_array, $userLogin["userID"]) . '</del>';
+									$discountedPrice = sumTotalPrice($order_array, $userLogin["userID"]) * (100 - $discount['d_amount']) / 100;
+									echo ' ', '<span class="mtext-110 cl2">$' . $discountedPrice . '</span>';
+								} else {
+									// Hiển thị giá trị ban đầu nếu không có mã giảm giá hoặc nếu mã giảm giá không hợp lệ
+									echo '<span class="mtext-110 cl2">$' . sumTotalPrice($order_array, $userLogin["userID"]) . '</span>';
+								}
+								?>
+							</div>
+						</div>
+
+						<button id="button-add" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+							Proceed to Checkout
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
 
 
 
@@ -680,7 +855,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 						<li class="p-b-10">
 							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Returns 
+								Returns
 							</a>
 						</li>
 
@@ -767,8 +942,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 				<p class="stext-107 cl6 txt-center">
 					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> &amp; distributed by <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+					Copyright &copy;<script>
+						document.write(new Date().getFullYear());
+					</script> All rights reserved | Made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> &amp; distributed by <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
+					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 
 				</p>
 			</div>
@@ -779,90 +956,104 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<!-- Back to top -->
 	<div class="btn-back-to-top" id="myBtn">
 		<span class="symbol-btn-back-to-top">
-			<i class="fa-solid fa-hand-pointer fa-shake fa-xl" style="color: #ff337a;"></i>
+			<i class="zmdi zmdi-chevron-up"></i>
 		</span>
 	</div>
 
-<!--===============================================================================================-->	
+	<!--===============================================================================================-->
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="vendor/bootstrap/js/popper.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="vendor/select2/select2.min.js"></script>
 	<script>
-		$(".js-select2").each(function(){
+		$(".js-select2").each(function() {
 			$(this).select2({
 				minimumResultsForSearch: 20,
 				dropdownParent: $(this).next('.dropDownSelect2')
 			});
 		})
 	</script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 	<script>
-		$('.js-pscroll').each(function(){
-			$(this).css('position','relative');
-			$(this).css('overflow','hidden');
+		$('.js-pscroll').each(function() {
+			$(this).css('position', 'relative');
+			$(this).css('overflow', 'hidden');
 			var ps = new PerfectScrollbar(this, {
 				wheelSpeed: 1,
 				scrollingThreshold: 1000,
 				wheelPropagation: false,
 			});
 
-			$(window).on('resize', function(){
+			$(window).on('resize', function() {
 				ps.update();
 			})
 		});
 
-		
+		// Function to update total price for a product
+		function updateTotalPrice(productId) {
+			var quantityInput = document.querySelector('#quantity_' + productId);
+			var totalPriceElement = document.querySelector('#total_' + productId);
+			var priceElement = document.querySelector('#price_' + productId);
+
+
+			var quantity = parseInt(quantityInput.value);
+			var price = parseFloat(priceElement.innerText.split('$ ')[1]);
+
+			var totalPrice = quantity * price;
+			totalPriceElement.innerText = '$ ' + totalPrice;
+		}
+
+		// Function to handle increase quantity
+		function increaseQuantity(productId) {
+			var quantityInput = document.querySelector('#quantity_' + productId);
+			var currentQuantity = parseInt(quantityInput.value);
+			quantityInput.value = currentQuantity + 1;
+
+			// Update total price
+			updateTotalPrice(productId);
+
+			// Send AJAX request to update quantity in database
+			updateQuantity(productId, quantityInput.value);
+		}
+
+		// Function to handle decrease quantity
+		function decreaseQuantity(productId) {
+			var quantityInput = document.querySelector('#quantity_' + productId);
+			var currentQuantity = parseInt(quantityInput.value);
+			if (currentQuantity > 1) {
+				quantityInput.value = currentQuantity - 1;
+
+				// Update total price
+				updateTotalPrice(productId);
+
+				// Send AJAX request to update quantity in database
+				updateQuantity(productId, quantityInput.value);
+			}
+		}
+
+		// Function to update quantity in database via AJAX
+		function updateQuantity(productId, newQuantity) {
+			var xhr = new XMLHttpRequest();
+			xhr.open('POST', 'update-cart.php', true);
+			xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+			xhr.onload = function() {
+				if (xhr.status == 200) {
+					// Handle response from server if needed
+				}
+			};
+			xhr.send('product_id=' + productId + '&quantity=' + newQuantity);
+		}
 	</script>
-
-<script>
-   const constraints = {
-       name: {
-           presence: { allowEmpty: false }
-       },
-       email: {
-           presence: { allowEmpty: false },
-           email: true
-       },
-       message: {
-           presence: { allowEmpty: false }
-       }
-   };
-
-   const form = document.getElementById('contact-form');
-
-   form.addEventListener('submit', function (event) {
-     const formValues = {
-         name: form.elements.name.value,
-         email: form.elements.email.value,
-         message: form.elements.message.value
-     };
-
-     const errors = validate(formValues, constraints);
-
-     if (errors) {
-       event.preventDefault();
-       const errorMessage = Object
-           .values(errors)
-           .map(function (fieldValues) { return fieldValues.join(', ')})
-           .join("\n");
-
-       alert(errorMessage);
-     }
-   }, false);
-</script>
-<!--===============================================================================================-->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKFWBqlKAGCeS1rMVoaNlwyayu0e0YRes"></script>
-	<script src="js/map-custom.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="js/main.js"></script>
 
 </body>
+
 </html>
