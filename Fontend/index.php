@@ -84,6 +84,40 @@ $row = $queryLogin->fetch_assoc();
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
+
+	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v5.15.4/css/all.css">
+    <!-- link icon -->
+    <link
+      rel="stylesheet"
+      data-purpose="Layout StyleSheet"
+      title="Web Awesome"
+
+      href="/css/app-wa-8d95b745961f6b33ab3aa1b98a45291a.css?vsn=d"
+    >
+
+      <link
+        rel="stylesheet"
+
+        href="https://site-assets.fontawesome.com/releases/v6.4.0/css/all.css"
+      >
+
+      <link
+        rel="stylesheet"
+
+        href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-solid.css"
+      >
+
+      <link
+        rel="stylesheet"
+
+        href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-regular.css"
+      >
+
+      <link
+        rel="stylesheet"
+
+        href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-light.css"
+      >
 	<!--===============================================================================================-->
 	<style>
 		@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&display=swap');
@@ -212,7 +246,7 @@ $row = $queryLogin->fetch_assoc();
 							<i class="zmdi zmdi-shopping-cart"></i>
 						</div>
 
-						<a href="#"
+						<a href="wishlist.php"
 							class="dis-block icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
 							data-notify="0">
 							<i class="zmdi zmdi-favorite-outline"></i>
@@ -291,11 +325,16 @@ $row = $queryLogin->fetch_assoc();
 
 			<ul class="main-menu-m">
 				<li>
-					<a href="index.html">Home</a>
+					<a href="index.php">Home</a>
+				</li>
+
+				<li>
+					<a href="product2.php">Shop</a>
 					<ul class="sub-menu-m">
-						<li><a href="index.html">Homepage 1</a></li>
-						<li><a href="home-02.html">Homepage 2</a></li>
-						<li><a href="home-03.html">Homepage 3</a></li>
+					<li><a href="0_12months.php">0-12 Months</a></li>
+						<li><a href="1_2years.php">1-2 Years</a></li>
+						<li><a href="3+years.php">3+ Years</a></li>
+						<li><a href="5+years.php">5+ Years</a></li>
 					</ul>
 					<span class="arrow-main-menu-m">
 						<i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -303,11 +342,7 @@ $row = $queryLogin->fetch_assoc();
 				</li>
 
 				<li>
-					<a href="product2.php">Shop</a>
-				</li>
-
-				<li>
-					<a href="shoping-cart.html" class="label1 rs1" data-label1="hot">Features</a>
+					<a href="shoping-cart.php" class="label1 rs1" data-label1="hot">Cart</a>
 				</li>
 
 				<li>
@@ -315,11 +350,11 @@ $row = $queryLogin->fetch_assoc();
 				</li>
 
 				<li>
-					<a href="about.html">About</a>
+					<a href="about.php">About</a>
 				</li>
 
 				<li>
-					<a href="contact.html">Contact</a>
+					<a href="contact.php">Contact</a>
 				</li>
 			</ul>
 		</div>
@@ -327,16 +362,133 @@ $row = $queryLogin->fetch_assoc();
 		<!-- Modal Search -->
 		<div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
 			<div class="container-search-header">
-				<button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
-					<img src="images/icons/icon-close2.png" alt="CLOSE">
-				</button>
-
-				<form class="wrap-search-header flex-w p-l-15">
-					<button class="flex-c-m trans-04">
-						<i class="zmdi zmdi-search"></i>
-					</button>
-					<input class="plh3" type="text" name="search" placeholder="Search...">
-				</form>
+			<section class="bg0 p-t-62 p-b-60">
+				<div class="content">
+					<div class="container">
+						<div class="row justify-content-center">
+							<div class="search-container">
+								<h1>🐻 What are you looking for?</h1>
+								<form class="search-box" action="#" method="GET">
+									<input type="text" placeholder="Search" name="search">
+									<button type="submit"><i class="fas fa-search"></i></button> <!-- Using Font Awesome search icon -->
+								</form>
+								<div class="popular-searches">
+									<span>Popular searches:</span>
+									<a href="#" class="tag">Featured</a>
+									<a href="#" class="tag">Trendy</a>
+									<a href="#" class="tag">Sale</a>
+									<a href="#" class="tag">New</a>
+								</div>
+							</div>
+						</div>
+						<br>
+						<div class="row justify-content-center mb-4">
+							<div class="col-12 text-left">
+								<h2>Recommended products</h2>
+							</div>
+						</div>
+						<br>
+						<div class="row">
+							<!-- Recommended products -->
+							<div class="col-lg-2 col-md-4 col-sm-6 col-12 mb-4">
+								<a href="#">
+									<div class="card zoom-img" style="border-radius: 20px;">
+										<img src="images/jellycat.png" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
+									</div>
+								</a>
+								<div class="text-center">
+									<h5 class="p-b-15">
+										<a href="#" class="ltext-111 cl2 hov-cl1 trans-04">
+											Flower
+										</a>
+									</h5>
+									<p>$12.99</p>
+								</div>
+							</div>
+							<!-- Repeat the above block for other recommended products -->
+							<div class="col-lg-2 col-md-4 col-sm-6 col-12 mb-4">
+								<a href="#">
+									<div class="card zoom-img" style="border-radius: 20px;">
+										<img src="images/Jelly Cat Flower.png" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
+									</div>
+								</a>
+								<div class="text-center">
+									<h5 class="p-b-15">
+										<a href="#" class="ltext-111 cl2 hov-cl1 trans-04">
+											Flower
+										</a>
+									</h5>
+									<p>$10.99</p>
+								</div>
+							</div>
+							<!-- Repeat the above block for other recommended products -->
+							<div class="col-lg-2 col-md-4 col-sm-6 col-12 mb-4">
+								<a href="#">
+									<div class="card zoom-img" style="border-radius: 20px;">
+										<img src="images/beartowel.png" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
+									</div>
+								</a>
+								<div class="text-center">
+									<h5 class="p-b-15">
+										<a href="#" class="ltext-111 cl2 hov-cl1 trans-04">
+											Bear Baby Towel
+										</a>
+									</h5>
+									<p>$12.99</p>
+								</div>
+							</div>
+							<!-- Repeat the above block for other recommended products -->
+							<div class="col-lg-2 col-md-4 col-sm-6 col-12 mb-4">
+								<a href="#">
+									<div class="card zoom-img" style="border-radius: 20px;">
+										<img src="images/Elephant.png" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
+									</div>
+								</a>
+								<div class="text-center">
+									<h5 class="p-b-15">
+										<a href="#" class="ltext-111 cl2 hov-cl1 trans-04">
+											Elephant Jelly Cat
+										</a>
+									</h5>
+									<p>$10.99</p>
+								</div>
+							</div>
+							<!-- Repeat the above block for other recommended products -->
+							<div class="col-lg-2 col-md-4 col-sm-6 col-12 mb-4">
+								<a href="#">
+									<div class="card zoom-img" style="border-radius: 20px;">
+										<img src="images/giraffe.png" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
+									</div>
+								</a>
+								<div class="text-center">
+									<h5 class="p-b-15">
+										<a href="#" class="ltext-111 cl2 hov-cl1 trans-04">
+											Giraffe Jelly Cat
+										</a>
+									</h5>
+									<p>$12.99</p>
+								</div>
+							</div>
+							<!-- Repeat the above block for other recommended products -->
+							<div class="col-lg-2 col-md-4 col-sm-6 col-12 mb-4">
+								<a href="#">
+									<div class="card zoom-img" style="border-radius: 20px;">
+										<img src="images/unicorn.png" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
+									</div>
+								</a>
+								<div class="text-center">
+									<h5 class="p-b-15">
+										<a href="#" class="ltext-111 cl2 hov-cl1 trans-04">
+											Unicorn
+										</a>
+									</h5>
+									<p>$10.99</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
 			</div>
 		</div>
 	</header>
@@ -749,15 +901,15 @@ $row = $queryLogin->fetch_assoc();
 					<div class="col-title ">
 						<div class="text-center">
 							<h5 class="p-b-15">
-								<a href="#" class="ltext-111 cl2 hov-cl1 trans-04">
-									Teddy bear
+								<a href="product2.php" class="ltext-111 cl2 hov-cl1 trans-04">
+									Bear Baby Tower
 								</a>
 							</h5>
-							<p> $16.64</p>
+							<p>$12.99</p>
 						</div>
-						<a href="#">
+						<a href="product2.php">
 							<div class="card1 zoom-img" >
-								<img src="images/beardollyellow.jpg">
+								<img src="images/beartowel.png">
 							</div>
 						</a>
 					</div>
@@ -770,15 +922,15 @@ $row = $queryLogin->fetch_assoc();
 						
 						<div class="text-center">
 							<h5 class="p-b-15">
-								<a href="#" class="ltext-111 cl2 hov-cl1 trans-04">
-									Deer toy
+								<a href="product2.php" class="ltext-111 cl2 hov-cl1 trans-04">
+									Giraffe Jelly Cat
 								</a>
 							</h5>
-							<p>$34.75</p>
+							<p>$12.99</p>
 						</div>
-						<a href="#">
+						<a href="product2.php">
 							<div class="card1 zoom-img" style="border-radius: 20px;">
-								<img src="images/deer.png" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
+								<img src="images/giraffe.png" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
 							</div>
 						</a>
 					</div>
@@ -791,15 +943,15 @@ $row = $queryLogin->fetch_assoc();
 						
 						<div class="text-center">
 							<h5 class="p-b-15">
-								<a href="#" class="ltext-111 cl2 hov-cl1 trans-04">
-									Baby doll
+								<a href="product2.php" class="ltext-111 cl2 hov-cl1 trans-04">
+									Flower Jelly Cat
 								</a>
 							</h5>
-							<p>$35.31</p>
+							<p>$10.99</p>
 						</div>
-						<a href="#">
+						<a href="product2.php">
 							<div class="card1 zoom-img" style="border-radius: 20px;">
-								<img src="images/babydoll.jpg" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
+								<img src="images/Jelly Cat Flower.png" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
 							</div>
 						</a>
 					</div>
@@ -893,96 +1045,96 @@ $row = $queryLogin->fetch_assoc();
 					<div class="col-lg-2 col-md-4 col-sm-6 col-12 mb-4">
 						<a href="#">
 							<div class="card zoom-img" style="border-radius: 20px;">
-								<img src="images/beardollyellow.jpg" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
+								<img src="images/jellycat.png" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
 							</div>
 						</a>
 						<div class="text-center">
 							<h5 class="p-b-15">
 								<a href="#" class="ltext-111 cl2 hov-cl1 trans-04">
-									Teddy bear
+									Flower
 								</a>
 							</h5>
-							<p> $16.64</p>
+							<p>$12.99</p>
 						</div>
 					</div>
 					<!-- Repeat the above block for other recommended products -->
 					<div class="col-lg-2 col-md-4 col-sm-6 col-12 mb-4">
 						<a href="#">
 							<div class="card zoom-img" style="border-radius: 20px;">
-								<img src="images/babydoll.jpg" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
+								<img src="images/Jelly Cat Flower.png" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
 							</div>
 						</a>
 						<div class="text-center">
 							<h5 class="p-b-15">
 								<a href="#" class="ltext-111 cl2 hov-cl1 trans-04">
-									Baby doll
+									Flower
 								</a>
 							</h5>
-							<p>$35.31</p>
+							<p>$10.99</p>
 						</div>
 					</div>
 					<!-- Repeat the above block for other recommended products -->
 					<div class="col-lg-2 col-md-4 col-sm-6 col-12 mb-4">
 						<a href="#">
 							<div class="card zoom-img" style="border-radius: 20px;">
-								<img src="images/pig.png" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
+								<img src="images/beartowel.png" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
 							</div>
 						</a>
 						<div class="text-center">
 							<h5 class="p-b-15">
 								<a href="#" class="ltext-111 cl2 hov-cl1 trans-04">
-									Pig pillow
+									Bear Baby Towel
 								</a>
 							</h5>
-							<p>$52.66</p>
+							<p>$12.99</p>
 						</div>
 					</div>
 					<!-- Repeat the above block for other recommended products -->
 					<div class="col-lg-2 col-md-4 col-sm-6 col-12 mb-4">
 						<a href="#">
 							<div class="card zoom-img" style="border-radius: 20px;">
-								<img src="images/robot.jpg" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
+								<img src="images/Elephant.png" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
 							</div>
 						</a>
 						<div class="text-center">
 							<h5 class="p-b-15">
 								<a href="#" class="ltext-111 cl2 hov-cl1 trans-04">
-									Robot
+									Elephant Jelly Cat
 								</a>
 							</h5>
-							<p>$18.96</p>
+							<p>$10.99</p>
 						</div>
 					</div>
 					<!-- Repeat the above block for other recommended products -->
 					<div class="col-lg-2 col-md-4 col-sm-6 col-12 mb-4">
 						<a href="#">
 							<div class="card zoom-img" style="border-radius: 20px;">
-								<img src="images/dog.jpg" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
+								<img src="images/giraffe.png" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
 							</div>
 						</a>
 						<div class="text-center">
 							<h5 class="p-b-15">
 								<a href="#" class="ltext-111 cl2 hov-cl1 trans-04">
-									Dog pillow
+									Giraffe Jelly Cat
 								</a>
 							</h5>
-							<p>$63.16</p>
+							<p>$12.99</p>
 						</div>
 					</div>
 					<!-- Repeat the above block for other recommended products -->
 					<div class="col-lg-2 col-md-4 col-sm-6 col-12 mb-4">
 						<a href="#">
 							<div class="card zoom-img" style="border-radius: 20px;">
-								<img src="images/deer.png" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
+								<img src="images/unicorn.png" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
 							</div>
 						</a>
 						<div class="text-center">
 							<h5 class="p-b-15">
 								<a href="#" class="ltext-111 cl2 hov-cl1 trans-04">
-									Deer toy
+									Unicorn
 								</a>
 							</h5>
-							<p>$34.75</p>
+							<p>$10.99</p>
 						</div>
 					</div>
 				</div>
@@ -1221,15 +1373,15 @@ $row = $queryLogin->fetch_assoc();
 
 					<div class="p-t-27">
 						<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-							<i class="fa fa-facebook"></i>
+							<i class="fa-brands fa-facebook fa-lg" style="color: #ea539c;"></i>
 						</a>
 
 						<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-							<i class="fa fa-instagram"></i>
+							<i class="fa-brands fa-instagram fa-lg" style="color: #e151a5;"></i>
 						</a>
 
 						<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-							<i class="fa fa-pinterest-p"></i>
+							<i class="fa-brands fa-pinterest fa-lg" style="color: #e74b7a;"></i>
 						</a>
 					</div>
 				</div>
@@ -1282,9 +1434,7 @@ $row = $queryLogin->fetch_assoc();
 					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 					Copyright &copy;
 					<script>document.write(new Date().getFullYear());</script> All rights reserved | Made with <i
-						class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com"
-						target="_blank">Colorlib</a> &amp; distributed by <a href="https://themewagon.com"
-						target="_blank">ThemeWagon</a>
+						class="fa fa-heart-o" aria-hidden="true"></i> Group 5
 					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 
 				</p>

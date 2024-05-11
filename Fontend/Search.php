@@ -452,104 +452,103 @@
             </div>
             <br>
             <div class="row">
-                <!-- Recommended products -->
-                <div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-4">
-                    <a href="#">
-                        <div class="card zoom-img" style="border-radius: 20px;">
-                            <img src="images/beardollyellow.jpg" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
-                        </div>
-                    </a>
-                    <div class="text-center">
-                        <h5 class="p-b-15">
-                            <a href="#" class="ltext-111 cl2 hov-cl1 trans-04">
-                                Teddy bear
-                            </a>
-                        </h5>
-                        <p> $16.64</p>
-                    </div>
-                </div>
-                <!-- Repeat the above block for other recommended products -->
 				<!-- Recommended products -->
-				<div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-4">
+				<div class="col-lg-2 col-md-4 col-sm-6 col-12 mb-4">
 					<a href="#">
 						<div class="card zoom-img" style="border-radius: 20px;">
-							<img src="images/babydoll.jpg" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
+							<img src="images/jellycat.png" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
 						</div>
 					</a>
 					<div class="text-center">
 						<h5 class="p-b-15">
 							<a href="#" class="ltext-111 cl2 hov-cl1 trans-04">
-								Baby doll
+								Flower
 							</a>
 						</h5>
-						<p>$35.31</p>
+						<p>$12.99</p>
 					</div>
 				</div>
-				<!-- Recommended products -->
-				<div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-4">
+				<!-- Repeat the above block for other recommended products -->
+				<div class="col-lg-2 col-md-4 col-sm-6 col-12 mb-4">
 					<a href="#">
 						<div class="card zoom-img" style="border-radius: 20px;">
-							<img src="images/pig.png" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
+							<img src="images/Jelly Cat Flower.png" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
 						</div>
 					</a>
 					<div class="text-center">
 						<h5 class="p-b-15">
 							<a href="#" class="ltext-111 cl2 hov-cl1 trans-04">
-								Pig pillow
+								Flower
 							</a>
 						</h5>
-						<p>$52.66</p>
+						<p>$10.99</p>
 					</div>
 				</div>
-				<!-- Recommended products -->
-				<div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-4">
+				<!-- Repeat the above block for other recommended products -->
+				<div class="col-lg-2 col-md-4 col-sm-6 col-12 mb-4">
 					<a href="#">
 						<div class="card zoom-img" style="border-radius: 20px;">
-							<img src="images/robot.jpg" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
+							<img src="images/beartowel.png" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
 						</div>
 					</a>
 					<div class="text-center">
 						<h5 class="p-b-15">
 							<a href="#" class="ltext-111 cl2 hov-cl1 trans-04">
-								Robot
+								Bear Baby Towel
 							</a>
 						</h5>
-						<p>$18.96</p>
+						<p>$12.99</p>
 					</div>
 				</div>
-				<!-- Recommended products -->
-				<div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-4">
+				<!-- Repeat the above block for other recommended products -->
+				<div class="col-lg-2 col-md-4 col-sm-6 col-12 mb-4">
 					<a href="#">
 						<div class="card zoom-img" style="border-radius: 20px;">
-							<img src="images/dog.jpg" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
+							<img src="images/Elephant.png" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
 						</div>
 					</a>
 					<div class="text-center">
 						<h5 class="p-b-15">
 							<a href="#" class="ltext-111 cl2 hov-cl1 trans-04">
-								Dog pillow
+								Elephant Jelly Cat
 							</a>
 						</h5>
-						<p>$63.16</p>
+						<p>$10.99</p>
 					</div>
 				</div>
-				<!-- Recommended products -->
-				<div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-4">
+				<!-- Repeat the above block for other recommended products -->
+				<div class="col-lg-2 col-md-4 col-sm-6 col-12 mb-4">
 					<a href="#">
 						<div class="card zoom-img" style="border-radius: 20px;">
-							<img src="images/deer.png" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
+							<img src="images/giraffe.png" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
 						</div>
 					</a>
 					<div class="text-center">
 						<h5 class="p-b-15">
 							<a href="#" class="ltext-111 cl2 hov-cl1 trans-04">
-								Deer toy
+								Giraffe Jelly Cat
 							</a>
 						</h5>
-						<p>$34.75</p>
+						<p>$12.99</p>
 					</div>
 				</div>
-            </div>
+				<!-- Repeat the above block for other recommended products -->
+				<div class="col-lg-2 col-md-4 col-sm-6 col-12 mb-4">
+					<a href="#">
+						<div class="card zoom-img" style="border-radius: 20px;">
+							<img src="images/unicorn.png" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
+						</div>
+					</a>
+					<div class="text-center">
+						<h5 class="p-b-15">
+							<a href="#" class="ltext-111 cl2 hov-cl1 trans-04">
+								Unicorn
+							</a>
+						</h5>
+						<p>$10.99</p>
+					</div>
+				</div>
+			</div>
         </div>
     </div>
 </section>

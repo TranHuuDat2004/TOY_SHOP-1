@@ -2643,7 +2643,7 @@ input.num-product::-webkit-inner-spin-button {
 ==================================================================*/
 .bg-none {background-color: transparent;}
 .bg0 {background-color: #fff;}
-.bg1 {background-color: #717fe0;}
+.bg1 {background-color: #F4538A;}
 .bg2 {background-color: #e6e6e6;}
 .bg3 {background-color: #F9F5F6;}
 .bg5 {background-color: rgba(0,0,0,0.5);}
@@ -3092,8 +3092,8 @@ input.num-product::-webkit-inner-spin-button {
 /*---------------------------------------------*/
 .hov-btn2:hover {
   border-color: #fff;
-  background-color: #fff;
-  color: #717fe0;
+  background-color: #f10d5b;
+  color: #fff;
 }
 
 /*---------------------------------------------*/
@@ -4690,6 +4690,43 @@ form{
     background-position-x: 30px;
   }
   
+}
+
+.btn-remove-product {
+  cursor: pointer; /* Đổi con trỏ chuột thành kiểu pointer khi di chuột qua */
+}
+
+.btn-remove-product i {
+  color: #F4538A; /* Đổi màu của biểu tượng thành màu đỏ */
+}
+/* Định dạng hình ảnh sản phẩm */
+.header-cart-item-img {
+  flex: 0 0 auto; /* Không co giãn hình ảnh */
+  width: 100px; /* Kích thước chiều rộng cố định */
+  height: auto; /* Chiều cao tự động */
+  margin-right: 20px; /* Khoảng cách giữa hình ảnh và văn bản */
+}
+
+#button-add {
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #F4538A;
+  color: white;
+  margin-right: 10px; /* Add margin to create space between buttons */
+}
+
+#button-add:hover {
+  background-color:  black;
+}
+#button-cart {
+  border-radius: 10px;
+  padding: 10px;
+  background-color:black;
+  color: white;
+}
+
+#button-cart:hover {
+  background-color: #F4538A;
 }
 
 
