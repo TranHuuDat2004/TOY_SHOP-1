@@ -1,5 +1,5 @@
 <!--php--> 
-<!-- hihi -->
+
 <?php
     require_once '../connection/connectData.php';
 
