@@ -283,7 +283,7 @@ function sumTotalPrice($order_array, $u_id)
 							<i class="zmdi zmdi-shopping-cart"></i>
 						</div>
 
-						<a href="#" class="dis-block icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
+						<a href="wishlist.php" class="dis-block icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
 							<i class="zmdi zmdi-favorite-outline"></i>
 						</a>
 					</div>
@@ -421,6 +421,9 @@ function sumTotalPrice($order_array, $u_id)
 
 			<div class="header-cart-content flex-w js-pscroll">
 				<ul class="header-cart-wrapitem w-full">
+					<span>Congratulations! You&#39;ve got <strong>Free Shipping!</strong></span>
+					<div class="progress1"></div>
+					<br>
 					<?php
 					// Duyệt qua mỗi sản phẩm trong giỏ hàng và hiển thị thông tin
 					foreach ($order_array as $item) {
