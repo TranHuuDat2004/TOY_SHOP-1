@@ -55,7 +55,7 @@
         deleteCartItem($u_id, $p_id);
 
     // Khôi phục dữ liệu POST từ session
-    header("Location: shopping-cart.php");
+    header("Location: product2.php");
 
         exit(); // Dừng script ngay sau khi chuyển hướng
     }

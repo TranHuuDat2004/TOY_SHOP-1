@@ -55,8 +55,6 @@ if(isset($_POST['p_name'])) {
         echo "Không tìm thấy sản phẩm phù hợp";
 
 
-    
-
     }
     // Đóng kết nối cơ sở dữ liệu
     $conn->close();
