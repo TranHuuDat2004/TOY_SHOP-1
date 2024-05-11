@@ -14,11 +14,11 @@ if ($conn->connect_error) {
 }
 
 // Kiểm tra xem có tham số ID được truyền vào từ URL không
-if(isset($_GET['id']) && !empty($_GET['id'])) {
-    $comment_id = $_GET['id'];
+if(isset($_GET[' IDcomment']) && !empty($_GET[' IDcomment'])) {
+    $comment_id = $_GET[' IDcomment'];
     
     // Truy vấn để lấy thông tin của comment dựa trên ID
-    $sql = "SELECT * FROM comments WHERE id = $comment_id";
+    $sql = "SELECT * FROM comments WHERE  IDcomment = $comment_id";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
@@ -551,7 +551,7 @@ if(isset($_POST['submit'])) {
           <form action="" method="post" style="max-width: 600px;">
                 <div style="margin-bottom: 1rem;">
                     <label for="comment" style="font-weight: bold;">Comment:</label><br>
-                    <textarea id="comment" name="comment" rows="6" style="width: 100%; padding: 0.5rem; border: 1px solid #ccc;"><?php echo $row['comment']; ?></textarea>
+                    <textarea id="comment" name="comment" rows="6" style="width: 100%; padding: 0.5rem; border: 1px solid #ccc;"><?php echo $row['commentText']; ?></textarea>
                 </div>
                 <div>
                     <input type="submit" name="submit" value="Submit" style="padding: 0.5rem 1rem; background-color: BlueViolet; color: white; border: none; border-radius: 4px; cursor: pointer;">

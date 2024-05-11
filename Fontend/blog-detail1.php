@@ -1,3 +1,56 @@
+<?php
+require_once 'connect.php';
+
+$error = '';
+
+// Add Comment
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addComment'])) {
+    $name = $_POST['commentName'];
+    $date = $_POST['dateComment'];
+    $cmt = $_POST['commentText'];
+    $email = $_POST['email'];
+
+    // Validate input fields if needed
+
+    // Check if the combination of name, date, comment text, and email is unique
+    $sql_check_unique = "SELECT * FROM comments WHERE commentName='$name' AND dateComment='$date' AND commentText='$cmt' AND email='$email'";
+    $result_check_unique = mysqli_query($conn, $sql_check_unique);
+    if (mysqli_num_rows($result_check_unique) > 0) {
+        $error = "Email hoặc ngày đã tồn tại.";
+    } else {
+        // Insert new comment into the database
+        $sql = "INSERT INTO comments (commentName, dateComment, commentText, email) 
+                VALUES ('$name', '$date', '$cmt', '$email')";
+        if (mysqli_query($conn, $sql)) {
+            header('location: blog-detail1.php');
+            exit; // Make sure to exit after redirecting
+        } else {
+            $error = 'Có lỗi, vui lòng thử lại';
+        }
+    }
+}
+
+// Add Reply
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addReply'])) {
+    $commentID = $_POST['commentID'];
+    $replyText = $_POST['replyText'];
+
+    // Validate input fields if needed
+
+    // Update the comments table with the reply
+    $sql_update_reply = "UPDATE comments SET replyText='$replyText' WHERE IDcomment='$commentID'";
+    if (mysqli_query($conn, $sql_update_reply)) {
+        header('location: blog-detail1.php');
+        exit; // Make sure to exit after redirecting
+    } else {
+        $error = 'Có lỗi, vui lòng thử lại';
+    }
+}
+
+// Retrieve comments from the database
+$sql_select_comments = "SELECT * FROM comments";
+$result = mysqli_query($conn, $sql_select_comments);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -549,86 +602,140 @@
 								</a>
 							</div>
 						</div>
+						<br><br><br><br>
+<!-- comment -->
+<?php
+require_once 'connect.php';
 
-						<!--  -->
-						<div class="p-t-40">
-							<h5 class="mtext-113 cl2 p-b-12">
-								Leave a Comment
-							</h5>
+$error = '';
 
-							<p class="stext-107 cl6 p-b-40">
-								Your email address will not be published. Required fields are marked *
-							</p>
+// Add Comment
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addComment'])) {
+    $name = $_POST['commentName'];
+    $date = $_POST['dateComment'];
+    $cmt = $_POST['commentText'];
+    $email = $_POST['email'];
 
-							<form action="process_comment.php" method="post">
-								<div class="bor19 m-b-20">
-									<textarea class="stext-111 cl2 plh3 size-124 p-lr-18 p-tb-15 fixborder" name="cmt" placeholder="Comment..."></textarea>
-								</div>
-							
-								<div class="bor19 size-218 m-b-20">
-									<input class="stext-111 cl2 plh3 size-116 p-lr-18" type="text" name="name" placeholder="Name *" required>
-								</div>
-							
-								<div class="bor19 size-218 m-b-20">
-									<input class="stext-111 cl2 plh3 size-116 p-lr-18" type="email" name="email" placeholder="Email *" required>
-								</div>
-							
-								<div class="bor19 size-218 m-b-30">
-									<input class="stext-111 cl2 plh3 size-116 p-lr-18" type="text" name="web" placeholder="Website">
-								</div>
-							
-								<button id="button-add" type="submit" class="flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04">
-									Post Comment
-								</button>
-							</form>	
-                            <br></br>
-                            <h5 class="mtext-113 cl2 p-b-12">
-								Comment
-							</h5>
+    // Validate input fields if needed
 
-								    <!-- Hiển thị các comment đã được thêm -->
-                                    <?php
-                                    // Kết nối đến cơ sở dữ liệu
-                                    $servername = "localhost";
-                                    $username = "root";
-                                    $password = "";
-                                    $dbname = "toy-shop";
+    // Check if the combination of name, date, comment text, and email is unique
+    $sql_check_unique = "SELECT * FROM comments WHERE commentName='$name' AND dateComment='$date' AND commentText='$cmt' AND email='$email'";
+    $result_check_unique = mysqli_query($conn, $sql_check_unique);
+    if (mysqli_num_rows($result_check_unique) > 0) {
+        $error = "Email hoặc ngày đã tồn tại.";
+    } else {
+        // Insert new comment into the database
+        $sql = "INSERT INTO comments (commentName, dateComment, commentText, email) 
+                VALUES ('$name', '$date', '$cmt', '$email')";
+        if (mysqli_query($conn, $sql)) {
+            header('location: blog-detail1]].php');
+            exit; // Make sure to exit after redirecting
+        } else {
+            $error = 'Có lỗi, vui lòng thử lại';
+        }
+    }
+}
 
-                                    // Tạo kết nối đến cơ sở dữ liệu
-                                    $conn = new mysqli($servername, $username, $password, $dbname);
+// Add Reply
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addReply'])) {
+    $commentID = $_POST['commentID'];
+    $replyText = $_POST['replyText'];
 
-                                    // Kiểm tra kết nối
-                                    if ($conn->connect_error) {
-                                        die("Connection failed: " . $conn->connect_error);
-                                    }
+    // Validate input fields if needed
 
-                                    $sql = "SELECT * FROM comments";
-                                    $result = $conn->query($sql);
+    // Update the comments table with the reply
+    $sql_update_reply = "UPDATE comments SET replyText='$replyText' WHERE IDcomment='$commentID'";
+    if (mysqli_query($conn, $sql_update_reply)) {
+        header('location: blog-detail1.php');
+        exit; // Make sure to exit after redirecting
+    } else {
+        $error = 'Có lỗi, vui lòng thử lại';
+    }
+}
 
-                                    // Kiểm tra số lượng comment trả về từ truy vấn
-                                    if ($result->num_rows > 0) {
-                                        // Hiển thị từng comment
-                                        while($row = $result->fetch_assoc()) {
-                                            echo '<div class="single_comment_area">';
-                                            echo '<div class="comment-content">';
-                                            echo '<h5>' . $row["name"] . '</h5>';
-                                            echo '<span class="comment-date">' . $row["created_at"] . '</span>';
-                                            echo '<h5>' . $row["comment"] . '</h5>';
-                                            echo '</div>';
-                                            echo '</div>';
-                                        }
-                                    } else {
-                                        echo "No comments available";
-                                    }
+// Retrieve comments from the database
+$sql_select_comments = "SELECT * FROM comments";
+$result = mysqli_query($conn, $sql_select_comments);
+?>
 
-                                    // Đóng kết nối đến cơ sở dữ liệu
-                                    $conn->close();
-                                    ?>
-						</div>
+<!-- HTML content starts after PHP code -->
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Comment</h3>
+    </div>
+    <br><br>
+    <div class="panel-body">
+        <form action="" method="POST" role="form">
+            <!-- Add hidden input field for id -->
+            <input type="hidden" name="id" value="">
+
+            <div class="form-group">
+                <label for="">You Name</label>
+                <input type="text" class="form-control" name="commentName" placeholder="Name*...">
+            </div>
+
+            <div class="form-group">
+                <label for="">Comment</label>
+                <input type="text" class="form-control" name="commentText" placeholder="Comment*...">
+            </div>
+            <div class="form-group">
+                <label for="">Email</label>
+                <input type="email" class="form-control" name="email" placeholder="Email*...">
+            </div>
+            <div class="form-group">
+                <label for="">Date time</label>
+                <input type="date" class="form-control" name="dateComment">
+            </div>
+            <button type="submit" class="btn btn-primary" name="addComment">Post Comment</button>
+        </form>
+        <?php
+        // Handle errors if any
+        if ($error) {
+            echo "<p>Error: $error</p>";
+        }
+        ?>
+    </div>
+</div>
+<br><br><br><br>
+
+<?php
+// Show title
+echo "<h2>Comments</h2><br>";
+
+// Display comments
+if ($result && $result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        echo '<div class="single_comment_area">';
+        echo '<div class="comment-content">';
+		echo '<h6>Date Time: ' . $row["dateComment"] . '</h6><br>';
+        echo '<h6>Name: ' . $row["commentName"] . '</h6><br>';
+        echo '<h4>' . $row["commentText"] . '</h4><br>';
+        // Add reply form if there's no reply yet
+        if (empty($row["replyText"])) {
+            echo '<form action="" method="POST" role="form">';
+            echo '<input type="hidden" name="commentID" value="' . $row["IDcomment"] . '">';
+            echo '<div class="form-group">';
+            echo '<label for="">Reply</label>';
+            echo '<input type="text" class="form-control" name="replyText" placeholder="reply*...">';
+            echo '</div>';
+            echo '<button type="submit" class="btn btn-primary" name="addReply">Post Reply</button>';
+            echo '</form>';
+        } else { // Display existing reply
+            echo '<br><h6>Reply: <br>' . $row["replyText"] . '</h6><br>';
+        }
+        echo '</div>';
+        echo '</div>';
+    }
+} else {
+    echo "No comments available";
+}
+// Đóng kết nối đến cơ sở dữ liệu
+$conn->close();
+?>
 					</div>
 				</div>
-
-				<div class="col-md-4 col-lg-3 p-b-80">
+				
+<div class="col-md-4 col-lg-3 p-b-80">
 					<div class="side-menu">
 						<div class="bor17 of-hidden pos-relative">
 							<input class="stext-103 cl2 plh4 size-116 p-l-28 p-r-55" type="text" name="search" placeholder="Search">
@@ -678,12 +785,12 @@
 
 							<ul>
 								<li class="flex-w flex-t p-b-30">
-									<a href="blog-detail1.php" class="wrap-pic-w hov-ovelay1 m-r-20">
-										<img src="images/blog-04.jpg" href="blog-detail1.php" alt="PRODUCT" class="product-img">
+									<a href="blog-detail1.html" class="wrap-pic-w hov-ovelay1 m-r-20">
+										<img src="images/blog-04.jpg" href="blog-detail1.html" alt="PRODUCT" class="product-img">
 									</a>
 								
 									<div class="size-215 flex-col-t p-t-8">
-										<a href="blog-detail1.php" class="stext-116 cl8 hov-cl1 trans-04">
+										<a href="blog-detail1.html" class="stext-116 cl8 hov-cl1 trans-04">
 											Making Your Kids' Special Day Memorable
 										</a>
 										<span class="stext-116 cl6 p-t-20">
