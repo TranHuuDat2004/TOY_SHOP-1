@@ -1,6 +1,32 @@
 <?php
+include 'login.php';
+
 include('../Admin/connection/connectionpro.php');
 require_once '../Admin/connection/connectData.php';
+
+
+if (!isset($_SESSION["user"])) {
+	// Redirect user to the login page if not logged in
+	header("Location: login.html");
+	exit(); // Stop further execution of the script
+}
+
+$userName = $_SESSION["user"];
+// print_r($userName);
+$sqlLogin = "SELECT * FROM `login` WHERE userName = '$userName' ";
+$queryLogin = mysqli_query($conn, $sqlLogin);
+// print_r($queryLogin);
+// Kiểm tra kết quả truy vấn
+
+// Duyệt qua từng hàng dữ liệu từ kết quả truy vấn
+$row = $queryLogin->fetch_assoc();
+// Thêm thông tin từng hàng vào mảng $vuserLogin
+$userLogin = array(
+	"userID" => $row["userID"],
+	"userName" => $row["userName"],
+	"email" => $row["email"],
+);
+
 $sql = "SELECT * FROM product";
 $query = mysqli_query($conn, $sql);
 
@@ -32,20 +58,22 @@ $order_array = array();
 if ($resultOrder->num_rows > 0) {
 	// Duyệt qua từng hàng dữ liệu từ kết quả truy vấn
 	while ($row = $resultOrder->fetch_assoc()) {
-		// Thêm thông tin từng hàng vào mảng $order_array
-		$order_array[] = array(
-			"o_id" => $row["o_id"],
-			"u_id" => $row["u_id"],
-			"p_id" => $row["p_id"],
-			"o_price" => $row["o_price"],
-			"o_quantity" => $row["o_quantity"],
-			"o_status" => $row["o_status"],
-			"p_type" => $row["p_type"],
-			"p_image" => $row["p_image"],
-			"p_name" => $row["p_name"],
-			"p_price" => $row["p_price"]
-		);
-	}
+		if ($row['u_id'] == $userLogin['userID']) {
+			// Thêm thông tin từng hàng vào mảng $order_array
+			$order_array[] = array(
+				"o_id" => $row["o_id"],
+				"u_id" => $row["u_id"],
+				"p_id" => $row["p_id"],
+				"o_price" => $row["o_price"],
+				"o_quantity" => $row["o_quantity"],
+				"o_status" => $row["o_status"],
+				"p_type" => $row["p_type"],
+				"p_image" => $row["p_image"],
+				"p_name" => $row["p_name"],
+				"p_price" => $row["p_price"]
+			);
+		}
+	};
 } else {
 	// echo "0 results";
 }
@@ -71,7 +99,7 @@ function sumTotalPrice($order_array, $u_id)
 }
 
 // Truy vấn để đếm số dòng trong bảng order
-$sql = "SELECT COUNT(*) AS total_rows FROM `order`";
+$sql = "SELECT COUNT(*) AS total_rows FROM `order` WHERE u_id = '{$userLogin['userID']}'";
 $result = $conn->query($sql);
 
 // Kiểm tra và hiển thị kết quả
@@ -82,7 +110,31 @@ if ($result->num_rows > 0) {
 	// echo "Không có dữ liệu trong bảng order";
 }
 
+// Truy vấn thông tin chiết khấu dựa trên tên discount (d_name)
+$sqlDiscount = "SELECT * FROM discount";
+$query = mysqli_query($conn, $sqlDiscount);
 
+// Mảng chứa thông tin chiết khấu
+$discount = array();
+
+// Kiểm tra kết quả truy vấn
+if ($query->num_rows > 0) {
+	// Lặp qua từng hàng dữ liệu từ kết quả truy vấn
+	while ($row = $query->fetch_assoc()) {
+		// Thêm thông tin từng hàng vào mảng $discount
+		$discount = array(
+			"d_id" => $row["d_id"],
+			"d_name" => $row["d_name"],
+			"d_amount" => $row["d_amount"],
+			"d_description" => $row["d_description"],
+			"d_start_date" => $row["d_start_date"],
+			"d_end_date" => $row["d_end_date"]
+		);
+	}
+} else {
+	// Nếu không tìm thấy kết quả
+	// echo "0 results";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -165,16 +217,16 @@ if ($result->num_rows > 0) {
 		}
 
 		/* Định dạng hình ảnh sản phẩm */
-		.header-cart-item-img {
+		/* .header-cart-item-img {
 			flex: 0 0 auto;
-			/* Không co giãn hình ảnh */
+			
 			width: 100px;
-			/* Kích thước chiều rộng cố định */
+			
 			height: auto;
-			/* Chiều cao tự động */
+			
 			margin-right: 20px;
-			/* Khoảng cách giữa hình ảnh và văn bản */
-		}
+			
+		} */
 
 		#button-cart {
 			border-radius: 10px;
@@ -202,6 +254,26 @@ if ($result->num_rows > 0) {
 		#update-cart:hover {
 			background-color: black;
 			color: white;
+		}
+
+		/* Định dạng nút check out và view cart */
+		#btn-cart {
+			background-color: #F4538A;
+			color: #FFEFEF;
+		}
+
+		#btn-cart:hover {
+			background-color: black;
+			color: #FFEFEF;
+		}
+
+		/* Định dạng nút delete */
+		.btn-delete {
+			color: black;
+		}
+
+		.btn-delete:hover {
+			color: #F4538A;
 		}
 	</style>
 </head>
@@ -239,12 +311,12 @@ if ($result->num_rows > 0) {
 							</a>
 							<div class="data1">
 								<i style="color: #49243E;" class=""></i>
-								<a href="register.html" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b>Login
+								<a href="register.html" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b><?php echo $userLogin["userID"]; ?>
 										/</b></a>
 							</div>
 							<div class="data2">
 								<i style="color: #49243E;" class=""></i>
-								<a href="register.html" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b>Register</b></a>
+								<a href="register.html" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b><?php echo $userLogin["userName"]; ?></b></a>
 							</div>
 						</div>
 					</div>
@@ -268,7 +340,7 @@ if ($result->num_rows > 0) {
 							</li>
 
 							<li class="label1" data-label1="hot">
-								<a href="product.html">Shop</a>
+								<a href="product2.php">Shop</a>
 								<ul class="sub-menu">
 									<li><a href="index.html">Homepage 1</a></li>
 									<li><a href="home-02.html">Homepage 2</a></li>
@@ -277,11 +349,11 @@ if ($result->num_rows > 0) {
 							</li>
 
 							<li>
-								<a href="blog.html">Blog</a>
+								<a href="blog.php">Blog</a>
 							</li>
 
 							<li>
-								<a href="contact.html">Contact</a>
+								<a href="contact.php">Contact</a>
 							</li>
 
 							<li>
@@ -387,7 +459,7 @@ if ($result->num_rows > 0) {
 				</li>
 
 				<li>
-					<a href="product.html">Shop</a>
+					<a href="product2.php">Shop</a>
 				</li>
 
 				<li>
@@ -395,7 +467,7 @@ if ($result->num_rows > 0) {
 				</li>
 
 				<li>
-					<a href="blog.html">Blog</a>
+					<a href="blog.php">Blog</a>
 				</li>
 
 				<li>
@@ -403,7 +475,7 @@ if ($result->num_rows > 0) {
 				</li>
 
 				<li>
-					<a href="contact.html">Contact</a>
+					<a href="contact.php">Contact</a>
 				</li>
 			</ul>
 		</div>
@@ -445,8 +517,8 @@ if ($result->num_rows > 0) {
 					<?php
 					// Duyệt qua mỗi sản phẩm trong giỏ hàng và hiển thị thông tin
 					foreach ($order_array as $item) {
-						// mới có u_id 123, 555
-						if ($item["u_id"] == 123 && $item["o_quantity"] > 0) {
+						// mới có u_id $userLogin["userID"], 555
+						if ($item["u_id"] == $userLogin["userID"] && $item["o_quantity"] > 0) {
 					?>
 							<li class="header-cart-item m-b-20">
 								<div class="row">
@@ -484,16 +556,16 @@ if ($result->num_rows > 0) {
 
 				<div class="w-full">
 					<div class="header-cart-total w-full p-tb-40">
-						<?php $totalPrice = sumTotalPrice($order_array, 123); ?> <!-- thay doi user -->
+						<?php $totalPrice = sumTotalPrice($order_array, $userLogin["userID"]); ?> <!-- thay doi user -->
 						<p>Total: $<?php echo $totalPrice; ?></p>
 					</div>
 
 					<div class="header-cart-buttons flex-w w-full">
-						<a href="shoping-cart.php" id="btn-cart" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
+						<a href="shopping-cart.php" id="btn-cart" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
 							View Cart
 						</a>
 
-						<a href="shoping-cart.php" id="btn-cart" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
+						<a href="shopping-cart.php" id="btn-cart" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
 							Check Out
 						</a>
 					</div>
@@ -535,6 +607,7 @@ if ($result->num_rows > 0) {
 								</tr>
 
 								<?php foreach ($order_array as $item) : ?>
+									<?php if ($item['u_id'] == $userLogin['userID']) ?>
 									<tr class="table_row">
 										<td class="column-1">
 											<div class="how-itemcart1">
@@ -573,10 +646,13 @@ if ($result->num_rows > 0) {
 								</div>
 
 								<div class="col-md-4">
-									<div id="update-cart" class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
-										Apply coupon
+									<div  id="update-cart" class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
+										<a style="color: white;" href="shopping-cart-coupon.php">Apply coupon</a>
 									</div>
+									
+
 								</div>
+
 
 								<div class="col-md-4">
 									<div class="">
@@ -616,7 +692,7 @@ if ($result->num_rows > 0) {
 
 							<div class="size-209">
 								<span class="mtext-110 cl2">
-									$ <?php echo sumTotalPrice($order_array, 123); ?>
+									$ <?php echo sumTotalPrice($order_array, $userLogin["userID"]); ?>
 								</span>
 							</div>
 						</div>
@@ -674,7 +750,7 @@ if ($result->num_rows > 0) {
 
 							<div class="size-209 p-t-1">
 								<span class="mtext-110 cl2">
-									$ <?php echo sumTotalPrice($order_array, 123); ?>
+									$ <?php echo sumTotalPrice($order_array, $userLogin["userID"]); ?>
 								</span>
 							</div>
 						</div>

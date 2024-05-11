@@ -50,7 +50,7 @@
                             <div class="button input-box">
                                 <input type="submit" value="Sign Up" class="sign-btn">
                             </div>
-                            <div class="text sign-up-text">Already have an account? <a href="login.php">Login
+                            <div class="text sign-up-text">Already have an account? <a href="login.html">Login
                                     now</a></div>
                         </div>
                     </div>
