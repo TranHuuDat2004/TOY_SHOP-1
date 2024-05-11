@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="./assets/css/tailwind.output.css" />
   <link rel="stylesheet" href="./Fontend/css/main.css" />
   <!-- link icon -->
-  <link rel="icon" type="image/png" href="/Fontend/images/icon.png" />
+  <link rel="icon" type="image/png" href="../../Fontend/images/icon.png" />
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
   <script src="./assets/js/init-alpine.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
@@ -27,16 +27,16 @@
     <aside class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0">
       <div class="py-4 text-gray-500 dark:text-gray-400">
         <!-- Logo desktop -->
-        <a href="index.html" class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
+        <a href="index.php" class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
           <h1 class="m-0 text-primary1 "><span class="text-dark1"><img class="Imagealignment"
-                src="/Fontend/images/icon.png">Omacha</h1>
+                src="../../Fontend/images/icon.png">Omacha</h1>
         </a>
 
         <ul class="mt-6">
           <li class="relative px-6 py-3">
             <span aria-hidden="true"></span>
             <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
-              href="index.html">
+              href="index.php">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                 <path
@@ -73,7 +73,7 @@
           </li>
           <li class="relative px-6 py-3">
             <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-              href="manageProduct.html">
+              href="manageProduct.php">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                 <path
@@ -87,7 +87,7 @@
             <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
               aria-hidden="true"></span>
             <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
-              href="comment.html">
+              href="comment.php">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                 <path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
@@ -98,14 +98,14 @@
           </li>
           <li class="relative px-6 py-3">
             <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-              href="buttons.html">
+              href="ManageOrder.php">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                 <path
                   d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122">
                 </path>
               </svg>
-              <span class="ml-4">Buttons</span>
+              <span class="ml-4">Manage Order</span>
             </a>
           </li>
           <li class="relative px-6 py-3">
@@ -541,28 +541,22 @@ if ($result->num_rows > 0) {
     // Duyệt qua mỗi hàng kết quả và hiển thị comment
     while($row = $result->fetch_assoc()) {
         echo '<tr class="text-gray-700 dark:text-gray-400">';
-        echo '<td class="px-4 py-3">' . $row["id"] . '</td>';
-        echo '<td class="px-4 py-3">' . $row["name"] . '</td>';
+        echo '<td class="px-4 py-3">' . $row["IDcomment"] . '</td>';
+        echo '<td class="px-4 py-3">' . $row["commentName"] . '</td>';
         echo '<td class="px-4 py-3">' . $row["email"] . '</td>';
-        echo '<td class="px-4 py-3">' . $row["comment"] . '</td>';
-        echo '<td class="px-4 py-3">' . $row["created_at"] . '</td>';
+        echo '<td class="px-4 py-3">' . $row["commentText"] . '</td>';
+        echo '<td class="px-4 py-3">' . $row["dateComment"] . '</td>';
         echo '<td class="px-4 py-3">
                 <div class="flex items-center space-x-4 text-sm">
-                  <a href="edit_comment.php?id=' . $row["id"] . '" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Edit">
-                    <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
-                    </svg>
-                  </a>';
-        // Thêm nút xóa comment với biểu tượng
-        echo '<form action="delete_comment.php" method="post" onsubmit="return confirm(\'Are you sure you want to delete this comment?\');">
-        <input type="hidden" name="comment_id" value="' . $row["id"] . '">
-        <button type="submit" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-red-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Delete">
-          <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-          </svg>
-        </button>
-      </form>';
-        echo '</div>
+                  <form action="delete_comment.php" method="post" onsubmit="return confirm(\'Are you sure you want to delete this comment?\');">
+                    <input type="hidden" name="IDcomment" value="' . $row["IDcomment"] . '">
+                    <button type="submit" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-red-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Delete">
+                      <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                      </svg>
+                    </button>
+                  </form>
+                </div>
               </td>';
         echo '</tr>';
     }
@@ -577,6 +571,7 @@ if ($result->num_rows > 0) {
 // Đóng kết nối đến cơ sở dữ liệu
 $conn->close();
 ?>
+
 
 
 

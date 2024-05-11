@@ -14,11 +14,11 @@ if ($conn->connect_error) {
 }
 
 // Xác định comment_id từ yêu cầu POST
-if (isset($_POST['comment_id'])) {
-    $comment_id = $_POST['comment_id'];
+if (isset($_POST['IDcomment'])) {
+    $comment_id = $_POST['IDcomment'];
 
     // Xóa comment từ cơ sở dữ liệu
-    $sql = "DELETE FROM comments WHERE id = $comment_id";
+    $sql = "DELETE FROM comments WHERE IDcomment = $comment_id";
 
     if ($conn->query($sql) === TRUE) {
         header("Location: comment.php");
