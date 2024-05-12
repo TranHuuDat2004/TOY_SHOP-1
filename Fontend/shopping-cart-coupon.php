@@ -58,7 +58,7 @@ $order_array = array();
 if ($resultOrder->num_rows > 0) {
 	// Duyệt qua từng hàng dữ liệu từ kết quả truy vấn
 	while ($row = $resultOrder->fetch_assoc()) {
-		if ($row['u_id'] == $userLogin['userID']) {
+		if ($row['u_id'] == $userLogin['userID'] && $row['o_status'] == 0) {
 			// Thêm thông tin từng hàng vào mảng $order_array
 			$order_array[] = array(
 				"o_id" => $row["o_id"],
@@ -86,7 +86,7 @@ function sumTotalPrice($order_array, $u_id)
 	// Duyệt qua từng sản phẩm trong giỏ hàng và tính tổng giá tiền
 	foreach ($order_array as $item) {
 		// Kiểm tra xem u_id của sản phẩm có khớp với u_id được chỉ định hay không
-		if ($item["u_id"] == $u_id) {
+		if ($item["u_id"] == $u_id && $item["o_status"] == 0) {
 			// Tính giá tiền của mỗi sản phẩm (giá tiền * số lượng)
 			$productPrice = $item["p_price"] * $item["o_quantity"];
 
@@ -99,7 +99,7 @@ function sumTotalPrice($order_array, $u_id)
 }
 
 // Truy vấn để đếm số dòng trong bảng order
-$sql = "SELECT COUNT(*) AS total_rows FROM `order` WHERE u_id = '{$userLogin['userID']}'";
+$sql = "SELECT COUNT(*) AS total_rows FROM `order` WHERE u_id = '{$userLogin['userID']}' AND o_quantity > 0 AND o_status = 0";
 $result = $conn->query($sql);
 
 // Kiểm tra và hiển thị kết quả
@@ -214,6 +214,7 @@ if ($query->num_rows > 0) {
 		#button-add {
 			border-radius: 30px;
 			padding: 10px;
+			margin-bottom: 20px;
 			background-color: black;
 			color: white;
 			margin-right: 10px;
@@ -549,7 +550,7 @@ if ($query->num_rows > 0) {
 					// Duyệt qua mỗi sản phẩm trong giỏ hàng và hiển thị thông tin
 					foreach ($order_array as $item) {
 						// mới có u_id $userLogin["userID"], 555
-						if ($item["u_id"] == $userLogin["userID"] && $item["o_quantity"] > 0) {
+						if ($item["u_id"] == $userLogin["userID"] && $item["o_quantity"] > 0 && $item["o_status"] == 0) {
 					?>
 							<li class="header-cart-item m-b-20">
 								<div class="row">
@@ -638,7 +639,7 @@ if ($query->num_rows > 0) {
 								</tr>
 
 								<?php foreach ($order_array as $item) : ?>
-									<?php if ($item['u_id'] == $userLogin['userID']) ?>
+									<?php if ($item['u_id'] == $userLogin['userID'] && $item["o_quantity"] > 0 && $item["o_status"] == 0) ?>
 									<tr class="table_row">
 										<td class="column-1">
 											<div class="how-itemcart1">
@@ -793,9 +794,9 @@ if ($query->num_rows > 0) {
 							</div>
 						</div>
 
-						<button id="button-add" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
-							Proceed to Checkout
-						</button>
+						<a href="#" id="button-add" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">Proceed to Checkout</a>
+
+						<a href="exportPDF-discount.php" id="button-add" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">Export to PDF</a>
 					</div>
 				</div>
 			</div>
@@ -1053,6 +1054,7 @@ if ($query->num_rows > 0) {
 	</script>
 	<!--===============================================================================================-->
 	<script src="js/main.js"></script>
+	<script src="js/update-cart.js"></script>
 
 </body>
 
