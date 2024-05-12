@@ -273,7 +273,7 @@ if ($result->num_rows > 0) {
 							</li>
 
 							<li>
-								<a href="about.html">Pages</a>
+								<a href="about.php">Pages</a>
 								<ul class="sub-menu">
 									<li><a href="index.html">About</a></li>
 									<li><a href="home-02.html">Faq</a></li>
@@ -390,7 +390,7 @@ if ($result->num_rows > 0) {
 				</li>
 
 				<li>
-					<a href="about.html">About</a>
+					<a href="about.php">About</a>
 				</li>
 
 				<li>
@@ -484,8 +484,8 @@ if ($result->num_rows > 0) {
 							View Cart
 						</a>
 
-						<a href="shopping-cart.php" id="btn-cart" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
-							Check Out
+						<a href="your-order.php" id="btn-cart" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
+							Your Order
 						</a>
 					</div>
 				</div>

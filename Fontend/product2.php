@@ -81,7 +81,7 @@ function sumTotalPrice($order_array, $u_id)
 	// Duyệt qua từng sản phẩm trong giỏ hàng và tính tổng giá tiền
 	foreach ($order_array as $item) {
 		// Kiểm tra xem u_id của sản phẩm có khớp với u_id được chỉ định hay không
-		if ($item["u_id"] == $u_id) {
+		if ($item["u_id"] == $u_id && $item["o_status"] == 0) {
 			// Tính giá tiền của mỗi sản phẩm (giá tiền * số lượng)
 			$productPrice = $item["p_price"] * $item["o_quantity"];
 
@@ -94,7 +94,7 @@ function sumTotalPrice($order_array, $u_id)
 }
 
     // Truy vấn để đếm số dòng trong bảng order
-    $sql = "SELECT COUNT(*) AS total_rows FROM `order` WHERE u_id = '{$userLogin['userID']}'";
+    $sql = "SELECT COUNT(*) AS total_rows FROM `order` WHERE u_id = '{$userLogin['userID']}' AND o_quantity > 0 AND o_status = 0";
 
     $result = $conn->query($sql);
 
@@ -133,8 +133,7 @@ function sumTotalPrice($order_array, $u_id)
 	<!--===============================================================================================-->
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-	<!-- link icon -->
-	<link rel="icon" type="image/png" href="images/icon.png" />
+	<link rel="icon" type="image/png" href="images/icons/favicon.png" />
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
 	<!--===============================================================================================-->
@@ -252,10 +251,9 @@ function sumTotalPrice($order_array, $u_id)
 							<li class="label1" data-label1="hot">
 								<a href="product2.php">Shop</a>
 								<ul class="sub-menu">
-									<li><a href="0_12months.php">0-12 Months</a></li>
-									<li><a href="1_2years.php">1-2 Years</a></li>
-									<li><a href="3+years.php">3+ Years</a></li>
-									<li><a href="5+years.php">5+ Years</a></li>
+									<li><a href="index.php">Homepage 1</a></li>
+									<li><a href="home-02.html">Homepage 2</a></li>
+									<li><a href="home-03.html">Homepage 3</a></li>
 								</ul>
 							</li>
 
@@ -268,10 +266,10 @@ function sumTotalPrice($order_array, $u_id)
 							</li>
 
 							<li>
-								<a href="about.php">Pages</a>
+								<a href="about.html">Pages</a>
 								<ul class="sub-menu">
-									<li><a href="about.php">About</a></li>
-									<li><a href="FAQ.php">Faq</a></li>
+									<li><a href="index.php">About</a></li>
+									<li><a href="home-02.html">Faq</a></li>
 								</ul>
 							</li>
 						</ul>
@@ -299,11 +297,7 @@ function sumTotalPrice($order_array, $u_id)
 		<div class="wrap-header-mobile">
 			<!-- Logo moblie -->
 			<div class="logo-mobile">
-				<a href="index.html" class="navbar-brand">
-							
-					<img class="Imagealignment"src="images/icon.png">
-					
-				</a>
+				<a href="index.php"><img src="images/icons/logo-01.png" alt="IMG-LOGO"></a>
 			</div>
 
 			<!-- Icon header -->
@@ -363,16 +357,10 @@ function sumTotalPrice($order_array, $u_id)
 			<ul class="main-menu-m">
 				<li>
 					<a href="index.php">Home</a>
-					
-				</li>
-
-				<li>
-					<a href="product2.php">Shop</a>
 					<ul class="sub-menu-m">
-					<li><a href="0_12months.php">0-12 Months</a></li>
-						<li><a href="1_2years.php">1-2 Years</a></li>
-						<li><a href="3+years.php">3+ Years</a></li>
-						<li><a href="5+years.php">5+ Years</a></li>
+						<li><a href="index.php">Homepage 1</a></li>
+						<li><a href="home-02.html">Homepage 2</a></li>
+						<li><a href="home-03.html">Homepage 3</a></li>
 					</ul>
 					<span class="arrow-main-menu-m">
 						<i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -380,7 +368,11 @@ function sumTotalPrice($order_array, $u_id)
 				</li>
 
 				<li>
-					<a href="shoping-cart.php" class="label1 rs1" data-label1="hot">Cart</a>
+					<a href="product2.php">Shop</a>
+				</li>
+
+				<li>
+					<a href="shoping-cart.html" class="label1 rs1" data-label1="hot">Features</a>
 				</li>
 
 				<li>
@@ -388,7 +380,7 @@ function sumTotalPrice($order_array, $u_id)
 				</li>
 
 				<li>
-					<a href="about.php">About</a>
+					<a href="about.html">About</a>
 				</li>
 
 				<li>
@@ -400,133 +392,16 @@ function sumTotalPrice($order_array, $u_id)
 		<!-- Modal Search -->
 		<div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
 			<div class="container-search-header">
-			<section class="bg0 p-t-62 p-b-60">
-				<div class="content">
-					<div class="container">
-						<div class="row justify-content-center">
-							<div class="search-container">
-								<h1>🐻 What are you looking for?</h1>
-								<form class="search-box" action="#" method="GET">
-									<input type="text" placeholder="Search" name="search">
-									<button type="submit"><i class="fas fa-search"></i></button> <!-- Using Font Awesome search icon -->
-								</form>
-								<div class="popular-searches">
-									<span>Popular searches:</span>
-									<a href="#" class="tag">Featured</a>
-									<a href="#" class="tag">Trendy</a>
-									<a href="#" class="tag">Sale</a>
-									<a href="#" class="tag">New</a>
-								</div>
-							</div>
-						</div>
-						<br>
-						<div class="row justify-content-center mb-4">
-							<div class="col-12 text-left">
-								<h2>Recommended products</h2>
-							</div>
-						</div>
-						<br>
-						<div class="row">
-							<!-- Recommended products -->
-							<div class="col-lg-2 col-md-4 col-sm-6 col-12 mb-4">
-								<a href="#">
-									<div class="card zoom-img" style="border-radius: 20px;">
-										<img src="images/jellycat.png" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
-									</div>
-								</a>
-								<div class="text-center">
-									<h5 class="p-b-15">
-										<a href="#" class="ltext-111 cl2 hov-cl1 trans-04">
-											Flower
-										</a>
-									</h5>
-									<p>$12.99</p>
-								</div>
-							</div>
-							<!-- Repeat the above block for other recommended products -->
-							<div class="col-lg-2 col-md-4 col-sm-6 col-12 mb-4">
-								<a href="#">
-									<div class="card zoom-img" style="border-radius: 20px;">
-										<img src="images/Jelly Cat Flower.png" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
-									</div>
-								</a>
-								<div class="text-center">
-									<h5 class="p-b-15">
-										<a href="#" class="ltext-111 cl2 hov-cl1 trans-04">
-											Flower
-										</a>
-									</h5>
-									<p>$10.99</p>
-								</div>
-							</div>
-							<!-- Repeat the above block for other recommended products -->
-							<div class="col-lg-2 col-md-4 col-sm-6 col-12 mb-4">
-								<a href="#">
-									<div class="card zoom-img" style="border-radius: 20px;">
-										<img src="images/beartowel.png" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
-									</div>
-								</a>
-								<div class="text-center">
-									<h5 class="p-b-15">
-										<a href="#" class="ltext-111 cl2 hov-cl1 trans-04">
-											Bear Baby Towel
-										</a>
-									</h5>
-									<p>$12.99</p>
-								</div>
-							</div>
-							<!-- Repeat the above block for other recommended products -->
-							<div class="col-lg-2 col-md-4 col-sm-6 col-12 mb-4">
-								<a href="#">
-									<div class="card zoom-img" style="border-radius: 20px;">
-										<img src="images/Elephant.png" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
-									</div>
-								</a>
-								<div class="text-center">
-									<h5 class="p-b-15">
-										<a href="#" class="ltext-111 cl2 hov-cl1 trans-04">
-											Elephant Jelly Cat
-										</a>
-									</h5>
-									<p>$10.99</p>
-								</div>
-							</div>
-							<!-- Repeat the above block for other recommended products -->
-							<div class="col-lg-2 col-md-4 col-sm-6 col-12 mb-4">
-								<a href="#">
-									<div class="card zoom-img" style="border-radius: 20px;">
-										<img src="images/giraffe.png" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
-									</div>
-								</a>
-								<div class="text-center">
-									<h5 class="p-b-15">
-										<a href="#" class="ltext-111 cl2 hov-cl1 trans-04">
-											Giraffe Jelly Cat
-										</a>
-									</h5>
-									<p>$12.99</p>
-								</div>
-							</div>
-							<!-- Repeat the above block for other recommended products -->
-							<div class="col-lg-2 col-md-4 col-sm-6 col-12 mb-4">
-								<a href="#">
-									<div class="card zoom-img" style="border-radius: 20px;">
-										<img src="images/unicorn.png" alt="Product Image" class="img-fluid" style="border-radius: 20px;">
-									</div>
-								</a>
-								<div class="text-center">
-									<h5 class="p-b-15">
-										<a href="#" class="ltext-111 cl2 hov-cl1 trans-04">
-											Unicorn
-										</a>
-									</h5>
-									<p>$10.99</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
+				<button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
+					<img src="images/icons/icon-close2.png" alt="CLOSE">
+				</button>
+
+				<form class="wrap-search-header flex-w p-l-15">
+					<button class="flex-c-m trans-04">
+						<i class="zmdi zmdi-search"></i>
+					</button>
+					<input class="plh3" type="text" name="search" placeholder="Search...">
+				</form>
 			</div>
 		</div>
 	</header>
@@ -555,7 +430,7 @@ function sumTotalPrice($order_array, $u_id)
 					// Duyệt qua mỗi sản phẩm trong giỏ hàng và hiển thị thông tin
 					foreach ($order_array as $item) {
 						// mới có u_id $userLogin["userID"], 555
-						if ($item["u_id"] == $userLogin["userID"] && $item["o_quantity"] > 0) {
+						if ($item["u_id"] == $userLogin["userID"] && $item["o_quantity"] > 0 && $item["o_status"] == 0) {
 					?>
 							<li class="header-cart-item m-b-20">
 								<div class="row">
@@ -602,8 +477,8 @@ function sumTotalPrice($order_array, $u_id)
 							View Cart
 						</a>
 
-						<a href="shopping-cart.php" id="btn-cart" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
-							Check Out
+						<a href="your-order.php" id="btn-cart" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
+							Your Order
 						</a>
 					</div>
 				</div>

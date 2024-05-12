@@ -58,7 +58,7 @@ $order_array = array();
 if ($resultOrder->num_rows > 0) {
 	// Duyệt qua từng hàng dữ liệu từ kết quả truy vấn
 	while ($row = $resultOrder->fetch_assoc()) {
-		if ($row['u_id'] == $userLogin['userID']) {
+		if ($row['u_id'] == $userLogin['userID'] && $row['o_status'] == 0) {
 			// Thêm thông tin từng hàng vào mảng $order_array
 			$order_array[] = array(
 				"o_id" => $row["o_id"],
@@ -86,7 +86,7 @@ function sumTotalPrice($order_array, $u_id)
 	// Duyệt qua từng sản phẩm trong giỏ hàng và tính tổng giá tiền
 	foreach ($order_array as $item) {
 		// Kiểm tra xem u_id của sản phẩm có khớp với u_id được chỉ định hay không
-		if ($item["u_id"] == $u_id) {
+		if ($item["u_id"] == $u_id && $item["o_status"] == 0) {
 			// Tính giá tiền của mỗi sản phẩm (giá tiền * số lượng)
 			$productPrice = $item["p_price"] * $item["o_quantity"];
 
@@ -99,7 +99,7 @@ function sumTotalPrice($order_array, $u_id)
 }
 
 // Truy vấn để đếm số dòng trong bảng order
-$sql = "SELECT COUNT(*) AS total_rows FROM `order` WHERE u_id = '{$userLogin['userID']}'";
+$sql = "SELECT COUNT(*) AS total_rows FROM `order` WHERE u_id = '{$userLogin['userID']}' AND o_quantity > 0 AND o_status = 0";
 $result = $conn->query($sql);
 
 // Kiểm tra và hiển thị kết quả
@@ -179,10 +179,13 @@ if ($query->num_rows > 0) {
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<!--===============================================================================================-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 	<style>
 		#button-add {
 			border-radius: 30px;
 			padding: 10px;
+			margin-bottom: 20px;
 			background-color: black;
 			color: white;
 			margin-right: 10px;
@@ -518,7 +521,7 @@ if ($query->num_rows > 0) {
 					// Duyệt qua mỗi sản phẩm trong giỏ hàng và hiển thị thông tin
 					foreach ($order_array as $item) {
 						// mới có u_id $userLogin["userID"], 555
-						if ($item["u_id"] == $userLogin["userID"] && $item["o_quantity"] > 0) {
+						if ($item["u_id"] == $userLogin["userID"] && $item["o_quantity"] > 0 && $item["o_status"] == 0) {
 					?>
 							<li class="header-cart-item m-b-20">
 								<div class="row">
@@ -566,7 +569,7 @@ if ($query->num_rows > 0) {
 						</a>
 
 						<a href="shopping-cart.php" id="btn-cart" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
-							Check Out
+							Your Order
 						</a>
 					</div>
 				</div>
@@ -607,7 +610,7 @@ if ($query->num_rows > 0) {
 								</tr>
 
 								<?php foreach ($order_array as $item) : ?>
-									<?php if ($item['u_id'] == $userLogin['userID']) ?>
+									<?php if ($item['u_id'] == $userLogin['userID'] && $item["o_quantity"] > 0 && $item["o_status"] == 0) ?>
 									<tr class="table_row">
 										<td class="column-1">
 											<div class="how-itemcart1">
@@ -755,9 +758,8 @@ if ($query->num_rows > 0) {
 							</div>
 						</div>
 
-						<button id="button-add" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
-							Proceed to Checkout
-						</button>
+						<a href="buy-product.php" id="button-add" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">Proceed to Checkout</a>
+											
 					</div>
 				</div>
 			</div>
@@ -958,63 +960,11 @@ if ($query->num_rows > 0) {
 			})
 		});
 
-		// Function to update total price for a product
-		function updateTotalPrice(productId) {
-			var quantityInput = document.querySelector('#quantity_' + productId);
-			var totalPriceElement = document.querySelector('#total_' + productId);
-			var priceElement = document.querySelector('#price_' + productId);
-
-
-			var quantity = parseInt(quantityInput.value);
-			var price = parseFloat(priceElement.innerText.split('$ ')[1]);
-
-			var totalPrice = quantity * price;
-			totalPriceElement.innerText = '$ ' + totalPrice;
-		}
-
-		// Function to handle increase quantity
-		function increaseQuantity(productId) {
-			var quantityInput = document.querySelector('#quantity_' + productId);
-			var currentQuantity = parseInt(quantityInput.value);
-			quantityInput.value = currentQuantity + 1;
-
-			// Update total price
-			updateTotalPrice(productId);
-
-			// Send AJAX request to update quantity in database
-			updateQuantity(productId, quantityInput.value);
-		}
-
-		// Function to handle decrease quantity
-		function decreaseQuantity(productId) {
-			var quantityInput = document.querySelector('#quantity_' + productId);
-			var currentQuantity = parseInt(quantityInput.value);
-			if (currentQuantity > 1) {
-				quantityInput.value = currentQuantity - 1;
-
-				// Update total price
-				updateTotalPrice(productId);
-
-				// Send AJAX request to update quantity in database
-				updateQuantity(productId, quantityInput.value);
-			}
-		}
-
-		// Function to update quantity in database via AJAX
-		function updateQuantity(productId, newQuantity) {
-			var xhr = new XMLHttpRequest();
-			xhr.open('POST', 'update-cart.php', true);
-			xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-			xhr.onload = function() {
-				if (xhr.status == 200) {
-					// Handle response from server if needed
-				}
-			};
-			xhr.send('product_id=' + productId + '&quantity=' + newQuantity);
-		}
+		
 	</script>
 	<!--===============================================================================================-->
 	<script src="js/main.js"></script>
+	<script src="js/update-cart.js"></script>
 
 </body>
 
