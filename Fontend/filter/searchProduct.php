@@ -15,6 +15,9 @@ if(isset($_POST['p_name'])) {
     $sql = "SELECT * FROM product WHERE p_name LIKE '%$p_name%'";
     $result = $conn->query($sql);
 
+    // Biến đếm để tạo tên class động
+    $counter = 1;
+
     // Kiểm tra xem có sản phẩm nào được tìm thấy không
     if ($result->num_rows > 0) {
         // Lặp qua các hàng kết quả
@@ -25,8 +28,11 @@ if(isset($_POST['p_name'])) {
             $type = $row['p_type'];
             $price = $row['p_price'];
 
+            // Tạo tên class động
+            $class_name = "bear" . $counter;
+
             ?>
-            <div class=" <?= $name ?> col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item toy">
+            <div class="<?= $class_name ?> col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item toy">
                 <div class="block2">
                     <div class="block2-pic hov-img0" style="border: 0.1px dashed #000; border-radius: 50px;">
                         <img src="images/<?= $image ?>" alt="IMG-PRODUCT">
@@ -49,12 +55,12 @@ if(isset($_POST['p_name'])) {
 
 
             <?php
+            // Tăng giá trị biến đếm
+            $counter++;
         }
     } else {
         // Hiển thị thông báo nếu không tìm thấy sản phẩm
         echo "Không tìm thấy sản phẩm phù hợp";
-
-
     }
     // Đóng kết nối cơ sở dữ liệu
     $conn->close();

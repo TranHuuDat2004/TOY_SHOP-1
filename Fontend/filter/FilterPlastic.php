@@ -16,17 +16,20 @@ $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $p_type); // s: kiểu dữ liệu của biến là string
 $stmt->execute();
 $result = $stmt->get_result();
-
+$counter = 1;
 // Kiểm tra xem có sản phẩm nào được tìm thấy không
 if ($result->num_rows > 0) {
     // Lặp qua các hàng kết quả
     while($product = $result->fetch_assoc()) {
+        $class_name = "duck" . $counter;
+        $class_name1 = "bear" . $counter;
+
         ?>
-        <div class="Duck col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item toy">
+        <div class=" <?= $class_name1 ?> col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item toy">
             <!-- Block2 -->
             <div class="block2">
                 <form method="POST">
-                    <div id="<?php echo $product['p_id']; ?>" class="block2-pic hov-img0" style="border: 0.1px dashed #000; border-radius: 50px;">
+                    <div id="<?php echo $product['p_id']; ?>" class="<?= $class_name ?> block2-pic hov-img0" style="border: 0.1px dashed #000; border-radius: 50px;">
                         <img src="images/<?php echo $product['p_image']; ?>" alt="IMG-PRODUCT">
                     </div>
                     <div class="block2-txt flex-w flex-t p-t-14">

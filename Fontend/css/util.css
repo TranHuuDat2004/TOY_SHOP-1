@@ -3712,3 +3712,147 @@ iframe {border: none;}
 .pointer-none {
 	pointer-events: none;
 }
+
+@media screen and (min-width: 1400px) and (max-width: 1500px) {
+    .bear2 {
+        position: absolute;
+        left: 25%;
+        top: 0px;
+    }
+	.bear3
+	{
+		position: absolute;
+		left: 50%;
+		top: 0px;
+	}
+	.bear4
+	{
+		position: absolute;
+		left: 75%;
+		top: 0px;
+	}
+}
+@media screen and (min-width: 700px) and (max-width: 800px) {
+    .bear2 {
+		position: absolute;
+		left: 36%;
+		top: 0px;
+    }
+	.bear3
+	{
+		position: absolute;
+		left: 69%;
+		top: 0px;
+	}
+	.bear4
+	{
+		position: absolute;
+		left: 0%;
+		top: 17%;
+	}
+}
+@media screen and (min-width: 810px) and (max-width: 900px) {
+    .bear2 {
+		position: absolute;
+		left: 32%;
+		top: 0%;
+    }
+	.bear3
+	{
+		position: absolute;
+		left: 63%;
+		top: 0%;
+	}
+	.bear4
+	{
+		position: absolute;
+		left: 0%;
+		top: 16%;
+	
+	}
+}
+@media screen and (min-width: 920px) and (max-width: 1150px) {
+    .bear2 {
+		position: absolute;
+    left: 24%;
+    top: 0%;
+    }
+	.bear3
+	{
+		position: absolute;
+		left: 47%;
+		top: 0%;
+	}
+	.bear4
+	{
+		position: absolute;
+		left: 71%;
+		top: 0%;
+	
+	}
+}
+@media screen and (min-width: 1400px) and (max-width: 1500px) {
+    .duck1{
+		width: 181%;
+	}
+	.duck2 {
+        width: 181%;
+    }
+	.duck3
+	{
+		width: 181%;
+	}
+	.duck4
+	{
+		width: 181%;
+	}
+}
+@media screen and (min-width: 700px) and (max-width: 800px) {
+	.duck1{
+		width: 116%;
+	}
+	.duck2 {
+        width: 116%;
+    }
+	.duck3
+	{
+		width: 116%;
+	}
+	.duck4
+	{
+		width: 116%;
+	}
+}
+@media screen and (min-width: 810px) and (max-width: 900px) {
+    .duck1{
+		width: 116%;
+	}
+	.duck2 {
+        width: 116%;
+    }
+	.duck3
+	{
+		width: 116%;
+	}
+	.duck4
+	{
+		width: 116%;
+	}
+}
+@media screen and (min-width: 920px) and (max-width: 1150px) {
+    .duck1{
+		width: 133%;
+	}
+	.duck2 {
+        width: 133%;
+    }
+	.duck3
+	{
+		width: 133%;
+	}
+	.duck4
+	{
+		width: 133%;
+	}
+}
+
