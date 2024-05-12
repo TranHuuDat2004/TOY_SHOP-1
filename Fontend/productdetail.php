@@ -9,7 +9,7 @@ $conn = new mysqli('localhost', 'root', '', 'toy-shop'); //servername, username,
 
 // Kiểm tra kết nối
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+	die("Connection failed: " . $conn->connect_error);
 }
 
 
@@ -19,66 +19,66 @@ if (!isset($_SESSION["user"])) {
 	exit(); // Stop further execution of the script
 }
 
-$userName = $_SESSION["user"];	
+$userName = $_SESSION["user"];
 // print_r($userName);
-$sqlLogin = "SELECT * FROM `login` WHERE userName = '$userName' " ;
+$sqlLogin = "SELECT * FROM `login` WHERE userName = '$userName' ";
 $queryLogin = mysqli_query($conn, $sqlLogin);
 // print_r($queryLogin);
 // Kiểm tra kết quả truy vấn
 
 // Duyệt qua từng hàng dữ liệu từ kết quả truy vấn
 $row = $queryLogin->fetch_assoc();
-	// Thêm thông tin từng hàng vào mảng $vuserLogin
-	$userLogin = array(
-		"userID" => $row["userID"],
-		"userName" => $row["userName"],
-		"email" => $row["email"],
-	);
+// Thêm thông tin từng hàng vào mảng $vuserLogin
+$userLogin = array(
+	"userID" => $row["userID"],
+	"userName" => $row["userName"],
+	"email" => $row["email"],
+);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['p_name'])) {
-    $p_name = $_POST['p_name'];
+	$p_name = $_POST['p_name'];
 
-    // Truy vấn p_id dựa trên p_name
-    $sqlProductId = "SELECT `p_id` FROM `product` WHERE `p_name` = '$p_name'";
+	// Truy vấn p_id dựa trên p_name
+	$sqlProductId = "SELECT `p_id` FROM `product` WHERE `p_name` = '$p_name'";
 
-    try {
-        $resultProductId = mysqli_query($conn, $sqlProductId);
+	try {
+		$resultProductId = mysqli_query($conn, $sqlProductId);
 
-        // Kiểm tra xem có kết quả trả về không
-        if ($resultProductId->num_rows > 0) {
-            // Lấy p_id từ kết quả truy vấn
-            $rowProductId = $resultProductId->fetch_assoc();
-            $p_id = $rowProductId["p_id"];
+		// Kiểm tra xem có kết quả trả về không
+		if ($resultProductId->num_rows > 0) {
+			// Lấy p_id từ kết quả truy vấn
+			$rowProductId = $resultProductId->fetch_assoc();
+			$p_id = $rowProductId["p_id"];
 
-            // Truy vấn chi tiết sản phẩm dựa trên p_id
-            $sqlProduct = "SELECT * FROM `product` WHERE `p_id` = '$p_id'";
-            $result = mysqli_query($conn, $sqlProduct);
+			// Truy vấn chi tiết sản phẩm dựa trên p_id
+			$sqlProduct = "SELECT * FROM `product` WHERE `p_id` = '$p_id'";
+			$result = mysqli_query($conn, $sqlProduct);
 
-            // Kiểm tra xem có kết quả trả về không
-            if ($result->num_rows > 0) {
-                // Lấy thông tin chi tiết của sản phẩm và đưa vào mảng product
-                $row = $result->fetch_assoc();
-                $product = array(
-                    "p_id" => $row["p_id"],
-                    "p_type" => $row["p_type"],
-                    "p_image" => $row["p_image"],
-                    "p_name" => $row["p_name"],
-                    "p_price" => $row["p_price"],
-                    "p_provider" => $row["p_provider"],
-                    "p_age" => $row["p_age"]
-                );
+			// Kiểm tra xem có kết quả trả về không
+			if ($result->num_rows > 0) {
+				// Lấy thông tin chi tiết của sản phẩm và đưa vào mảng product
+				$row = $result->fetch_assoc();
+				$product = array(
+					"p_id" => $row["p_id"],
+					"p_type" => $row["p_type"],
+					"p_image" => $row["p_image"],
+					"p_name" => $row["p_name"],
+					"p_price" => $row["p_price"],
+					"p_provider" => $row["p_provider"],
+					"p_age" => $row["p_age"]
+				);
 
-                // Hiển thị thông tin chi tiết của sản phẩm
-                // print_r($product);
-            } else {
-                echo "Không tìm thấy sản phẩm với p_id là $p_id";
-            }
-        } else {
-            echo "Không tìm thấy sản phẩm với p_name là $p_name";
-        }
-    } catch (Exception $e) {
-        var_dump($e);
-    }
+				// Hiển thị thông tin chi tiết của sản phẩm
+				// print_r($product);
+			} else {
+				echo "Không tìm thấy sản phẩm với p_id là $p_id";
+			}
+		} else {
+			echo "Không tìm thấy sản phẩm với p_name là $p_name";
+		}
+	} catch (Exception $e) {
+		var_dump($e);
+	}
 }
 
 
@@ -187,7 +187,7 @@ function sumTotalPrice($order_array, $u_id)
 	// Duyệt qua từng sản phẩm trong giỏ hàng và tính tổng giá tiền
 	foreach ($order_array as $item) {
 		// Kiểm tra xem u_id của sản phẩm có khớp với u_id được chỉ định hay không
-		if ($item["u_id"] == $u_id) {
+		if ($item["u_id"] == $u_id && $item["o_status"] == 0) {
 			// Tính giá tiền của mỗi sản phẩm (giá tiền * số lượng)
 			$productPrice = $item["p_price"] * $item["o_quantity"];
 
@@ -202,17 +202,17 @@ function sumTotalPrice($order_array, $u_id)
 
 //else echo "Test2<br>";
 
-    // Truy vấn để đếm số dòng trong bảng order
-    $sql = "SELECT COUNT(*) AS total_rows FROM `order` WHERE u_id = '{$userLogin['userID']}'";
-    $result = $conn->query($sql);
+// Truy vấn để đếm số dòng trong bảng order
+$sql = "SELECT COUNT(*) AS total_rows FROM `order` WHERE u_id = '{$userLogin['userID']}' AND o_quantity > 0 AND o_status = 0";
+$result = $conn->query($sql);
 
-    // Kiểm tra và hiển thị kết quả
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $order_count = $row["total_rows"];
-    } else {
-        // echo "Không có dữ liệu trong bảng order";
-    }
+// Kiểm tra và hiển thị kết quả
+if ($result->num_rows > 0) {
+	$row = $result->fetch_assoc();
+	$order_count = $row["total_rows"];
+} else {
+	// echo "Không có dữ liệu trong bảng order";
+}
 
 
 ?>
@@ -427,9 +427,8 @@ function sumTotalPrice($order_array, $u_id)
 	}
 
 	.btn-delete:hover {
-		color:#F4538A;
+		color: #F4538A;
 	}
-
 </style>
 
 
@@ -466,13 +465,12 @@ function sumTotalPrice($order_array, $u_id)
 							</a>
 							<div class="data1">
 								<i style="color: #49243E;" class=""></i>
-								<a href="register.html" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b><?php echo $userLogin["userID"];?>
+								<a href="register.html" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b><?php echo $userLogin["userID"]; ?>
 										/</b></a>
 							</div>
 							<div class="data2">
 								<i style="color: #49243E;" class=""></i>
-								<a href="register.html" class="btn2 btn-primary2 mt-1"
-									style="color: #49243E;"><b><?php echo $userLogin["userName"];?></b></a>
+								<a href="register.html" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b><?php echo $userLogin["userName"]; ?></b></a>
 							</div>
 						</div>
 					</div>
@@ -528,7 +526,7 @@ function sumTotalPrice($order_array, $u_id)
 							<i class="zmdi zmdi-search"></i>
 						</div>
 
-						<div class="icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="<?php echo ($order_count);?>">
+						<div class="icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="<?php echo ($order_count); ?>">
 							<i class="zmdi zmdi-shopping-cart"></i>
 						</div>
 
@@ -553,7 +551,7 @@ function sumTotalPrice($order_array, $u_id)
 					<i class="zmdi zmdi-search"></i>
 				</div>
 
-				<div class="icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="<?php echo ($order_count);?>">
+				<div class="icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="<?php echo ($order_count); ?>">
 					<i class="zmdi zmdi-shopping-cart"></i>
 				</div>
 
@@ -674,7 +672,7 @@ function sumTotalPrice($order_array, $u_id)
 					// Duyệt qua mỗi sản phẩm trong giỏ hàng và hiển thị thông tin
 					foreach ($order_array as $item) {
 						// mới có u_id 123, 555
-						if ($item["u_id"] == $userLogin["userID"] && $item["o_quantity"] > 0) {
+						if ($item["u_id"] == $userLogin["userID"] && $item["o_quantity"] > 0 && $item["o_status"] == 0) {
 					?>
 							<li class="header-cart-item m-b-20">
 								<div class="row">
@@ -685,7 +683,7 @@ function sumTotalPrice($order_array, $u_id)
 										</div>
 									</div>
 									<div class="col-md-6">
-										<div >
+										<div>
 											<!-- Hiện tên sản phẩm trong giỏ hàng -->
 											<a href="#" class="header-cart-item-name hov-cl1 trans-04"><?php echo $item["p_name"]; ?></a>
 										</div>
@@ -693,7 +691,7 @@ function sumTotalPrice($order_array, $u_id)
 										<span class="header-cart-item-info"><?php echo $item["o_quantity"]; ?> x $<?php echo $item["p_price"]; ?></span>
 									</div>
 									<div class="col-md-3">
-										<form action="delete-cart.php" method="post">											
+										<form action="delete-cart.php" method="post">
 											<input type="hidden" name="p_id" value="<?php echo $item['p_id']; ?>">
 
 											<!-- Nút xóa tại đây -->
@@ -763,7 +761,7 @@ function sumTotalPrice($order_array, $u_id)
 							<div class="slick3 gallery-lb">
 
 								<!-- Image 1 -->
-								<div class="item-slick3" data-thumb="images/<?php echo $product["p_image"];?>">
+								<div class="item-slick3" data-thumb="images/<?php echo $product["p_image"]; ?>">
 									<div class="wrap-pic-w pos-relative zoom-container">
 										<img src="images/<?php echo $product['p_image']; ?>" alt="IMG-PRODUCT">
 
@@ -803,11 +801,11 @@ function sumTotalPrice($order_array, $u_id)
 				<div class="col-md-6 col-lg-5 p-b-30">
 					<div class="p-r-50 p-t-5 p-lr-0-lg">
 						<h4 class="mtext-105 cl2 js-name-detail p-b-14">
-							<?php echo $product["p_name"];?>
+							<?php echo $product["p_name"]; ?>
 						</h4>
 
 						<span class="mtext-106 cl2">
-							$ <?php echo $product["p_price"];?>
+							$ <?php echo $product["p_price"]; ?>
 						</span>
 
 						<p class="stext-102 cl3 p-t-23">
@@ -882,7 +880,7 @@ function sumTotalPrice($order_array, $u_id)
 										<i class="fs-16 zmdi zmdi-minus"></i>
 									</div>
 
-									<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
+									<input id="quantity-input" class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="<?php echo $quantity = 1; ?>">
 
 									<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
 										<i class="fs-16 zmdi zmdi-plus"></i>
@@ -894,25 +892,24 @@ function sumTotalPrice($order_array, $u_id)
 								<form action="add-to-cart.php" method="post">
 									<!-- Name input is add-to-order -->
 									<input type="submit" value="Add to cart" id="button-add" name="add-to-cart" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-									<input type="hidden" name="p_id" value="<?php echo $product["p_id"];?>">
-									<input type="hidden" name="p_image" value="<?php echo $product["p_image"];?>">
-									<input type="hidden" name="p_name" value="<?php echo $product["p_name"];?>">
-									<input type="hidden" name="p_price" value="<?php echo $product["p_price"];?>">
-									<input type="hidden" name="p_type" value="<?php echo $product["p_type"];?>">
-									<input type="hidden" name="o_quantity" value="<?php $item["o_quantity"]; ?>">
+									<input type="hidden" name="p_id" value="<?php echo $product["p_id"]; ?>">
+									<input type="hidden" name="p_image" value="<?php echo $product["p_image"]; ?>">
+									<input type="hidden" name="p_name" value="<?php echo $product["p_name"]; ?>">
+									<input type="hidden" name="p_price" value="<?php echo $product["p_price"]; ?>">
+									<input type="hidden" name="p_type" value="<?php echo $product["p_type"]; ?>">
+									<input type="hidden" name="o_quantity" id="hidden-quantity" value="<?php echo $quantity; ?>">
 									<input type="hidden" name="o_status" value="0">
 								</form>
-
 
 								<form action="buy-it-now.php" method="post">
 									<!-- Name input is buy-it-now -->
 									<input type="submit" value="Buy it now" id="button-buy" name="buy-it-now" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-									<input type="hidden" name="p_id" value="<?php echo $product["p_id"];?>">
-									<input type="hidden" name="p_image" value="<?php echo $product["p_image"];?>">
-									<input type="hidden" name="p_name" value="<?php echo $product["p_name"];?>">
-									<input type="hidden" name="p_price" value="<?php echo $product["p_price"];?>">
-									<input type="hidden" name="p_type" value="<?php echo $product["p_type"];?>">
-									<input type="hidden" name="o_quantity" value="<?php $item["o_quantity"]; ?>">
+									<input type="hidden" name="p_id" value="<?php echo $product["p_id"]; ?>">
+									<input type="hidden" name="p_image" value="<?php echo $product["p_image"]; ?>">
+									<input type="hidden" name="p_name" value="<?php echo $product["p_name"]; ?>">
+									<input type="hidden" name="p_price" value="<?php echo $product["p_price"]; ?>">
+									<input type="hidden" name="p_type" value="<?php echo $product["p_type"]; ?>">
+									<input type="hidden" name="o_quantity" id="hidden-quantity-buy" value="<?php echo $quantity; ?>">
 									<input type="hidden" name="o_status" value="0">
 								</form>
 							</div>
@@ -1839,6 +1836,34 @@ function sumTotalPrice($order_array, $u_id)
 				}
 			};
 			xhr.send("productId=" + productId + "&quantity=" + quantity);
+		});
+
+		// Người dùng lựa chọn số lượng sản phẩm để thêm vào giỏ hàng
+		document.addEventListener("DOMContentLoaded", function() {
+			var quantityInput = document.getElementById("quantity-input");
+			var hiddenQuantity = document.getElementById("hidden-quantity");
+			var hiddenQuantityBuy = document.getElementById("hidden-quantity-buy");
+
+			// Lắng nghe sự kiện thay đổi giá trị trong ô input
+			quantityInput.addEventListener("change", function() {
+				// Cập nhật giá trị biến quantity
+				var quantity = parseInt(this.value);
+				hiddenQuantity.value = quantity;
+				hiddenQuantityBuy.value = quantity;
+			});
+
+			// Lắng nghe sự kiện nhấn nút tăng giảm số lượng
+			var buttons = document.querySelectorAll(".btn-num-product-up, .btn-num-product-down");
+			buttons.forEach(function(button) {
+				button.addEventListener("click", function() {
+					// Cập nhật giá trị biến quantity
+					var currentValue = parseInt(quantityInput.value);
+					var newValue = this.classList.contains("btn-num-product-up") ? currentValue : currentValue ;
+					quantityInput.value = newValue >= 1 ? newValue : 1;
+					hiddenQuantity.value = quantityInput.value;
+					hiddenQuantityBuy.value = quantityInput.value;
+				});
+			});
 		});
 	</script>
 	<!--===============================================================================================-->
