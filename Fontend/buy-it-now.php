@@ -51,8 +51,11 @@ $row = $queryLogin->fetch_assoc();
         $p_price = $_POST['p_price'];
         $p_type = $_POST['p_type'];
         $o_status = $_POST['o_status'];
+        $o_quantity = $_POST['o_quantity'];
         $u_id = $userLogin["userID"];
     
+        print_r($o_quantity);
+
         // Kiểm tra sản phẩm đã tồn tại trong giỏ hàng chưa
         $check_query = "SELECT * FROM `order` WHERE u_id = $u_id AND p_id = $p_id";
         $result = $conn->query($check_query);
@@ -63,7 +66,7 @@ $row = $queryLogin->fetch_assoc();
             $p_id = $row['p_id'];
             $o_id = $row['o_id'];
             
-            $update_query = "UPDATE `order` SET o_quantity = o_quantity + 1 WHERE o_id = $o_id AND p_id = $p_id AND u_id = $u_id";
+            $update_query = "UPDATE `order` SET o_quantity = o_quantity + '$o_quantity' WHERE o_id = $o_id AND p_id = $p_id AND u_id = $u_id";
             if ($conn->query($update_query) === TRUE) {
                 header("Location: shopping-cart.php");
             } else {
@@ -72,7 +75,7 @@ $row = $queryLogin->fetch_assoc();
         } else {
             // Sản phẩm chưa tồn tại trong giỏ hàng, thêm mới
             $insert_query = "INSERT INTO `order` (u_id, p_id, o_price, o_quantity, o_status)
-                             VALUES ($u_id, $p_id, $p_price, 1, '$o_status')";
+                             VALUES ($u_id, $p_id, $p_price, '$o_quantity', '$o_status')";
             if ($conn->query($insert_query) === TRUE) {
                 header("Location: shopping-cart.php");
             } else {
@@ -84,4 +87,3 @@ $row = $queryLogin->fetch_assoc();
         $conn->close();
     }
 ?>
-
