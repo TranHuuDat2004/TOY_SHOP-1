@@ -142,18 +142,28 @@ if ($query->num_rows > 0) {
     // echo "0 results";
 }
 
+// Thiết lập múi giờ cho Việt Nam
+date_default_timezone_set('Asia/Ho_Chi_Minh');
+
 // Lấy ngày hiện tại
-$currentDate = date("Y-m-d");
+$currentDateTime = date("Y-m-d H:i:s");
+$date = date("Y-m-d", strtotime($currentDateTime));
+$time = date("H:i:s", strtotime($currentDateTime));
 
 $i = 0;
 
 // Tạo HTML cho tiêu đề và thông tin người mua
 $html .= '
-<h2> Invoice</h2>
-<p> Name Shop : Omacha</p>
-<p> Employee: Nguyen Thuy Khanh </p>
-<p> Customer: ' . $userLogin["userName"] . '</p>
-<p> Date: ' . $currentDate . '</p>
+
+<p style="text-align:center; font-size:28px">OMACHA TOY STORE</p>
+<p style="text-align:center; font-size:18px"> 17 Nguyen Huu Tho Street</p>
+<p style="text-align:center; font-size:18px"> Phone: 0901234567</p>
+
+<p style="text-align:center; font-size:28px"> Invoice</p>
+<p style="padding-left:100px"> Date: ' . $date .  '           Time: '. $time .  '</p>
+<p style="padding-left:100px"> Employee: Nguyen Thuy Khanh </p>
+<p style="padding-left:100px"> Customer: ' . $userLogin["userName"] . '</p>
+
 
 <hr>
 
@@ -184,20 +194,27 @@ foreach ($order_array as $item) {
 
 // .= có nghĩa là nối chuỗi 
 $html .= '</table> 
-<hr>
-<p>Total Quantity of Items: ' . $order_count. '</p>';
+<hr>';
 
-$html .= '<p> Subtotal: $' . $totalPrice . '</p>';
+$html .= '
+<table style="width: 100%;">
+    <tr>
+        <!-- Cột bên trái -->
+        <td style="width: 50%; vertical-align: top; padding-left: 100px;">
+            <p>Total Quantity of Items: ' . $order_count. '</p>
+            <p>Shipping: FreeShip </p>
+        </td>
+        <!-- Cột bên phải -->
+        <td style="width: 50%; vertical-align: top; padding-left: 100px;">
+            <p>Subtotal: $' . $totalPrice . '</p>
+            <p>Discount: ' . '0%</p>
+            <p>Saving: $0' . '</p>
+            <p>Total: $' . $totalPrice . '</p>
+        </td>
+    </tr>
+</table>';
 
-$html .= '<p> Discount: 0%' . '</p>';
-
-$html .= '<p> Saving: $' . $totalPrice * 0 /100 . '</p>';
-
-$html .= '<p> Shipping: FreeShip ' . '</p>';
-
-$html .= '<p> Total: $' . $totalPrice . '</p>';
-
-
+$html .= '<p style="text-align:center"> <i> Thank you for your order </i> </p>';
 // Import thư viện Dompdf
 require_once('./dompdf/autoload.inc.php');
 
