@@ -602,8 +602,8 @@ function sumTotalPrice($order_array, $u_id)
 							View Cart
 						</a>
 
-						<a href="shopping-cart.php" id="btn-cart" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
-							Check Out
+						<a href="your-order.php" id="btn-cart" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
+							Your Order
 						</a>
 					</div>
 				</div>

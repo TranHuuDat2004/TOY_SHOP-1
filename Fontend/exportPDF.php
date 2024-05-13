@@ -3,7 +3,10 @@ include 'login.php';
 include('../Admin/connection/connectionpro.php');
 require_once '../Admin/connection/connectData.php';
 
-// Kiểm tra xem người dùng đã đăng nhập hay chưa
+// Khởi tạo biến $html
+$html = '';
+
+// Kiểm tra người dùng đã đăng nhập hay chưa
 if (!isset($_SESSION["user"])) {
     header("Location: login.html");
     exit(); // Dừng thực thi tiếp của script
@@ -64,7 +67,7 @@ function sumTotalPrice($order_array, $u_id)
 {
     $totalPrice = 0;
     foreach ($order_array as $item) {
-        if ($item["u_id"] == $u_id && $item["o_status"] == 0) {
+        if ($item["u_id"] == $u_id && $item["o_status"] == 1) {
             $productPrice = $item["p_price"] * $item["o_quantity"];
             $totalPrice += $productPrice;
         }
@@ -74,6 +77,44 @@ function sumTotalPrice($order_array, $u_id)
 
 // Gọi hàm để tính tổng giá tiền
 $totalPrice = sumTotalPrice($order_array, $userLogin["userID"]);
+
+// Truy vấn thông tin chiết khấu dựa trên tên discount (d_name)
+$sqlDiscount = "SELECT * FROM discount";
+$query = mysqli_query($conn, $sqlDiscount);
+
+// Mảng chứa thông tin chiết khấu
+$discount = array();
+
+// Kiểm tra kết quả truy vấn
+if ($query->num_rows > 0) {
+    // Lặp qua từng hàng dữ liệu từ kết quả truy vấn
+    while ($row = $query->fetch_assoc()) {
+        // Thêm thông tin từng hàng vào mảng $discount
+        $discount[] = array(
+            "d_id" => $row["d_id"],
+            "d_name" => $row["d_name"],
+            "d_amount" => $row["d_amount"],
+            "d_description" => $row["d_description"],
+            "d_start_date" => $row["d_start_date"],
+            "d_end_date" => $row["d_end_date"]
+        );
+    }
+} else {
+    // Nếu không tìm thấy kết quả
+    // echo "0 results";
+}
+
+// Truy vấn để đếm số dòng trong bảng order
+$sql = "SELECT COUNT(*) AS total_rows FROM `order` WHERE u_id = '{$userLogin['userID']}' AND o_quantity > 0 AND o_status = 1";
+$result = $conn->query($sql);
+
+// Kiểm tra và hiển thị kết quả
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $order_count = $row["total_rows"];
+} else {
+    // echo "Không có dữ liệu trong bảng order";
+}
 
 // Truy vấn thông tin chiết khấu dựa trên tên discount (d_name)
 $sqlDiscount = "SELECT * FROM discount";
@@ -101,31 +142,18 @@ if ($query->num_rows > 0) {
     // echo "0 results";
 }
 
-// Truy vấn để đếm số dòng trong bảng order
-$sql = "SELECT COUNT(*) AS total_rows FROM `order` WHERE u_id = '{$userLogin['userID']}' AND o_quantity > 0 AND o_status = 0";
-$result = $conn->query($sql);
-
-// Kiểm tra và hiển thị kết quả
-if ($result->num_rows > 0) {
-	$row = $result->fetch_assoc();
-	$order_count = $row["total_rows"];
-} else {
-	// echo "Không có dữ liệu trong bảng order";
-}
-
 // Lấy ngày hiện tại
 $currentDate = date("Y-m-d");
 
 $i = 0;
 
 // Tạo HTML cho tiêu đề và thông tin người mua
-$html = '
-<!-- Tiêu đề hóa đơn -->
-<h2 style="text-align: center;">Invoice</h2>
-<p style="text-align: center;">Name Shop : Omacha</p>
-<p style="text-align: center;">Employee: Nguyen Thuy Khanh </p>
-<p style="text-align: center;">Customer: ' . $userLogin["userName"] . '</p>
-<p style="text-align: center;">Date: ' . $currentDate . '</p>
+$html .= '
+<h2> Invoice</h2>
+<p> Name Shop : Omacha</p>
+<p> Employee: Nguyen Thuy Khanh </p>
+<p> Customer: ' . $userLogin["userName"] . '</p>
+<p> Date: ' . $currentDate . '</p>
 
 <hr>
 
@@ -138,10 +166,10 @@ $html = '
         <th class="column-3">Price</th>
         <th class="column-4">Quantity</th>
         <th class="column-5">Total</th>
-    </tr>';
+    </tr>' ;
 
 foreach ($order_array as $item) {
-    if ($item['u_id'] == $userLogin['userID'] && $item["o_quantity"] > 0 && $item["o_status"] == 0) {
+    if ($item['u_id'] == $userLogin['userID'] && $item["o_quantity"] > 0 && $item["o_status"] == 1) {
         
         $html .= '<tr>
             <td class="column-1">' . ++$i . '</td>
@@ -157,17 +185,17 @@ foreach ($order_array as $item) {
 // .= có nghĩa là nối chuỗi 
 $html .= '</table> 
 <hr>
-<p style="text-align: center;">Total Quantity of Items: ' . $order_count. '</p>';
+<p>Total Quantity of Items: ' . $order_count. '</p>';
 
-$html .= '<p style="text-align:center;"> Subtotal: $' . $totalPrice . '</p>';
+$html .= '<p> Subtotal: $' . $totalPrice . '</p>';
 
-$html .= '<p style="text-align:center;"> Discount: 0%' . '</p>';
+$html .= '<p> Discount: 0%' . '</p>';
 
-$html .= '<p style="text-align:center;"> Saving: $' . $totalPrice * 0 /100 . '</p>';
+$html .= '<p> Saving: $' . $totalPrice * 0 /100 . '</p>';
 
-$html .= '<p style="text-align:center;"> Shipping: FreeShip ' . '</p>';
+$html .= '<p> Shipping: FreeShip ' . '</p>';
 
-$html .= '<p style="text-align:center;"> Total: $' . $totalPrice . '</p>';
+$html .= '<p> Total: $' . $totalPrice . '</p>';
 
 
 // Import thư viện Dompdf
@@ -189,3 +217,4 @@ $domPDF->render();
 
 // Xuất PDF ra trình duyệt hoặc lưu vào file
 $domPDF->stream('invoice.pdf');
+?>
