@@ -134,6 +134,45 @@ $row = $queryLogin->fetch_assoc();
 	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-regular.css">
 
 	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-light.css">
+<style>
+	.btn-remove-product {
+    cursor: pointer; /* Đổi con trỏ chuột thành kiểu pointer khi di chuột qua */
+	}
+
+	.btn-remove-product i {
+		color: #F4538A; /* Đổi màu của biểu tượng thành màu đỏ */
+	}
+	/* Định dạng hình ảnh sản phẩm */
+	.header-cart-item-img {
+		flex: 0 0 auto; /* Không co giãn hình ảnh */
+		width: 100px; /* Kích thước chiều rộng cố định */
+		height: auto; /* Chiều cao tự động */
+		margin-right: 20px; /* Khoảng cách giữa hình ảnh và văn bản */
+	}
+
+	#button-add {
+		border-radius: 10px;
+		padding: 10px;
+		background-color: #F4538A;
+		color: white;
+		margin-right: 10px; /* Add margin to create space between buttons */
+	}
+
+	#button-add:hover {
+		background-color:  black;
+	}
+	#button-cart {
+		border-radius: 10px;
+		padding: 10px;
+		background-color:black;
+		color: white;
+	}
+
+	#button-cart:hover {
+		background-color: #F4538A;
+	} 
+
+</style>
 </head>
 
 <body class="animsition">
