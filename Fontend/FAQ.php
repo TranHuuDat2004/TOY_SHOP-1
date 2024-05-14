@@ -1,4 +1,154 @@
+<?php
+include 'login.php';
 
+include('../Admin/connection/connectionpro.php');
+require_once '../Admin/connection/connectData.php';
+
+
+if (!isset($_SESSION["user"])) {
+	// Redirect user to the login page if not logged in
+	header("Location: login.html");
+	exit(); // Stop further execution of the script
+}
+
+$userName = $_SESSION["user"];
+// print_r($userName);
+$sqlLogin = "SELECT * FROM `login` WHERE userName = '$userName' ";
+$queryLogin = mysqli_query($conn, $sqlLogin);
+// print_r($queryLogin);
+// Kiểm tra kết quả truy vấn
+
+// Duyệt qua từng hàng dữ liệu từ kết quả truy vấn
+$row = $queryLogin->fetch_assoc();
+// Thêm thông tin từng hàng vào mảng $vuserLogin
+$userLogin = array(
+	"userID" => $row["userID"],
+	"userName" => $row["userName"],
+	"email" => $row["email"],
+);
+
+$sql = "SELECT * FROM product";
+$query = mysqli_query($conn, $sql);
+
+
+// Câu truy vấn SQL SELECT
+$sqlOrder = "SELECT 
+`order`.o_id, 
+`order`.u_id, 
+`order`.p_id, 
+`order`.o_price, 
+`order`.o_status, 
+`order`.o_quantity,
+product.p_type, 
+product.p_image, 
+product.p_name, 
+product.p_price 
+FROM 
+`order`
+INNER JOIN 
+product ON `order`.p_id = product.p_id";
+
+// Thực hiện truy vấn
+$resultOrder = $conn->query($sqlOrder);
+
+// Mảng chứa thông tin các đơn hàng
+$order_array = array();
+
+// Kiểm tra kết quả truy vấn
+if ($resultOrder->num_rows > 0) {
+	// Duyệt qua từng hàng dữ liệu từ kết quả truy vấn
+	while ($row = $resultOrder->fetch_assoc()) {
+		if ($row['u_id'] == $userLogin['userID'] && $row['o_status'] == 0) {
+			// Thêm thông tin từng hàng vào mảng $order_array
+			$order_array[] = array(
+				"o_id" => $row["o_id"],
+				"u_id" => $row["u_id"],
+				"p_id" => $row["p_id"],
+				"o_price" => $row["o_price"],
+				"o_quantity" => $row["o_quantity"],
+				"o_status" => $row["o_status"],
+				"p_type" => $row["p_type"],
+				"p_image" => $row["p_image"],
+				"p_name" => $row["p_name"],
+				"p_price" => $row["p_price"]
+			);
+		}
+	};
+} else {
+	// echo "0 results";
+}
+
+
+function sumTotalPrice($order_array, $u_id)
+{
+	$totalPrice = 0; // Khởi tạo biến tổng giá tiền
+
+	// Duyệt qua từng sản phẩm trong giỏ hàng và tính tổng giá tiền
+	foreach ($order_array as $item) {
+		// Kiểm tra xem u_id của sản phẩm có khớp với u_id được chỉ định hay không
+		if ($item["u_id"] == $u_id && $item["o_status"] == 0) {
+			// Tính giá tiền của mỗi sản phẩm (giá tiền * số lượng)
+			$productPrice = $item["p_price"] * $item["o_quantity"];
+
+			// Cộng vào tổng giá tiền
+			$totalPrice += $productPrice;
+		}
+	}
+
+	return $totalPrice; // Trả về tổng giá tiền
+}
+
+// Truy vấn để đếm số dòng trong bảng order
+$sql = "SELECT COUNT(*) AS total_rows FROM `order` WHERE u_id = '{$userLogin['userID']}' AND o_quantity > 0 AND o_status = 0";
+$result = $conn->query($sql);
+
+// Kiểm tra và hiển thị kết quả
+if ($result->num_rows > 0) {
+	$row = $result->fetch_assoc();
+	$order_count = $row["total_rows"];
+} else {
+	// echo "Không có dữ liệu trong bảng order";
+}
+
+// Truy vấn để đếm số dòng trong bảng order
+$sql = "SELECT COUNT(*) AS total_rows FROM wishlist";
+$result = $conn->query($sql);
+
+// Kiểm tra và hiển thị kết quả
+if ($result->num_rows > 0) {
+	$row = $result->fetch_assoc();
+	$wishlist_count = $row["total_rows"];
+} else {
+	// echo "Không có dữ liệu trong bảng order";
+}
+
+// Truy vấn thông tin chiết khấu dựa trên tên discount (d_name)
+$sqlDiscount = "SELECT * FROM discount";
+$query = mysqli_query($conn, $sqlDiscount);
+
+// Mảng chứa thông tin chiết khấu
+$discount = array();
+
+// Kiểm tra kết quả truy vấn
+if ($query->num_rows > 0) {
+	// Lặp qua từng hàng dữ liệu từ kết quả truy vấn
+	while ($row = $query->fetch_assoc()) {
+		// Thêm thông tin từng hàng vào mảng $discount
+		$discount = array(
+			"d_id" => $row["d_id"],
+			"d_name" => $row["d_name"],
+			"d_amount" => $row["d_amount"],
+			"d_description" => $row["d_description"],
+			"d_start_date" => $row["d_start_date"],
+			"d_end_date" => $row["d_end_date"]
+		);
+	}
+} else {
+	// Nếu không tìm thấy kết quả
+	// echo "0 results";
+}
+
+?>
 <!doctype html>
 <html class="no-js" lang="en">
   <head>
@@ -555,7 +705,7 @@ Shopify.routes.root = "/";</script>
        --color-border: 248, 240, 223;
         --payment-terms-background-color: #ffffff;
         --gradient-button-background-1: #000000;
-        --gradient-button-hover:;
+        /* --gradient-button-hover:; */
 
       
         --gradient-base-background-1: #ffffff;
@@ -4024,13 +4174,12 @@ ul.dt-nav>li>.megamenu_megamenu a.dt-sc-nav-link:hover span:not(.dt-sc-caret) {
 							</a>
 							<div class="data1">
 								<i style="color: #49243E;" class=""></i>
-								<a href="register.html" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b>Login
+								<a href="register.html" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b><?php echo $userLogin["userID"];?>
 										/</b></a>
 							</div>
 							<div class="data2">
 								<i style="color: #49243E;" class=""></i>
-								<a href="register.html" class="btn2 btn-primary2 mt-1"
-									style="color: #49243E;"><b>Register</b></a>
+								<a href="register.html" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b><?php echo $userLogin["userName"];?></b></a>
 							</div>
 						</div>
 					</div>
@@ -4041,7 +4190,7 @@ ul.dt-nav>li>.megamenu_megamenu a.dt-sc-nav-link:hover span:not(.dt-sc-caret) {
 				<nav class="limiter-menu-desktop container" style="background-color: #FFEFEF;">
 
 					<!-- Logo desktop -->
-					<a href="index.html" class="navbar-brand">
+					<a href="index.php" class="navbar-brand">
 						<h1 class="m-0 text-primary1 mt-3 "><span class="text-dark1"><img class="Imagealignment"
 									src="images/icon.png">Omacha</h1>
 					</a>
@@ -4050,35 +4199,54 @@ ul.dt-nav>li>.megamenu_megamenu a.dt-sc-nav-link:hover span:not(.dt-sc-caret) {
 					<div class="menu-desktop">
 						<ul class="main-menu">
 							<li class="active-menu">
-								<a href="index.html">Home</a>
+								<a href="index.php">Home</a>
 
 							</li>
 
 							<li class="label1" data-label1="hot">
-								<a href="product.html">Shop</a>
+							<a href="product2.php">Shop</a>
 								<ul class="sub-menu">
-									<li><a href="index.html">Homepage 1</a></li>
-									<li><a href="home-02.html">Homepage 2</a></li>
-									<li><a href="home-03.html">Homepage 3</a></li>
+									<li><a href="0_12months.php">0-12 Months</a></li>
+									<li><a href="1_2years.php">1-2 Years</a></li>
+									<li><a href="3+years.php">3+ Years</a></li>
+									<li><a href="5+years.php">5+ Years</a></li>
 								</ul>
 							</li>
 
 							<li>
-								<a href="blog.html">Blog</a>
+								<a href="blog.php">Blog</a>
 							</li>
 
 							<li>
-								<a href="contact.html">Contact</a>
+								<a href="contact.php">Contact</a>
 							</li>
 
 							<li>
-								<a href="about.html">Pages</a>
+								<a href="about.php">Pages</a>
 								<ul class="sub-menu">
-									<li><a href="index.html">About</a></li>
-									<li><a href="home-02.html">Faq</a></li>
+									<li><a href="about.php">About</a></li>
+									<li><a href="FAQ.php">Faq</a></li>
 								</ul>
 							</li>
 						</ul>
+					</div>
+
+					<!-- Icon header -->
+					<div class="wrap-icon-header flex-w flex-r-m">
+						<div class="icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
+							<i class="zmdi zmdi-search"></i>
+						</div>
+
+						<div class="icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
+							data-notify="<?php echo $order_count?>">
+							<i class="zmdi zmdi-shopping-cart"></i>
+						</div>
+
+						<a href="wishlist.php"
+							class="dis-block icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
+							data-notify="<?php echo $wishlist_count?>">
+							<i class="zmdi zmdi-favorite-outline"></i>
+						</a>
 					</div>
 <script>
 
@@ -4091,23 +4259,7 @@ ul.dt-nav>li>.megamenu_megamenu a.dt-sc-nav-link:hover span:not(.dt-sc-caret) {
     }
 });
 </script>
-					<!-- Icon header -->
-					<div class="wrap-icon-header flex-w flex-r-m">
-						<div class="icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
-							<i class="zmdi zmdi-search"></i>
-						</div>
-
-						<div class="icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-							data-notify="2">
-							<i class="zmdi zmdi-shopping-cart"></i>
-						</div>
-
-						<a href="#"
-							class="dis-block icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
-							data-notify="0">
-							<i class="zmdi zmdi-favorite-outline"></i>
-						</a>
-					</div>
+					
 				</nav>
 			</div>
 		</div>
@@ -4147,41 +4299,47 @@ ul.dt-nav>li>.megamenu_megamenu a.dt-sc-nav-link:hover span:not(.dt-sc-caret) {
 
 		<!-- Menu Mobile -->
 		<div class="menu-mobile">
-			<ul class="topbar-mobile">
-				<li>
-					<div class="left-top-bar ">
-						Free shipping for standard order over $100
-					</div>
-				</li>
+			<!-- <ul class="topbar-mobile">
+					<li>
+						<div class="left-top-bar">
+							Free shipping for standard order over $100
+						</div>
+					</li>
 
-				<li>
-					<div class="right-top-bar flex-w h-full">
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							Help & FAQs
-						</a>
+					<li>
+						<div class="right-top-bar flex-w h-full">
+							<a href="#" class="flex-c-m p-lr-10 trans-04">
+								Help & FAQs
+							</a>
 
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							My Account
-						</a>
+							<a href="#" class="flex-c-m p-lr-10 trans-04">
+								My Account
+							</a>
 
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							EN
-						</a>
+							<a href="#" class="flex-c-m p-lr-10 trans-04">
+								EN
+							</a>
 
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							USD
-						</a>
-					</div>
-				</li>
-			</ul>
+							<a href="#" class="flex-c-m p-lr-10 trans-04">
+								USD
+							</a>
+						</div>
+					</li>
+				</ul> -->
 
 			<ul class="main-menu-m">
 				<li>
-					<a href="index.html">Home</a>
+					<a href="index.php">Home</a>
+					
+				</li>
+
+				<li>
+					<a href="product2.php">Shop</a>
 					<ul class="sub-menu-m">
-						<li><a href="index.html">Homepage 1</a></li>
-						<li><a href="home-02.html">Homepage 2</a></li>
-						<li><a href="home-03.html">Homepage 3</a></li>
+					<li><a href="0_12months.php">0-12 Months</a></li>
+						<li><a href="1_2years.php">1-2 Years</a></li>
+						<li><a href="3+years.php">3+ Years</a></li>
+						<li><a href="5+years.php">5+ Years</a></li>
 					</ul>
 					<span class="arrow-main-menu-m">
 						<i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -4189,23 +4347,19 @@ ul.dt-nav>li>.megamenu_megamenu a.dt-sc-nav-link:hover span:not(.dt-sc-caret) {
 				</li>
 
 				<li>
-					<a href="product.html">Shop</a>
+					<a href="shoping-cart.php" class="label1 rs1" data-label1="hot">Cart</a>
 				</li>
 
 				<li>
-					<a href="shoping-cart.html" class="label1 rs1" data-label1="hot">Features</a>
+					<a href="blog.php">Blog</a>
 				</li>
 
 				<li>
-					<a href="blog.html">Blog</a>
+					<a href="about.php">About</a>
 				</li>
 
 				<li>
-					<a href="about.html">About</a>
-				</li>
-
-				<li>
-					<a href="contact.html">Contact</a>
+					<a href="contact.php">Contact</a>
 				</li>
 			</ul>
 		</div>

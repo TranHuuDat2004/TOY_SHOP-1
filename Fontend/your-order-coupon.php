@@ -110,6 +110,18 @@ if ($result->num_rows > 0) {
     // echo "Không có dữ liệu trong bảng order";
 }
 
+// Truy vấn để đếm số dòng trong bảng order
+$sql = "SELECT COUNT(*) AS total_rows FROM wishlist";
+$result = $conn->query($sql);
+
+// Kiểm tra và hiển thị kết quả
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $wishlist_count = $row["total_rows"];
+} else {
+    // echo "Không có dữ liệu trong bảng order";
+}
+
 // Truy vấn thông tin chiết khấu dựa trên tên discount (d_name)
 $sqlDiscount = "SELECT * FROM discount";
 $query = mysqli_query($conn, $sqlDiscount);
@@ -284,6 +296,17 @@ if ($query->num_rows > 0) {
             padding: 5px;
             text-align: center;
         }
+
+        #img-cart .img {
+            width: 150%;
+        }
+
+        .how-itemcart1 {
+            width: 125px;
+            position: relative;
+            margin-right: 20px;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -336,7 +359,7 @@ if ($query->num_rows > 0) {
                 <nav class="limiter-menu-desktop container" style="background-color: #FFEFEF;">
 
                     <!-- Logo desktop -->
-                    <a href="index.html" class="navbar-brand">
+                    <a href="index.php" class="navbar-brand">
                         <h1 class="m-0 text-primary1 mt-3 "><span class="text-dark1"><img class="Imagealignment" src="images/icon.png">Omacha</h1>
                     </a>
 
@@ -344,16 +367,17 @@ if ($query->num_rows > 0) {
                     <div class="menu-desktop">
                         <ul class="main-menu">
                             <li class="active-menu">
-                                <a href="index.html">Home</a>
+                                <a href="index.php">Home</a>
 
                             </li>
 
                             <li class="label1" data-label1="hot">
                                 <a href="product2.php">Shop</a>
                                 <ul class="sub-menu">
-                                    <li><a href="index.html">Homepage 1</a></li>
-                                    <li><a href="home-02.html">Homepage 2</a></li>
-                                    <li><a href="home-03.html">Homepage 3</a></li>
+                                    <li><a href="0_12months.php">0-12 Months</a></li>
+                                    <li><a href="1_2years.php">1-2 Years</a></li>
+                                    <li><a href="3+years.php">3+ Years</a></li>
+                                    <li><a href="5+years.php">5+ Years</a></li>
                                 </ul>
                             </li>
 
@@ -368,8 +392,8 @@ if ($query->num_rows > 0) {
                             <li>
                                 <a href="about.php">Pages</a>
                                 <ul class="sub-menu">
-                                    <li><a href="index.html">About</a></li>
-                                    <li><a href="home-02.html">Faq</a></li>
+                                    <li><a href="about.php">About</a></li>
+                                    <li><a href="FAQ.php">Faq</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -385,7 +409,7 @@ if ($query->num_rows > 0) {
                             <i class="zmdi zmdi-shopping-cart"></i>
                         </div>
 
-                        <a href="#" class="dis-block icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
+                        <a href="wishlist.php" class="dis-block icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="<?php echo $wishlist_count ?>">
                             <i class="zmdi zmdi-favorite-outline"></i>
                         </a>
                     </div>
@@ -426,41 +450,47 @@ if ($query->num_rows > 0) {
 
         <!-- Menu Mobile -->
         <div class="menu-mobile">
-            <ul class="topbar-mobile">
-                <li>
-                    <div class="left-top-bar">
-                        Free shipping for standard order over $100
-                    </div>
-                </li>
+            <!-- <ul class="topbar-mobile">
+					<li>
+						<div class="left-top-bar">
+							Free shipping for standard order over $100
+						</div>
+					</li>
 
-                <li>
-                    <div class="right-top-bar flex-w h-full">
-                        <a href="#" class="flex-c-m p-lr-10 trans-04">
-                            Help & FAQs
-                        </a>
+					<li>
+						<div class="right-top-bar flex-w h-full">
+							<a href="#" class="flex-c-m p-lr-10 trans-04">
+								Help & FAQs
+							</a>
 
-                        <a href="#" class="flex-c-m p-lr-10 trans-04">
-                            My Account
-                        </a>
+							<a href="#" class="flex-c-m p-lr-10 trans-04">
+								My Account
+							</a>
 
-                        <a href="#" class="flex-c-m p-lr-10 trans-04">
-                            EN
-                        </a>
+							<a href="#" class="flex-c-m p-lr-10 trans-04">
+								EN
+							</a>
 
-                        <a href="#" class="flex-c-m p-lr-10 trans-04">
-                            USD
-                        </a>
-                    </div>
-                </li>
-            </ul>
+							<a href="#" class="flex-c-m p-lr-10 trans-04">
+								USD
+							</a>
+						</div>
+					</li>
+				</ul> -->
 
             <ul class="main-menu-m">
                 <li>
-                    <a href="index.html">Home</a>
+                    <a href="index.php">Home</a>
+
+                </li>
+
+                <li>
+                    <a href="product2.php">Shop</a>
                     <ul class="sub-menu-m">
-                        <li><a href="index.html">Homepage 1</a></li>
-                        <li><a href="home-02.html">Homepage 2</a></li>
-                        <li><a href="home-03.html">Homepage 3</a></li>
+                        <li><a href="0_12months.php">0-12 Months</a></li>
+                        <li><a href="1_2years.php">1-2 Years</a></li>
+                        <li><a href="3+years.php">3+ Years</a></li>
+                        <li><a href="5+years.php">5+ Years</a></li>
                     </ul>
                     <span class="arrow-main-menu-m">
                         <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -468,11 +498,7 @@ if ($query->num_rows > 0) {
                 </li>
 
                 <li>
-                    <a href="product2.php">Shop</a>
-                </li>
-
-                <li>
-                    <a href="shoping-cart.html" class="label1 rs1" data-label1="hot">Features</a>
+                    <a href="shoping-cart.php" class="label1 rs1" data-label1="hot">Cart</a>
                 </li>
 
                 <li>
@@ -523,6 +549,9 @@ if ($query->num_rows > 0) {
 
             <div class="header-cart-content flex-w js-pscroll">
                 <ul class="header-cart-wrapitem w-full">
+                    <span>Congratulations! You&#39;ve got <strong>Free Shipping!</strong></span>
+                    <div class="progress1"></div>
+                    <br>
                     <?php
                     // Duyệt qua mỗi sản phẩm trong giỏ hàng và hiển thị thông tin
                     foreach ($order_array as $item) {
@@ -546,7 +575,7 @@ if ($query->num_rows > 0) {
                                         <span class="header-cart-item-info"><?php echo $item["o_quantity"]; ?> x $<?php echo $item["p_price"]; ?></span>
                                     </div>
                                     <div class="col-md-3">
-                                        <form action="delete-cart.php" method="post">
+                                        <form action="delete-cart2.php" method="post">
                                             <input type="hidden" name="p_id" value="<?php echo $item['p_id']; ?>">
 
                                             <!-- Nút xóa tại đây -->
@@ -574,7 +603,7 @@ if ($query->num_rows > 0) {
                             View Cart
                         </a>
 
-                        <a href="shopping-cart.php" id="btn-cart" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
+                        <a href="your-order.php" id="btn-cart" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
                             Your Order
                         </a>
                     </div>

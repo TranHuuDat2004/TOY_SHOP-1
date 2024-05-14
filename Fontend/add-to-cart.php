@@ -57,7 +57,7 @@ $row = $queryLogin->fetch_assoc();
         print_r($o_quantity);
 
         // Kiểm tra sản phẩm đã tồn tại trong giỏ hàng chưa
-        $check_query = "SELECT * FROM `order` WHERE u_id = $u_id AND p_id = $p_id";
+        $check_query = "SELECT * FROM `order` WHERE u_id = $u_id AND p_id = $p_id AND o_status = 0";
         $result = $conn->query($check_query);
         $u_id = $userLogin["userID"];
         if ($result->num_rows > 0) {
