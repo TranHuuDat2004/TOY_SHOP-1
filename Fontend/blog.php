@@ -99,13 +99,25 @@ function sumTotalPrice($order_array, $u_id)
 }
 
 // Truy vấn để đếm số dòng trong bảng order
-$sql = "SELECT COUNT(*) AS total_rows FROM `order` WHERE u_id = '{$userLogin['userID']}'";
+$sql = "SELECT COUNT(*) AS total_rows FROM `order` WHERE u_id = '{$userLogin['userID']}' AND o_quantity > 0 AND o_status = 0";
 $result = $conn->query($sql);
 
 // Kiểm tra và hiển thị kết quả
 if ($result->num_rows > 0) {
 	$row = $result->fetch_assoc();
 	$order_count = $row["total_rows"];
+} else {
+	// echo "Không có dữ liệu trong bảng order";
+}
+
+// Truy vấn để đếm số dòng trong bảng order
+$sql = "SELECT COUNT(*) AS total_rows FROM wishlist";
+$result = $conn->query($sql);
+
+// Kiểm tra và hiển thị kết quả
+if ($result->num_rows > 0) {
+	$row = $result->fetch_assoc();
+	$wishlist_count = $row["total_rows"];
 } else {
 	// echo "Không có dữ liệu trong bảng order";
 }
@@ -213,8 +225,26 @@ if ($result->num_rows > 0) {
 		margin-right: 20px; /* Khoảng cách giữa hình ảnh và văn bản */
 	}
 
+	
+	/* Định dạng nút check out và view cart */
+	#btn-cart {
+		background-color: #F4538A;
+		color: #FFEFEF;
+	}
 
+	#btn-cart:hover {
+		background-color: black;
+		color: #FFEFEF;
+	}
 
+	/* Định dạng nút delete */
+	.btn-delete {
+		color: black;
+	}
+
+	.btn-delete:hover {
+		color:#F4538A;
+	}
 </style>
 </head>
 <body class="animsition">
@@ -258,12 +288,12 @@ if ($result->num_rows > 0) {
 							</a>
 							<div class="data1">
 								<i style="color: #49243E;" class=""></i>
-								<a href="register.html" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b><?php echo $userLogin["userID"];?>
+								<a href="register.php" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b><?php echo $userLogin["userID"];?>
 										/</b></a>
 							</div>
 							<div class="data2">
 								<i style="color: #49243E;" class=""></i>
-								<a href="register.html" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b><?php echo $userLogin["userName"];?></b></a>
+								<a href="register.php" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b><?php echo $userLogin["userName"];?></b></a>
 							</div>
 						</div>
 					</div>
@@ -283,16 +313,17 @@ if ($result->num_rows > 0) {
 					<div class="menu-desktop">
 						<ul class="main-menu">
 							<li class="active-menu">
-								<a href="index.html">Home</a>
+								<a href="index.php">Home</a>
 
 							</li>
 
 							<li class="label1" data-label1="hot">
-								<a href="product2.php">Shop</a>
+							<a href="product2.php">Shop</a>
 								<ul class="sub-menu">
-									<li><a href="index.html">Homepage 1</a></li>
-									<li><a href="home-02.html">Homepage 2</a></li>
-									<li><a href="home-03.html">Homepage 3</a></li>
+									<li><a href="0_12months.php">0-12 Months</a></li>
+									<li><a href="1_2years.php">1-2 Years</a></li>
+									<li><a href="3+years.php">3+ Years</a></li>
+									<li><a href="5+years.php">5+ Years</a></li>
 								</ul>
 							</li>
 
@@ -301,14 +332,14 @@ if ($result->num_rows > 0) {
 							</li>
 
 							<li>
-								<a href="contact.html">Contact</a>
+								<a href="contact.php">Contact</a>
 							</li>
 
 							<li>
-								<a href="about.html">Pages</a>
+								<a href="about.php">Pages</a>
 								<ul class="sub-menu">
-									<li><a href="index.html">About</a></li>
-									<li><a href="home-02.html">Faq</a></li>
+									<li><a href="about.php">About</a></li>
+									<li><a href="FAQ.php">Faq</a></li>
 								</ul>
 							</li>
 						</ul>
@@ -321,13 +352,13 @@ if ($result->num_rows > 0) {
 						</div>
 
 						<div class="icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-							data-notify="2">
+							data-notify="<?php echo $order_count?>">
 							<i class="zmdi zmdi-shopping-cart"></i>
 						</div>
 
-						<a href="#"
+						<a href="wishlist.php"
 							class="dis-block icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
-							data-notify="0">
+							data-notify="<?php echo $wishlist_count?>">
 							<i class="zmdi zmdi-favorite-outline"></i>
 						</a>
 					</div>
@@ -422,11 +453,11 @@ if ($result->num_rows > 0) {
 				</li>
 
 				<li>
-					<a href="about.html">About</a>
+					<a href="about.php">About</a>
 				</li>
 
 				<li>
-					<a href="contact.html">Contact</a>
+					<a href="contact.php">Contact</a>
 				</li>
 			</ul>
 		</div>

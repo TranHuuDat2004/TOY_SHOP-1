@@ -94,17 +94,28 @@ function sumTotalPrice($order_array, $u_id)
 }
 
     // Truy vấn để đếm số dòng trong bảng order
-    $sql = "SELECT COUNT(*) AS total_rows FROM `order` WHERE u_id = '{$userLogin['userID']}' AND o_quantity > 0 AND o_status = 0";
+$sql = "SELECT COUNT(*) AS total_rows FROM `order` WHERE u_id = '{$userLogin['userID']}' AND o_quantity > 0 AND o_status = 0";
+$result = $conn->query($sql);
 
-    $result = $conn->query($sql);
+// Kiểm tra và hiển thị kết quả
+if ($result->num_rows > 0) {
+	$row = $result->fetch_assoc();
+	$order_count = $row["total_rows"];
+} else {
+	// echo "Không có dữ liệu trong bảng order";
+}
 
-    // Kiểm tra và hiển thị kết quả
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $order_count = $row["total_rows"];
-    } else {
-        // echo "Không có dữ liệu trong bảng order";
-    }
+// Truy vấn để đếm số dòng trong bảng order
+$sql = "SELECT COUNT(*) AS total_rows FROM wishlist";
+$result = $conn->query($sql);
+
+// Kiểm tra và hiển thị kết quả
+if ($result->num_rows > 0) {
+	$row = $result->fetch_assoc();
+	$wishlist_count = $row["total_rows"];
+} else {
+	// echo "Không có dữ liệu trong bảng order";
+}
 
 
 ?>
@@ -221,12 +232,12 @@ function sumTotalPrice($order_array, $u_id)
 							</a>
 							<div class="data1">
 								<i style="color: #49243E;" class=""></i>
-								<a href="register.html" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b><?php echo $userLogin["userID"];?>
+								<a href="register.php" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b><?php echo $userLogin["userID"];?>
 										/</b></a>
 							</div>
 							<div class="data2">
 								<i style="color: #49243E;" class=""></i>
-								<a href="register.html" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b><?php echo $userLogin["userName"];?></b></a>
+								<a href="register.php" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b><?php echo $userLogin["userName"];?></b></a>
 							</div>
 						</div>
 					</div>
@@ -238,7 +249,8 @@ function sumTotalPrice($order_array, $u_id)
 
 					<!-- Logo desktop -->
 					<a href="index.php" class="navbar-brand">
-						<h1 class="m-0 text-primary1 mt-3 "><span class="text-dark1"><img class="Imagealignment" src="images/icon.png">Omacha</h1>
+						<h1 class="m-0 text-primary1 mt-3 "><span class="text-dark1"><img class="Imagealignment"
+									src="images/icon.png">Omacha</h1>
 					</a>
 
 					<!-- Menu desktop -->
@@ -250,7 +262,7 @@ function sumTotalPrice($order_array, $u_id)
 							</li>
 
 							<li class="label1" data-label1="hot">
-								<a href="product2.php">Shop</a>
+							<a href="product2.php">Shop</a>
 								<ul class="sub-menu">
 									<li><a href="0_12months.php">0-12 Months</a></li>
 									<li><a href="1_2years.php">1-2 Years</a></li>
@@ -283,11 +295,14 @@ function sumTotalPrice($order_array, $u_id)
 							<i class="zmdi zmdi-search"></i>
 						</div>
 
-						<div class="icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="<?php print_r($order_count);  ?>">
+						<div class="icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
+							data-notify="<?php echo $order_count?>">
 							<i class="zmdi zmdi-shopping-cart"></i>
 						</div>
 
-						<a href="wishlist.php" class="dis-block icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
+						<a href="wishlist.php"
+							class="dis-block icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
+							data-notify="<?php echo $wishlist_count?>">
 							<i class="zmdi zmdi-favorite-outline"></i>
 						</a>
 					</div>
@@ -895,11 +910,11 @@ function sumTotalPrice($order_array, $u_id)
 
 							<ul>
 								<li class="p-b-6">
-									<button type="submit" value="10" id="$5">5-8</button>
+									<button type="submit" value="$10" id="$5">5-8</button>
 								</li>
 
 								<li class="p-b-6">
-									<button type="submit" value="20" id="$8">8-9</button>
+									<button type="submit" value="$20" id="$8">8-9</button>
 								</li>
 
 								<li class="p-b-6">

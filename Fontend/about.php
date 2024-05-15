@@ -4,7 +4,6 @@ include 'login.php';
 include('../Admin/connection/connectionpro.php');
 require_once '../Admin/connection/connectData.php';
 
-
 if (!isset($_SESSION["user"])) {
 	// Redirect user to the login page if not logged in
 	header("Location: login.html");
@@ -16,7 +15,6 @@ $userName = $_SESSION["user"];
 $sqlLogin = "SELECT * FROM `login` WHERE userName = '$userName' ";
 $queryLogin = mysqli_query($conn, $sqlLogin);
 // print_r($queryLogin);
-// Kiểm tra kết quả truy vấn
 
 // Duyệt qua từng hàng dữ liệu từ kết quả truy vấn
 $row = $queryLogin->fetch_assoc();
@@ -26,6 +24,7 @@ $userLogin = array(
 	"userName" => $row["userName"],
 	"email" => $row["email"],
 );
+
 
 $sql = "SELECT * FROM product";
 $query = mysqli_query($conn, $sql);
@@ -51,29 +50,24 @@ product ON `order`.p_id = product.p_id";
 // Thực hiện truy vấn
 $resultOrder = $conn->query($sqlOrder);
 
-// Mảng chứa thông tin các đơn hàng
-$order_array = array();
-
 // Kiểm tra kết quả truy vấn
 if ($resultOrder->num_rows > 0) {
 	// Duyệt qua từng hàng dữ liệu từ kết quả truy vấn
 	while ($row = $resultOrder->fetch_assoc()) {
-		if ($row['u_id'] == $userLogin['userID']) {
-			// Thêm thông tin từng hàng vào mảng $order_array
-			$order_array[] = array(
-				"o_id" => $row["o_id"],
-				"u_id" => $row["u_id"],
-				"p_id" => $row["p_id"],
-				"o_price" => $row["o_price"],
-				"o_quantity" => $row["o_quantity"],
-				"o_status" => $row["o_status"],
-				"p_type" => $row["p_type"],
-				"p_image" => $row["p_image"],
-				"p_name" => $row["p_name"],
-				"p_price" => $row["p_price"]
-			);
-		}
-	};
+		// Thêm thông tin từng hàng vào mảng $order_array
+		$order_array[] = array( // hãy giữ []
+			"o_id" => $row["o_id"],
+			"u_id" => $row["u_id"],
+			"p_id" => $row["p_id"],
+			"o_price" => $row["o_price"],
+			"o_quantity" => $row["o_quantity"],
+			"o_status" => $row["o_status"],
+			"p_type" => $row["p_type"],
+			"p_image" => $row["p_image"],
+			"p_name" => $row["p_name"],
+			"p_price" => $row["p_price"]
+		);
+	}
 } else {
 	// echo "0 results";
 }
@@ -86,7 +80,7 @@ function sumTotalPrice($order_array, $u_id)
 	// Duyệt qua từng sản phẩm trong giỏ hàng và tính tổng giá tiền
 	foreach ($order_array as $item) {
 		// Kiểm tra xem u_id của sản phẩm có khớp với u_id được chỉ định hay không
-		if ($item["u_id"] == $u_id) {
+		if ($item["u_id"] == $u_id && $item["o_status"] == 0) {
 			// Tính giá tiền của mỗi sản phẩm (giá tiền * số lượng)
 			$productPrice = $item["p_price"] * $item["o_quantity"];
 
@@ -99,7 +93,7 @@ function sumTotalPrice($order_array, $u_id)
 }
 
 // Truy vấn để đếm số dòng trong bảng order
-$sql = "SELECT COUNT(*) AS total_rows FROM `order` WHERE u_id = '{$userLogin['userID']}'";
+$sql = "SELECT COUNT(*) AS total_rows FROM `order` WHERE u_id = '{$userLogin['userID']}' AND o_quantity > 0 AND o_status = 0";
 $result = $conn->query($sql);
 
 // Kiểm tra và hiển thị kết quả
@@ -110,188 +104,167 @@ if ($result->num_rows > 0) {
 	// echo "Không có dữ liệu trong bảng order";
 }
 
+// Truy vấn để đếm số dòng trong bảng order
+$sql = "SELECT COUNT(*) AS total_rows FROM wishlist";
+$result = $conn->query($sql);
+
+// Kiểm tra và hiển thị kết quả
+if ($result->num_rows > 0) {
+	$row = $result->fetch_assoc();
+	$wishlist_count = $row["total_rows"];
+} else {
+	// echo "Không có dữ liệu trong bảng order";
+}
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<title>About Us</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v5.15.4/css/all.css">
-    <!-- link icon -->
-    <link
-      rel="stylesheet"
-      data-purpose="Layout StyleSheet"
-      title="Web Awesome"
+	<!-- link icon -->
+	<link rel="stylesheet" data-purpose="Layout StyleSheet" title="Web Awesome" href="/css/app-wa-8d95b745961f6b33ab3aa1b98a45291a.css?vsn=d">
 
-      href="/css/app-wa-8d95b745961f6b33ab3aa1b98a45291a.css?vsn=d"
-    >
+	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/all.css">
 
-      <link
-        rel="stylesheet"
+	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-solid.css">
 
-        href="https://site-assets.fontawesome.com/releases/v6.4.0/css/all.css"
-      >
+	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-regular.css">
 
-      <link
-        rel="stylesheet"
-
-        href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-solid.css"
-      >
-
-      <link
-        rel="stylesheet"
-
-        href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-regular.css"
-      >
-
-      <link
-        rel="stylesheet"
-
-        href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-light.css"
-      >
-<!-- link icon -->	
-	<link rel="icon" type="image/png" href="images/icon.png"/>
-<!--===============================================================================================-->
+	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-light.css">
+	<!-- link icon -->
+	<link rel="icon" type="image/png" href="images/icon.png" />
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="fonts/linearicons-v1.0.0/icon-font.min.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-<!--===============================================================================================-->	
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-<!--===============================================================================================-->	
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/slick/slick.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/MagnificPopup/magnific-popup.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
-<!--===============================================================================================-->
-<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v5.15.4/css/all.css">
-    <!-- link icon -->
-    <link
-      rel="stylesheet"
-      data-purpose="Layout StyleSheet"
-      title="Web Awesome"
+	<!--===============================================================================================-->
+	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v5.15.4/css/all.css">
+	<!-- link icon -->
+	<link rel="stylesheet" data-purpose="Layout StyleSheet" title="Web Awesome" href="/css/app-wa-8d95b745961f6b33ab3aa1b98a45291a.css?vsn=d">
 
-      href="/css/app-wa-8d95b745961f6b33ab3aa1b98a45291a.css?vsn=d"
-    >
+	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/all.css">
 
-      <link
-        rel="stylesheet"
+	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-solid.css">
 
-        href="https://site-assets.fontawesome.com/releases/v6.4.0/css/all.css"
-      >
+	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-regular.css">
 
-      <link
-        rel="stylesheet"
+	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-light.css">
+	<!--===============================================================================================-->
 
-        href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-solid.css"
-      >
+	<!-- Light theme stylesheet -->
+	<link href="light-theme.css" rel="stylesheet" id="theme-link">
 
-      <link
-        rel="stylesheet"
-
-        href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-regular.css"
-      >
-
-      <link
-        rel="stylesheet"
-
-        href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-light.css"
-      >
-<!--===============================================================================================-->
 </head>
 
 <style>
-    /* Format Image Team member*/
-    .team-member-img img {
-        border-radius: 50%;
-        overflow: hidden;
-        object-fit: cover; /* Ensure the image covers the entire container */
-        width: 100%; /* Ensure the image fills the parent element */
-    }
+	/* Format Image Team member*/
+	.team-member-img img {
+		border-radius: 50%;
+		overflow: hidden;
+		object-fit: cover;
+		/* Ensure the image covers the entire container */
+		width: 100%;
+		/* Ensure the image fills the parent element */
+	}
 
 	.about-icon img {
-        overflow: hidden;
-        object-fit: cover; /* Ensure the image covers the entire container */
-        width: 20%; /* Ensure the image fills the parent element */
+		overflow: hidden;
+		object-fit: cover;
+		/* Ensure the image covers the entire container */
+		width: 20%;
+		/* Ensure the image fills the parent element */
 		padding-right: 20px;
 		padding-bottom: 15px;
-    }
+	}
 
-    /* Format Team member*/
-    .team-member-info {
-        text-align: center;
-        font-family: Arial, sans-serif; /* Set font */
+	/* Format Team member*/
+	.team-member-info {
+		text-align: center;
+		font-family: Arial, sans-serif;
+		/* Set font */
 		font-size: 20px;
 		font-weight: bold;
 		color: #000;
 		padding-top: 10px;
-    }	
+	}
 
 	/* Set Padding icon for id*/
-	#about-icon{
+	#about-icon {
 		padding-top: 25px;
 	}
 
 	/* Set Image Icon for id */
-	#about-icon img{
+	#about-icon img {
 		padding-right: 20px;
 	}
 
 	/* Set Font Size */
-	#font-size{
+	#font-size {
 		font-size: 20px;
 	}
 
-	.background-gray{
+	.background-gray {
 		background-color: rgb(231, 231, 231, 0.1);
 		padding: 30px;
 		background-image: url("images/background-image.png");
-		background-position: center;		
+		background-position: center;
 	}
 
 	/* My Apology */
 	.bubble-chat {
-        position: relative;
-        display: inline-block;
-        padding: 10px 20px;
-        border-radius: 20px;
-        background-color: #f0f0f0;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add shadow */
-        }
+		position: relative;
+		display: inline-block;
+		padding: 10px 20px;
+		border-radius: 20px;
+		background-color: #f0f0f0;
+		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+		/* Add shadow */
+	}
 
-    .bubble-chat::after {
-        content: '';
-        position: absolute;
-        bottom: -10px;
-        left: 20px;
-        border-style: solid;
-        border-width: 10px 10px 0;
-        border-color: #f0f0f0 transparent;
-        display: block;
-        width: 0;
-    }
+	.bubble-chat::after {
+		content: '';
+		position: absolute;
+		bottom: -10px;
+		left: 20px;
+		border-style: solid;
+		border-width: 10px 10px 0;
+		border-color: #f0f0f0 transparent;
+		display: block;
+		width: 0;
+	}
 
 	.avatar {
 		position: relative;
-		perspective: 1000px; /* Create 3D effect */
+		perspective: 1000px;
+		/* Create 3D effect */
 	}
 
 	.avatar img {
@@ -321,11 +294,12 @@ if ($result->num_rows > 0) {
 	}
 
 	.avatar:hover .message {
-		opacity: 1; /* Display message on hover */
+		opacity: 1;
+		/* Display message on hover */
 	}
 
 	/* Button Facebook */
-	.block2-btn{
+	.block2-btn {
 		background-color: #FFEFEF;
 	}
 
@@ -333,6 +307,7 @@ if ($result->num_rows > 0) {
 		from {
 			opacity: 0;
 		}
+
 		to {
 			opacity: 1;
 		}
@@ -345,14 +320,34 @@ if ($result->num_rows > 0) {
 
 	/* Resize Icon fa-2xl */
 	.fa-2xl {
-    	font-size: 50px; /* or desired size */
+		font-size: 50px;
+		/* or desired size */
 	}
 
+
+	/* Định dạng nút check out và view cart */
+	#btn-cart {
+		background-color: #F4538A;
+		color: #FFEFEF;
+	}
+
+	#btn-cart:hover {
+		background-color: black;
+		color: #FFEFEF;
+	}
+
+	/* Định dạng nút delete */
+	.btn-delete {
+		color: black;
+	}
+
+	.btn-delete:hover {
+		color: #F4538A;
+	}
 </style>
 
 
 <body class="animsition">
-	
 	<!-- Header -->
 	<header>
 		<!-- Header desktop -->
@@ -362,42 +357,34 @@ if ($result->num_rows > 0) {
 				<div class="content-topbar flex-sb-m h-full container">
 					<div class="left-top-bar">
 						<div class="d-inline-flex align-items-center">
-							<p style="color: #F4538A"><i class="fa fa-envelope mr-2"></i><a
-									href="mailto:omachacontact@gmail.com"
-									style="color: #000; text-decoration: none;">omachacontact@gmail.com</a></p>
+							<p style="color: #F4538A"><i class="fa fa-envelope mr-2"></i><a href="mailto:omachacontact@gmail.com" style="color: #000; text-decoration: none;">omachacontact@gmail.com</a></p>
 							<p class="text-body px-3">|</p>
-							<p style="color: #F4538A"><i class="fa fa-phone-alt mr-2"></i><a href="tel:+19223600"
-									style="color: #000; text-decoration: none;">+1922 4800</a></p>
+							<p style="color: #F4538A"><i class="fa fa-phone-alt mr-2"></i><a href="tel:+19223600" style="color: #000; text-decoration: none;">+1922 4800</a></p>
 						</div>
 					</div>
 
 					<div class="col-lg-6 text-center text-lg-right">
 						<div class="d-inline-flex align-items-center">
-							<a class="text-primary px-3" href="https://www.facebook.com/profile.php?id=61557250007525"
-								target="_blank" title="Visit the Reis Adventures fanpage.">
+							<a class="text-primary px-3" href="https://www.facebook.com/profile.php?id=61557250007525" target="_blank" title="Visit the Reis Adventures fanpage.">
 								<i style="color: #49243E;" class="fab fa-facebook-f"></i>
 							</a>
-							<a class="text-primary px-3" href="https://twitter.com/reis_adventures" target="_blank"
-								title="Visit the Reis Adventures Twitter.">
+							<a class="text-primary px-3" href="https://twitter.com/reis_adventures" target="_blank" title="Visit the Reis Adventures Twitter.">
 								<i style="color: #49243E;" class="fab fa-twitter"></i>
 							</a>
-							<a class="text-primary px-3" href="https://www.linkedin.com/in/reis-adventures-458144300/"
-								target="_blank" title="Visit the Reis Adventures Linkedin.">
+							<a class="text-primary px-3" href="https://www.linkedin.com/in/reis-adventures-458144300/" target="_blank" title="Visit the Reis Adventures Linkedin.">
 								<i style="color: #49243E;" class="fab fa-linkedin-in"></i>
 							</a>
-							<a class="text-primary px-3"
-								href="https://www.instagram.com/reis_adventures2024?igsh=YTQwZjQ0NmI0OA%3D%3D&utm_source=qr"
-								target="_blank" title="Visit the Reis Adventures Instagram.">
+							<a class="text-primary px-3" href="https://www.instagram.com/reis_adventures2024?igsh=YTQwZjQ0NmI0OA%3D%3D&utm_source=qr" target="_blank" title="Visit the Reis Adventures Instagram.">
 								<i style="color: #49243E;" class="fab fa-instagram"></i>
 							</a>
 							<div class="data1">
 								<i style="color: #49243E;" class=""></i>
-								<a href="register.html" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b><?php echo $userLogin["userID"]; ?>
+								<a href="register.php" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b><?php echo $userLogin["userID"]; ?>
 										/</b></a>
 							</div>
 							<div class="data2">
 								<i style="color: #49243E;" class=""></i>
-								<a href="register.html" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b><?php echo $userLogin["userName"]; ?></b></a>
+								<a href="register.php" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b><?php echo $userLogin["userName"]; ?></b></a>
 							</div>
 						</div>
 					</div>
@@ -409,8 +396,7 @@ if ($result->num_rows > 0) {
 
 					<!-- Logo desktop -->
 					<a href="index.php" class="navbar-brand">
-						<h1 class="m-0 text-primary1 mt-3 "><span class="text-dark1"><img class="Imagealignment"
-									src="images/icon.png">Omacha</h1>
+						<h1 class="m-0 text-primary1 mt-3 "><span class="text-dark1"><img class="Imagealignment" src="images/icon.png">Omacha</h1>
 					</a>
 
 					<!-- Menu desktop -->
@@ -422,11 +408,12 @@ if ($result->num_rows > 0) {
 							</li>
 
 							<li class="label1" data-label1="hot">
-								<a href="product2.php">Shop</a>
+							<a href="product2.php">Shop</a>
 								<ul class="sub-menu">
-									<li><a href="index.php">Homepage 1</a></li>
-									<li><a href="home-02.html">Homepage 2</a></li>
-									<li><a href="home-03.html">Homepage 3</a></li>
+									<li><a href="0_12months.php">0-12 Months</a></li>
+									<li><a href="1_2years.php">1-2 Years</a></li>
+									<li><a href="3+years.php">3+ Years</a></li>
+									<li><a href="5+years.php">5+ Years</a></li>
 								</ul>
 							</li>
 
@@ -441,8 +428,8 @@ if ($result->num_rows > 0) {
 							<li>
 								<a href="about.php">Pages</a>
 								<ul class="sub-menu">
-									<li><a href="index.php">About</a></li>
-									<li><a href="home-02.html">Faq</a></li>
+									<li><a href="about.php">About</a></li>
+									<li><a href="FAQ.php">Faq</a></li>
 								</ul>
 							</li>
 						</ul>
@@ -455,13 +442,13 @@ if ($result->num_rows > 0) {
 						</div>
 
 						<div class="icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-							data-notify="2">
+							data-notify="<?php echo $order_count?>">
 							<i class="zmdi zmdi-shopping-cart"></i>
 						</div>
 
-						<a href="#"
+						<a href="wishlist.php"
 							class="dis-block icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
-							data-notify="0">
+							data-notify="<?php echo $wishlist_count?>">
 							<i class="zmdi zmdi-favorite-outline"></i>
 						</a>
 					</div>
@@ -482,13 +469,11 @@ if ($result->num_rows > 0) {
 					<i class="zmdi zmdi-search"></i>
 				</div>
 
-				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart"
-					data-notify="2">
+				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="2">
 					<i class="zmdi zmdi-shopping-cart"></i>
 				</div>
 
-				<a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti"
-					data-notify="0">
+				<a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti" data-notify="0">
 					<i class="zmdi zmdi-favorite-outline"></i>
 				</a>
 			</div>
@@ -564,6 +549,7 @@ if ($result->num_rows > 0) {
 				<li>
 					<a href="contact.php">Contact</a>
 				</li>
+
 			</ul>
 		</div>
 
@@ -601,11 +587,14 @@ if ($result->num_rows > 0) {
 
 			<div class="header-cart-content flex-w js-pscroll">
 				<ul class="header-cart-wrapitem w-full">
+					<span>Congratulations! You&#39;ve got <strong>Free Shipping!</strong></span>
+					<div class="progress1"></div>
+					<br>
 					<?php
 					// Duyệt qua mỗi sản phẩm trong giỏ hàng và hiển thị thông tin
 					foreach ($order_array as $item) {
 						// mới có u_id $userLogin["userID"], 555
-						if ($item["u_id"] == $userLogin["userID"] && $item["o_quantity"] > 0) {
+						if ($item["u_id"] == $userLogin["userID"] && $item["o_quantity"] > 0 && $item["o_status"] == 0) {
 					?>
 							<li class="header-cart-item m-b-20">
 								<div class="row">
@@ -624,7 +613,7 @@ if ($result->num_rows > 0) {
 										<span class="header-cart-item-info"><?php echo $item["o_quantity"]; ?> x $<?php echo $item["p_price"]; ?></span>
 									</div>
 									<div class="col-md-3">
-										<form action="delete-cart.php" method="post">
+										<form action="delete-cart2.php" method="post">
 											<input type="hidden" name="p_id" value="<?php echo $item['p_id']; ?>">
 
 											<!-- Nút xóa tại đây -->
@@ -667,7 +656,7 @@ if ($result->num_rows > 0) {
 		<h2 style="color: #000;" class="ltext-105 cl0 txt-center">
 			About Us
 		</h2>
-	</section>	
+	</section>
 
 
 	<!-- Content page -->
@@ -679,23 +668,23 @@ if ($result->num_rows > 0) {
 			<div class="row p-b-30">
 				<div class="col-md-7 col-lg-8">
 					<div class="p-t-7 p-r-85 p-r-15-lg p-r-0-md">
-						<h3 style="padding-left: 10%;"  class="mtext-111 cl2 p-b-16">
+						<h3 style="padding-left: 10%;" class="mtext-111 cl2 p-b-16">
 							Why choose toy time toys & games
 						</h3>
 
 						<div id="about-icon" class="stext-113 cl6 p-b-26">
 							<img src="images/About-Icon-1.webp" alt="IMG" height="50px">
-							<b id="font-size">Premium Toys Products</b>									
+							<b id="font-size">Premium Toys Products</b>
 						</div>
 
 						<div id="about-icon" class="stext-113 cl6 p-b-26">
 							<img src="images/About-Icon-2.webp" alt="IMG" height="50px">
-							<b id="font-size">More Than 60+ Unique Products: </b>									
+							<b id="font-size">More Than 60+ Unique Products: </b>
 						</div>
 
 						<div id="about-icon" class="stext-113 cl6 p-b-26">
 							<img src="images/intro3.jpg" alt="IMG" height="50px">
-							<b id="font-size">Free Shipping Available: </b>									
+							<b id="font-size">Free Shipping Available: </b>
 						</div>
 					</div>
 				</div>
@@ -709,18 +698,18 @@ if ($result->num_rows > 0) {
 				</div>
 			</div>
 
-			<!-- Material Product -->			
+			<!-- Material Product -->
 			<section class="bg0 p-t-75 p-b-30">
 				<div class="container">
 					<h3 style="text-align: center; margin-bottom: 10px;" class="mtext-111 cl2 p-b-16">
 						Materials in toys
 					</h3>
-					<div class="row background-gray">						
+					<div class="row background-gray">
 						<!-- Icon 4 -->
 						<div class="col-md-3 ">
 							<div class="about-icon">
 								<div style="color: #000; margin: 20px;">
-									<img src="images/About-Icon-4.webp" alt="IMG">							
+									<img src="images/About-Icon-4.webp" alt="IMG">
 									<b id="font-size">Cotton 76%</b>
 									<p>Soft and breathable, making it suitable for cuddly toys and fabric-based toys.</p>
 								</div>
@@ -730,7 +719,7 @@ if ($result->num_rows > 0) {
 						<div class="col-md-3">
 							<div class="about-icon">
 								<div style="color: #000; margin: 20px;">
-									<img src="images/About-Icon-5.webp" alt="IMG">							
+									<img src="images/About-Icon-5.webp" alt="IMG">
 									<b id="font-size">Wool 11%</b>
 									<p>Provides warmth and texture, commonly used in plush toys and knit items.</p>
 								</div>
@@ -740,7 +729,7 @@ if ($result->num_rows > 0) {
 						<div class="col-md-3">
 							<div class="about-icon">
 								<div style="color: #000; margin: 20px;">
-									<img src="images/About-Icon-6.webp" alt="IMG">							
+									<img src="images/About-Icon-6.webp" alt="IMG">
 									<b id="font-size">Rubber 10%</b>
 									<p>Offers elasticity and durability, often used in bouncing balls and outdoor toys.</p>
 								</div>
@@ -750,7 +739,7 @@ if ($result->num_rows > 0) {
 						<div class="col-md-3">
 							<div class="about-icon">
 								<div style="color: #000; margin: 20px;">
-									<img src="images/About-Icon-7.jpg" alt="IMG">							
+									<img src="images/About-Icon-7.jpg" alt="IMG">
 									<b id="font-size">Polyester 3%</b>
 									<p>Adds strength and wrinkle resistance, commonly found in stuffed animals and synthetic fabrics used in toys.</p>
 								</div>
@@ -760,8 +749,8 @@ if ($result->num_rows > 0) {
 					</div>
 				</div>
 			</section>
-			
-			<!-- The number of Account -->			
+
+			<!-- The number of Account -->
 			<section class="bg0 p-t-75 p-b-30">
 				<div class="container">
 					<h3 style="text-align: center; margin-bottom: 10px;" class="mtext-111 cl2 p-b-16">
@@ -818,11 +807,11 @@ if ($result->num_rows > 0) {
 			<div class="row p-b-148">
 				<div class="col-md-7 col-lg-8">
 					<div class="p-t-7 p-r-85 p-r-15-lg p-r-0-md">
-						<h3 style="padding-left: 10%;"  class="mtext-111 cl2 p-b-16">
+						<h3 style="padding-left: 10%;" class="mtext-111 cl2 p-b-16">
 							Our Story
 						</h3>
 
-						<p class="stext-113 cl6 p-b-26">							
+						<p class="stext-113 cl6 p-b-26">
 							We, the team at Omacha Store, take pride in being one of the leading destinations for providing quality and diverse toys for children. Our mission is not only to offer entertainment products but also to create enjoyable and educational experiences for every child.
 						</p>
 
@@ -848,7 +837,7 @@ if ($result->num_rows > 0) {
 					</div>
 				</div>
 			</div>
-			
+
 			<!-- layer 02 -->
 			<div class="row">
 				<div class="order-md-1 col-11 col-md-5 col-lg-4 m-lr-auto p-b-30">
@@ -866,36 +855,36 @@ if ($result->num_rows > 0) {
 						</h3>
 
 						<p class="stext-113 cl6 p-b-26">
-							Our mission is to create a safe, convenient, and enjoyable shopping environment for parents and their children. 
+							Our mission is to create a safe, convenient, and enjoyable shopping environment for parents and their children.
 							We are committed to providing quality, safe, and age-appropriate toys that help children develop comprehensively in mind and spirit.
-							</p>
+						</p>
 
 						<div class="stext-113 cl6 p-b-26">
 							<p class="stext-114 cl6 p-r-40 p-b-11">
-								Additionally, we prioritize building a loving and supportive community where parents can share experiences, knowledge, and useful information about caring for and educating their children. 
+								Additionally, we prioritize building a loving and supportive community where parents can share experiences, knowledge, and useful information about caring for and educating their children.
 								We believe that support and sharing will help families become stronger and happier.
 							</p>
 
-						<div class="stext-113 cl6 p-b-26">
-							<p class="stext-114 cl6 p-r-40 p-b-11">
-								Through each product and service we provide, we hope to contribute to the development and happiness of every child, while creating memorable experiences for each of our customers' families.
-							</p>
+							<div class="stext-113 cl6 p-b-26">
+								<p class="stext-114 cl6 p-r-40 p-b-11">
+									Through each product and service we provide, we hope to contribute to the development and happiness of every child, while creating memorable experiences for each of our customers' families.
+								</p>
 
-						<div class="bor16 p-l-29 p-b-9 m-t-22">
-							<p class="stext-114 cl6 p-r-40 p-b-11">
-								Coding with passion, creating with purpose, and innovating for a brighter future.
-							</p>
+								<div class="bor16 p-l-29 p-b-9 m-t-22">
+									<p class="stext-114 cl6 p-r-40 p-b-11">
+										Coding with passion, creating with purpose, and innovating for a brighter future.
+									</p>
 
-							<span class="stext-111 cl8">
-								- My Team Slogan
-							</span>
+									<span class="stext-111 cl8">
+										- My Team Slogan
+									</span>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-	</section>	
-	
+	</section>
+
 	<!-- Team Members -->
 	<section class="bg0 p-t-75 p-b-30">
 		<div class="container">
@@ -906,15 +895,15 @@ if ($result->num_rows > 0) {
 
 				<!-- Team Member 1 -->
 				<div class="col-md-3">
-					<div class="team-member">						
+					<div class="team-member">
 						<div class="team-member-img block2-pic hov-img0">
-							<img src="images/ThuyKhanh1.jpg" alt="Team Member 1">	
+							<img src="images/ThuyKhanh1.jpg" alt="Team Member 1">
 							<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
 								<i class="fab fa-facebook"></i>
-							</a>												
+							</a>
 						</div>
-						<div class="team-member-info">							
-							<p>Nguyễn Thùy Khanh</p> 
+						<div class="team-member-info">
+							<p>Nguyễn Thùy Khanh</p>
 							<p class="stext-113 cl6">Leader</p>
 							<p style="padding-top: 20px; font-weight: normal;">Welcome to our toy store! Explore a world full of colors and creativity with us.</p>
 						</div>
@@ -923,14 +912,14 @@ if ($result->num_rows > 0) {
 
 				<!-- Team Member 2 -->
 				<div class="col-md-3">
-					<div class="team-member">						
+					<div class="team-member">
 						<div class="team-member-img block2-pic hov-img0">
 							<img src="images/HuuDat1.jpg" alt="Team Member 2">
 							<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
 								<i class="fab fa-facebook"></i>
-							</a>	
-						</div>						
-						<div class="team-member-info">							
+							</a>
+						</div>
+						<div class="team-member-info">
 							<p>Trần Hữu Đạt</p>
 							<p class="stext-113 cl6">Customer Support</p>
 							<p style="padding-top: 20px; font-weight: normal;">Let us help you find joy and happiness through each unique and exciting product</p>
@@ -945,9 +934,9 @@ if ($result->num_rows > 0) {
 							<img src="images/BinhQuyen1.jpg" alt="Team Member 3">
 							<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
 								<i class="fab fa-facebook"></i>
-							</a>	
+							</a>
 						</div>
-						<div class="team-member-info">							
+						<div class="team-member-info">
 							<p>Trần Bỉnh Quyền</p>
 							<p class="stext-113 cl6">Marketing Manager</p>
 							<p style="padding-top:20px; font-weight: normal;">Experience the joy of childhood with our quality and safe products.</p>
@@ -962,16 +951,16 @@ if ($result->num_rows > 0) {
 							<img src="images/ThuyLinh1.jpg" alt="Team Member 4">
 							<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
 								<i class="fab fa-facebook"></i>
-							</a>	
+							</a>
 						</div>
-						<div class="team-member-info">							
+						<div class="team-member-info">
 							<p>Dương Thị Thùy Linh</p>
 							<p class="stext-113 cl6">Product Manager</p>
 							<p style="padding-top:20px; font-weight: normal;">With the diversity and variety of our products, you'll surely find the perfect gift for every child in the family!</p>
 						</div>
 					</div>
 				</div>
-				
+
 			</div>
 		</div>
 	</section>
@@ -1026,7 +1015,7 @@ if ($result->num_rows > 0) {
 
 						<li class="p-b-10">
 							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Returns 
+								Returns
 							</a>
 						</li>
 
@@ -1109,12 +1098,15 @@ if ($result->num_rows > 0) {
 					<a href="#" class="m-all-1">
 						<img src="images/icons/icon-pay-05.png" alt="ICON-PAY">
 					</a>
+
 				</div>
 
 				<p class="stext-107 cl6 txt-center">
 					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> &amp; distributed by <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+					Copyright &copy;<script>
+						document.write(new Date().getFullYear());
+					</script> All rights reserved | Made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> &amp; distributed by <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
+					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 
 				</p>
 			</div>
@@ -1129,38 +1121,38 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		</span>
 	</div>
 
-<!--===============================================================================================-->	
+	<!--===============================================================================================-->
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="vendor/bootstrap/js/popper.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="vendor/select2/select2.min.js"></script>
 	<script>
-		$(".js-select2").each(function(){
+		$(".js-select2").each(function() {
 			$(this).select2({
 				minimumResultsForSearch: 20,
 				dropdownParent: $(this).next('.dropDownSelect2')
 			});
 		})
 	</script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 	<script>
-		$('.js-pscroll').each(function(){
-			$(this).css('position','relative');
-			$(this).css('overflow','hidden');
+		$('.js-pscroll').each(function() {
+			$(this).css('position', 'relative');
+			$(this).css('overflow', 'hidden');
 			var ps = new PerfectScrollbar(this, {
 				wheelSpeed: 1,
 				scrollingThreshold: 1000,
 				wheelPropagation: false,
 			});
 
-			$(window).on('resize', function(){
+			$(window).on('resize', function() {
 				ps.update();
 			})
 		});
@@ -1172,7 +1164,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		const intervalIdUser = setInterval(() => {
 			countUser = countUser + 6;
 			counterElementUser.textContent = countUser;
-			
+
 			if (countUser >= 500) {
 				clearInterval(intervalIdUser);
 			}
@@ -1184,7 +1176,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		const intervalIdDelivery = setInterval(() => {
 			countDelivery = countDelivery + 9;
 			counterElementDelivery.textContent = countDelivery;
-			
+
 			if (countDelivery >= 750) {
 				clearInterval(intervalIdDelivery);
 			}
@@ -1196,7 +1188,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		const intervalIdProduct = setInterval(() => {
 			countProduct = countProduct + 7;
 			counterElementProduct.textContent = countProduct;
-			
+
 			if (countProduct >= 650) {
 				clearInterval(intervalIdProduct);
 			}
@@ -1208,15 +1200,68 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		const intervalIdSold = setInterval(() => {
 			countSold = countSold + 21;
 			counterElementSold.textContent = countSold;
-			
+
 			if (countSold >= 2000) {
 				clearInterval(intervalIdSold);
 			}
 		}, 15);
 
+		// document.addEventListener('DOMContentLoaded', function() {
+		// 	const themeToggle = document.getElementById('theme-toggle');
+		// 	let isDarkMode = false;
+
+		// 	themeToggle.addEventListener('click', function() {
+		// 		isDarkMode = !isDarkMode;
+		// 		if (isDarkMode) {
+		// 			document.body.classList.add('dark-theme'); // Thêm lớp dark-theme cho body
+		// 		} else {
+		// 			document.body.classList.remove('dark-theme'); // Loại bỏ lớp dark-theme khỏi body
+		// 		}
+		// 	});
+
+		// 	// Kiểm tra nếu trình duyệt có hỗ trợ local storage và trạng thái chế độ tối đã được lưu trữ trước đó
+		// 	if (window.localStorage && localStorage.getItem('theme')) {
+		// 		const savedTheme = localStorage.getItem('theme');
+		// 		if (savedTheme === 'dark') {
+		// 			document.body.classList.add('dark-theme');
+		// 			isDarkMode = true;
+		// 		}
+		// 	}
+		// });
+
+		// // Lưu trạng thái chế độ tối hoặc sáng vào local storage khi người dùng thay đổi
+		// document.addEventListener('DOMContentLoaded', function() {
+		// 	const themeToggle = document.getElementById('theme-toggle');
+		// 	let isDarkMode = false;
+
+		// 	themeToggle.addEventListener('click', function() {
+		// 		isDarkMode = !isDarkMode;
+		// 		if (isDarkMode) {
+		// 			localStorage.setItem('theme', 'dark');
+		// 		} else {
+		// 			localStorage.setItem('theme', 'light');
+		// 		}
+		// 	});
+		// });
+
+		const btn = document.querySelector(".btn-toggle");
+		const theme = document.querySelector("#theme-link");
+
+		// Lắng nghe sự kiện click vào button
+		btn.addEventListener("click", function() {
+			// Nếu URL đang là "ligh-theme.css"
+			if (theme.getAttribute("href") == "light-theme.css") {
+				// thì chuyển nó sang "dark-theme.css"
+				theme.href = "dark-theme.css";
+			} else {
+				// và ngược lại
+				theme.href = "light-theme.css";
+			}
+		});
 	</script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="js/main.js"></script>
-	
+
 </body>
+
 </html>

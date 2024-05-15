@@ -58,7 +58,7 @@ $order_array = array();
 if ($resultOrder->num_rows > 0) {
 	// Duyệt qua từng hàng dữ liệu từ kết quả truy vấn
 	while ($row = $resultOrder->fetch_assoc()) {
-		if ($row['u_id'] == $userLogin['userID']) {
+		if ($row['u_id'] == $userLogin['userID'] && $row['o_status'] == 0) {
 			// Thêm thông tin từng hàng vào mảng $order_array
 			$order_array[] = array(
 				"o_id" => $row["o_id"],
@@ -86,7 +86,7 @@ function sumTotalPrice($order_array, $u_id)
 	// Duyệt qua từng sản phẩm trong giỏ hàng và tính tổng giá tiền
 	foreach ($order_array as $item) {
 		// Kiểm tra xem u_id của sản phẩm có khớp với u_id được chỉ định hay không
-		if ($item["u_id"] == $u_id) {
+		if ($item["u_id"] == $u_id && $item["o_status"] == 0) {
 			// Tính giá tiền của mỗi sản phẩm (giá tiền * số lượng)
 			$productPrice = $item["p_price"] * $item["o_quantity"];
 
@@ -99,7 +99,7 @@ function sumTotalPrice($order_array, $u_id)
 }
 
 // Truy vấn để đếm số dòng trong bảng order
-$sql = "SELECT COUNT(*) AS total_rows FROM `order` WHERE u_id = '{$userLogin['userID']}'";
+$sql = "SELECT COUNT(*) AS total_rows FROM `order` WHERE u_id = '{$userLogin['userID']}' AND o_quantity > 0 AND o_status = 0";
 $result = $conn->query($sql);
 
 // Kiểm tra và hiển thị kết quả
@@ -110,7 +110,43 @@ if ($result->num_rows > 0) {
 	// echo "Không có dữ liệu trong bảng order";
 }
 
+// Truy vấn để đếm số dòng trong bảng order
+$sql = "SELECT COUNT(*) AS total_rows FROM wishlist";
+$result = $conn->query($sql);
 
+// Kiểm tra và hiển thị kết quả
+if ($result->num_rows > 0) {
+	$row = $result->fetch_assoc();
+	$wishlist_count = $row["total_rows"];
+} else {
+	// echo "Không có dữ liệu trong bảng order";
+}
+
+// Truy vấn thông tin chiết khấu dựa trên tên discount (d_name)
+$sqlDiscount = "SELECT * FROM discount";
+$query = mysqli_query($conn, $sqlDiscount);
+
+// Mảng chứa thông tin chiết khấu
+$discount = array();
+
+// Kiểm tra kết quả truy vấn
+if ($query->num_rows > 0) {
+	// Lặp qua từng hàng dữ liệu từ kết quả truy vấn
+	while ($row = $query->fetch_assoc()) {
+		// Thêm thông tin từng hàng vào mảng $discount
+		$discount = array(
+			"d_id" => $row["d_id"],
+			"d_name" => $row["d_name"],
+			"d_amount" => $row["d_amount"],
+			"d_description" => $row["d_description"],
+			"d_start_date" => $row["d_start_date"],
+			"d_end_date" => $row["d_end_date"]
+		);
+	}
+} else {
+	// Nếu không tìm thấy kết quả
+	// echo "0 results";
+}
 ?>
 <!-- Trang này dùng để điền form -->
 <!DOCTYPE html>
@@ -185,6 +221,29 @@ if ($result->num_rows > 0) {
 
 	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-light.css">
 </head>
+
+<style>
+	/* Định dạng nút check out và view cart */
+	#btn-cart {
+		background-color: #F4538A;
+		color: #FFEFEF;
+	}
+
+	#btn-cart:hover {
+		background-color: black;
+		color: #FFEFEF;
+	}
+
+	/* Định dạng nút delete */
+	.btn-delete {
+		color: black;
+	}
+
+	.btn-delete:hover {
+		color:#F4538A;
+	}
+</style>
+
 <body class="animsition">
 	
 	<!-- Header -->
@@ -226,12 +285,12 @@ if ($result->num_rows > 0) {
 							</a>
 							<div class="data1">
 								<i style="color: #49243E;" class=""></i>
-								<a href="register.html" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b><?php echo $userLogin["userID"]; ?>
+								<a href="register.php" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b><?php echo $userLogin["userID"]; ?>
 										/</b></a>
 							</div>
 							<div class="data2">
 								<i style="color: #49243E;" class=""></i>
-								<a href="register.html" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b><?php echo $userLogin["userName"]; ?></b></a>
+								<a href="register.php" class="btn2 btn-primary2 mt-1" style="color: #49243E;"><b><?php echo $userLogin["userName"]; ?></b></a>
 							</div>
 						</div>
 					</div>
@@ -289,13 +348,13 @@ if ($result->num_rows > 0) {
 						</div>
 
 						<div class="icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-							data-notify="2">
+							data-notify="<?php echo $order_count?>">
 							<i class="zmdi zmdi-shopping-cart"></i>
 						</div>
 
-						<a href="#"
+						<a href="wishlist.php"
 							class="dis-block icon-header-item cl13 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
-							data-notify="0">
+							data-notify="<?php echo $wishlist_count?>">
 							<i class="zmdi zmdi-favorite-outline"></i>
 						</a>
 					</div>
@@ -336,7 +395,7 @@ if ($result->num_rows > 0) {
 
 		<!-- Menu Mobile -->
 		<div class="menu-mobile">
-				<!-- <ul class="topbar-mobile">
+			<!-- <ul class="topbar-mobile">
 					<li>
 						<div class="left-top-bar">
 							Free shipping for standard order over $100
@@ -366,11 +425,17 @@ if ($result->num_rows > 0) {
 
 			<ul class="main-menu-m">
 				<li>
-					<a href="index.html">Home</a>
+					<a href="index.php">Home</a>
+					
+				</li>
+
+				<li>
+					<a href="product2.php">Shop</a>
 					<ul class="sub-menu-m">
-						<li><a href="index.html">Homepage 1</a></li>
-						<li><a href="home-02.html">Homepage 2</a></li>
-						<li><a href="home-03.html">Homepage 3</a></li>
+					<li><a href="0_12months.php">0-12 Months</a></li>
+						<li><a href="1_2years.php">1-2 Years</a></li>
+						<li><a href="3+years.php">3+ Years</a></li>
+						<li><a href="5+years.php">5+ Years</a></li>
 					</ul>
 					<span class="arrow-main-menu-m">
 						<i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -378,11 +443,7 @@ if ($result->num_rows > 0) {
 				</li>
 
 				<li>
-					<a href="product2.php">Shop</a>
-				</li>
-
-				<li>
-					<a href="shoping-cart.html" class="label1 rs1" data-label1="hot">Features</a>
+					<a href="shoping-cart.php" class="label1 rs1" data-label1="hot">Cart</a>
 				</li>
 
 				<li>
@@ -394,7 +455,7 @@ if ($result->num_rows > 0) {
 				</li>
 
 				<li>
-					<a href="contact.html">Contact</a>
+					<a href="contact.php">Contact</a>
 				</li>
 			</ul>
 		</div>
