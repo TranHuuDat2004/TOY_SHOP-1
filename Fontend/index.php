@@ -939,7 +939,7 @@ if ($query->num_rows > 0) {
 				<div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
 					<!-- Block1 -->
 					<?php 
-						$query = mysqli_query($conn, $sql);
+						$query = mysqli_query($conn, $sqlDiscount);
 						while ($discount = mysqli_fetch_assoc($query)) {
 					?>
 						<div class="block1 wrap-pic-w">
