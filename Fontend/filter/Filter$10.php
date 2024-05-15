@@ -25,11 +25,11 @@ if ($result->num_rows > 0) {
         $class_name1 = "bear" . $counter;
 
         ?>
-        <div class=" <?= $class_name1 ?> col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item toy">
+        <div class="  col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item toy <?php echo $class_name1; ?>">
             <!-- Block2 -->
             <div class="block2">
                 <form method="POST">
-                    <div id="<?php echo $product['p_id']; ?>" class="<?= $class_name ?> block2-pic hov-img0" style="border: 0.1px dashed #000; border-radius: 50px;">
+                    <div id="<?php echo $product['p_id']; ?>" class=" block2-pic hov-img0" style="border: 0.1px dashed #000; border-radius: 50px;">
                         <img src="images/<?php echo $product['p_image']; ?>" alt="IMG-PRODUCT">
                     </div>
                     <div class="block2-txt flex-w flex-t p-t-14">
@@ -49,6 +49,7 @@ if ($result->num_rows > 0) {
             </div>
         </div>
         <?php
+        $counter++;
     }
 } else {
     // Hiển thị thông báo nếu không tìm thấy sản phẩm

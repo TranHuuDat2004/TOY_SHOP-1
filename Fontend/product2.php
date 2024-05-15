@@ -197,6 +197,36 @@ if ($result->num_rows > 0) {
 	.btn-delete:hover {
 		color:#F4538A;
 	}
+	.bear2
+	{
+		position: absolute;
+        left: 25%;
+        top: 0px;
+	}
+	.bear3
+	{
+		position: absolute;
+		left: 50%;
+		top: 0px;
+	}
+	.bear4
+	{
+		position: absolute;
+		left: 75%;
+		top: 0px;
+	}
+	.duck1{
+		width: 260%;
+	}
+	.duck5{
+		width: 260%;
+	}
+	.bear6
+	{
+		position: absolute;
+		left: 25%;
+		top: 21%;
+	}
 </style>
 
 <body class="animsition">
