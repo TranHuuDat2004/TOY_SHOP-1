@@ -35,7 +35,7 @@ $userLogin = array(
 	"email" => $row["email"],
 );
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['p_name'])) {
+if (isset($_POST['p_name'])) {
 	$p_name = $_POST['p_name'];
 
 	// Truy vấn p_id dựa trên p_name
@@ -1109,7 +1109,7 @@ if ($result->num_rows > 0) {
 
 
 									<!-- Add review -->
-									<form class="w-full" method="POST" enctype="multipart/form-data">
+									<form class="w-full" method="POST" enctype="multipart/form-data" action="productdetail.php">
 										<h5 class="mtext-108 cl2 p-b-7">
 											Add a review
 										</h5>
@@ -1147,6 +1147,8 @@ if ($result->num_rows > 0) {
 											<div class="col-sm-6 p-b-5">
 												<label class="stext-102 cl3" for="email">Email</label>
 												<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="email" type="text" name="r_email">
+												<input type="hidden" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6" style="background-color: white;" name="p_name" value="<?php echo $product["p_name"]; ?>">
+												<input type="hidden" name="user" value="<?php $userLogin["userName"]; ?>">
 											</div>
 										</div>
 
