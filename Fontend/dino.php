@@ -1,7 +1,7 @@
 <?php
 require_once '../Admin/connection/connectData.php';
-    $sql = "SELECT * FROM product where p_provider = 'DiNo'";
-    $query = mysqli_query($conn, $sql);
+    $sqlYear = "SELECT * FROM product where p_provider = 'DiNo'";
+    $queryYear = mysqli_query($conn, $sqlYear);
 
 	include 'login.php';
 
@@ -781,7 +781,7 @@ if ($query->num_rows > 0) {
 
 				<section class="disproduct">
                     <?php
-                    while ($product = mysqli_fetch_assoc($query)) {
+                    while ($product = mysqli_fetch_assoc($queryYear)) {
                     ?>
                     <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item toy">
                         <!-- Block2 -->
